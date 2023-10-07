@@ -3,9 +3,9 @@ import Link from "next/link";
 
 const Header = () => {
   return (
-    <header>
+    <header className="bg-white">
       <div className="container py-20 flex items-center">
-        <Image src="/" width="100" height="100" alt="logo-NuCares" />
+        <Image src="/" width="150" height="50" alt="logo-NuCares" />
         <nav>
           <ul className="flex font-normal text-20">
             <li>
