@@ -3,13 +3,13 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <footer className="border">
+    <footer className="bg-white">
       <div className="container flex justify-between items-center py-[50px]">
         <div className="logo border">
           <Image src="/" width="100" height="100" alt="logo-NuCares" />
-          <p className="text-24">Who cares? NuCares !!</p>
+          <p className="text-24 mt-12">Who cares? NuCares !!</p>
         </div>
-        <ul className="media flex gap-x-20">
+        <ul className="media flex gap-x-20 ms-auto">
           <li>
             <Image src="/" width="50" height="50" alt="facebook" />
           </li>
@@ -17,10 +17,10 @@ const Footer = () => {
             <Image src="/" width="50" height="50" alt="youtube" />
           </li>
           <li>
-            <Image src="/" width="50" height="50" alt="instagram" />
+            <Image src="/" width="50" height="50" alt="instagram" />s
           </li>
         </ul>
-        <ul className="link border-l-2 flex flex-col gap-y-[17px] ps-[22px] font-normal">
+        <ul className="link border-l-2 border-tertiary-950 flex flex-col gap-y-[17px] ps-[22px] font-normal text-14 ms-20">
           <li>
             <Link href="privacy-policy">隱私權政策</Link>
           </li>
@@ -29,7 +29,9 @@ const Footer = () => {
           </li>
           <Link href="register">註冊成為會員</Link>
         </ul>
-        <div className="copyright">© 2023 NuCares . All rights reserved</div>
+        <div className="copyright text-14 ml-auto">
+          © 2023 NuCares . All rights reserved
+        </div>
       </div>
     </footer>
   );
