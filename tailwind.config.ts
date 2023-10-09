@@ -1,12 +1,16 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
+    screens: {
+      // 設計稿兩種尺寸：390px,
+      sm: "390px",
+      lg: "1296px",
+    },
+    container: {
+      center: true,
+    },
     extend: {
       spacing: {
         4: "4px",
