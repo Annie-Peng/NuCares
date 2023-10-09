@@ -6,7 +6,7 @@ import menu from "public/images/header/menu.svg";
 const Header = () => {
   return (
     <header className="bg-white">
-      <div className="container py-20 items-center grid grid-cols-4 lg:grid-cols-12 gap-12">
+      <div className="container py-20 items-center grid cusGrid">
         <Image
           src={logo}
           width="221"
