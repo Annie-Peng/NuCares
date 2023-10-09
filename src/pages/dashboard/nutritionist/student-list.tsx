@@ -6,12 +6,14 @@ const StudentListPage = () => {
       <h2>我的學員列表</h2>
       <table className="mx-auto w-full mt-24">
         <thead>
-          <th>營養師</th>
-          <th>課程名稱</th>
-          <th>課程期間</th>
-          <th>狀態</th>
-          <th>飲食生活問券</th>
-          <th>課程開始</th>
+          <tr>
+            <th>營養師</th>
+            <th>課程名稱</th>
+            <th>課程期間</th>
+            <th>狀態</th>
+            <th>飲食生活問券</th>
+            <th>課程開始</th>
+          </tr>
         </thead>
         <tbody className="border">
           <tr>
