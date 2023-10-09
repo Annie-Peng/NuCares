@@ -18,6 +18,18 @@
 }
 
 @layer components {
+  .cusGridMobile {
+    @apply grid-cols-4 gap-x-16;
+  }
+
+  .cusGridPC {
+    @apply lg:grid-cols-12 lg:gap-x-12;
+  }
+
+  .cusGrid {
+    @apply cusGridMobile cusGridPC;
+  }
+
   .btn-cusSecondary {
     @apply rounded-5 text-white bg-secondary-400 font-bold;
   }
