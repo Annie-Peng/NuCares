@@ -8,7 +8,7 @@
   :root {
     font-family: "Helvetica Neue", "Noto Sans TC";
     line-height: 1.5;
-    @apply font-thin text-tertiary-950 text-16;
+    @apply font-thin text-black-950 text-16;
   }
 
   th,
@@ -18,8 +18,8 @@
 }
 
 @layer components {
-  .btn-cusPrimary {
-    @apply rounded-10 text-white p-20 bg-black;
+  .btn-cusSecondary {
+    @apply rounded-5 text-white bg-secondary-400 font-bold;
   }
 
   .cusForm {
@@ -29,14 +29,14 @@
   .cusInputNoIcon {
     @apply rounded-10 py-20 px-16 w-full;
     &::placeholder {
-      @apply text-20 text-tertiary-200;
+      @apply text-20 text-black-200;
     }
   }
 
   .cusInputWithIcon {
     @apply rounded-10 py-20 px-16 w-full indent-[42px];
     &::placeholder {
-      @apply text-20 text-tertiary-200;
+      @apply text-20 text-black-200;
     }
   }
 
