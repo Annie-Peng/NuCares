@@ -19,7 +19,7 @@
 
 @layer components {
   .cusGridMobile {
-    @apply grid-cols-4 gap-x-16;
+    @apply grid-cols-4 gap-x-16 px-10;
   }
 
   .cusGridPC {
@@ -35,7 +35,7 @@
   }
 
   .cusForm {
-    @apply rounded-10 p-[50px] flex flex-col items-center gap-y-[30px] cusBackgroundBackdrop;
+    @apply rounded-10 px-[28px] py-50 lg:px-[50px] flex flex-col items-center gap-y-12 lg:gap-y-20 cusBackgroundBackdrop;
   }
 
   .cusInputNoIcon {
@@ -60,6 +60,7 @@
     left: 0;
     right: 0;
     background-color: rgb(255, 255, 255, 0.3);
-    backdrop-filter: blur(3px);
+    box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
   }
 }
