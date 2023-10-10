@@ -1,7 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
+import logoShadow from "public/images/logo-shadow.svg";
 const RegisterForm = () => {
   return (
-    <form className="cusForm w-[564px] mx-auto mt-24 relative">
+    <form className="cusForm bg-teal-400 max-w-[564px] mx-auto mt-[75px] relative text-black-500">
+      <Image src={logoShadow} width="147" height="27" alt="NuCares-logo" />
+      <h2 className="text-24 font-normal mt-12">會員註冊</h2>
       <label htmlFor="email" className="w-full">
         <input
           className="cusInputWithIcon"
@@ -26,16 +30,21 @@ const RegisterForm = () => {
           type="password"
         />
       </label>
-      <button type="submit" className="btn-cusPrimary w-full">
-        註冊
+      <button
+        type="submit"
+        className="btn-cusSecondary py-8 w-full mt-14 lg:mt-0 lg:py-20"
+      >
+        下一步
       </button>
-      <span>
+      <span className="mt-6 lg:mt-0">
         已經是會員？
         <Link href="login" className="ms-8 border-b border-tertiary-950">
           立即登入
         </Link>
       </span>
-      <Link href="/">回到上一頁</Link>
+      <Link href="/" className="mt-14 lg:mt-0">
+        回上一頁
+      </Link>
     </form>
   );
 };
@@ -44,7 +53,9 @@ export default RegisterForm;
 
 const RegisterFormSecondPhase = () => {
   return (
-    <form className="cusForm w-[564px] mx-auto mt-24 relative">
+    <form className="cusForm max-w-[564px] mx-auto mt-[75px] relative text-black-500">
+      <Image src={logoShadow} width="147" height="27" alt="NuCares-logo" />
+      <h2 className="text-24 font-normal mt-12">會員註冊</h2>
       <label htmlFor="userName" className="w-full">
         <input
           className="cusInputNoIcon"
@@ -98,10 +109,15 @@ const RegisterFormSecondPhase = () => {
         <input type="checkbox" name="userRule" />
         <span className="ms-4">使用者條款</span>
       </label>
-      <button type="submit" className="btn-cusPrimary w-full">
+      <button
+        type="submit"
+        className="btn-cusSecondary py-8 w-full mt-14 lg:mt-0 lg:py-20"
+      >
         確定送出
       </button>
-      <Link href="/">回到上一頁</Link>
+      <Link href="/" className="mt-14 lg:mt-0">
+        回上一頁
+      </Link>
     </form>
   );
 };
