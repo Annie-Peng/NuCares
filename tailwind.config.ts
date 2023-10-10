@@ -12,16 +12,28 @@ const config: Config = {
       center: true,
     },
     extend: {
+      dropShadow: {
+        textShadow: "1px 1px 5px rgba(0, 0, 0, 0.35)",
+      },
       spacing: {
         4: "4px",
+        6: "6px",
         8: "8px",
         10: "10px",
         12: "12px",
+        14: "14px",
         16: "16px",
+        18: "18px",
         20: "20px",
+        22: "22px",
         24: "24px",
+        28: "28px",
+        30: "30px",
         40: "40px",
+        46: "46px",
         50: "50px",
+        74: "74px",
+        80: "80px",
       },
       fontSize: {
         12: "12px",
@@ -39,6 +51,8 @@ const config: Config = {
       borderRadius: {
         5: "5px",
         10: "10px",
+        15: "15px",
+        20: "20px",
         35: "35px",
         50: "50px",
       },
