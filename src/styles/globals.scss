@@ -63,4 +63,43 @@
     box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
   }
+
+  .cusTextarea {
+    @apply p-6 w-full min-h-[120px];
+  }
+
+  .cusInput {
+    @apply p-6;
+  }
+
+  .cusActiveTags {
+    @apply border rounded-50 py-4 px-10;
+  }
+
+  .cusSwitch::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+    top: 2px;
+    right: 2px;
+    background-color: black;
+  }
+
+  .cusModal {
+    @apply absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-primary-200  p-50 rounded-10 w-[820px] z-10;
+  }
+
+  .cusModalBg {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    align-items: center;
+    justify-content: center;
+  }
 }
