@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import logo from "public/images/logo.svg";
-import menu from "public/images/header/menu.svg";
+import logout from "public/images/logout.svg";
 
 const Header = () => {
   return (
     <header className="bg-white">
-      <div className="container py-26 items-center grid cusGrid lg:pl-28 lg:pr-8">
+      <div className="container py-10 items-center grid cusGrid lg:py-26 lg:pl-28 lg:pr-8">
         <Image
           src={logo}
           width="221"
@@ -33,10 +33,10 @@ const Header = () => {
           註冊/登入
         </Link>
         <Image
-          src={menu}
-          width="24"
-          height="15"
-          alt="menu"
+          src={logout}
+          width="36"
+          height="36"
+          alt="logout"
           className="col-end-5 lg:hidden ms-auto"
         />
       </div>
