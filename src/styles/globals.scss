@@ -55,6 +55,24 @@
     }
   }
 
+  .cusShowLeftIcon {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 20px;
+    left: 12px;
+  }
+
+  .cusShowRightIcon {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 20px;
+    right: 12px;
+  }
+
   .cusBackgroundBackdrop {
     content: "";
     position: absolute;
