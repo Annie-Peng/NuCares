@@ -27,6 +27,7 @@ const config: Config = {
         20: "20px",
         22: "22px",
         24: "24px",
+        26: "26px",
         28: "28px",
         30: "30px",
         32: "32ox",
@@ -116,9 +117,10 @@ const config: Config = {
         },
       },
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        primaryGradient: "linear-gradient(to bottom, #A8DAE2 0%,#FFDBC9 50%)",
+        emailIcon: "url(../../public/images/icons/email.svg)",
+        password: "url(../../public/images/icons/password.svg)",
+        eyeClose: "url(../../public/images/icons/eyeClose.svg)",
       },
     },
   },
