@@ -8,7 +8,7 @@
   :root {
     font-family: "Helvetica Neue", "Noto Sans TC";
     line-height: 1.5;
-    @apply font-thin text-black-950 text-16;
+    @apply font-thin text-black-950 text-16 bg-primaryGradient;
   }
 
   th,
@@ -19,11 +19,11 @@
 
 @layer components {
   .cusGridMobile {
-    @apply grid-cols-4 gap-x-16 px-10;
+    @apply grid-cols-4 gap-x-16 px-24;
   }
 
   .cusGridPC {
-    @apply lg:grid-cols-12 lg:gap-x-12;
+    @apply lg:grid-cols-12 lg:gap-x-24;
   }
 
   .cusGrid {
@@ -31,11 +31,11 @@
   }
 
   .btn-cusSecondary {
-    @apply rounded-5 text-white bg-secondary-400 font-bold;
+    @apply rounded-5 text-white bg-secondary-400 font-bold p-12 text-20;
   }
 
   .cusForm {
-    @apply rounded-10 px-[28px] py-50 lg:px-[50px] flex flex-col items-center gap-y-12 lg:gap-y-20 cusBackgroundBackdrop;
+    @apply rounded-20 p-32 flex flex-col items-center gap-y-32 lg:py-[48px] cusBackgroundBackdrop;
   }
 
   .cusInputNoIcon {
@@ -46,10 +46,31 @@
   }
 
   .cusInputWithIcon {
-    @apply rounded-10 py-20 px-16 w-full indent-[42px];
+    @apply rounded-5 px-12 py-20 w-full relative indent-[36px] lg:px-16;
     &::placeholder {
       @apply text-20 text-black-200;
     }
+    &:focus {
+      @apply outline-none ring-2 ring-primary-400;
+    }
+  }
+
+  .cusShowLeftIcon {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 20px;
+    left: 12px;
+  }
+
+  .cusShowRightIcon {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 20px;
+    right: 12px;
   }
 
   .cusBackgroundBackdrop {
@@ -59,6 +80,7 @@
     bottom: 0;
     left: 0;
     right: 0;
+    border: 2px solid rgb(255, 255, 255, 0.3);
     background-color: rgb(255, 255, 255, 0.3);
     box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
