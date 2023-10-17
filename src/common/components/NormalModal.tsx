@@ -1,4 +1,10 @@
-const NormalModal = ({ title, children }) => {
+import { ReactNode } from "react";
+
+interface NormalModalProps {
+  title: string;
+  children: ReactNode;
+}
+const NormalModal: React.FC<NormalModalProps> = ({ title, children }) => {
   return (
     <div className="cusModalBg">
       <div className="cusModal min-h-[693px]">

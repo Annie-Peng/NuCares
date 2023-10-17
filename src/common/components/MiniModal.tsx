@@ -1,4 +1,11 @@
-const MiniModal = ({ title, children }) => {
+import { ReactNode } from "react";
+
+interface MiniModalProps {
+  title: string;
+  children: ReactNode;
+}
+
+const MiniModal: React.FC<MiniModalProps> = ({ title, children }) => {
   return (
     <div className="cusModalBg">
       <div className="cusModal min-h-[200px]">
