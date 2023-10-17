@@ -4,6 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "datePicker";
+
 @layer base {
   :root {
     font-family: "Helvetica Neue", "Noto Sans TC";
@@ -31,11 +33,11 @@
   }
 
   .btn-cusSecondary {
-    @apply rounded-5 text-white bg-secondary-400 font-bold p-12 text-20;
+    @apply rounded-5 text-white bg-secondary-400 font-bold py-10 px-12 lg:py-12 lg:text-20;
   }
 
   .cusForm {
-    @apply rounded-20 p-32 flex flex-col items-center gap-y-32 lg:py-[48px] cusBackgroundBackdrop;
+    @apply rounded-20 p-32 flex flex-col items-center gap-y-32 lg:py-[48px]  cusBackgroundBackdrop;
   }
 
   .cusInputNoIcon {
@@ -46,9 +48,9 @@
   }
 
   .cusInputWithIcon {
-    @apply rounded-5 px-12 py-20 w-full relative indent-[36px] lg:px-16;
+    @apply rounded-5 px-12 py-10 w-full relative indent-[24px] lg:px-12 lg:py-16;
     &::placeholder {
-      @apply text-20 text-black-200;
+      @apply text-14 text-black-200 lg:text-16;
     }
     &:focus {
       @apply outline-none ring-2 ring-primary-400;
@@ -60,8 +62,9 @@
     position: absolute;
     width: 20px;
     height: 20px;
-    top: 20px;
+    top: 50%;
     left: 12px;
+    transform: translateY(-50%);
   }
 
   .cusShowRightIcon {
@@ -69,8 +72,9 @@
     position: absolute;
     width: 20px;
     height: 20px;
-    top: 20px;
+    top: 50%;
     right: 12px;
+    transform: translateY(-50%);
   }
 
   .cusBackgroundBackdrop {
@@ -123,5 +127,13 @@
     background-color: rgba(0, 0, 0, 0.3);
     align-items: center;
     justify-content: center;
+  }
+
+  .cusFileUpload {
+    @apply py-10 px-5 rounded-5 bg-white inline-block;
+  }
+
+  select {
+    appearance: none;
   }
 }
