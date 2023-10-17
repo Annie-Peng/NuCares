@@ -35,7 +35,7 @@
   }
 
   .cusForm {
-    @apply rounded-20 p-32 flex flex-col items-center gap-y-32 lg:py-[48px] cusBackgroundBackdrop;
+    @apply rounded-20 p-32 flex flex-col items-center gap-y-32 lg:py-[48px]  cusBackgroundBackdrop;
   }
 
   .cusInputNoIcon {
@@ -123,5 +123,9 @@
     background-color: rgba(0, 0, 0, 0.3);
     align-items: center;
     justify-content: center;
+  }
+
+  .cusFileUpload {
+    @apply py-10 px-5 rounded-5 bg-white inline-block;
   }
 }
