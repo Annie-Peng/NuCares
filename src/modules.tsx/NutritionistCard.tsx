@@ -4,7 +4,7 @@ const NutritionistCard = () => {
   return (
     <>
       <div className="flex">
-        <img width='220' height='302' className="bg-white rounded-15"/>
+        <img width="220" height="302" className="bg-white rounded-15" />
         <div className="content max-w-[454px] ms-22">
           <h3 className="text-24 font-normal">陳瘦瘦 營養師</h3>
           <img />
@@ -26,7 +26,7 @@ const NutritionistCard = () => {
           </li>
         </ul>
       </div>
-      <p className="text-right -mt-16">了解更多課程>></p>
+      <p className="text-right -mt-16 after:content-['>>']">了解更多課程</p>
     </>
   );
 };
