@@ -3,7 +3,7 @@ import Image from "next/image";
 import logoPrimary from "public/images/logo-primary-300.svg";
 import registerStep1 from "public/images/register/registerStep1.svg";
 import registerStep2 from "public/images/register/registerStep2.svg";
-import registerStep3 from "public/images/register/registerStep1.svg";
+import registerStep3 from "public/images/register/registerStep3.svg";
 import { useState } from "react";
 
 const RegisterForm = () => {
@@ -45,9 +45,11 @@ const RegisterForm = () => {
           <div className="cusShowRightIcon bg-eyeCloseIcon" />
         </label>
       </div>
-      <button type="submit" className="btn-cusSecondary w-full -mt-8 lg:mt-0">
-        下一步
-      </button>
+      <Link href="/register/process2" className="w-full">
+        <button type="button" className="btn-cusSecondary w-full -mt-8 lg:mt-0">
+          下一步
+        </button>
+      </Link>
       <span className="text-14">
         已經是會員？
         <Link href="login" className="ms-8 border-b border-black-500">
@@ -137,14 +139,45 @@ const RegisterFormSecondPhase = () => {
           <span className="ms-4">使用者條款</span>
         </label>
       </div>
-      <button
-        type="submit"
-        className="btn-cusSecondary py-8 w-full -mt-20 lg:mt-0 lg:py-20"
-      >
-        註冊
-      </button>
+      <Link href="/register/process3" className="w-full">
+        <button
+          type="button"
+          className="btn-cusSecondary py-8 w-full -mt-20 lg:mt-0 lg:py-20"
+        >
+          註冊
+        </button>
+      </Link>
     </form>
   );
 };
 
 export { RegisterFormSecondPhase };
+
+const RegisterFormThirdPhase = () => {
+  return (
+    <form className="cusForm max-w-[464px] mx-auto mt-[75px] relative text-black-500">
+      <div>
+        <Image src={logoPrimary} width="147" height="27" alt="NuCares-logo" />
+        <h2 className="text-20 text-primary-400 font-normal mt-12">會員註冊</h2>
+      </div>
+      <Image
+        src={registerStep3}
+        width="290"
+        height="20"
+        alt="registerStep2"
+        layout="responsive"
+      />
+      <div className="flex flex-col w-full gap-32">
+        <p>
+          註冊成功
+          <br />
+          接下來請登入帳號，即可購買課程
+        </p>
+        <p className="mx-auto w-fit border-b border-black-500">立即登入</p>
+        <p className="text-14 -mt-12">或等待5秒自動跳轉至登入畫面</p>
+      </div>
+    </form>
+  );
+};
+
+export { RegisterFormThirdPhase };
