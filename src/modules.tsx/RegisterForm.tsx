@@ -1,50 +1,58 @@
 import Link from "next/link";
 import Image from "next/image";
-import logoShadow from "public/images/logo-shadow.svg";
+import logoPrimary from "public/images/logo-primary-300.svg";
+import registerStep1 from "public/images/register/registerStep1.svg";
+import registerStep2 from "public/images/register/registerStep1.svg";
+import registerStep3 from "public/images/register/registerStep1.svg";
+
 const RegisterForm = () => {
   return (
-    <form className="cusForm bg-teal-400 max-w-[564px] mx-auto mt-[75px] relative text-black-500">
-      <Image src={logoShadow} width="147" height="27" alt="NuCares-logo" />
-      <h2 className="text-24 font-normal mt-12">會員註冊</h2>
-      <label htmlFor="email" className="w-full">
-        <input
-          className="cusInputWithIcon"
-          placeholder="帳號(Email)"
-          name="email"
-          type="email"
-        />
-      </label>
-      <label htmlFor="password" className="w-full">
-        <input
-          className="cusInputWithIcon"
-          placeholder="密碼(請輸入6-12碼由英文和數字的組合)"
-          name="password"
-          type="password"
-        />
-      </label>
-      <label htmlFor="rePassword" className="w-full">
-        <input
-          className="cusInputWithIcon"
-          placeholder="再次確認密碼"
-          name="rePassword"
-          type="password"
-        />
-      </label>
-      <button
-        type="submit"
-        className="btn-cusSecondary py-8 w-full mt-14 lg:mt-0 lg:py-20"
-      >
+    <form className="cusForm max-w-[464px] mx-auto mt-[75px] relative text-black-500">
+      <div>
+        <Image src={logoPrimary} width="147" height="27" alt="NuCares-logo" />
+        <h2 className="text-20 text-primary-400 font-normal mt-12">會員註冊</h2>
+      </div>
+      <Image src={registerStep1} width="290" height="20" alt="registerStep1" />
+      <div className="flex flex-col gap-24 w-full text-14 lg:text-16 lg:gap-32">
+        <label htmlFor="Email" className="relative">
+          <input
+            className="cusInputWithIcon"
+            placeholder="帳號(Email)"
+            name="Email"
+            type="email"
+          />
+          <div className="cusShowLeftIcon bg-emailIcon" />
+        </label>
+        <label htmlFor="Password" className="relative">
+          <input
+            className="cusInputWithIcon"
+            placeholder="密碼(請輸入8個字元的英數組合)"
+            name="Password"
+            type="password"
+          />
+          <div className="cusShowLeftIcon bg-password" />
+          <div className="cusShowRightIcon bg-eyeClose" />
+        </label>
+        <label htmlFor="RePassword" className="relative">
+          <input
+            className="cusInputWithIcon"
+            placeholder="再次確認密碼"
+            name="RePassword"
+            type="password"
+          />
+          <div className="cusShowLeftIcon bg-password" />
+          <div className="cusShowRightIcon bg-eyeClose" />
+        </label>
+      </div>
+      <button type="submit" className="btn-cusSecondary w-full -mt-8 lg:mt-0">
         下一步
       </button>
-      <span className="mt-6 lg:mt-0">
+      <span className="text-14">
         已經是會員？
-        <Link href="login" className="ms-8 border-b border-tertiary-950">
+        <Link href="login" className="ms-8 border-b border-black-500">
           立即登入
         </Link>
       </span>
-      <Link href="/" className="mt-14 lg:mt-0">
-        回上一頁
-      </Link>
     </form>
   );
 };
