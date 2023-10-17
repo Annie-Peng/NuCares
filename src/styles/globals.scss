@@ -130,4 +130,8 @@
   .cusFileUpload {
     @apply py-10 px-5 rounded-5 bg-white inline-block;
   }
+
+  select {
+    appearance: none;
+  }
 }
