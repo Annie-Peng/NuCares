@@ -1,4 +1,10 @@
-const OtherIntakeForm = ({ title }) => {
+import { ReactNode } from "react";
+
+interface OtherIntakeFormProps {
+  title: string;
+}
+
+const OtherIntakeForm: React.FC<OtherIntakeFormProps> = ({ title }) => {
   return (
     <form>
       <label htmlFor="food">
