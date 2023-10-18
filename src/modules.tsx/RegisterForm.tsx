@@ -96,16 +96,14 @@ const RegisterFormSecondPhase = () => {
           />
           <div className="cusShowLeftIcon bg-nameIcon" />
         </label>
-        <label htmlFor="birthday" className="relative">
-          <input
-            className="cusInputWithIcon"
-            placeholder="生日"
-            name="birthday"
-          />
-          <div className="cusShowLeftIcon bg-birthdayIcon" />
-          <div className="cusShowRightIcon bg-calendarIcon" />
-        </label>
-
+        <DatePicker
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+          customInput={<CusDatePicker />}
+          showMonthDropdown
+          showYearDropdown
+          dropdownMode="select"
+        />
         <label htmlFor="gender" className="relative">
           <select
             className={`cusInputWithIcon ${color}`}
