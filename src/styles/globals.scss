@@ -6,6 +6,7 @@
 
 @import "datePicker";
 @import "cusInput";
+@import "cusButton";
 
 @layer base {
   :root {
@@ -33,10 +34,6 @@
     @apply cusGridMobile cusGridPC;
   }
 
-  .btn-cusSecondary {
-    @apply rounded-5 text-white bg-secondary-400 font-bold py-10 px-12 lg:py-12 lg:text-20;
-  }
-
   .cusForm {
     @apply rounded-20 p-32 flex flex-col items-center gap-y-32 lg:py-[48px]  cusBackgroundBackdrop;
   }
@@ -56,18 +53,6 @@
 
   .cusActiveTags {
     @apply border rounded-50 py-4 px-10;
-  }
-
-  .cusSwitch::before {
-    content: "";
-    position: absolute;
-    display: block;
-    width: 16px;
-    height: 16px;
-    border-radius: 100%;
-    top: 2px;
-    right: 2px;
-    background-color: black;
   }
 
   .cusModal {
