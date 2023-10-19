@@ -1,0 +1,76 @@
+// 移除按鈕背景色（點擊）
+:root {
+  --fc-button-active-bg-color: transparent;
+}
+
+// 整體行事曆
+.fc-theme-standard {
+  @apply text-primary-400;
+}
+
+// toolbar置中
+.fc .fc-toolbar {
+  @apply justify-center items-center gap-4;
+}
+
+// 10月23日(一)
+.fc .fc-toolbar-title {
+  @apply font-bold text-16;
+}
+
+// 事件border
+.fc-theme-standard .fc-scrollgrid,
+.fc-theme-standard td,
+.fc-theme-standard th {
+  @apply border-0;
+}
+
+// 今日事件背景色
+.fc .fc-daygrid-day.fc-day-today {
+  @apply bg-transparent;
+}
+
+// 箭頭樣式
+.fc .fc-button-primary {
+  @apply bg-transparent border-0 p-0 text-primary-400;
+  &:hover {
+    @apply bg-transparent text-primary-400;
+  }
+  &:active,
+  &:focus {
+    //移除箭頭外框（點擊）
+    @apply shadow-none text-primary-400 #{!important};
+  }
+}
+
+// 箭頭大小、位置
+.fc .fc-button .fc-icon {
+  @apply text-[13px] align-baseline;
+}
+
+// 前箭頭
+.fc-prev-button > span::before {
+  @apply content-['◀'];
+}
+
+// 後箭頭
+.fc-next-button > span {
+  &:before {
+    @apply content-['▶'];
+  }
+}
+
+// 事件高度
+.fc-scrollgrid-sync-table {
+  @apply h-full #{!important};
+}
+
+// 事件樣式
+.fc-daygrid-event {
+  @apply bg-transparent border-0 text-14;
+}
+
+// 事件文字顏色
+.fc-h-event .fc-event-main {
+  @apply text-black-950;
+}
