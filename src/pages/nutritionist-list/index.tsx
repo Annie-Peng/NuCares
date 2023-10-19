@@ -1,4 +1,4 @@
-import NutritionistCard from "@/modules.tsx/NutritionistCard";
+import NutritionistCard from "@/modules/NutritionistCard";
 
 const NutritionistListPage = () => {
   return (

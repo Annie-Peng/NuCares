@@ -1,4 +1,4 @@
-import PaymentCheckOrder from "@/modules.tsx/PaymentCheckOrder";
+import PaymentCheckOrder from "@/modules/PaymentCheckOrder";
 
 const CheckOrderPage = () => {
   return (
