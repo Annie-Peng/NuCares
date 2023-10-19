@@ -26,3 +26,7 @@
 .react-datepicker__year-select {
   @apply w-full p-4 border rounded-5 text-center #{!important};
 }
+
+.react-datepicker-wrapper {
+  @apply w-full;
+}

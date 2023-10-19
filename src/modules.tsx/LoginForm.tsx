@@ -23,8 +23,8 @@ const LoginForm = () => {
           name="password"
           type="password"
         />
-        <div className="cusShowLeftIcon bg-password" />
-        <div className="cusShowRightIcon bg-eyeClose" />
+        <div className="cusShowLeftIcon bg-passwordIcon" />
+        <div className="cusShowRightIcon bg-eyeCloseIcon" />
       </label>
       <button
         type="submit"
