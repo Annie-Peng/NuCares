@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 interface CusDatePickerProps {
   value: string;
-  onClick: () => void;
+  onClick: (e: React.MouseEvent<HTMLInputElement>) => void;
 }
 const CusDatePicker = forwardRef<HTMLInputElement, CusDatePickerProps>(
   ({ value, onClick }, ref) => (

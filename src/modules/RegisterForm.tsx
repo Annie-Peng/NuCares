@@ -67,14 +67,18 @@ export default RegisterForm;
 
 const RegisterFormSecondPhase = () => {
   const [color, setColor] = useState("text-black-200");
-  const [startDate, setStartDate] = useState(null);
+  const [startDate, setStartDate] = useState<Date | null>(null);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     if (e.target.value === "") {
       setColor("text-black-200");
     } else {
       setColor("text-black-500");
     }
+  };
+
+  const handleDateClick = (e: React.MouseEvent<HTMLInputElement>) => {
+    // 在这里处理点击事件
   };
 
   return (
@@ -102,8 +106,13 @@ const RegisterFormSecondPhase = () => {
         </label>
         <DatePicker
           selected={startDate}
-          onChange={(date) => setStartDate(date)}
-          customInput={<CusDatePicker />}
+          onChange={(date: Date | null) => setStartDate(date)}
+          customInput={
+            <CusDatePicker
+              value={startDate?.toString() || ""}
+              onClick={handleDateClick}
+            />
+          }
           showMonthDropdown
           showYearDropdown
           dropdownMode="select"
