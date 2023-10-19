@@ -54,10 +54,6 @@
     backdrop-filter: blur(10px);
   }
 
-  .cusTextarea {
-    @apply p-6 w-full min-h-[120px];
-  }
-
   .cusActiveTags {
     @apply border rounded-50 py-4 px-10;
   }
