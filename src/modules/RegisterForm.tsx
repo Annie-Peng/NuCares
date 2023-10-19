@@ -4,7 +4,7 @@ import logoPrimary from "public/images/logo-primary-300.svg";
 import registerStep1 from "public/images/register/registerStep1.svg";
 import registerStep2 from "public/images/register/registerStep2.svg";
 import registerStep3 from "public/images/register/registerStep3.svg";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import DatePicker, { CalendarContainer } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import CusDatePicker from "./CusDatePicker";
@@ -67,14 +67,18 @@ export default RegisterForm;
 
 const RegisterFormSecondPhase = () => {
   const [color, setColor] = useState("text-black-200");
-  const [startDate, setStartDate] = useState(null);
+  const [startDate, setStartDate] = useState<Date | null>(null);
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     if (e.target.value === "") {
       setColor("text-black-200");
     } else {
       setColor("text-black-500");
     }
+  };
+
+  const handleDateClick = (e: React.MouseEvent<HTMLInputElement>) => {
+    // 在这里处理点击事件
   };
 
   return (
@@ -102,8 +106,13 @@ const RegisterFormSecondPhase = () => {
         </label>
         <DatePicker
           selected={startDate}
-          onChange={(date) => setStartDate(date)}
-          customInput={<CusDatePicker />}
+          onChange={(date: Date | null) => setStartDate(date)}
+          customInput={
+            <CusDatePicker
+              value={startDate?.toString() || ""}
+              onClick={handleDateClick}
+            />
+          }
           showMonthDropdown
           showYearDropdown
           dropdownMode="select"
