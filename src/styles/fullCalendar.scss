@@ -8,6 +8,11 @@
   @apply text-primary-400;
 }
 
+// 移除toolbar margin
+.fc .fc-toolbar.fc-header-toolbar {
+  @apply m-0;
+}
+
 // toolbar置中
 .fc .fc-toolbar {
   @apply justify-center items-center gap-4;
@@ -16,6 +21,11 @@
 // 10月23日(一)
 .fc .fc-toolbar-title {
   @apply font-bold text-16;
+}
+
+// 移除事件 padding
+.fc-daygrid-dot-event {
+  @apply p-0;
 }
 
 // 事件border
