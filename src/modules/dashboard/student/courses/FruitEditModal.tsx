@@ -1,5 +1,5 @@
 import NormalModal from "@/common/components/NormalModal";
-import OtherIntakeForm from "@/common/components/OtherIntakeForm";
+import OtherIntakeForm from "./OtherIntakeForm";
 
 const FruitEditModal = () => {
   return (

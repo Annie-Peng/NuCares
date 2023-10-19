@@ -1,4 +1,4 @@
-import MealForm from "@/common/components/MealForm";
+import MealForm from "@/common/components/dietary-record/MealForm";
 import NormalModal from "@/common/components/NormalModal";
 
 const LunchEditModal = () => {

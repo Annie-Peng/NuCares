@@ -1,6 +1,6 @@
 import DashboardOuterContainer from "@/common/components/DashboardOuterContainer";
-import NutritionistDashboardLayout from "@/modules.tsx/dashboard/nutritionist/DashboardLayout";
-import NutritionistIntroForm from "@/modules.tsx/dashboard/nutritionist/NutritionistIntroForm";
+import NutritionistDashboardLayout from "@/modules/dashboard/nutritionist/DashboardLayout";
+import NutritionistIntroForm from "@/modules/dashboard/nutritionist/workshop/NutritionistIntroForm";
 import Link from "next/link";
 
 const NutritionistIntroPage = () => {

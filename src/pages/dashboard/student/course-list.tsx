@@ -1,4 +1,4 @@
-import StudentDashboardLayout from "@/modules.tsx/dashboard/student/DashboardLayout";
+import StudentDashboardLayout from "@/modules/dashboard/student/DashboardLayout";
 
 const CourseListPage = () => {
   return (

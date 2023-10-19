@@ -1,4 +1,4 @@
-import { RegisterFormSecondPhase } from "@/modules.tsx/RegisterForm";
+import { RegisterFormSecondPhase } from "@/modules/RegisterForm";
 
 const RegisterSecondPage = () => {
   return (
