@@ -1,18 +1,18 @@
-.cusInputNoIcon {
-  @apply rounded-10 py-20 px-16 w-full;
-  &::placeholder {
-    @apply text-20 text-black-200;
-  }
-}
-
-.cusInputWithIcon {
-  @apply rounded-5 py-10 pl-[36px] pr-12 text-14 relative w-full lg:py-16 lg:text-16;
+input {
+  @apply rounded-5 py-10 px-12 border border-black-200;
   &::placeholder {
     @apply text-black-200;
   }
   &:focus {
     @apply outline-none ring-2 ring-primary-400;
   }
+  &:invalid {
+    @apply ring-secondary-500;
+  }
+}
+
+.cusInputWithIcon {
+  @apply pl-[36px] pr-12 text-14 relative w-full lg:py-16 lg:text-16;
 }
 
 .cusShowLeftIcon {
