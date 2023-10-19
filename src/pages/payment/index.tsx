@@ -1,4 +1,4 @@
-import PaymentForm from "@/modules.tsx/PaymentForm";
+import PaymentForm from "@/modules/PaymentForm";
 
 const PaymentPage = () => {
   return (

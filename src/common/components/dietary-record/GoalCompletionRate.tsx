@@ -1,5 +1,4 @@
 import dynamic from "next/dynamic";
-import GoalChart from "./WeightGoalChart";
 import d3 from "d3";
 
 const WeightChart = dynamic(() => import("./WeightGoalChart"), {

@@ -1,4 +1,4 @@
-import CourseMiniCard from "@/common/components/CourseMiniCard";
+import CourseMiniCard from "./CourseMiniCard";
 
 const NutritionistCard = () => {
   return (

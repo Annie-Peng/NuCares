@@ -1,5 +1,5 @@
-import CourseNormalCard from "@/common/components/CourseNormalCard";
-import NutritionistIntro from "@/modules.tsx/NutritionistIntro";
+import CourseNormalCard from "@/modules/CourseNormalCard";
+import NutritionistIntro from "@/modules/NutritionistIntro";
 
 const NutritionistIdPage = () => {
   return (
