@@ -1,4 +1,4 @@
-import NutritionistDashboardLayout from "@/modules.tsx/dashboard/nutritionist/DashboardLayout";
+import NutritionistDashboardLayout from "@/modules/dashboard/nutritionist/DashboardLayout";
 import Link from "next/link";
 
 const NutritionistInfoPage = () => {

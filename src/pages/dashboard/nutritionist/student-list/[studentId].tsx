@@ -1,11 +1,11 @@
 import DashboardOuterContainer from "@/common/components/DashboardOuterContainer";
 import GoalCompletionRate from "@/common/components/dietary-record/GoalCompletionRate";
-import StudentDashboardLayout from "@/modules.tsx/dashboard/student/DashboardLayout";
+import NutritionistDashboardLayout from "@/modules/dashboard/nutritionist/DashboardLayout";
 
 const StudentIdPage = () => {
   return (
     <>
-      <StudentDashboardLayout>
+      <NutritionistDashboardLayout>
         <p className="text-left border-b w-fit">返回我的課程列表</p>
         <h2>我的紀錄</h2>
         <div className="flex flex-wrap gap-12 w-full justify-center h-[622px]">
@@ -39,7 +39,7 @@ const StudentIdPage = () => {
             </DashboardOuterContainer>
           </div>
         </div>
-      </StudentDashboardLayout>
+      </NutritionistDashboardLayout>
     </>
   );
 };

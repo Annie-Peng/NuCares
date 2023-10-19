@@ -1,5 +1,5 @@
 import DashboardOuterContainer from "@/common/components/DashboardOuterContainer";
-import NutritionistDashboardLayout from "@/modules.tsx/dashboard/nutritionist/DashboardLayout";
+import NutritionistDashboardLayout from "@/modules/dashboard/nutritionist/DashboardLayout";
 import CourseBigCard from "@/modules/dashboard/nutritionist/workshop/CourseBigCard";
 import Link from "next/link";
 
