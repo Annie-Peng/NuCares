@@ -1,5 +1,5 @@
 import DashboardOuterContainer from "@/common/components/DashboardOuterContainer";
-import GoalCompletionRate from "@/modules.tsx/dashboard/GoalCompletionRate";
+import GoalCompletionRate from "@/common/components/dietary-record/GoalCompletionRate";
 import StudentDashboardLayout from "@/modules.tsx/dashboard/student/DashboardLayout";
 
 const StudentIdPage = () => {
