@@ -4,6 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "cusInput";
+@import "cusButton";
 @import "datePicker";
 @import "fullCalendar";
 
@@ -33,49 +35,8 @@
     @apply cusGridMobile cusGridPC;
   }
 
-  .btn-cusSecondary {
-    @apply rounded-5 text-white bg-secondary-400 font-bold py-10 px-12 lg:py-12 lg:text-20;
-  }
-
   .cusForm {
     @apply rounded-20 p-32 flex flex-col items-center gap-y-32 lg:py-[48px]  cusBackgroundBackdrop;
-  }
-
-  .cusInputNoIcon {
-    @apply rounded-10 py-20 px-16 w-full;
-    &::placeholder {
-      @apply text-20 text-black-200;
-    }
-  }
-
-  .cusInputWithIcon {
-    @apply rounded-5 px-12 py-10 w-full relative indent-[24px] lg:px-12 lg:py-16;
-    &::placeholder {
-      @apply text-14 text-black-200 lg:text-16;
-    }
-    &:focus {
-      @apply outline-none ring-2 ring-primary-400;
-    }
-  }
-
-  .cusShowLeftIcon {
-    content: "";
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    top: 50%;
-    left: 12px;
-    transform: translateY(-50%);
-  }
-
-  .cusShowRightIcon {
-    content: "";
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    top: 50%;
-    right: 12px;
-    transform: translateY(-50%);
   }
 
   .cusBackgroundBackdrop {
@@ -91,28 +52,8 @@
     backdrop-filter: blur(10px);
   }
 
-  .cusTextarea {
-    @apply p-6 w-full min-h-[120px];
-  }
-
-  .cusInput {
-    @apply p-6;
-  }
-
   .cusActiveTags {
     @apply border rounded-50 py-4 px-10;
-  }
-
-  .cusSwitch::before {
-    content: "";
-    position: absolute;
-    display: block;
-    width: 16px;
-    height: 16px;
-    border-radius: 100%;
-    top: 2px;
-    right: 2px;
-    background-color: black;
   }
 
   .cusModal {

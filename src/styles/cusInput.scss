@@ -1,0 +1,49 @@
+input {
+  @apply rounded-5 py-10 px-12 border border-black-200;
+  &::placeholder {
+    @apply text-black-200;
+  }
+  &:focus {
+    @apply outline-none ring-2 ring-primary-400;
+  }
+  &:invalid {
+    @apply ring-secondary-500;
+  }
+}
+
+.cusInputWithIcon {
+  @apply pl-[36px] pr-12 text-14 relative w-full lg:py-16 lg:text-16;
+}
+
+.cusShowLeftIcon {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+}
+
+.cusShowRightIcon {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+}
+
+textarea {
+  @apply rounded-5 py-10 px-12 w-full border border-black-200;
+  &::placeholder {
+    @apply text-black-200;
+  }
+  &:focus {
+    @apply outline-none ring-2 ring-primary-400;
+  }
+  &:invalid {
+    @apply ring-secondary-500;
+  }
+}
