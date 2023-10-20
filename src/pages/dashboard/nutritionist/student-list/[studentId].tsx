@@ -1,4 +1,5 @@
 import DashboardOuterContainer from "@/common/components/DashboardOuterContainer";
+import DailyDietary from "@/common/components/dietary-record/DailyDietary";
 import GoalCompletionRate from "@/common/components/dietary-record/GoalCompletionRate";
 import NutritionistDashboardLayout from "@/modules/dashboard/nutritionist/DashboardLayout";
 
@@ -25,7 +26,7 @@ const StudentIdPage = () => {
           </div>
           <div className="w-[68%]">
             <DashboardOuterContainer title="飲食紀錄">
-              1
+              <DailyDietary />
             </DashboardOuterContainer>
           </div>
           <div className="w-[30%]">
@@ -45,3 +46,25 @@ const StudentIdPage = () => {
 };
 
 export default StudentIdPage;
+
+const getStaticPaths = async () => {
+  return {
+    paths: [
+      {
+        params: { studentId: "1" },
+      },
+      {
+        params: { studentId: "2" },
+      },
+    ],
+    fallback: false,
+  };
+};
+export { getStaticPaths };
+
+const getStaticProps = async () => {
+  return {
+    props: {},
+  };
+};
+export { getStaticProps };

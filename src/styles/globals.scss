@@ -4,9 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "datePicker";
 @import "cusInput";
 @import "cusButton";
+@import "datePicker";
+@import "fullCalendar";
 
 @layer base {
   :root {
