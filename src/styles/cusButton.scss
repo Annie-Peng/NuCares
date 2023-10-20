@@ -1,0 +1,52 @@
+button {
+  @apply text-center;
+}
+
+.btn-cusSecondary {
+  @apply rounded-5 text-white bg-secondary-400;
+  &:hover {
+    @apply bg-secondary-450;
+  }
+}
+
+.btn-cusMiniSecondary {
+  @apply rounded-5 text-white bg-secondary-400 p-5 lg:p-12 lg:text-20;
+  &:hover {
+    @apply bg-secondary-450;
+  }
+}
+
+.btn-cusBigSecondary {
+  @apply rounded-5 text-white bg-secondary-400 font-bold py-10 px-12 lg:p-12 lg:text-20;
+}
+
+.btn-cusWriteSecondary {
+  @apply rounded-5 text-white bg-secondary-400 py-4 px-10;
+}
+
+.btn-cusWriteSecondary {
+  @apply rounded-5 text-black-400 bg-black-200 py-4 px-10;
+}
+
+.btn-cusMiniPrimary {
+  @apply rounded-5 text-primary-400 bg-white p-5 lg:p-12 lg:text-20;
+  &:hover {
+    @apply border-primary-500;
+  }
+}
+
+.btn-cusPrimaryInfo {
+  @apply rounded-10 bg-primary-500 bg-white p-10;
+}
+
+.cusSwitch::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 100%;
+  top: 2px;
+  right: 2px;
+  background-color: black;
+}
