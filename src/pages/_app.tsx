@@ -13,9 +13,13 @@ export default function App({ Component, pageProps, router }: AppProps) {
     <>
       {isDashboardPath ? (
         <DashboardLayout value={isMobile}>
-          <DashboardContainerLayout>
+          {isMobile ? (
             <Component {...pageProps} />
-          </DashboardContainerLayout>
+          ) : (
+            <DashboardContainerLayout>
+              <Component {...pageProps} />
+            </DashboardContainerLayout>
+          )}
         </DashboardLayout>
       ) : (
         <Layout>
