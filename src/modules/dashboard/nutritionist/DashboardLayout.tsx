@@ -7,21 +7,21 @@ const nutritionistTabs = [
   {
     tab: "我的學員",
     tabURL: "/dashboard/nutritionist/student-list",
-    iconURL: "/images/dashboard/dietary-record/sidebar-icons/course.svg",
+    iconURL: "/images/dashboard/dietary-record/sidebar-icons/course",
     iconName: "course.svg",
   },
   {
     tab: "營養師專頁",
     tabURL: "/dashboard/nutritionist/workshop",
     iconURL:
-      "/images/dashboard/dietary-record/sidebar-icons/nutritionist/workshop.svg",
+      "/images/dashboard/dietary-record/sidebar-icons/nutritionist/workshop",
     iconName: "workshop.svg",
   },
   {
     tab: "帳戶",
     tabURL: "/dashboard/nutritionist/account",
     iconURL:
-      "/images/dashboard/dietary-record/sidebar-icons/nutritionist/account.svg",
+      "/images/dashboard/dietary-record/sidebar-icons/nutritionist/account",
     iconName: "account.svg",
   },
 ];
@@ -62,7 +62,11 @@ const NutritionistDashboardLayout = ({ children }: DashboardLayoutProps) => {
                 <Link href={nutritionistTab.tabURL}>
                   <div className="inline-block align-middle mr-8">
                     <Image
-                      src={nutritionistTab.iconURL}
+                      src={
+                        pathname === nutritionistTab.tabURL
+                          ? `${nutritionistTab.iconURL}-choose.svg`
+                          : `${nutritionistTab.iconURL}.svg`
+                      }
                       width={20}
                       height={20}
                       alt={nutritionistTab.iconName}
