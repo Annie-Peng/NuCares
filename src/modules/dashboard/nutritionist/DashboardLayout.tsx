@@ -3,7 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const nutritionistTabs = [
+interface NutritionistTabs {
+  tab: string;
+  tabURL: string;
+  iconURL: string;
+  iconName: string;
+}
+
+const nutritionistTabs: NutritionistTabs[] = [
   {
     tab: "我的學員",
     tabURL: "/dashboard/nutritionist/student-list",
@@ -50,20 +57,17 @@ const NutritionistDashboardLayout = ({ children }: DashboardLayoutProps) => {
           className={`sideBar text-18 font-bold flex flex-col text-black-500 mt-32`}
         >
           {nutritionistTabs.map((nutritionistTab, index) => {
+            const isSelectTab = pathname.startsWith(nutritionistTab.tabURL);
             return (
               <li
                 key={index}
-                className={
-                  pathname === nutritionistTab.tabURL
-                    ? "cusSelectTab"
-                    : "cusNoSelectTab"
-                }
+                className={isSelectTab ? "cusSelectTab" : "cusNoSelectTab"}
               >
                 <Link href={nutritionistTab.tabURL}>
                   <div className="inline-block align-middle mr-8">
                     <Image
                       src={
-                        pathname === nutritionistTab.tabURL
+                        isSelectTab
                           ? `${nutritionistTab.iconURL}-choose.svg`
                           : `${nutritionistTab.iconURL}.svg`
                       }
