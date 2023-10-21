@@ -50,3 +50,11 @@ button {
   right: 2px;
   background-color: black;
 }
+
+.cusSelectTab {
+  @apply align-middle inline-block py-20 px-28 rounded-s-50 w-full text-primary-500 bg-white bg-opacity-50;
+}
+
+.cusNoSelectTab {
+  @apply align-middle inline-block py-20 px-28 rounded-s-50 w-full;
+}
