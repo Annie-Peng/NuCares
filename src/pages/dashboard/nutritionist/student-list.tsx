@@ -1,8 +1,6 @@
-import DashboardLayout from "@/common/components/DashboardLayout";
-
 const StudentListPage = () => {
   return (
-    <DashboardLayout>
+    <>
       <h2>我的學員列表</h2>
       <table className="mx-auto w-full mt-24">
         <thead>
@@ -42,7 +40,7 @@ const StudentListPage = () => {
           </tr>
         </tbody>
       </table>
-    </DashboardLayout>
+    </>
   );
 };
 
