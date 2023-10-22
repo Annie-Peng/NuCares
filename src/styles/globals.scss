@@ -78,4 +78,35 @@
   select {
     appearance: none;
   }
+
+  .cusPrimaryTitle {
+    @apply text-primary-500 text-20 text-center font-bold lg:text-22;
+  }
+
+  .cusCourseStatus::before {
+    content: "";
+    position: relative;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 100%;
+    margin-right: 6px;
+  }
+
+  tr {
+    position: relative;
+  }
+
+  tr:nth-child(n + 2) td::before {
+    content: "";
+    position: absolute;
+    display: inline-block;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    width: 98%;
+    @apply bg-black-200;
+  }
 }
