@@ -4,5 +4,6 @@ export interface LayoutProps {
 }
 
 export interface DashboardLayoutProps {
+  value?: boolean;
   children: ReactNode;
 }
