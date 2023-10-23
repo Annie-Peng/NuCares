@@ -6,7 +6,7 @@ import changeIdentity from "@/common/lib/dashboard/changeIdentity";
 
 const StudentDropdown = () => {
   return (
-    <div className="cusDropdown">
+    <div className="cusDropdown min-w-[196px]">
       <div className="flex gap-4">
         <span className="cusSIdentity py-4 text-center w-full rounded-[45px]">
           一般會員
@@ -18,10 +18,10 @@ const StudentDropdown = () => {
           alt={changeIdentity.iconName}
         />
       </div>
-      <ul className="flex flex-col">
+      <ul className="flex flex-col py-16 gap-16">
         {studentTabs.map((studentTab, index) => {
           return (
-            <li key={index} className="py-16">
+            <li key={index}>
               <Link href={studentTab.tabURL}>
                 <div className="inline-block align-middle mr-6">
                   <Image

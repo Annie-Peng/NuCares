@@ -6,7 +6,7 @@ import logoutTab from "@/common/lib/dashboard/logoutTab";
 
 const NutritionistDropdown = () => {
   return (
-    <div className="cusDropdown absolute top-0 right-0">
+    <div className="cusDropdown min-w-[196px]">
       <div className="flex gap-4">
         <span className="cusNIdentity py-4 text-center w-full rounded-[45px]">
           營養師
@@ -18,10 +18,10 @@ const NutritionistDropdown = () => {
           alt={changeIdentity.iconName}
         />
       </div>
-      <ul className="flex flex-col">
+      <ul className="flex flex-col py-16 gap-16">
         {nutritionistTabs.map((nutritionistTab, index) => {
           return (
-            <li key={index} className="py-16">
+            <li key={index}>
               <Link href={nutritionistTab.tabURL}>
                 <div className="inline-block align-middle mr-6">
                   <Image
