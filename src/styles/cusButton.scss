@@ -66,3 +66,11 @@ button {
 .cusNoSelectTab {
   @apply align-middle inline-block py-20 px-28 rounded-s-50 w-full;
 }
+
+.cusNIdentity {
+  @apply text-white text-14 font-bold bg-tertiary-400;
+}
+
+.cusSIdentity {
+  @apply text-white text-14 font-bold  bg-primary-400;
+}
