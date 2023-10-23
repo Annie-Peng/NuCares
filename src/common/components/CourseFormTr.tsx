@@ -1,4 +1,12 @@
-const CourseFormTr = ({ course, key }) => {
+import { CourseProps } from "@/types/interface";
+import { FC } from "react";
+
+interface CourseFormTrProps {
+  course: CourseProps;
+  key: string;
+}
+
+const CourseFormTr: FC<CourseFormTrProps> = ({ course, key }) => {
   return (
     <tr key={key}>
       <td className="text-14">{course.OrderNumber}</td>
