@@ -1,39 +1,54 @@
 import Link from "next/link";
-import StudentDropdown from "./StudentDropdown";
+import Image from "next/image";
+import changeIdentity from "@/common/lib/dashboard/changeIdentity";
+import nutritionistTabs from "@/common/lib/dashboard/nutritionistTabs";
+import logoutTab from "@/common/lib/dashboard/logoutTab";
 
 const NutritionistDropdown = () => {
   return (
-    <div className="flex flex-wrap">
-      <div className="w-1/2">
-        <StudentDropdown />
+    <div className="cusDropdown min-w-[196px]">
+      <div className="flex gap-4">
+        <span className="cusNIdentity py-4 text-center w-full rounded-[45px]">
+          營養師
+        </span>
+        <Image
+          src={`${changeIdentity.iconURL}.svg`}
+          width={27}
+          height={27}
+          alt={changeIdentity.iconName}
+        />
       </div>
-      <div className="w-1/2 border-s py-24">
-        <div className="px-[36px]">
-          <span className="bg-primary-300 px-10 rounded-10">營養師</span>
-          <span className="ms-10">陳瘦瘦</span>
-        </div>
-        <ul className="flex flex-col gap-28 px-[36px] pt-24 mt-24 border-t">
-          <li>
-            <span className="rounded-10 bg-black-500 w-20 h-20 inline-block"></span>
-            <Link href="/dashboard/nutritionist/student-list" className="ms-6">
-              我的學員
-            </Link>
-          </li>
-          <li>
-            <span className="rounded-10 bg-black-500 w-20 h-20 inline-block"></span>
-            <Link href="/dashboard/nutritionist/workshop" className="ms-6">
-              我的營養師專頁
-            </Link>
-          </li>
-          <li>
-            <span className="rounded-10 bg-black-500 w-20 h-20 inline-block"></span>
-            <Link href="/dashboard/student/favorite" className="ms-6">
-              帳戶
-            </Link>
-          </li>
-        </ul>
-      </div>
-      <button className="py-24 border-t w-full">登出</button>
+      <ul className="flex flex-col py-16 gap-16">
+        {nutritionistTabs.map((nutritionistTab, index) => {
+          return (
+            <li key={index}>
+              <Link href={nutritionistTab.tabURL}>
+                <div className="inline-block align-middle mr-6">
+                  <Image
+                    src={`${nutritionistTab.iconURL}.svg`}
+                    width={20}
+                    height={20}
+                    alt={nutritionistTab.iconName}
+                  />
+                </div>
+                <span className="align-middle">{nutritionistTab.tab}</span>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+      <button
+        type="button"
+        className="pt-16 border-t w-full flex justify-center gap-6"
+      >
+        <Image
+          src={`${logoutTab.iconURL}.svg`}
+          width={20}
+          height={20}
+          alt={logoutTab.iconName}
+        />
+        <span className="align-middle">{logoutTab.tab}</span>
+      </button>
     </div>
   );
 };
