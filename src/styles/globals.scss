@@ -109,4 +109,16 @@
     width: 98%;
     @apply bg-black-200;
   }
+
+  .formHead {
+    @apply font-normal font-weight;
+  }
+
+  .formContent {
+    @apply text-14 font-normal text-black-400;
+  }
+
+  .formSelect {
+    @apply py-8 px-12 rounded-5 border border-black-500;
+  }
 }
