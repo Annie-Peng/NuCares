@@ -25,11 +25,17 @@ const studentTabs: StudentTabs[] = [
     iconName: "favorite.svg",
   },
   {
-    tab: "個人資料",
+    tab: "會員資料",
     tabURL: "/dashboard/student/information",
     iconURL:
       "/images/dashboard/dietary-record/sidebar-icons/student/information",
     iconName: "information.svg",
+  },
+  {
+    tab: "修改密碼",
+    tabURL: "/dashboard/student/update-password",
+    iconURL: "/images/dashboard/dietary-record/sidebar-icons/student/password",
+    iconName: "password.svg",
   },
 ];
 
