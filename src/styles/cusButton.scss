@@ -24,8 +24,16 @@ button {
   @apply rounded-5 text-white bg-secondary-400 py-4 px-10;
 }
 
-.btn-cusWriteSecondary {
+.btn-cusWriteBlack {
+  @apply rounded-5 border border-black-200 text-black-400 py-4 px-10;
+}
+
+.btn-cusDisableWriteBlack {
   @apply rounded-5 text-black-400 bg-black-200 py-4 px-10;
+}
+
+.btn-cusWritePrimary {
+  @apply rounded-5 border border-primary-400 text-primary-400 py-4 px-10;
 }
 
 .btn-cusMiniPrimary {

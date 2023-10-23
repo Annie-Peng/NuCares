@@ -18,9 +18,7 @@ export default function Home() {
           <Link href="/dashboard/nutritionist/workshop">我的營養師專頁面</Link>
         </li>
         <li>
-          <Link href="/dashboard/nutritionist/workshop/introduction">
-            - 關於我
-          </Link>
+          <Link href="/dashboard/nutritionist/workshop/intro">- 關於我</Link>
         </li>
         <li>
           <Link href="/dashboard/nutritionist/workshop/courses">
@@ -28,7 +26,7 @@ export default function Home() {
           </Link>
         </li>
         <li>
-          <Link href="/dashboard/nutritionist/student-list">個人資料</Link>
+          <Link href="/dashboard/nutritionist/info">個人資料</Link>
         </li>
       </ul>
       <hr className="my-20" />
@@ -37,14 +35,18 @@ export default function Home() {
         <li>
           <Link href="/dashboard/student/course-list">我的課程</Link>
         </li>
+        <Link href="/dashboard/student/course-list/1">- 單一學員飲食日記</Link>
         <li>
-          <Link href="#">訂單紀錄</Link>
+          <Link href="/dashboard/student/order">訂單紀錄</Link>
         </li>
         <li>
-          <Link href="#">收藏營養師</Link>
+          <Link href="/dashboard/student/favorite">收藏營養師</Link>
         </li>
         <li>
-          <Link href="#">個人資料</Link>
+          <Link href="/dashboard/student/info">個人資料</Link>
+        </li>
+        <li>
+          <Link href="/dashboard/student/update-password">修改密碼</Link>
         </li>
       </ul>
       <hr className="my-20" />
@@ -61,6 +63,9 @@ export default function Home() {
         </li>
         <li>
           <Link href="/payment/check-order">結帳確認詳細訂單</Link>
+        </li>
+        <li>
+          <Link href="/reset-password">忘記密碼</Link>
         </li>
         <li>
           <Link href="/register">註冊</Link>
