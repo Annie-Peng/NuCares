@@ -3,9 +3,9 @@ import { FC, ReactEventHandler, ReactNode } from "react";
 interface InputProps {
   name: string;
   type: "text" | "number" | "checkbox" | "password" | "email" | "file";
-  children: ReactNode;
   hMsg: string;
   pMsg: string;
+  children?: ReactNode;
   placeholder?: string;
   value?: string;
   id?: string;
@@ -15,7 +15,7 @@ interface InputProps {
   labelClass?: string;
   inputClass?: string;
   errClass?: string;
-  errMsg: string;
+  errMsg?: string;
 }
 
 const Input: FC<InputProps> = ({
@@ -38,7 +38,6 @@ const Input: FC<InputProps> = ({
     <label htmlFor={name} className={labelClass}>
       <h4 className="font-normal font-weight">{hMsg}</h4>
       <p className="text-14 font-normal text-black-400">{pMsg}</p>
-
       {children}
       <input
         type={type}
