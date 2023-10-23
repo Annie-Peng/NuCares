@@ -12,7 +12,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
 
   const isDashboardPath = router.pathname.startsWith("/dashboard");
   return (
-    <>
+    <Provider store={store}>
       {isDashboardPath ? (
         <DashboardLayout value={isMobile}>
           {isMobile ? (
@@ -28,6 +28,6 @@ export default function App({ Component, pageProps, router }: AppProps) {
           <Component {...pageProps} />
         </Layout>
       )}
-    </>
+    </Provider>
   );
 }
