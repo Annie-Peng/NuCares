@@ -1,16 +1,58 @@
-const StudentListPage = () => {
+import { Fragment } from "react";
+
+const API = {
+  course: [
+    {
+      OrderNumber: "20231003001",
+      UserName: "蛋黃哥",
+      CourseTitle: "進階 - 8週飲食建議",
+      CourseStartDate: "2023/10/21",
+      CourseEndDate: "2023/10/22",
+      CourseState: 0, //0 未開始 1進行中 2已結束
+      IsQuest: false,
+    },
+  ],
+  pagination: {
+    current_page: 1,
+    total_pages: 1,
+  },
+};
+
+const tableList = {
+  nutritionist: {
+    listName: "我的學員列表",
+    titles: [
+      "訂單編號",
+      "學員/課程名稱",
+      "課程期間",
+      "狀態",
+      "飲食生活問券",
+      "評價",
+    ],
+  },
+  student: {
+    listName: "我的課程列表",
+    titles: [
+      "營養師",
+      "課程名稱",
+      "課程期間",
+      "狀態",
+      "飲食生活問券",
+      "課程開始",
+    ],
+  },
+};
+
+const CourseForm = () => {
   return (
     <>
       <h2>我的學員列表</h2>
       <table className="mx-auto w-full mt-24">
         <thead>
           <tr>
-            <th>營養師</th>
-            <th>課程名稱</th>
-            <th>課程期間</th>
-            <th>狀態</th>
-            <th>飲食生活問券</th>
-            <th>課程開始</th>
+            {tableList.nutritionist.titles.map((title, index) => (
+              <th key="index">{title}</th>
+            ))}
           </tr>
         </thead>
         <tbody className="border">
@@ -44,4 +86,4 @@ const StudentListPage = () => {
   );
 };
 
-export default StudentListPage;
+export default CourseForm;

@@ -5,7 +5,7 @@ interface DashboardOuterContainerProps {
   children: ReactNode;
 }
 
-const DashboardOuterContainer: React.FC<DashboardOuterContainerProps> = ({
+const DashboardContainer: React.FC<DashboardOuterContainerProps> = ({
   title,
   children,
 }) => {
@@ -19,4 +19,4 @@ const DashboardOuterContainer: React.FC<DashboardOuterContainerProps> = ({
   );
 };
 
-export default DashboardOuterContainer;
+export default DashboardContainer;
