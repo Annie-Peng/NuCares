@@ -14,7 +14,7 @@ const useResize = () => {
   }, []);
 
   function handleResize() {
-    if (window.innerWidth < "992") {
+    if (window.innerWidth < 992) {
       setIsMobile(true);
     } else {
       setIsMobile(false);
