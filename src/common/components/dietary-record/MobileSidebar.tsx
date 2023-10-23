@@ -1,9 +1,13 @@
 import dietaryRecordTabs from "@/common/lib/dashboard/dietaryRecordTabs";
 import Image from "next/image";
 
-const MobileSidebar = ({ showTab }) => {
+interface MobileSidebarProps {
+  showTab: number;
+}
+
+const MobileSidebar = ({ showTab }: MobileSidebarProps) => {
   return (
-    <ul className="fixed bottom-0 left-0 right-0 bg-primary-400 h-[65px] flex justify-between items-center gap-20 px-[25px] lg:hidden">
+    <ul className="fixed bottom-0 left-0 right-0 bg-primary-400 h-[65px] flex justify-center items-center gap-20 px-[25px] lg:hidden">
       {dietaryRecordTabs.map((tab, index) => {
         return showTab === index ? (
           <li key={index}>
