@@ -3,6 +3,8 @@ interface NutritionistTabs {
   tabURL: string | { [key: string]: string };
   iconURL: string;
   iconName: string;
+  iconDropdownURL?: string;
+  iconDropdownName?: string;
 }
 
 const nutritionistTabs: NutritionistTabs[] = [
@@ -22,6 +24,9 @@ const nutritionistTabs: NutritionistTabs[] = [
     iconURL:
       "/images/dashboard/dietary-record/sidebar-icons/nutritionist/workshop",
     iconName: "workshop.svg",
+    iconDropdownURL:
+      "/images/dashboard/dietary-record/sidebar-icons/nutritionist/dropdown",
+    iconDropdownName: "dropdown.svg",
   },
 ];
 
