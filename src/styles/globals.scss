@@ -116,6 +116,7 @@
     box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(10px);
     @apply p-20 rounded-10 absolute top-full right-0 z-10 min-w-[196px];
+  }
 
   .formHead {
     @apply font-bold;
@@ -132,5 +133,4 @@
   .cusMContainer {
     @apply container pt-20 pb-80 px-24;
   }
-    
 }
