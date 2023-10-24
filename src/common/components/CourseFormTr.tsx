@@ -1,6 +1,6 @@
-import { CourseProps } from "@/types/interface";
 import { ButtonClass, Course } from "./CourseForm";
 import { FC, ReactNode } from "react";
+
 interface CourseFormTrProps {
   course: Course;
   ID: string;

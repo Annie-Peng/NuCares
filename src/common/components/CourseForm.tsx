@@ -1,12 +1,12 @@
-import { FC } from "react";
 import courseTabs from "../lib/dashboard/courseTabs";
 import CourseFormTr from "./CourseFormTr";
 import userData from "../lib/dashboard/user";
 
-interface Course {
-  OrderNumber: string;
-  UserName: string;
+export interface Course {
+  Title?: string;
+  UserName?: string;
   CourseTitle: string;
+  OrderNumber: string;
   CourseStartDate: string;
   CourseEndDate: string;
   CourseState: string;
@@ -14,7 +14,17 @@ interface Course {
   IsComment?: boolean;
 }
 
-interface ButtonClass {
+interface Pagination {
+  current_page: number;
+  total_pages: number;
+}
+
+interface CourseAPI {
+  courses: Course[];
+  pagination: Pagination;
+}
+
+export interface ButtonClass {
   [key: string]: {
     IsQuest: {
       [key: string]: { class: string; disable: boolean };
@@ -29,7 +39,7 @@ interface ButtonClass {
   };
 }
 
-const API = {
+const API: CourseAPI = {
   courses: [
     {
       OrderNumber: "20231003001",
@@ -77,7 +87,7 @@ const API = {
   },
 };
 
-const buttonClass = {
+const buttonClass: ButtonClass = {
   nutritionist: {
     IsQuest: {
       true: { class: "btn-cusWritePrimary", disable: false },
@@ -119,15 +129,15 @@ const checkCommentClass = (
     comment =
       course.CourseState === "進行中" ? (
         <button
-          disabled={buttonClass[ID].IsComment.false.courseProcess.disable}
-          className={buttonClass[ID].IsComment.false.courseProcess.class}
+          disabled={buttonClass[ID].IsComment?.false.courseProcess!.disable}
+          className={buttonClass[ID].IsComment?.false.courseProcess!.class}
         >
           未評價
         </button>
       ) : (
         <button
-          disabled={buttonClass[ID].IsComment.false.courseOver.disable}
-          className={buttonClass[ID].IsComment.false.courseOver.class}
+          disabled={buttonClass[ID].IsComment?.false.courseOver!.disable}
+          className={buttonClass[ID].IsComment?.false.courseOver!.class}
         >
           未評價
         </button>
@@ -137,6 +147,7 @@ const checkCommentClass = (
 };
 
 const CourseForm = () => {
+  const ID = userData.currentID;
   const IDTabs = courseTabs[userData.currentID];
 
   return (
@@ -154,19 +165,17 @@ const CourseForm = () => {
             </tr>
           </thead>
           <tbody>
-            {API.courses.map((course) => {
+            {API.courses.map((course, index) => {
               return (
-                <CourseFormTr
-                  course={course}
-                  key={course.OrderNumber}
-                  ID={userData.currentID}
-                  buttonClass={buttonClass}
-                  comment={checkCommentClass(
-                    course,
-                    userData.currentID,
-                    buttonClass
-                  )}
-                />
+                <tr key={index}>
+                  <CourseFormTr
+                    course={course}
+                    key={course.OrderNumber}
+                    ID={userData.currentID}
+                    buttonClass={buttonClass}
+                    comment={checkCommentClass(course, ID, buttonClass)}
+                  />
+                </tr>
               );
             })}
           </tbody>
@@ -175,52 +184,66 @@ const CourseForm = () => {
 
       {/* 手機版 */}
       <ul className="lg:hidden container flex flex-col gap-32 mt-32">
-        {API.courses.map((course, index) => (
-          <li
-            key={index}
-            className="flex flex-col border border-primary-400 p-20 gap-12 rounded-5"
-          >
-            <div className="flex justify-between items-center">
-              <span
-                className={`cusCourseStatus ${
-                  course.CourseState === "未開始"
-                    ? "before:bg-black-300"
-                    : course.CourseState === "進行中"
-                    ? "before:bg-primary-300"
-                    : "before:bg-black-700"
-                }`}
-              >
-                {course.CourseState}
-              </span>
-              {course.CourseState === "未開始" ? (
-                <button className=" btn-cusWriteSecondary">課程開始</button>
-              ) : (
-                <button disabled className="  btn-cusDisableWriteBlack">
-                  課程開始
-                </button>
-              )}
-            </div>
-            <h3 className="border-b w-fit border-black-950 font-bold">
-              {course.UserName ? course.UserName : course.Title}/
-              {course.CourseTitle}
-            </h3>
-            <p className="text-14">訂單編號：{course.OrderNumber}</p>
-            <p className="text-14">
-              課程時間：{course.CourseStartDate}-{course.CourseEndDate}
-            </p>
-            <hr className="border-primary-400" />
-            <div className="text-14">
-              飲食生活問券：
-              {course.IsQuest ? (
-                <button className="btn-cusWritePrimary">已填寫</button>
-              ) : (
-                <button disabled className="btn-cusWriteBlack">
-                  未填寫
-                </button>
-              )}
-            </div>
-          </li>
-        ))}
+        {API.courses.map((course, index) => {
+          const comment = checkCommentClass(course, ID, buttonClass);
+
+          return (
+            <li
+              key={index}
+              className="flex flex-col border border-primary-400 p-20 gap-12 rounded-5"
+            >
+              <div className="flex justify-between items-center">
+                <span
+                  className={`cusCourseStatus ${
+                    course.CourseState === "未開始"
+                      ? "before:bg-black-300"
+                      : course.CourseState === "進行中"
+                      ? "before:bg-primary-300"
+                      : "before:bg-black-700"
+                  }`}
+                >
+                  {course.CourseState}
+                </span>
+                {comment ? (
+                  comment
+                ) : course.CourseState === "未開始" ? (
+                  <button className="btn-cusWriteSecondary">開始</button>
+                ) : (
+                  <button disabled className="btn-cusDisableWriteBlack">
+                    開始
+                  </button>
+                )}
+              </div>
+              <h3 className="border-b w-fit border-black-950 font-bold">
+                {course.UserName ? course.UserName : course.Title}/
+                {course.CourseTitle}
+              </h3>
+              <p className="text-14">訂單編號：{course.OrderNumber}</p>
+              <p className="text-14">
+                課程時間：{course.CourseStartDate}-{course.CourseEndDate}
+              </p>
+              <hr className="border-primary-400" />
+              <div className="text-14">
+                飲食生活問券：
+                {course.IsQuest ? (
+                  <button
+                    disabled={buttonClass[ID].IsQuest.true.disable}
+                    className={buttonClass[ID].IsQuest.true.class}
+                  >
+                    已填寫
+                  </button>
+                ) : (
+                  <button
+                    disabled={buttonClass[ID].IsQuest.false.disable}
+                    className={buttonClass[ID].IsQuest.false.class}
+                  >
+                    未填寫
+                  </button>
+                )}
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
