@@ -2,6 +2,7 @@ import NutritionistSidebar from "@/modules/dashboard/nutritionist/NutritionistSi
 import StudentSidebar from "@/modules/dashboard/student/StudentSidebar";
 import { DashboardLayoutProps } from "@/types/interface";
 import Image from "next/image";
+import userData from "../lib/dashboard/user";
 
 const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
   return (
@@ -15,13 +16,25 @@ const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
             alt="profile-photo"
             className="rounded-50 bg-black-200 border border-white"
           />
-          <p className="px-10 bg-primary-500 text-white w-fit rounded-10 mt-16 text-12 font-bold">
-            營養師
+          {userData.currentID === "student" ? (
+            <p className="px-10 bg-primary-500 text-white w-fit rounded-10 mt-16 text-12 font-bold">
+              一般會員
+            </p>
+          ) : (
+            <p className="px-10 bg-tertiary-400 text-white w-fit rounded-10 mt-16 text-12 font-bold">
+              營養師
+            </p>
+          )}
+
+          <p className="mt-4 text-24 font-normal relative">
+            {userData.RelName}
           </p>
-          <p className="mt-4 text-24 font-normal relative">陳瘦瘦</p>
         </div>
-        {/* <NutritionistSidebar /> */}
-        <StudentSidebar />
+        {userData.currentID === "student" ? (
+          <StudentSidebar />
+        ) : (
+          <NutritionistSidebar />
+        )}
       </div>
       <div className="bg-white bg-opacity-50 w-[80%] rounded-35 text-center p-20">
         {children}
