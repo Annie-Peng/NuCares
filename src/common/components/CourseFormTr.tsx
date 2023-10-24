@@ -1,8 +1,21 @@
 import { CourseProps } from "@/types/interface";
+import { ButtonClass, Course } from "./CourseForm";
+import { FC, ReactNode } from "react";
+interface CourseFormTrProps {
+  course: Course;
+  ID: string;
+  buttonClass: ButtonClass;
+  comment: ReactNode;
+}
 
-const CourseFormTr = ({ course, key, ID, buttonClass, comment }) => {
+const CourseFormTr: FC<CourseFormTrProps> = ({
+  course,
+  ID,
+  buttonClass,
+  comment,
+}) => {
   return (
-    <tr key={key}>
+    <>
       <td className="text-14">{course.OrderNumber}</td>
       <td>
         <span className="border-b border-black-950">
@@ -54,7 +67,7 @@ const CourseFormTr = ({ course, key, ID, buttonClass, comment }) => {
           </button>
         )}
       </td>
-    </tr>
+    </>
   );
 };
 
