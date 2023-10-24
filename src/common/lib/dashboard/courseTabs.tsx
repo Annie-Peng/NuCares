@@ -1,4 +1,13 @@
-const courseTabs = {
+import { FC } from "react";
+
+export interface CourseTabs {
+  [key: string]: {
+    listName: string;
+    tabs: string[];
+  };
+}
+
+const courseTabs: CourseTabs = {
   nutritionist: {
     listName: "我的學員列表",
     tabs: [
