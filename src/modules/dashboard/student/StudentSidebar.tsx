@@ -15,11 +15,11 @@ const StudentSidebar = () => {
         {studentTabs.map((studentTab, index) => {
           const isSelectTab = pathname.startsWith(studentTab.tabURL);
           return (
-            <li
-              key={index}
-              className={isSelectTab ? "cusSelectTab" : "cusNoSelectTab"}
-            >
-              <Link href={studentTab.tabURL}>
+            <li key={index}>
+              <Link
+                href={studentTab.tabURL}
+                className={isSelectTab ? "cusSelectTab" : "cusNoSelectTab"}
+              >
                 <div className="inline-block align-middle mr-8">
                   <Image
                     src={
