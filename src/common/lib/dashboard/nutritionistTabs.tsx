@@ -1,6 +1,6 @@
 interface NutritionistTabs {
   tab: string;
-  tabURL: string;
+  tabURL: string | { [key: string]: string };
   iconURL: string;
   iconName: string;
 }
@@ -14,17 +14,14 @@ const nutritionistTabs: NutritionistTabs[] = [
   },
   {
     tab: "營養師專頁",
-    tabURL: "/dashboard/nutritionist/workshop",
+    tabURL: {
+      main: "/dashboard/nutritionist/workshop",
+      intro: "/dashboard/nutritionist/workshop/intro",
+      courses: "/dashboard/nutritionist/workshop/courses",
+    },
     iconURL:
       "/images/dashboard/dietary-record/sidebar-icons/nutritionist/workshop",
     iconName: "workshop.svg",
-  },
-  {
-    tab: "帳戶",
-    tabURL: "/dashboard/nutritionist/account",
-    iconURL:
-      "/images/dashboard/dietary-record/sidebar-icons/nutritionist/account",
-    iconName: "account.svg",
   },
 ];
 
