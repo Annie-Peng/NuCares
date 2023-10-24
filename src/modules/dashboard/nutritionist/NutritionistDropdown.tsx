@@ -11,18 +11,28 @@ const NutritionistDropdown = () => {
         <span className="cusNIdentity py-4 text-center w-full rounded-[45px]">
           營養師
         </span>
-        <Image
-          src={`${changeIdentity.iconURL}.svg`}
-          width={27}
-          height={27}
-          alt={changeIdentity.iconName}
-        />
+        <button>
+          <Image
+            src={`${changeIdentity.iconURL}.svg`}
+            width={27}
+            height={27}
+            alt={changeIdentity.iconName}
+          />
+        </button>
       </div>
-      <ul className="flex flex-col py-16 gap-16">
+      <ul className="flex flex-col py-16 gap-32">
         {nutritionistTabs.map((nutritionistTab, index) => {
+          const showSubTabs = typeof nutritionistTab.tabURL === "object";
           return (
             <li key={index}>
-              <Link href={nutritionistTab.tabURL}>
+              <Link
+                href={
+                  showSubTabs
+                    ? nutritionistTab.tabURL.main
+                    : nutritionistTab.tabURL
+                }
+                className="block"
+              >
                 <div className="inline-block align-middle mr-6">
                   <Image
                     src={`${nutritionistTab.iconURL}.svg`}
@@ -32,6 +42,26 @@ const NutritionistDropdown = () => {
                   />
                 </div>
                 <span className="align-middle">{nutritionistTab.tab}</span>
+                {showSubTabs && (
+                  <ul className="ml-28 mt-16 flex flex-col gap-16 text-black-500">
+                    <li>
+                      <Link
+                        href={nutritionistTab.tabURL.intro}
+                        className="block"
+                      >
+                        關於我
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href={nutritionistTab.tabURL.courses}
+                        className="block"
+                      >
+                        課程方案
+                      </Link>
+                    </li>
+                  </ul>
+                )}
               </Link>
             </li>
           );
