@@ -109,4 +109,8 @@
     width: 98%;
     @apply bg-black-200;
   }
+
+  .cusMContainer {
+    @apply container pt-20 pb-80 px-24;
+  }
 }
