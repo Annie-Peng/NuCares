@@ -13,7 +13,7 @@
   :root {
     font-family: "Helvetica Neue", "Noto Sans TC";
     line-height: 1.5;
-    @apply font-thin text-black-950 text-16 bg-primaryGradient;
+    @apply font-thin text-black-950 text-16 bg-white lg:bg-primaryGradient;
   }
 
   th,
@@ -108,5 +108,9 @@
     height: 1px;
     width: 98%;
     @apply bg-black-200;
+  }
+
+  .cusMContainer {
+    @apply container pt-20 pb-80 px-24;
   }
 }
