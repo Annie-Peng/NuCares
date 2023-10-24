@@ -28,7 +28,7 @@ const NutritionistDropdown = () => {
               <Link
                 href={
                   showSubTabs
-                    ? nutritionistTab.tabURL.main
+                    ? (nutritionistTab.tabURL as { main: string }).main
                     : nutritionistTab.tabURL
                 }
                 className="block"
@@ -46,7 +46,9 @@ const NutritionistDropdown = () => {
                   <ul className="ml-28 mt-16 flex flex-col gap-16 text-black-500">
                     <li>
                       <Link
-                        href={nutritionistTab.tabURL.intro}
+                        href={
+                          (nutritionistTab.tabURL as { intro: string }).intro
+                        }
                         className="block"
                       >
                         關於我
@@ -54,7 +56,10 @@ const NutritionistDropdown = () => {
                     </li>
                     <li>
                       <Link
-                        href={nutritionistTab.tabURL.courses}
+                        href={
+                          (nutritionistTab.tabURL as { courses: string })
+                            .courses
+                        }
                         className="block"
                       >
                         課程方案
