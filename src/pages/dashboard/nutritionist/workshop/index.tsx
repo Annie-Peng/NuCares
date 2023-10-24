@@ -1,18 +1,15 @@
-import Link from "next/link";
+import DashboardContainer from "@/common/components/DashboardContainer";
+import NutritionistIntroForm from "@/modules/dashboard/nutritionist/workshop/NutritionistIntroForm";
 
-const NutritionistInfoPage = () => {
+const NutritionistIntroPage = () => {
   return (
     <>
-      <div className="flex justify-center items-center h-full gap-20">
-        <h3 className="btn-cusSecondary py-[52px] w-full rounded-15 text-24 font-bold">
-          <Link href="workshop/intro">關於我</Link>
-        </h3>
-        <h3 className="btn-cusSecondary py-[52px] w-full rounded-15 text-24 font-bold">
-          <Link href="workshop/courses">課程方案</Link>
-        </h3>
-      </div>
+      <p className="text-left border-b w-fit">返回我的營養師專頁目錄</p>
+      <DashboardContainer title="關於我">
+        <NutritionistIntroForm />
+      </DashboardContainer>
     </>
   );
 };
 
-export default NutritionistInfoPage;
+export default NutritionistIntroPage;

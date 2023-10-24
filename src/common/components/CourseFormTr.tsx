@@ -1,17 +1,27 @@
-import { CourseProps } from "@/types/interface";
-import { FC } from "react";
+import { ButtonClass, Course } from "./CourseForm";
+import { FC, ReactNode } from "react";
 
 interface CourseFormTrProps {
-  course: CourseProps;
-  key: string;
+  course: Course;
+  ID: string;
+  buttonClass: ButtonClass;
+  comment: ReactNode;
 }
 
-const CourseFormTr: FC<CourseFormTrProps> = ({ course, key }) => {
+const CourseFormTr: FC<CourseFormTrProps> = ({
+  course,
+  ID,
+  buttonClass,
+  comment,
+}) => {
   return (
-    <tr key={key}>
+    <>
       <td className="text-14">{course.OrderNumber}</td>
       <td>
-        <span className="border-b border-black-950">{course.UserName}</span>
+        <span className="border-b border-black-950">
+          {course.UserName ? course.UserName : course.Title}/
+          {course.CourseTitle}
+        </span>
       </td>
       <td>
         {course.CourseStartDate}-{course.CourseEndDate}
@@ -31,23 +41,33 @@ const CourseFormTr: FC<CourseFormTrProps> = ({ course, key }) => {
       </td>
       <td>
         {course.IsQuest ? (
-          <button className="btn-cusWritePrimary">已填寫</button>
+          <button
+            disabled={buttonClass[ID].IsQuest.true.disable}
+            className={buttonClass[ID].IsQuest.true.class}
+          >
+            已填寫
+          </button>
         ) : (
-          <button disabled className="btn-cusWriteBlack">
+          <button
+            disabled={buttonClass[ID].IsQuest.false.disable}
+            className={buttonClass[ID].IsQuest.false.class}
+          >
             未填寫
           </button>
         )}
       </td>
       <td>
-        {course.CourseState === "未開始" ? (
-          <button className="w-full btn-cusWriteSecondary">開始</button>
+        {comment ? (
+          comment
+        ) : course.CourseState === "未開始" ? (
+          <button className="btn-cusWriteSecondary">開始</button>
         ) : (
-          <button disabled className="w-full  btn-cusDisableWriteBlack">
+          <button disabled className="btn-cusDisableWriteBlack">
             開始
           </button>
         )}
       </td>
-    </tr>
+    </>
   );
 };
 
