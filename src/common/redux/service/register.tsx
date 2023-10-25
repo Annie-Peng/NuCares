@@ -6,9 +6,9 @@ export const register = createApi({
     baseUrl: process.env.NEXT_PUBLIC_API_URL,
   }),
   endpoints: (builder) => ({
-    userRegisterPostApi: builder.mutation({
+    userRegisterEmailPostApi: builder.mutation({
       query: (body) => ({
-        url: "/users/sign_up",
+        url: "/auth/checkEmail",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -19,4 +19,4 @@ export const register = createApi({
   }),
 });
 
-export const { useUserRegisterPostApiMutation } = register;
+export const { useUserRegisterEmailPostApiMutation } = register;
