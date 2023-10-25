@@ -1,3 +1,4 @@
+import { useForm } from "react-hook-form";
 import Link from "next/link";
 import Image from "next/image";
 import logoPrimary from "public/images/logo-primary-300.svg";
@@ -24,24 +25,65 @@ interface Data {
   [key: string]: string | File | number;
 }
 
+const errMsg = {
+  email: {
+    required: false,
+    statusCode: [],
+  },
+  password: {
+    required: false,
+    statusCode: [],
+  },
+  RePassword: {
+    required: false,
+    statusCode: [],
+  },
+};
+
 const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
+
   const dispatch = useDispatch();
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const data: Data = {};
-    formData.forEach((value, key) => {
-      data[key] = value;
-    });
+  const onSubmit = (data) => {
+    console.log(data);
+    // e.preventDefault();
+    // const formData = new FormData(e.currentTarget);
+    // let data: Data = {};
+    // let showRequired = err;
+    // formData.forEach((value, key) => {
+    //   data[key] = value;
+    //   if (data[key] === "") {
+    //     showRequired = {
+    //       ...showRequired,
+    //       [key]: {
+    //         ...showRequired[key],
+    //         required: true,
+    //       },
+    //     };
+    //   } else {
+    //     showRequired = {
+    //       ...showRequired,
+    //       [key]: {
+    //         ...showRequired[key],
+    //         required: false,
+    //       },
+    //     };
+    //   }
+    // });
+    // setErr(showRequired);
     dispatch(storeRegisterForm(data));
-    setCurrentPhase(2);
+    // setCurrentPhase(2);
   };
 
   return (
     <form
       className="cusForm max-w-[464px] mx-auto mt-[75px] relative text-black-500"
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <div>
         <Image src={logoPrimary} width="147" height="27" alt="NuCares-logo" />
@@ -49,22 +91,31 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
       </div>
       <Image src={registerStep1} width="290" height="20" alt="registerStep1" />
       <div className="flex flex-col gap-24 w-full text-14 lg:text-16 lg:gap-32">
-        <label htmlFor="email" className="relative">
+        <label htmlFor="Email" className="relative">
           <input
             className="cusInputWithIcon"
             placeholder="帳號(Email)"
-            name="email"
-            type="email"
+            name="Email"
+            type="text"
+            {...register("Email", { required: true })}
           />
+          {errors.Email && (
+            <p className="text-left text-secondary-600">*必填</p>
+          )}
           <div className="cusShowLeftIcon bg-emailIcon" />
         </label>
-        <label htmlFor="password" className="relative">
+
+        <label htmlFor="Password" className="relative">
           <input
             className="cusInputWithIcon"
             placeholder="密碼(請輸入8個字元的英數組合)"
-            name="password"
+            name="Password"
             type="password"
+            {...register("Password", { required: true })}
           />
+          {errors.Password && (
+            <p className="text-left text-secondary-600">*必填</p>
+          )}
           <div className="cusShowLeftIcon bg-passwordIcon" />
           <div className="cusShowRightIcon bg-eyeCloseIcon" />
         </label>
@@ -74,7 +125,11 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
             placeholder="再次確認密碼"
             name="RePassword"
             type="password"
+            {...register("RePassword", { required: true })}
           />
+          {errors.RePassword && (
+            <p className="text-left text-secondary-600">*必填</p>
+          )}
           <div className="cusShowLeftIcon bg-passwordIcon" />
           <div className="cusShowRightIcon bg-eyeCloseIcon" />
         </label>
