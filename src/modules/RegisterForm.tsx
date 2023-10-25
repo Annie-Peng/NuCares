@@ -1,7 +1,7 @@
 import { useState, ChangeEvent, FormEvent, FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectRegister,
@@ -26,6 +26,12 @@ interface Data {
   [key: string]: string | File | number;
 }
 
+interface IFormInput {
+  Email: string;
+  Password: string;
+  RePassword: string;
+}
+
 const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
   const [userRegisterEmailPostApi] = useUserRegisterEmailPostApiMutation();
   const dispatch = useDispatch();
@@ -35,9 +41,9 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
     register,
     formState: { errors },
     setError,
-  } = useForm();
+  } = useForm<IFormInput>();
 
-  const onSubmit = async (formData) => {
+  const onSubmit: SubmitHandler<IFormInput> = async (formData) => {
     // console.log(formData);
 
     try {
@@ -74,7 +80,6 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
               errors.Email && "focus:ring-secondary-500"
             }`}
             placeholder="帳號(Email)"
-            name="Email"
             type="text"
             {...register("Email", {
               required: "*必填",
@@ -96,7 +101,6 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
               errors.Password && "focus:ring-secondary-500"
             }`}
             placeholder="密碼(請輸入8個字元的英數組合)"
-            name="Password"
             type="password"
             {...register("Password", {
               required: "*必填",
@@ -118,7 +122,6 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
               errors.RePassword && "focus:ring-secondary-500"
             }`}
             placeholder="再次確認密碼"
-            name="RePassword"
             type="password"
             {...register("RePassword", {
               required: "*必填",
