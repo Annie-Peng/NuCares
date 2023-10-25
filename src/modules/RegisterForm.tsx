@@ -1,21 +1,22 @@
-import { useForm } from "react-hook-form";
+import { useState, ChangeEvent, FormEvent, FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import logoPrimary from "public/images/logo-primary-300.svg";
-import registerStep1 from "public/images/register/registerStep1.svg";
-import registerStep2 from "public/images/register/registerStep2.svg";
-import registerStep3 from "public/images/register/registerStep3.svg";
-import { useState, ChangeEvent, FormEvent, FC } from "react";
-import DatePicker, { CalendarContainer } from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import CusDatePicker from "./CusDatePicker";
+import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { useUserRegisterPostApiMutation } from "@/common/redux/service/register";
 import {
   selectRegister,
   storeRegisterForm,
 } from "@/common/redux/features/registerPhases";
+import { useUserRegisterEmailPostApiMutation } from "@/common/redux/service/register";
+import apiErrMsg from "@/common/lib/dashboard/apiErrMsg";
+import CusDatePicker from "./CusDatePicker";
 import { RegisterData } from "@/types/interface";
+import DatePicker, { CalendarContainer } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import logoPrimary from "public/images/logo-primary-300.svg";
+import registerStep1 from "public/images/register/registerStep1.svg";
+import registerStep2 from "public/images/register/registerStep2.svg";
+import registerStep3 from "public/images/register/registerStep3.svg";
 
 interface RegisterFormProps {
   setCurrentPhase: (currentPhase: number) => void;
@@ -25,22 +26,10 @@ interface Data {
   [key: string]: string | File | number;
 }
 
-const errMsg = {
-  email: {
-    required: false,
-    statusCode: [],
-  },
-  password: {
-    required: false,
-    statusCode: [],
-  },
-  RePassword: {
-    required: false,
-    statusCode: [],
-  },
-};
-
 const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
+  const [userRegisterEmailPostApi] = useUserRegisterEmailPostApiMutation();
+  const dispatch = useDispatch();
+
   const {
     handleSubmit,
     register,
@@ -48,37 +37,23 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
     setError,
   } = useForm();
 
-  const dispatch = useDispatch();
+  const onSubmit = async (formData) => {
+    // console.log(formData);
 
-  const onSubmit = (datas) => {
-    console.log(datas);
-    // e.preventDefault();
-    // const formData = new FormData(e.currentTarget);
-    // let data: Data = {};
-    // let showRequired = err;
-    // formData.forEach((value, key) => {
-    //   data[key] = value;
-    //   if (data[key] === "") {
-    //     showRequired = {
-    //       ...showRequired,
-    //       [key]: {
-    //         ...showRequired[key],
-    //         required: true,
-    //       },
-    //     };
-    //   } else {
-    //     showRequired = {
-    //       ...showRequired,
-    //       [key]: {
-    //         ...showRequired[key],
-    //         required: false,
-    //       },
-    //     };
-    //   }
-    // });
-    // setErr(showRequired);
-    // dispatch(storeRegisterForm(datas));
-    // setCurrentPhase(2);
+    try {
+      const result = await userRegisterEmailPostApi(formData.Email).unwrap();
+      console.log(result);
+      dispatch(storeRegisterForm(formData));
+      setCurrentPhase(2);
+    } catch (error) {
+      console.log(error);
+      if (apiErrMsg.register.Email.statusCode[error.status]) {
+        setError("Email", {
+          type: "manual",
+          message: apiErrMsg.register.Email.statusCode[error.status],
+        });
+      }
+    }
   };
 
   console.log(errors);
