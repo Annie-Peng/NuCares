@@ -101,14 +101,20 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
             placeholder="帳號(Email)"
             name="Email"
             type="text"
-            {...register("Email", { required: "*必填" })}
+            {...register("Email", {
+              required: "*必填",
+              pattern: {
+                value:
+                  /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/,
+                message: "Email格式有誤",
+              },
+            })}
           />
           <p className="text-left text-secondary-600">
             {errors.Email?.message}
           </p>
           <div className="cusShowLeftIcon bg-emailIcon" />
         </label>
-
         <label htmlFor="Password" className="relative">
           <input
             className={`cusInputWithIcon ${
@@ -117,7 +123,13 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
             placeholder="密碼(請輸入8個字元的英數組合)"
             name="Password"
             type="password"
-            {...register("Password", { required: "*必填" })}
+            {...register("Password", {
+              required: "*必填",
+              pattern: {
+                value: /\w{8}/,
+                message: "密碼格式有誤",
+              },
+            })}
           />
           <p className="text-left text-secondary-600">
             {errors.Password?.message}
@@ -133,7 +145,11 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
             placeholder="再次確認密碼"
             name="RePassword"
             type="password"
-            {...register("RePassword", { required: "*必填" })}
+            {...register("RePassword", {
+              required: "*必填",
+              validate: (value, formValues) =>
+                value === formValues.Password || "您輸入的密碼不一致",
+            })}
           />
           <p className="text-left text-secondary-600">
             {errors.RePassword?.message}
