@@ -45,6 +45,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
     handleSubmit,
     register,
     formState: { errors },
+    setError,
   } = useForm();
 
   const dispatch = useDispatch();
@@ -97,11 +98,11 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
             placeholder="帳號(Email)"
             name="Email"
             type="text"
-            {...register("Email", { required: true })}
+            {...register("Email", { required: "*必填" })}
           />
-          {errors.Email && (
-            <p className="text-left text-secondary-600">*必填</p>
-          )}
+          <p className="text-left text-secondary-600">
+            {errors.Email?.message}
+          </p>
           <div className="cusShowLeftIcon bg-emailIcon" />
         </label>
 
@@ -111,11 +112,11 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
             placeholder="密碼(請輸入8個字元的英數組合)"
             name="Password"
             type="password"
-            {...register("Password", { required: true })}
+            {...register("Password", { required: "*必填" })}
           />
-          {errors.Password && (
-            <p className="text-left text-secondary-600">*必填</p>
-          )}
+          <p className="text-left text-secondary-600">
+            {errors.Password?.message}
+          </p>
           <div className="cusShowLeftIcon bg-passwordIcon" />
           <div className="cusShowRightIcon bg-eyeCloseIcon" />
         </label>
@@ -125,11 +126,11 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
             placeholder="再次確認密碼"
             name="RePassword"
             type="password"
-            {...register("RePassword", { required: true })}
+            {...register("RePassword", { required: "*必填" })}
           />
-          {errors.RePassword && (
-            <p className="text-left text-secondary-600">*必填</p>
-          )}
+          <p className="text-left text-secondary-600">
+            {errors.RePassword?.message}
+          </p>
           <div className="cusShowLeftIcon bg-passwordIcon" />
           <div className="cusShowRightIcon bg-eyeCloseIcon" />
         </label>
