@@ -50,8 +50,8 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
 
   const dispatch = useDispatch();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = (datas) => {
+    console.log(datas);
     // e.preventDefault();
     // const formData = new FormData(e.currentTarget);
     // let data: Data = {};
@@ -77,10 +77,11 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
     //   }
     // });
     // setErr(showRequired);
-    dispatch(storeRegisterForm(data));
+    // dispatch(storeRegisterForm(datas));
     // setCurrentPhase(2);
   };
 
+  console.log(errors);
   return (
     <form
       className="cusForm max-w-[464px] mx-auto mt-[75px] relative text-black-500"
@@ -94,7 +95,9 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
       <div className="flex flex-col gap-24 w-full text-14 lg:text-16 lg:gap-32">
         <label htmlFor="Email" className="relative">
           <input
-            className="cusInputWithIcon"
+            className={`cusInputWithIcon ${
+              errors.Email && "focus:ring-secondary-500"
+            }`}
             placeholder="帳號(Email)"
             name="Email"
             type="text"
@@ -108,7 +111,9 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
 
         <label htmlFor="Password" className="relative">
           <input
-            className="cusInputWithIcon"
+            className={`cusInputWithIcon ${
+              errors.Password && "focus:ring-secondary-500"
+            }`}
             placeholder="密碼(請輸入8個字元的英數組合)"
             name="Password"
             type="password"
@@ -122,7 +127,9 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
         </label>
         <label htmlFor="RePassword" className="relative">
           <input
-            className="cusInputWithIcon"
+            className={`cusInputWithIcon ${
+              errors.RePassword && "focus:ring-secondary-500"
+            }`}
             placeholder="再次確認密碼"
             name="RePassword"
             type="password"
