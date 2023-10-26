@@ -11,7 +11,6 @@ import {
   useUserRegisterEmailPostApiMutation,
   useUserRegisterPostApiMutation,
 } from "@/common/redux/service/register";
-import apiErrMsg from "@/common/lib/dashboard/apiErrMsg";
 import { RegisterData } from "@/types/interface";
 import DatePicker, { CalendarContainer } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -19,7 +18,8 @@ import logoPrimary from "public/images/logo-primary-300.svg";
 import registerStep1 from "public/images/register/registerStep1.svg";
 import registerStep2 from "public/images/register/registerStep2.svg";
 import registerStep3 from "public/images/register/registerStep3.svg";
-
+import registerApiErrMsg from "@/common/lib/dashboard/errMsg/registerApiErrMsg";
+import errInput from "@/common/helpers/errInput";
 interface RegisterFormProps {
   setCurrentPhase: (currentPhase: number) => void;
 }
@@ -56,6 +56,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
     const newFormData = {
       Email: formData.Email,
       Password: formData.Password,
+      RePassword: formData.RePassword,
     };
 
     try {
@@ -65,12 +66,9 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
       setCurrentPhase(2);
     } catch (error) {
       console.log(error);
-      if (apiErrMsg.register.Email.statusCode[error.status]) {
-        setError("Email", {
-          type: "manual",
-          message: apiErrMsg.register.Email.statusCode[error.status],
-        });
-      }
+
+      const errMsgs = Object.entries(error.data.Message);
+      errInput(registerApiErrMsg, errMsgs, error.status, setError);
     }
   };
 
@@ -117,7 +115,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
             {...register("Password", {
               required: "*必填",
               pattern: {
-                value: /^[a-zA-Z\d]{6,12}$/,
+                value: /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,12}$/,
                 message: "密碼格式有誤",
               },
             })}
@@ -195,6 +193,10 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
     setCurrentPhase(3);
     // } catch (error) {
     //   console.log(error);
+
+    // const errMsgs = Object.entries(error.data.Message);
+
+    // errInput(registerApiErrMsg, errMsgs, error.status, setError);
     // }
   };
 
