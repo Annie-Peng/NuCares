@@ -34,6 +34,12 @@ const foodAPI = {
   OilSum: "1, 1",
   FruitSum: "2, 3",
   WaterSum: "3700, 2000",
+  StarchSumAchieved: false,
+  ProteinSumAchieved: false,
+  VegetableSumAchieved: false,
+  OilSumAchieved: true,
+  FruitSumAchieved: true,
+  WaterSumAchieved: false,
   Breakfast: {
     Id: 1,
     DailyLogId: 1,
@@ -43,6 +49,9 @@ const foodAPI = {
     Starch: "BStarch,2",
     Protein: "BProtein,2",
     Vegetable: "BVegetable,2",
+    StarchAchieved: false,
+    ProteinAchieved: true,
+    VegetableAchieved: true,
   },
   Lunch: {
     // {
@@ -54,6 +63,9 @@ const foodAPI = {
     Starch: "LStarch,2",
     Protein: "LProtein,2",
     Vegetable: "LVegetable,2",
+    StarchAchieved: true,
+    ProteinAchieved: false,
+    VegetableAchieved: true,
   },
   Dinner: {
     Id: 3,
@@ -64,6 +76,9 @@ const foodAPI = {
     Starch: "DStarch,2",
     Protein: "DProtein,2",
     Vegetable: "Degetable,2",
+    StarchAchieved: true,
+    ProteinAchieved: true,
+    VegetableAchieved: false,
   },
   Fruit: "Fruit,Fruit",
   FruitDescription: "",
@@ -202,6 +217,8 @@ function renderEventContent(
 
   const fetchData = event.extendedProps;
 
+  // console.log(filterFoodIcons);
+
   return (
     <div>
       {/* {event.tab} */}
@@ -218,16 +235,28 @@ function renderEventContent(
       </ul>
       <ul className="mt-[58px] flex justify-center gap-[45px] text-black-950">
         {filterFoodIcons.map((filterFoodIcon, index) => {
+          //飲食達成icon切換
+          const sumAchieved = `${[filterFoodIcon.enName]}SumAchieved`;
+          const achieved = `${[filterFoodIcon.enName]}Achieved`;
+          let showFoodIcon = filterFoodIcon.PC;
+
+          if (foodAPI[sumAchieved]) {
+            showFoodIcon = filterFoodIcon.completed;
+          } else if (foodAPI[tab.enName] && foodAPI[tab.enName][achieved]) {
+            showFoodIcon = filterFoodIcon.completed;
+          }
+
           return (
             <li key={index} className="text-center">
               <Image
-                src={`/images/dashboard/dietary-record/foods/${filterFoodIcon.PC}`}
+                src={`/images/dashboard/dietary-record/foods/${showFoodIcon}`}
                 alt={filterFoodIcon.PC}
                 width={75}
                 height={75}
               />
               <p className="mt-6">{filterFoodIcon.name}</p>
               <p className="mt-8">
+                {/* 顯示 "紀錄/菜單" */}
                 {fetchData[filterFoodIcon.enName]
                   ? fetchData[filterFoodIcon.enName]
                   : fetchData[tab.enName][filterFoodIcon.enName]
