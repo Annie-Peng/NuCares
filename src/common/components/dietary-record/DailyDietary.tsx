@@ -27,7 +27,7 @@ interface Event {
 
 const foodAPI = {
   Id: 1,
-  InsertDate: "2023-10-26",
+  InsertDate: "2023-10-27",
   StarchSum: "1, 3",
   ProteinSum: "2, 9",
   VegetableSum: "3, 6",
@@ -223,11 +223,18 @@ function renderEventContent(
     <div>
       {/* {event.tab} */}
       <ul className="flex justify-center gap-32 text-primary-500">
-        {tabs.map((tab, index) => {
+        {tabs.map((title, index) => {
           return (
-            <li key={index} className="p-12">
-              <button type="button" onClick={() => changeTab(tab)}>
-                {tab.name}
+            <li key={index}>
+              <button
+                type="button"
+                onClick={() => changeTab(title)}
+                className={`p-12 ${
+                  title.name === tab.name &&
+                  "pb-10 px-12 border-b-2 border-secondary-400 text-secondary-400"
+                } `}
+              >
+                {title.name}
               </button>
             </li>
           );
