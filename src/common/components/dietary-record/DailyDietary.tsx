@@ -2,6 +2,8 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import Image from "next/image";
 import { useState } from "react";
+import Input from "../Input";
+import dailyDietaryInput from "@/common/lib/dashboard/dailyDietaryInput";
 
 interface FoodIcon {
   PC: string;
@@ -220,9 +222,9 @@ function renderEventContent(
   // console.log(filterFoodIcons);
 
   return (
-    <div>
+    <>
       {/* {event.tab} */}
-      <ul className="flex justify-center gap-32 text-primary-500">
+      <ul className="w-full flex justify-center gap-32 text-primary-500">
         {tabs.map((title, index) => {
           return (
             <li key={index}>
@@ -240,41 +242,53 @@ function renderEventContent(
           );
         })}
       </ul>
-      <ul className="mt-[58px] flex justify-center gap-[45px] text-black-950">
-        {filterFoodIcons.map((filterFoodIcon, index) => {
-          //飲食達成icon切換
-          const sumAchieved = `${[filterFoodIcon.enName]}SumAchieved`;
-          const achieved = `${[filterFoodIcon.enName]}Achieved`;
-          let showFoodIcon = filterFoodIcon.PC;
+      <div className="flex min-h-[154px] mt-28 items-center">
+        {tab.enName !== "All" && (
+          <div className="w-[60%] self-stretch p-8 border border-primary-300 flex gap-8">
+            {dailyDietaryInput[tab.enName].map((item) => (
+              <>
+                <Input name={item.name} type={item.type} />
+                <textarea name="MealDescription"></textarea>
+              </>
+            ))}
+          </div>
+        )}
+        <ul className="mx-auto flex justify-center gap-[45px] text-black-950">
+          {filterFoodIcons.map((filterFoodIcon, index) => {
+            //飲食達成icon切換
+            const sumAchieved = `${[filterFoodIcon.enName]}SumAchieved`;
+            const achieved = `${[filterFoodIcon.enName]}Achieved`;
+            let showFoodIcon = filterFoodIcon.PC;
 
-          if (foodAPI[sumAchieved]) {
-            showFoodIcon = filterFoodIcon.completed;
-          } else if (foodAPI[tab.enName] && foodAPI[tab.enName][achieved]) {
-            showFoodIcon = filterFoodIcon.completed;
-          }
+            if (foodAPI[sumAchieved]) {
+              showFoodIcon = filterFoodIcon.completed;
+            } else if (foodAPI[tab.enName] && foodAPI[tab.enName][achieved]) {
+              showFoodIcon = filterFoodIcon.completed;
+            }
 
-          return (
-            <li key={index} className="text-center">
-              <Image
-                src={`/images/dashboard/dietary-record/foods/${showFoodIcon}`}
-                alt={filterFoodIcon.PC}
-                width={75}
-                height={75}
-              />
-              <p className="mt-6">{filterFoodIcon.name}</p>
-              <p className="mt-8">
-                {/* 顯示 "紀錄/菜單" */}
-                {fetchData[filterFoodIcon.enName]
-                  ? fetchData[filterFoodIcon.enName]
-                  : fetchData[tab.enName][filterFoodIcon.enName]
-                  ? fetchData[tab.enName][filterFoodIcon.enName]
-                  : fetchData[tab.enName][`${filterFoodIcon.enName}Sum`]}
-              </p>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+            return (
+              <li key={index} className="text-center">
+                <Image
+                  src={`/images/dashboard/dietary-record/foods/${showFoodIcon}`}
+                  alt={filterFoodIcon.PC}
+                  width={75}
+                  height={75}
+                />
+                <p className="mt-6">{filterFoodIcon.name}</p>
+                <p className="mt-8">
+                  {/* 顯示 "紀錄/菜單" */}
+                  {fetchData[filterFoodIcon.enName]
+                    ? fetchData[filterFoodIcon.enName]
+                    : fetchData[tab.enName][filterFoodIcon.enName]
+                    ? fetchData[tab.enName][filterFoodIcon.enName]
+                    : fetchData[tab.enName][`${filterFoodIcon.enName}Sum`]}
+                </p>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </>
   );
 }
 
