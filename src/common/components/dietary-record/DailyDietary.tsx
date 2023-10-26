@@ -27,7 +27,7 @@ interface Event {
 
 const foodAPI = {
   Id: 1,
-  InsertDate: "2023-10-20",
+  InsertDate: "2023-10-26",
   StarchSum: "1, 3",
   ProteinSum: "2, 9",
   VegetableSum: "3, 6",
@@ -180,7 +180,7 @@ const DailyDietary = () => {
         center: "title",
         end: "next",
       }}
-      height="100%"
+      height="285px"
     />
   );
 };
@@ -205,10 +205,10 @@ function renderEventContent(
   return (
     <div>
       {/* {event.tab} */}
-      <ul className="flex justify-center gap-12 mt-12">
+      <ul className="flex justify-center gap-32 text-primary-500">
         {tabs.map((tab, index) => {
           return (
-            <li key={index}>
+            <li key={index} className="p-12">
               <button type="button" onClick={() => changeTab(tab)}>
                 {tab.name}
               </button>
@@ -216,19 +216,18 @@ function renderEventContent(
           );
         })}
       </ul>
-      <ul className="flex gap-[90px] text-black-950">
+      <ul className="mt-[58px] flex justify-center gap-[45px] text-black-950">
         {filterFoodIcons.map((filterFoodIcon, index) => {
           return (
-            <li key={index}>
+            <li key={index} className="text-center">
               <Image
                 src={`/images/dashboard/dietary-record/foods/${filterFoodIcon.PC}`}
                 alt={filterFoodIcon.PC}
                 width={75}
                 height={75}
               />
-              <p className="text-center mt-6">{filterFoodIcon.name}</p>
-
-              <p>
+              <p className="mt-6">{filterFoodIcon.name}</p>
+              <p className="mt-8">
                 {fetchData[filterFoodIcon.enName]
                   ? fetchData[filterFoodIcon.enName]
                   : fetchData[tab.enName][filterFoodIcon.enName]
