@@ -1,13 +1,16 @@
-import { useState, ChangeEvent, FormEvent, FC } from "react";
+import { useState, ChangeEvent, FC, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectRegister,
   storeRegisterForm,
 } from "@/common/redux/features/registerPhases";
-import { useUserRegisterEmailPostApiMutation } from "@/common/redux/service/register";
+import {
+  useUserRegisterEmailPostApiMutation,
+  useUserRegisterPostApiMutation,
+} from "@/common/redux/service/register";
 import apiErrMsg from "@/common/lib/dashboard/apiErrMsg";
 import CusDatePicker from "./CusDatePicker";
 import { RegisterData } from "@/types/interface";
@@ -26,10 +29,17 @@ interface Data {
   [key: string]: string | File | number;
 }
 
-interface IFormInput {
+interface FormInput {
   Email: string;
   Password: string;
   RePassword: string;
+}
+
+export interface SecondFormInput {
+  UserName: string;
+  Birthday: string;
+  Gender: string;
+  Phone: string;
 }
 
 const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
@@ -41,25 +51,25 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
     register,
     formState: { errors },
     setError,
-  } = useForm<IFormInput>();
+  } = useForm<FormInput>();
 
-  const onSubmit: SubmitHandler<IFormInput> = async (formData) => {
+  const onSubmit: SubmitHandler<FormInput> = async (formData) => {
     // console.log(formData);
 
-    try {
-      const result = await userRegisterEmailPostApi(formData.Email).unwrap();
-      console.log(result);
-      dispatch(storeRegisterForm(formData));
-      setCurrentPhase(2);
-    } catch (error) {
-      console.log(error);
-      if (apiErrMsg.register.Email.statusCode[error.status]) {
-        setError("Email", {
-          type: "manual",
-          message: apiErrMsg.register.Email.statusCode[error.status],
-        });
-      }
-    }
+    // try {
+    //   const result = await userRegisterEmailPostApi(formData.Email).unwrap();
+    //   console.log(result);
+    dispatch(storeRegisterForm(formData));
+    setCurrentPhase(2);
+    // } catch (error) {
+    //   console.log(error);
+    //   if (apiErrMsg.register.Email.statusCode[error.status]) {
+    //     setError("Email", {
+    //       type: "manual",
+    //       message: apiErrMsg.register.Email.statusCode[error.status],
+    //     });
+    //   }
+    // }
   };
 
   console.log(errors);
@@ -155,28 +165,33 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
   setCurrentPhase,
 }) => {
   const [color, setColor] = useState("text-black-200");
-  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [birthdate, setBirthdate] = useState<Date | null>(null);
+
   const dispatch = useDispatch();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    setError,
+    control,
+  } = useForm<SecondFormInput>();
   const registerData = useSelector(selectRegister);
   const [userRegisterPostApi] = useUserRegisterPostApiMutation();
 
   console.log(registerData);
+  // console.log(startDate);
 
-  const userRegisterPost = async (registerData?: RegisterData) => {
-    const res = await userRegisterPostApi(registerData);
-    console.log(res);
-  };
+  const onSubmit: SubmitHandler<SecondFormInput> = async (formData) => {
+    console.log(formData);
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const data: Data = {};
-    formData.forEach((value, key) => {
-      data[key] = value;
-    });
-    dispatch(storeRegisterForm(data));
-    userRegisterPost(registerData);
-    // setCurrentPhase(2);
+    // try {
+    //   const result = await userRegisterPostApi(formData).unwrap();
+    //   console.log(result);
+    dispatch(storeRegisterForm(formData));
+    setCurrentPhase(3);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -194,7 +209,7 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
   return (
     <form
       className="cusForm max-w-[464px] mx-auto mt-[75px] relative text-black-500"
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <div>
         <Image src={logoPrimary} width="147" height="27" alt="NuCares-logo" />
@@ -210,33 +225,66 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
       <div className="flex flex-col gap-24 w-full text-14 lg:text-16 lg:gap-32">
         <label htmlFor="nickname" className="relative">
           <input
-            className="cusInputWithIcon"
+            className={`cusInputWithIcon ${
+              errors.UserName && "focus:ring-secondary-500"
+            }`}
             placeholder="姓名"
-            name="nickname"
             type="text"
+            {...register("UserName", { required: "*必填" })}
           />
           <div className="cusShowLeftIcon bg-nameIcon" />
+          <p className="text-left text-secondary-600">
+            {errors.UserName?.message}
+          </p>
         </label>
         <label htmlFor="Birthday" className="relative">
-          <DatePicker
-            selected={startDate}
-            onChange={(date: Date | null) => setStartDate(date)}
-            customInput={
-              <CusDatePicker
-                value={startDate?.toString() || ""}
-                onClick={handleDateClick}
+          <Controller
+            control={control}
+            name="Birthday"
+            rules={{ required: "*必填" }}
+            render={({ field }) => (
+              <DatePicker
+                className={`cusInputWithIcon ${
+                  errors.Birthday && "focus:ring-secondary-500"
+                }`}
+                name="Birthday"
+                placeholderText="生日"
+                selected={field.value ? new Date(field.value) : null}
+                dateFormat="yyyy/MM/dd"
+                onChange={(date: Date | [Date, Date] | null) => {
+                  if (date instanceof Date) {
+                    const formattedDate = `${date.getFullYear()}/${(
+                      date.getMonth() + 1
+                    )
+                      .toString()
+                      .padStart(2, "0")}/${date
+                      .getDate()
+                      .toString()
+                      .padStart(2, "0")}`;
+                    field.onChange(formattedDate);
+                  } else {
+                    field.onChange(date);
+                  }
+                }}
+                peekNextMonth
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode="select"
               />
-            }
-            showMonthDropdown
-            showYearDropdown
-            dropdownMode="select"
-            dateFormat="yyyy-MM-dd"
+            )}
           />
+          <div className="cusShowLeftIcon bg-birthdayIcon" />
+          <div className="cusShowRightIcon bg-calendarIcon" />
+          <p className="text-left text-secondary-600">
+            {errors.Birthday?.message}
+          </p>
         </label>
         <label htmlFor="Gender" className="relative">
           <select
-            className={`cusInputWithIcon ${color}`}
-            name="Gender"
+            className={`cusInputWithIcon ${color} ${
+              errors.Gender && "focus:ring-secondary-500"
+            }`}
+            {...register("Gender", { required: "*必填" })}
             onChange={handleChange}
           >
             <option value="" disabled selected>
@@ -247,15 +295,23 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
           </select>
           <div className="cusShowLeftIcon bg-clipPathIcon" />
           <div className="cusShowRightIcon bg-arrowDownIcon" />
+          <p className="text-left text-secondary-600">
+            {errors.Gender?.message}
+          </p>
         </label>
         <label htmlFor="Phone" className="relative">
           <input
-            className="cusInputWithIcon"
+            className={`cusInputWithIcon ${
+              errors.Phone && "focus:ring-secondary-500"
+            }`}
             placeholder="手機號碼"
-            name="Phone"
             type="number"
+            {...register("Phone", { required: "*必填" })}
           />
           <div className="cusShowLeftIcon bg-mobileIcon" />
+          <p className="text-left text-secondary-600">
+            {errors.Phone?.message}
+          </p>
         </label>
         <label htmlFor="userRule">
           <input
