@@ -174,6 +174,8 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
     formState: { errors },
     setError,
     control,
+    trigger,
+    setValue,
   } = useForm<SecondFormInput>();
   const registerData = useSelector(selectRegister);
   const [userRegisterPostApi] = useUserRegisterPostApiMutation();
@@ -194,16 +196,19 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
     // }
   };
 
-  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    if (e.target.value === "") {
-      setColor("text-black-200");
-    } else {
-      setColor("text-black-500");
-    }
-  };
+  const handleChange = async (e: ChangeEvent<HTMLSelectElement>) => {
+    setValue("Gender", e.target.value);
 
-  const handleDateClick = (e: React.MouseEvent<HTMLInputElement>) => {
-    // 在这里处理点击事件
+    await trigger("Gender");
+
+    if (e.target.value) {
+      setColor("text-black-500");
+      const a = await trigger("Gender");
+
+      console.log(a);
+    } else {
+      setColor("text-black-200");
+    }
   };
 
   return (
