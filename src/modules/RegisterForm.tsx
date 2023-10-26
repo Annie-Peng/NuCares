@@ -12,7 +12,6 @@ import {
   useUserRegisterPostApiMutation,
 } from "@/common/redux/service/register";
 import apiErrMsg from "@/common/lib/dashboard/apiErrMsg";
-import CusDatePicker from "./CusDatePicker";
 import { RegisterData } from "@/types/interface";
 import DatePicker, { CalendarContainer } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -54,22 +53,25 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
   } = useForm<FormInput>();
 
   const onSubmit: SubmitHandler<FormInput> = async (formData) => {
-    // console.log(formData);
+    const newFormData = {
+      Email: formData.Email,
+      Password: formData.Password,
+    };
 
-    // try {
-    //   const result = await userRegisterEmailPostApi(formData.Email).unwrap();
-    //   console.log(result);
-    dispatch(storeRegisterForm(formData));
-    setCurrentPhase(2);
-    // } catch (error) {
-    //   console.log(error);
-    //   if (apiErrMsg.register.Email.statusCode[error.status]) {
-    //     setError("Email", {
-    //       type: "manual",
-    //       message: apiErrMsg.register.Email.statusCode[error.status],
-    //     });
-    //   }
-    // }
+    try {
+      const result = await userRegisterEmailPostApi(newFormData).unwrap();
+      console.log(result);
+      dispatch(storeRegisterForm(formData));
+      setCurrentPhase(2);
+    } catch (error) {
+      console.log(error);
+      if (apiErrMsg.register.Email.statusCode[error.status]) {
+        setError("Email", {
+          type: "manual",
+          message: apiErrMsg.register.Email.statusCode[error.status],
+        });
+      }
+    }
   };
 
   console.log(errors);
@@ -110,12 +112,12 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
             className={`cusInputWithIcon ${
               errors.Password && "focus:ring-secondary-500"
             }`}
-            placeholder="密碼(請輸入8個字元的英數組合)"
+            placeholder="密碼(請輸入6-12字元英數組合)"
             type="password"
             {...register("Password", {
               required: "*必填",
               pattern: {
-                value: /\w{8}/,
+                value: /^[a-zA-Z\d]{6,12}$/,
                 message: "密碼格式有誤",
               },
             })}
