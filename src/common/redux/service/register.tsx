@@ -16,7 +16,20 @@ export const register = createApi({
         body,
       }),
     }),
+    userRegisterPostApi: builder.mutation({
+      query: (body) => ({
+        url: "/auth/signup",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useUserRegisterEmailPostApiMutation } = register;
+export const {
+  useUserRegisterEmailPostApiMutation,
+  useUserRegisterPostApiMutation,
+} = register;

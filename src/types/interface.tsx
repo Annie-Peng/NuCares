@@ -19,9 +19,9 @@ export interface CourseProps {
 }
 
 export interface RegisterData {
-  email: string;
-  password: string;
-  nickname: string;
+  Email: string;
+  Password: string;
+  RePassword: string;
 }
 
 export interface RootState {
