@@ -1,21 +1,22 @@
-interface ErrInputProps {
-  api: string;
-  names: string[][];
-  statusCode: number;
-  setError: (name: string, error: { message: string }) => void;
-}
+import { FormInput } from "@/modules/register/RegisterForm";
+import { UseFormSetError } from "react-hook-form";
 
+import { RegisterApiErrMsgProps } from "../lib/dashboard/errMsg/registerApiErrMsg";
 interface Inputs {
   name: string;
   message: string;
 }
-
-const errInput = ({ api, names, statusCode, setError }: ErrInputProps) => {
+const errInput = (
+  api: RegisterApiErrMsgProps,
+  names: [string, string][],
+  statusCode: number,
+  setError: UseFormSetError<FormInput>
+) => {
   let inputs: Inputs[] = [];
   names.forEach((name) => {
     inputs.push({
       name: name[0],
-      message: (api as any)[name[0]]?.[statusCode][name[1]],
+      message: api[name[0]]?.[statusCode][name[1]],
     });
   });
 
