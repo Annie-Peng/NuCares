@@ -21,9 +21,14 @@ const registerApiErrMsg: RegisterApiErrMsgProps = {
       密碼不相同: "您輸入的密碼不一致",
     },
   },
-  PasswordConfirm: {
+  RePassword: {
     400: {
       密碼確認必填: "*必填",
+    },
+  },
+  Phone: {
+    400: {
+      手機號碼格式錯誤: "手機號碼格式有誤",
     },
   },
 };
