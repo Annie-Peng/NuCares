@@ -108,7 +108,7 @@ const tabs: Tab[] = [
 const foodIcons: FoodIcon[] = [
   {
     PC: "starch_PC.svg",
-    completed: "starch-completed_PC.svg",
+    completed: "starch-completed_PC.png",
     mobile: "starch_mobile.svg",
     name: "澱粉",
     enName: "Starch",
@@ -116,7 +116,7 @@ const foodIcons: FoodIcon[] = [
   },
   {
     PC: "protein_PC.svg",
-    completed: "protein-completed_PC.svg",
+    completed: "protein-completed_PC.png",
     mobile: "protein_mobile.svg",
     name: "蛋白質",
     enName: "Protein",
@@ -124,7 +124,7 @@ const foodIcons: FoodIcon[] = [
   },
   {
     PC: "vegetable_PC.svg",
-    completed: "vegetable-completed_PC.svg",
+    completed: "vegetable-completed_PC.png",
     mobile: "vegetable_mobile.svg",
     name: "蔬菜",
     enName: "Vegetable",
@@ -132,7 +132,7 @@ const foodIcons: FoodIcon[] = [
   },
   {
     PC: "oil_PC.svg",
-    completed: "oil-completed_PC.svg",
+    completed: "oil-completed_PC.png",
     mobile: "oil_mobile.svg",
     name: "油脂",
     enName: "Oil",
@@ -140,7 +140,7 @@ const foodIcons: FoodIcon[] = [
   },
   {
     PC: "fruit_PC.svg",
-    completed: "fruit-completed_PC.svg",
+    completed: "fruit-completed_PC.png",
     mobile: "fruit_mobile.svg",
     name: "水果",
     enName: "Fruit",
@@ -148,7 +148,7 @@ const foodIcons: FoodIcon[] = [
   },
   {
     PC: "water_PC.svg",
-    completed: "water-completed_PC.svg",
+    completed: "water-completed_PC.png",
     mobile: "water_mobile.svg",
     name: "水",
     enName: "Water",
