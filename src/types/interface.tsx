@@ -1,3 +1,4 @@
+import auth, { Auth } from "@/common/redux/features/auth";
 import { ReactNode } from "react";
 export interface LayoutProps {
   children: ReactNode;
@@ -26,4 +27,5 @@ export interface RegisterData {
 
 export interface RootState {
   registerPhases?: RegisterData | undefined;
+  auth: Auth;
 }

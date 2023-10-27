@@ -1,7 +1,7 @@
 import { RootState } from "@/types/interface";
 import { createSlice } from "@reduxjs/toolkit";
 
-interface Auth {
+export interface Auth {
   Token: string;
   UserName: string;
   Email: string;
