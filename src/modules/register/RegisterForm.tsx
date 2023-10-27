@@ -8,12 +8,11 @@ import { useUserRegisterEmailPostApiMutation } from "@/common/redux/service/regi
 import "react-datepicker/dist/react-datepicker.css";
 import logoPrimary from "public/images/logo-primary-300.svg";
 import registerStep1 from "public/images/register/registerStep1.svg";
-import registerStep3 from "public/images/register/registerStep3.svg";
 import registerApiErrMsg from "@/common/lib/dashboard/errMsg/registerApiErrMsg";
 import errInput from "@/common/helpers/errInput";
 import { RegisterFormProps } from "@/pages/register";
 
-interface FormInput {
+export interface FormInput {
   Email: string;
   Password: string;
   RePassword: string;
@@ -46,18 +45,10 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
       console.log(error);
       const e = error as { data?: { Message: unknown }; status?: unknown };
 
-      if (
-        error instanceof Error &&
-        e.data &&
-        typeof e.data.Message === "object"
-      ) {
-        const errMsgs = Object.entries(
-          e.data.Message as Record<string, unknown>
-        );
-        errInput(registerApiErrMsg, errMsgs, e.status, setError);
-      } else {
-        console.error("Unexpected error:", e);
-      }
+      const errMsgs = Object.entries(e.data?.Message as string);
+      const errStatus = e?.status as number;
+
+      errInput(registerApiErrMsg, errMsgs, errStatus, setError);
     }
   };
 
