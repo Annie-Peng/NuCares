@@ -1,11 +1,14 @@
-import RegisterForm, {
-  RegisterFormSecondPhase,
-  RegisterFormThirdPhase,
-} from "@/modules/RegisterForm";
+import RegisterForm from "@/modules/register/RegisterForm";
+import RegisterFormSecondPhase from "@/modules/register/RegisterFormSecondPhase";
+import RegisterFormThirdPhase from "@/modules/register/RegisterFormThirdPhase";
 import { useState } from "react";
 
+export interface RegisterFormProps {
+  setCurrentPhase: (currentPhase: number) => void;
+}
 const RegisterPage = () => {
   const [currentPhase, setCurrentPhase] = useState<number>(1);
+
   return (
     <div className="container text-center cusGrid">
       {currentPhase === 1 && <RegisterForm setCurrentPhase={setCurrentPhase} />}
