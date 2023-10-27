@@ -1,4 +1,12 @@
-const registerApiErrMsg = {
+interface RegisterApiErrMsgStatusCode {
+  [statusCode: number]: Record<string, string>;
+}
+
+export interface RegisterApiErrMsgProps {
+  [key: string]: RegisterApiErrMsgStatusCode;
+}
+
+const registerApiErrMsg: RegisterApiErrMsgProps = {
   Email: {
     400: {
       Email必填: "*必填",
