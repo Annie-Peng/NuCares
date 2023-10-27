@@ -1,16 +1,20 @@
 import { FormInput } from "@/modules/register/RegisterForm";
-import { UseFormSetError } from "react-hook-form";
+import { Path, UseFormSetError } from "react-hook-form";
 
 import { RegisterApiErrMsgProps } from "../lib/dashboard/errMsg/registerApiErrMsg";
 interface Inputs {
   name: string;
   message: string;
 }
-const errInput = (
-  api: RegisterApiErrMsgProps,
+
+const errInput = <
+  T extends RegisterApiErrMsgProps,
+  U extends Record<string, string>
+>(
+  api: T,
   names: [string, string][],
   statusCode: number,
-  setError: UseFormSetError<FormInput>
+  setError: UseFormSetError<U>
 ) => {
   let inputs: Inputs[] = [];
   names.forEach((name) => {
@@ -21,7 +25,7 @@ const errInput = (
   });
 
   inputs.forEach(({ name, message }) => {
-    setError(name, { message });
+    setError(name as Path<U>, { message });
   });
 };
 
