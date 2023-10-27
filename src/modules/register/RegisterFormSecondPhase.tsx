@@ -45,12 +45,15 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
   const registerData = useSelector(selectRegister);
   const [userRegisterPostApi] = useUserRegisterPostApiMutation();
 
-  console.log(registerData);
-
   const onSubmit: SubmitHandler<SecondFormInput> = async (formData) => {
     dispatch(storeRegisterForm(formData));
+    let newFormData = JSON.parse(JSON.stringify(registerData));
+    Object.entries(formData).forEach(([key, value]) => {
+      newFormData[key] = value;
+    });
+
     try {
-      const result = await userRegisterPostApi(registerData).unwrap();
+      const result = await userRegisterPostApi(newFormData).unwrap();
       console.log(result);
       setCurrentPhase(3);
     } catch (error: unknown) {
@@ -163,7 +166,7 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
               生理性別
             </option>
             <option value="male">男</option>
-            <option value="woman">女</option>
+            <option value="female">女</option>
           </select>
           <div className="cusShowLeftIcon bg-clipPathIcon" />
           <div className="cusShowRightIcon bg-arrowDownIcon" />
