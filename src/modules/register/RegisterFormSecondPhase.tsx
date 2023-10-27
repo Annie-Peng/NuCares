@@ -11,12 +11,15 @@ import DatePicker from "react-datepicker";
 import logoPrimary from "public/images/logo-primary-300.svg";
 import registerStep2 from "public/images/register/registerStep2.svg";
 import { RegisterFormProps } from "@/pages/register";
+import registerApiErrMsg from "@/common/lib/dashboard/errMsg/registerApiErrMsg";
+import errInput from "@/common/helpers/errInput";
 
 interface Data {
   [key: string]: string | File | number;
 }
 
 export interface SecondFormInput {
+  [key: string]: string;
   UserName: string;
   Birthday: string;
   Gender: string;
@@ -43,22 +46,21 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
   const [userRegisterPostApi] = useUserRegisterPostApiMutation();
 
   console.log(registerData);
-  // console.log(startDate);
 
   const onSubmit: SubmitHandler<SecondFormInput> = async (formData) => {
-    console.log(formData);
-    // try {
-    //   const result = await userRegisterPostApi(formData).unwrap();
-    //   console.log(result);
     dispatch(storeRegisterForm(formData));
-    setCurrentPhase(3);
-    // } catch (error) {
-    //   console.log(error);
+    try {
+      const result = await userRegisterPostApi(registerData).unwrap();
+      console.log(result);
+      setCurrentPhase(3);
+    } catch (error: unknown) {
+      console.log(error);
+      const e = error as { data?: { Message: unknown }; status?: unknown };
 
-    // const errMsgs = Object.entries(error.data.Message);
-
-    // errInput(registerApiErrMsg, errMsgs, error.status, setError);
-    // }
+      const errMsgs = Object.entries(e.data?.Message as string);
+      const errStatus = e?.status as number;
+      errInput(registerApiErrMsg, errMsgs, errStatus, setError);
+    }
   };
 
   const handleChange = async (e: ChangeEvent<HTMLSelectElement>) => {
@@ -93,7 +95,7 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
         layout="responsive"
       />
       <div className="flex flex-col gap-24 w-full text-14 lg:text-16 lg:gap-32">
-        <label htmlFor="nickname" className="relative">
+        <label className="relative">
           <input
             className={`cusInputWithIcon ${
               errors.UserName && "focus:ring-secondary-500"
@@ -107,7 +109,7 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
             {errors.UserName?.message}
           </p>
         </label>
-        <label htmlFor="Birthday" className="relative">
+        <label className="relative">
           <Controller
             control={control}
             name="Birthday"
@@ -149,7 +151,7 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
             {errors.Birthday?.message}
           </p>
         </label>
-        <label htmlFor="Gender" className="relative">
+        <label className="relative">
           <select
             className={`cusInputWithIcon ${color} ${
               errors.Gender && "focus:ring-secondary-500"
@@ -169,13 +171,13 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
             {errors.Gender?.message}
           </p>
         </label>
-        <label htmlFor="Phone" className="relative">
+        <label className="relative">
           <input
             className={`cusInputWithIcon ${
               errors.Phone && "focus:ring-secondary-500"
             }`}
             placeholder="手機號碼"
-            type="number"
+            type="text"
             {...register("Phone", { required: "*必填" })}
           />
           <div className="cusShowLeftIcon bg-mobileIcon" />
