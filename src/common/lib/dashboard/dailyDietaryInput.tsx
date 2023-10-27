@@ -1,4 +1,6 @@
-const dailyDietaryInput = {
+import { TypeInput } from "@/types/interface";
+
+const dailyDietaryInput: TypeInput = {
   Breakfast: [
     {
       name: "Image",

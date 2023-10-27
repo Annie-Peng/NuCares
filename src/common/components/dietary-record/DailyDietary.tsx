@@ -27,8 +27,52 @@ interface Event {
   };
 }
 
-const foodAPI = {
-  Id: 1,
+interface Meal {
+  Id: string;
+  DailyLogId: string;
+  MealTime: string;
+  MealDescription: string;
+  Image: string;
+  Starch: string;
+  Protein: string;
+  Vegetable: string;
+  StarchAchieved: boolean;
+  ProteinAchieved: boolean;
+  VegetableAchieved: boolean;
+}
+
+interface FoodApi {
+  [key: string]: string | boolean | Meal;
+  Id: string;
+  InsertDate: string;
+  StarchSum: string;
+  ProteinSum: string;
+  VegetableSum: string;
+  OilSum: string;
+  FruitSum: string;
+  WaterSum: string;
+  StarchSumAchieved: boolean;
+  ProteinSumAchieved: boolean;
+  VegetableSumAchieved: boolean;
+  OilSumAchieved: boolean;
+  FruitSumAchieved: boolean;
+  WaterSumAchieved: boolean;
+  Breakfast: Meal;
+  Lunch: Meal;
+  Dinner: Meal;
+  Fruit: string;
+  FruitDescription: string;
+  FruitImgUrl: string;
+  Oil: string;
+  OilDescription: string;
+  OilImgUrl: string;
+  Water: string;
+  WaterDescription: string;
+  WaterImgUrl: string;
+}
+
+const foodAPI: FoodApi = {
+  Id: "1",
   InsertDate: "2023-10-27",
   StarchSum: "1, 3",
   ProteinSum: "2, 9",
@@ -43,8 +87,8 @@ const foodAPI = {
   FruitSumAchieved: true,
   WaterSumAchieved: false,
   Breakfast: {
-    Id: 1,
-    DailyLogId: 1,
+    Id: "1",
+    DailyLogId: "1",
     MealTime: "早餐",
     MealDescription: "吐司...",
     Image: "/upload/images/...",
@@ -57,8 +101,8 @@ const foodAPI = {
   },
   Lunch: {
     // {
-    Id: 2,
-    DailyLogId: 1,
+    Id: "2",
+    DailyLogId: "1",
     MealTime: "午餐",
     MealDescription: "吐司...",
     Image: "/upload/images/...",
@@ -70,8 +114,8 @@ const foodAPI = {
     VegetableAchieved: true,
   },
   Dinner: {
-    Id: 3,
-    DailyLogId: 1,
+    Id: "3",
+    DailyLogId: "1",
     MealTime: "晚餐",
     MealDescription: "吐司...",
     Image: "/upload/images/...",
@@ -262,7 +306,10 @@ function renderEventContent(
 
             if (foodAPI[sumAchieved]) {
               showFoodIcon = filterFoodIcon.completed;
-            } else if (foodAPI[tab.enName] && foodAPI[tab.enName][achieved]) {
+            } else if (
+              foodAPI[tab.enName] &&
+              (foodAPI[tab.enName] as any)[achieved]
+            ) {
               showFoodIcon = filterFoodIcon.completed;
             }
 
