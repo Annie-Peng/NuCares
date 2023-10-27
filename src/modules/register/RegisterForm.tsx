@@ -13,6 +13,7 @@ import errInput from "@/common/helpers/errInput";
 import { RegisterFormProps } from "@/pages/register";
 
 export interface FormInput {
+  [key: string]: string;
   Email: string;
   Password: string;
   RePassword: string;
@@ -30,16 +31,10 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
   } = useForm<FormInput>();
 
   const onSubmit: SubmitHandler<FormInput> = async (formData) => {
-    const newFormData = {
-      Email: formData.Email,
-      Password: formData.Password,
-      RePassword: formData.RePassword,
-    };
-
+    dispatch(storeRegisterForm(formData));
     try {
-      const result = await userRegisterEmailPostApi(newFormData).unwrap();
+      const result = await userRegisterEmailPostApi(formData).unwrap();
       console.log(result);
-      dispatch(storeRegisterForm(formData));
       setCurrentPhase(2);
     } catch (error: unknown) {
       console.log(error);
