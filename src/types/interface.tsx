@@ -27,3 +27,18 @@ export interface RegisterData {
 export interface RootState {
   registerPhases?: RegisterData | undefined;
 }
+
+export interface ErrorData {
+  StatusCode: number;
+  Status: "Error";
+  Message: { [key: string]: string };
+}
+
+export interface Error {
+  data: ErrorData;
+  status: number;
+}
+
+interface FetchError {
+  error?: Error | unknown;
+}
