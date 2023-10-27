@@ -42,11 +42,22 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
       console.log(result);
       dispatch(storeRegisterForm(formData));
       setCurrentPhase(2);
-    } catch (error) {
+    } catch (error: unknown) {
       console.log(error);
+      const e = error as { data?: { Message: unknown }; status?: unknown };
 
-      const errMsgs = Object.entries(error.data.Message);
-      errInput(registerApiErrMsg, errMsgs, error.status, setError);
+      if (
+        error instanceof Error &&
+        e.data &&
+        typeof e.data.Message === "object"
+      ) {
+        const errMsgs = Object.entries(
+          e.data.Message as Record<string, unknown>
+        );
+        errInput(registerApiErrMsg, errMsgs, e.status, setError);
+      } else {
+        console.error("Unexpected error:", e);
+      }
     }
   };
 
