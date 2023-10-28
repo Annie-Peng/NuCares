@@ -2,12 +2,12 @@ import { RootState } from "@/types/interface";
 import { createSlice } from "@reduxjs/toolkit";
 
 const registerData = {
-  email: "",
-  password: "",
-  nickname: "",
-  // Birthday: "",
-  // Gender: "",
-  // Phone: "",
+  Email: "",
+  Password: "",
+  UserName: "",
+  Birthday: "",
+  Gender: "",
+  Phone: "",
 };
 
 export const registerSlice = createSlice({

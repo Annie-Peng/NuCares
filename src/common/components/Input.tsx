@@ -3,8 +3,8 @@ import { FC, ReactEventHandler, ReactNode } from "react";
 interface InputProps {
   name: string;
   type: "text" | "number" | "checkbox" | "password" | "email" | "file";
-  hMsg: string;
-  pMsg: string;
+  hMsg?: string;
+  pMsg?: string;
   children?: ReactNode;
   placeholder?: string;
   value?: string;

@@ -1,3 +1,4 @@
+import auth, { Auth } from "@/common/redux/features/auth";
 import { ReactNode } from "react";
 export interface LayoutProps {
   children: ReactNode;
@@ -19,11 +20,35 @@ export interface CourseProps {
 }
 
 export interface RegisterData {
-  email: string;
-  password: string;
-  nickname: string;
+  Email: string;
+  Password: string;
+  RePassword: string;
 }
 
 export interface RootState {
   registerPhases?: RegisterData | undefined;
+  auth: Auth;
+}
+
+export interface ErrorData {
+  StatusCode: number;
+  Status: "Error";
+  Message: { [key: string]: string };
+}
+
+export interface Error {
+  data: ErrorData;
+  status: number;
+}
+
+export interface FetchError {
+  error?: Error | unknown;
+}
+        
+export interface TypeInput {
+  [key: string]: {
+    name: string;
+    type: "text" | "number" | "checkbox" | "password" | "email" | "file";
+  }[];
+
 }
