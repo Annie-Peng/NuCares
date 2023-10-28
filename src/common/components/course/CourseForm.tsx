@@ -1,10 +1,9 @@
 import courseTabs from "../../lib/dashboard/courseTabs";
 import CourseFormTr from "./CourseFormTr";
-import userData from "../../lib/dashboard/user";
 import { useCourseListGetApiQuery } from "@/common/redux/service/course";
 import { useSelector } from "react-redux";
 import { selectAuth } from "@/common/redux/features/auth";
-import { useTestCourseListGetApiQuery } from "@/common/redux/service/test/testCourse";
+import CourseStartModal from "./CourseStartModal";
 
 export interface Course {
   Title?: string;
@@ -153,18 +152,21 @@ const checkCommentClass = (
 const CourseForm = () => {
   const { UserCurrentStatus } = useSelector(selectAuth);
 
-  const { data } = useTestCourseListGetApiQuery({});
-  //   {
-  //   UserCurrentStatus: UserCurrentStatus,
+  // const { data } = useCourseListGetApiQuery({
+  //   UserCurrentStatus: "user",
   //   PageId: "1",
+  // });
+
+  // if (!data) {
+  //   return "null";
   // }
 
-  console.log(data);
+  if (!UserCurrentStatus) return null;
 
-  const ID = "user";
+  const ID = UserCurrentStatus;
   const IDTabs = courseTabs[ID];
 
-  console.log(IDTabs);
+  console.log(UserCurrentStatus);
 
   return (
     <div className="cusMContainer">
@@ -187,7 +189,7 @@ const CourseForm = () => {
                   <CourseFormTr
                     course={course}
                     key={course.OrderNumber}
-                    ID={userData.currentID}
+                    ID={UserCurrentStatus}
                     buttonClass={buttonClass}
                     comment={checkCommentClass(course, ID, buttonClass)}
                   />
@@ -199,8 +201,8 @@ const CourseForm = () => {
       </div>
 
       {/* 手機版 */}
-      {/* <ul className="lg:hidden container flex flex-col gap-32 mt-32">
-        {API.courses.map((course, index) => {
+      <ul className="lg:hidden container flex flex-col gap-32 mt-32">
+        {data.Data.map((course, index) => {
           const comment = checkCommentClass(course, ID, buttonClass);
 
           return (
@@ -260,7 +262,7 @@ const CourseForm = () => {
             </li>
           );
         })}
-      </ul> */}
+      </ul>
     </div>
   );
 };
