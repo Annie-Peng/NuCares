@@ -57,7 +57,7 @@
   }
 
   .cusModal {
-    @apply absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-primary-200  p-50 rounded-10 w-[820px] z-10;
+    @apply absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-white bg-opacity-80  p-50 rounded-10 w-[820px] z-10 cusShareBg;
   }
 
   .cusModalBg {
@@ -118,11 +118,7 @@
   }
 
   .cusDropdown {
-    border: 1px solid rgb(255, 255, 255, 0.3);
-    background-color: rgb(255, 255, 255, 0.8);
-    box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-    @apply p-20 rounded-10 absolute top-full right-0 z-10 min-w-[196px];
+    @apply p-20 rounded-10 absolute top-full right-0 z-10 min-w-[196px] cusShareBg;
   }
 
   .formHead {
@@ -139,5 +135,12 @@
 
   .cusMContainer {
     @apply container pt-20 pb-80 px-24;
+  }
+
+  .cusShareBg {
+    border: 1px solid rgb(255, 255, 255, 0.3);
+    background-color: rgb(255, 255, 255, 0.8);
+    box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
   }
 }
