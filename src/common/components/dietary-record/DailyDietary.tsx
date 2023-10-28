@@ -2,6 +2,8 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import Image from "next/image";
 import { useState } from "react";
+import Input from "../Input";
+import dailyDietaryInput from "@/common/lib/dashboard/dailyDietaryInput";
 
 interface FoodIcon {
   PC: string;
@@ -25,45 +27,104 @@ interface Event {
   };
 }
 
-const foodAPI = {
-  Id: 1,
-  InsertDate: "2023-10-20",
+interface Meal {
+  Id: string;
+  DailyLogId: string;
+  MealTime: string;
+  MealDescription: string;
+  Image: string;
+  Starch: string;
+  Protein: string;
+  Vegetable: string;
+  StarchAchieved: boolean;
+  ProteinAchieved: boolean;
+  VegetableAchieved: boolean;
+}
+
+interface FoodApi {
+  [key: string]: string | boolean | Meal;
+  Id: string;
+  InsertDate: string;
+  StarchSum: string;
+  ProteinSum: string;
+  VegetableSum: string;
+  OilSum: string;
+  FruitSum: string;
+  WaterSum: string;
+  StarchSumAchieved: boolean;
+  ProteinSumAchieved: boolean;
+  VegetableSumAchieved: boolean;
+  OilSumAchieved: boolean;
+  FruitSumAchieved: boolean;
+  WaterSumAchieved: boolean;
+  Breakfast: Meal;
+  Lunch: Meal;
+  Dinner: Meal;
+  Fruit: string;
+  FruitDescription: string;
+  FruitImgUrl: string;
+  Oil: string;
+  OilDescription: string;
+  OilImgUrl: string;
+  Water: string;
+  WaterDescription: string;
+  WaterImgUrl: string;
+}
+
+const foodAPI: FoodApi = {
+  Id: "1",
+  InsertDate: "2023-10-27",
   StarchSum: "1, 3",
   ProteinSum: "2, 9",
   VegetableSum: "3, 6",
   OilSum: "1, 1",
   FruitSum: "2, 3",
   WaterSum: "3700, 2000",
+  StarchSumAchieved: false,
+  ProteinSumAchieved: false,
+  VegetableSumAchieved: false,
+  OilSumAchieved: true,
+  FruitSumAchieved: true,
+  WaterSumAchieved: false,
   Breakfast: {
-    Id: 1,
-    DailyLogId: 1,
+    Id: "1",
+    DailyLogId: "1",
     MealTime: "早餐",
     MealDescription: "吐司...",
     Image: "/upload/images/...",
     Starch: "BStarch,2",
     Protein: "BProtein,2",
     Vegetable: "BVegetable,2",
+    StarchAchieved: false,
+    ProteinAchieved: true,
+    VegetableAchieved: true,
   },
   Lunch: {
     // {
-    Id: 2,
-    DailyLogId: 1,
+    Id: "2",
+    DailyLogId: "1",
     MealTime: "午餐",
     MealDescription: "吐司...",
     Image: "/upload/images/...",
     Starch: "LStarch,2",
     Protein: "LProtein,2",
     Vegetable: "LVegetable,2",
+    StarchAchieved: true,
+    ProteinAchieved: false,
+    VegetableAchieved: true,
   },
   Dinner: {
-    Id: 3,
-    DailyLogId: 1,
+    Id: "3",
+    DailyLogId: "1",
     MealTime: "晚餐",
     MealDescription: "吐司...",
     Image: "/upload/images/...",
     Starch: "DStarch,2",
     Protein: "DProtein,2",
     Vegetable: "Degetable,2",
+    StarchAchieved: true,
+    ProteinAchieved: true,
+    VegetableAchieved: false,
   },
   Fruit: "Fruit,Fruit",
   FruitDescription: "",
@@ -91,7 +152,7 @@ const tabs: Tab[] = [
 const foodIcons: FoodIcon[] = [
   {
     PC: "starch_PC.svg",
-    completed: "starch-completed_PC.svg",
+    completed: "starch-completed_PC.png",
     mobile: "starch_mobile.svg",
     name: "澱粉",
     enName: "Starch",
@@ -99,7 +160,7 @@ const foodIcons: FoodIcon[] = [
   },
   {
     PC: "protein_PC.svg",
-    completed: "protein-completed_PC.svg",
+    completed: "protein-completed_PC.png",
     mobile: "protein_mobile.svg",
     name: "蛋白質",
     enName: "Protein",
@@ -107,7 +168,7 @@ const foodIcons: FoodIcon[] = [
   },
   {
     PC: "vegetable_PC.svg",
-    completed: "vegetable-completed_PC.svg",
+    completed: "vegetable-completed_PC.png",
     mobile: "vegetable_mobile.svg",
     name: "蔬菜",
     enName: "Vegetable",
@@ -115,7 +176,7 @@ const foodIcons: FoodIcon[] = [
   },
   {
     PC: "oil_PC.svg",
-    completed: "oil-completed_PC.svg",
+    completed: "oil-completed_PC.png",
     mobile: "oil_mobile.svg",
     name: "油脂",
     enName: "Oil",
@@ -123,7 +184,7 @@ const foodIcons: FoodIcon[] = [
   },
   {
     PC: "fruit_PC.svg",
-    completed: "fruit-completed_PC.svg",
+    completed: "fruit-completed_PC.png",
     mobile: "fruit_mobile.svg",
     name: "水果",
     enName: "Fruit",
@@ -131,7 +192,7 @@ const foodIcons: FoodIcon[] = [
   },
   {
     PC: "water_PC.svg",
-    completed: "water-completed_PC.svg",
+    completed: "water-completed_PC.png",
     mobile: "water_mobile.svg",
     name: "水",
     enName: "Water",
@@ -180,7 +241,7 @@ const DailyDietary = () => {
         center: "title",
         end: "next",
       }}
-      height="100%"
+      height="285px"
     />
   );
 };
@@ -202,44 +263,79 @@ function renderEventContent(
 
   const fetchData = event.extendedProps;
 
+  // console.log(filterFoodIcons);
+
   return (
-    <div>
+    <>
       {/* {event.tab} */}
-      <ul className="flex justify-center gap-12 mt-12">
-        {tabs.map((tab, index) => {
+      <ul className="w-full flex justify-center gap-32 text-primary-500">
+        {tabs.map((title, index) => {
           return (
             <li key={index}>
-              <button type="button" onClick={() => changeTab(tab)}>
-                {tab.name}
+              <button
+                type="button"
+                onClick={() => changeTab(title)}
+                className={`p-12 ${
+                  title.name === tab.name &&
+                  "pb-10 px-12 border-b-2 border-secondary-400 text-secondary-400"
+                } `}
+              >
+                {title.name}
               </button>
             </li>
           );
         })}
       </ul>
-      <ul className="flex gap-[90px] text-black-950">
-        {filterFoodIcons.map((filterFoodIcon, index) => {
-          return (
-            <li key={index}>
-              <Image
-                src={`/images/dashboard/dietary-record/foods/${filterFoodIcon.PC}`}
-                alt={filterFoodIcon.PC}
-                width={75}
-                height={75}
-              />
-              <p className="text-center mt-6">{filterFoodIcon.name}</p>
+      <div className="flex min-h-[154px] mt-28 items-center">
+        {tab.enName !== "All" && (
+          <div className="w-[60%] self-stretch p-8 border border-primary-300 flex gap-8">
+            {dailyDietaryInput[tab.enName].map((item) => (
+              <>
+                <Input name={item.name} type={item.type} />
+                <textarea name="MealDescription"></textarea>
+              </>
+            ))}
+          </div>
+        )}
+        <ul className="mx-auto flex justify-center gap-[45px] text-black-950">
+          {filterFoodIcons.map((filterFoodIcon, index) => {
+            //飲食達成icon切換
+            const sumAchieved = `${[filterFoodIcon.enName]}SumAchieved`;
+            const achieved = `${[filterFoodIcon.enName]}Achieved`;
+            let showFoodIcon = filterFoodIcon.PC;
 
-              <p>
-                {fetchData[filterFoodIcon.enName]
-                  ? fetchData[filterFoodIcon.enName]
-                  : fetchData[tab.enName][filterFoodIcon.enName]
-                  ? fetchData[tab.enName][filterFoodIcon.enName]
-                  : fetchData[tab.enName][`${filterFoodIcon.enName}Sum`]}
-              </p>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+            if (foodAPI[sumAchieved]) {
+              showFoodIcon = filterFoodIcon.completed;
+            } else if (
+              foodAPI[tab.enName] &&
+              (foodAPI[tab.enName] as any)[achieved]
+            ) {
+              showFoodIcon = filterFoodIcon.completed;
+            }
+
+            return (
+              <li key={index} className="text-center">
+                <Image
+                  src={`/images/dashboard/dietary-record/foods/${showFoodIcon}`}
+                  alt={filterFoodIcon.PC}
+                  width={75}
+                  height={75}
+                />
+                <p className="mt-6">{filterFoodIcon.name}</p>
+                <p className="mt-8">
+                  {/* 顯示 "紀錄/菜單" */}
+                  {fetchData[filterFoodIcon.enName]
+                    ? fetchData[filterFoodIcon.enName]
+                    : fetchData[tab.enName][filterFoodIcon.enName]
+                    ? fetchData[tab.enName][filterFoodIcon.enName]
+                    : fetchData[tab.enName][`${filterFoodIcon.enName}Sum`]}
+                </p>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </>
   );
 }
 

@@ -39,6 +39,14 @@ export interface Error {
   status: number;
 }
 
-interface FetchError {
+export interface FetchError {
   error?: Error | unknown;
+}
+        
+export interface TypeInput {
+  [key: string]: {
+    name: string;
+    type: "text" | "number" | "checkbox" | "password" | "email" | "file";
+  }[];
+
 }

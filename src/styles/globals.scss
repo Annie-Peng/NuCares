@@ -77,6 +77,13 @@
 
   select {
     appearance: none;
+    @apply rounded-5 py-10 px-12 border border-black-200;
+    &:focus {
+      @apply outline-none ring-2 ring-primary-400;
+    }
+    &:invalid {
+      @apply ring-secondary-500;
+    }
   }
 
   .cusPrimaryTitle {
