@@ -1,4 +1,4 @@
-import CourseForm from "@/common/components/CourseForm";
+import CourseForm from "@/common/components/course/CourseForm";
 
 const StudentListPage = () => {
   return (

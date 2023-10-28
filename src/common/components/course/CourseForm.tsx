@@ -1,6 +1,10 @@
-import courseTabs from "../lib/dashboard/courseTabs";
+import courseTabs from "../../lib/dashboard/courseTabs";
 import CourseFormTr from "./CourseFormTr";
-import userData from "../lib/dashboard/user";
+import userData from "../../lib/dashboard/user";
+import { useCourseListGetApiQuery } from "@/common/redux/service/course";
+import { useSelector } from "react-redux";
+import { selectAuth } from "@/common/redux/features/auth";
+import { useTestCourseListGetApiQuery } from "@/common/redux/service/test/testCourse";
 
 export interface Course {
   Title?: string;
@@ -147,8 +151,20 @@ const checkCommentClass = (
 };
 
 const CourseForm = () => {
-  const ID = userData.currentID;
-  const IDTabs = courseTabs[userData.currentID];
+  const { UserCurrentStatus } = useSelector(selectAuth);
+
+  const { data } = useTestCourseListGetApiQuery({});
+  //   {
+  //   UserCurrentStatus: UserCurrentStatus,
+  //   PageId: "1",
+  // }
+
+  console.log(data);
+
+  const ID = "user";
+  const IDTabs = courseTabs[ID];
+
+  console.log(IDTabs);
 
   return (
     <div className="cusMContainer">
@@ -165,7 +181,7 @@ const CourseForm = () => {
             </tr>
           </thead>
           <tbody>
-            {API.courses.map((course, index) => {
+            {data.Data.map((course, index) => {
               return (
                 <tr key={index}>
                   <CourseFormTr
@@ -183,7 +199,7 @@ const CourseForm = () => {
       </div>
 
       {/* 手機版 */}
-      <ul className="lg:hidden container flex flex-col gap-32 mt-32">
+      {/* <ul className="lg:hidden container flex flex-col gap-32 mt-32">
         {API.courses.map((course, index) => {
           const comment = checkCommentClass(course, ID, buttonClass);
 
@@ -244,7 +260,7 @@ const CourseForm = () => {
             </li>
           );
         })}
-      </ul>
+      </ul> */}
     </div>
   );
 };
