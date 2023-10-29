@@ -137,10 +137,15 @@
     @apply container pt-20 pb-80 px-24;
   }
 
+  .cusPrimaryTag {
+    @apply rounded-35 text-white font-bold text-14 bg-primary-400;
+  }
+  
   .cusShareBg {
     border: 1px solid rgb(255, 255, 255, 0.3);
     background-color: rgb(255, 255, 255, 0.8);
     box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(10px);
   }
+  
 }
