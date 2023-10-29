@@ -35,16 +35,52 @@ const CourseRecord = () => {
         <div className="w-full">
           <DashboardContainer title="飲食日記">
             <DailyDietary />
+            <button type="button">
+              <Image
+                src="/images/dashboard/dietary-record/edit.svg"
+                width="28"
+                height="28"
+                alt="arrow"
+                className="absolute top-12 right-16"
+              />
+            </button>
+            <button type="button">
+              <Image
+                src="/images/dashboard/dietary-record/hint.svg"
+                width="28"
+                height="28"
+                alt="arrow"
+                className="absolute top-12 left-16"
+              />
+            </button>
           </DashboardContainer>
         </div>
         <div className="w-[68%]">
           <DashboardContainer title="身體紀錄">
             <BodyRate />
+            <button type="button">
+              <Image
+                src="/images/dashboard/dietary-record/edit.svg"
+                width="28"
+                height="28"
+                alt="arrow"
+                className="absolute top-12 right-16"
+              />
+            </button>
           </DashboardContainer>
         </div>
         <div className="w-[30%]">
           <DashboardContainer title="目標">
             <GoalCompletionRate />
+            <button type="button">
+              <Image
+                src="/images/dashboard/dietary-record/edit.svg"
+                width="28"
+                height="28"
+                alt="arrow"
+                className="absolute top-12 right-16"
+              />
+            </button>
           </DashboardContainer>
         </div>
       </div>
