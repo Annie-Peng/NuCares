@@ -140,4 +140,8 @@
   .cusMContainer {
     @apply container pt-20 pb-80 px-24;
   }
+
+  .cusPrimaryTag {
+    @apply rounded-35 text-white font-bold text-14 bg-primary-400;
+  }
 }
