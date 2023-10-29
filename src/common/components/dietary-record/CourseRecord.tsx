@@ -4,10 +4,15 @@ import GoalCompletionRate from "@/common/components/dietary-record/goalChart/Goa
 import CourseInfo from "@/common/components/dietary-record/CourseInfo";
 import Image from "next/image";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { showModal } from "@/common/redux/features/showModal";
 import BodyRate from "./BodyRate";
+
 
 const CourseRecord = () => {
   const [showInfo, setShowInfo] = useState<boolean>(false);
+  const dispatch = useDispatch();
+
   return (
     <>
       <p className="before:content-['<'] before:mr-4 text-left border-black-950 border-b w-fit">
@@ -35,7 +40,10 @@ const CourseRecord = () => {
         <div className="w-full">
           <DashboardContainer title="飲食日記">
             <DailyDietary />
-            <button type="button">
+            <button
+              type="button"
+              onClick={() => dispatch(showModal("MenuEditModal"))}
+            >
               <Image
                 src="/images/dashboard/dietary-record/edit.svg"
                 width="28"
@@ -58,7 +66,10 @@ const CourseRecord = () => {
         <div className="w-[68%]">
           <DashboardContainer title="身體紀錄">
             <BodyRate />
-            <button type="button">
+            <button
+              type="button"
+              onClick={() => dispatch(showModal("BodyRateAddModal"))}
+            >
               <Image
                 src="/images/dashboard/dietary-record/edit.svg"
                 width="28"

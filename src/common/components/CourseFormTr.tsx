@@ -1,5 +1,7 @@
+import { useDispatch } from "react-redux";
 import { ButtonClass, Course } from "./CourseForm";
 import { FC, ReactNode } from "react";
+import { showModal } from "@/common/redux/features/showModal";
 
 interface CourseFormTrProps {
   course: Course;
@@ -14,6 +16,7 @@ const CourseFormTr: FC<CourseFormTrProps> = ({
   buttonClass,
   comment,
 }) => {
+  const dispatch = useDispatch();
   return (
     <>
       <td className="text-14">{course.OrderNumber}</td>
@@ -60,7 +63,12 @@ const CourseFormTr: FC<CourseFormTrProps> = ({
         {comment ? (
           comment
         ) : course.CourseState === "未開始" ? (
-          <button className="btn-cusWriteSecondary">開始</button>
+          <button
+            className="btn-cusWriteSecondary"
+            onClick={() => dispatch(showModal("CourseStartModal"))}
+          >
+            開始
+          </button>
         ) : (
           <button disabled className="btn-cusDisableWriteBlack">
             開始
