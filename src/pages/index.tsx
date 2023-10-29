@@ -73,6 +73,9 @@ export default function Home() {
         <li>
           <Link href="/login">登入</Link>
         </li>
+        <li>
+          <Link href="/apply">申請成為營養師</Link>
+        </li>
       </ul>
     </>
   );
