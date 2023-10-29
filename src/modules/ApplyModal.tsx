@@ -2,7 +2,7 @@ import TitleModal from "@/common/components/TitleModal";
 
 const ApplyModal = () => {
   return (
-    <TitleModal title="申請成為平台營養師">
+    <TitleModal title="申請成為平台營養師" width="820px">
       <form className="text-left flex flex-col gap-32">
         <label htmlFor="userName">
           <h4 className="font-bold">真實姓名*</h4>
