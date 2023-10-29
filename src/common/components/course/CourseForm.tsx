@@ -151,17 +151,12 @@ const checkCommentClass = (
 
 const CourseForm = () => {
   const { UserCurrentStatus } = useSelector(selectAuth);
+  const { data } = useCourseListGetApiQuery({
+    UserCurrentStatus: "user",
+    PageId: "1",
+  });
 
-  // const { data } = useCourseListGetApiQuery({
-  //   UserCurrentStatus: "user",
-  //   PageId: "1",
-  // });
-
-  // if (!data) {
-  //   return "null";
-  // }
-
-  if (!UserCurrentStatus) return null;
+  if (!UserCurrentStatus || !data) return null;
 
   const ID = UserCurrentStatus;
   const IDTabs = courseTabs[ID];
@@ -183,7 +178,7 @@ const CourseForm = () => {
             </tr>
           </thead>
           <tbody>
-            {data.Data.map((course, index) => {
+            {data.Data.map((course: Course, index: number) => {
               return (
                 <tr key={index}>
                   <CourseFormTr
@@ -202,7 +197,7 @@ const CourseForm = () => {
 
       {/* 手機版 */}
       <ul className="lg:hidden container flex flex-col gap-32 mt-32">
-        {data.Data.map((course, index) => {
+        {data.Data.map((course: Course, index: number) => {
           const comment = checkCommentClass(course, ID, buttonClass);
 
           return (
