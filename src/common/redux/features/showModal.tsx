@@ -26,6 +26,9 @@ export const showModalSlice = createSlice({
           : (state[key as keyof typeof state] = false);
       });
     },
+    closeModal: (state, action) => {
+      state[action.payload as keyof typeof state] = false;
+    },
   },
 });
 
