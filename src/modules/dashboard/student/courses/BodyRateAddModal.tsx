@@ -3,7 +3,7 @@ import { bodyRateAdd } from "@/common/lib/dashboard/dietary-record/bodyRate";
 
 const BodyRateAddModal = () => {
   return (
-    <TitleModal title="今天身體數值" width="820px">
+    <TitleModal title="今天身體數值" width="820px" modal="BodyRateAddModal">
       <form>
         <ul className="flex gap-32 my-32">
           {bodyRateAdd.map((item, index) => (

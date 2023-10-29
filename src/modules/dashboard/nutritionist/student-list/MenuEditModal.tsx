@@ -4,7 +4,7 @@ import TitleModal from "@/common/components/TitleModal";
 
 const MenuEditModal = () => {
   return (
-    <TitleModal title="學員攝取份量" width="820px">
+    <TitleModal title="學員攝取份量" width="820px" modal="MenuEditModal">
       <form className="mt-32">
         <div className="text-center flex flex-wrap justify-between gap-y-32">
           <MealEditForm title="早餐" food={foodMenu.Breakfast} />
