@@ -1,6 +1,6 @@
 import DashboardContainer from "@/common/components/DashboardContainer";
 import DailyDietary from "@/common/components/dietary-record/DailyDietary";
-import GoalCompletionRate from "@/common/components/dietary-record/GoalCompletionRate";
+import GoalCompletionRate from "@/common/components/dietary-record/goalChart/GoalCompletionRate";
 import CourseInfo from "@/common/components/dietary-record/CourseInfo";
 import Image from "next/image";
 import { useState } from "react";
