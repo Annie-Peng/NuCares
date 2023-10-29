@@ -2,7 +2,7 @@ import MiniModal from "@/common/components/MiniModal";
 
 const CourseDeleteModal = () => {
   return (
-    <MiniModal>
+    <MiniModal modal="CourseDeleteModal">
       <p>確定刪除此課程？</p>
       <button
         type="button"

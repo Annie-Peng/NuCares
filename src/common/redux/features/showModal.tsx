@@ -19,12 +19,7 @@ export const showModalSlice = createSlice({
   },
   reducers: {
     showModal: (state, action) => {
-      Object.keys(state).forEach((key) => {
-        console.log(key);
-        key === action.payload
-          ? (state[key as keyof typeof state] = true)
-          : (state[key as keyof typeof state] = false);
-      });
+      state[action.payload as keyof typeof state] = true;
     },
     closeModal: (state, action) => {
       state[action.payload as keyof typeof state] = false;
@@ -32,6 +27,6 @@ export const showModalSlice = createSlice({
   },
 });
 
-export const { showModal } = showModalSlice.actions;
+export const { showModal, closeModal } = showModalSlice.actions;
 export const selectShowModal = (state: RootState) => state.showModal;
 export default showModalSlice.reducer;
