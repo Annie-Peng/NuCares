@@ -1,9 +1,9 @@
 import courseTabs from "../../lib/dashboard/courseTabs";
 import CourseFormTr from "./CourseFormTr";
 import { useCourseListGetApiQuery } from "@/common/redux/service/course";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectAuth } from "@/common/redux/features/auth";
-import CourseStartModal from "./CourseStartModal";
+import { showModal } from "@/common/redux/features/showModal";
 
 export interface Course {
   Title?: string;
@@ -150,6 +150,7 @@ const checkCommentClass = (
 };
 
 const CourseForm = () => {
+  const dispatch = useDispatch();
   const { UserCurrentStatus } = useSelector(selectAuth);
   const { data } = useCourseListGetApiQuery({
     UserCurrentStatus: "user",
@@ -220,7 +221,12 @@ const CourseForm = () => {
                 {comment ? (
                   comment
                 ) : course.CourseState === "未開始" ? (
-                  <button className="btn-cusWriteSecondary">開始</button>
+                  <button
+                    className="btn-cusWriteSecondary"
+                    onClick={() => dispatch(showModal("CourseStartModal"))}
+                  >
+                    開始
+                  </button>
                 ) : (
                   <button disabled className="btn-cusDisableWriteBlack">
                     開始
