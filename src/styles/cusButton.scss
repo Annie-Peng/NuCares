@@ -2,6 +2,7 @@ button {
   @apply text-center;
 }
 
+//其他：自訂
 .btn-cusSecondary {
   @apply rounded-5 text-white bg-secondary-400;
   &:hover {
@@ -9,44 +10,48 @@ button {
   }
 }
 
-.btn-cusMiniSecondary {
-  @apply rounded-5 text-white bg-secondary-400 p-5 lg:p-12 lg:text-20;
+//登入,註冊, 忘記密碼
+.btn-cusBigSecondary {
+  @apply rounded-5 text-white bg-secondary-400 font-bold py-10 px-12 lg:p-12 lg:text-20;
   &:hover {
     @apply bg-secondary-450;
   }
 }
 
-.btn-cusBigSecondary {
-  @apply rounded-5 text-white bg-secondary-400 font-bold py-10 px-12 lg:p-12 lg:text-20;
-}
-
+// 課程
 .btn-cusWriteSecondary {
   @apply rounded-5 text-white bg-secondary-400 py-4 px-10;
 }
 
+// 課程
 .btn-cusWriteBlack {
   @apply rounded-5 border border-black-200 text-black-400 py-4 px-10;
 }
 
+// 課程
 .btn-cusDisableWriteBlack {
   @apply rounded-5 text-black-400 bg-black-200 py-4 px-10;
 }
 
+// 課程
 .btn-cusWritePrimary {
   @apply rounded-5 border border-primary-400 text-primary-400 py-4 px-10;
 }
 
-.btn-cusMiniPrimary {
-  @apply rounded-5 text-primary-400 bg-white p-5 lg:p-12 lg:text-20;
+//其他：自訂
+.btn-cusPrimary {
+  @apply rounded-5 text-primary-500 bg-white p-5;
   &:hover {
-    @apply border-primary-500;
+    @apply border-primary-600;
   }
 }
 
+//學員資訊, 營養師資訊
 .btn-cusPrimaryInfo {
   @apply rounded-10 bg-primary-500 text-white p-10;
 }
 
+//營養師專頁：關於我
 .cusSwitch::before {
   content: "";
   position: absolute;
@@ -59,22 +64,27 @@ button {
   background-color: black;
 }
 
+//側邊選單
 .cusSelectTab {
   @apply align-middle inline-block py-20 px-28 rounded-s-50 w-full text-primary-500 bg-white bg-opacity-50;
 }
 
+//側邊選單
 .cusNoSelectTab {
   @apply align-middle inline-block py-20 px-28 rounded-s-50 w-full;
 }
 
+//下拉式選單：營養師
 .cusNIdentity {
   @apply text-white text-14 font-bold bg-tertiary-400;
 }
 
+//下拉式選單：學員
 .cusSIdentity {
   @apply text-white text-14 font-bold  bg-primary-400;
 }
 
+//下拉式選單, 學員資訊, 營養師資訊
 .cusShadow {
   content: "";
   border: 1px solid rgb(255, 255, 255, 0.3);

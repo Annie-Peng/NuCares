@@ -7,7 +7,7 @@ interface MiniModalProps {
 const MiniModal: React.FC<MiniModalProps> = ({ children }) => {
   return (
     <div className="cusModalBg">
-      <div className="cusModal min-h-[200px]">{children}</div>
+      <div className="cusModal py-32 min-h-[300px]">{children}</div>
     </div>
   );
 };
