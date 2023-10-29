@@ -9,7 +9,7 @@ const textCenter = {
     const { ctx, data } = chart;
     ctx.save();
     ctx.font = "bolder 16px sans-serif";
-    ctx.fillStyle = "#e9a197";
+    ctx.fillStyle = `${(data.datasets as any[])[0].backgroundColor![0]}`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillText(
@@ -21,7 +21,9 @@ const textCenter = {
 };
 
 const BMIGoalChart = () => {
-  const data = ["80", "20"];
+  const data = ["100", "0"];
+  const AchievementColor = data[0] === "100" ? "#E9A197" : "#3690A4";
+  const borderRadius = data[0] === "100" ? 0 : 50;
 
   return (
     <Doughnut
@@ -30,9 +32,9 @@ const BMIGoalChart = () => {
         datasets: [
           {
             data: data,
-            backgroundColor: ["#e9a197", "#fae8e6"],
+            backgroundColor: [AchievementColor, "#D6EBEE"],
             borderColor: ["transparent", "transparent"],
-            borderRadius: 50,
+            borderRadius: borderRadius,
           },
         ],
       }}
