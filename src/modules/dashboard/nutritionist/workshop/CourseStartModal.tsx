@@ -2,7 +2,8 @@ import MiniModal from "@/common/components/MiniModal";
 
 const CourseStartModal = () => {
   return (
-    <MiniModal title="此課程期間為2023.10.1-2023.11.25">
+    <MiniModal>
+      <p>此課程期間為2023.10.1-2023.11.25</p>
       <p className="text-center">確定開始課程？</p>
       <button
         type="button"
