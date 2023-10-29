@@ -5,6 +5,7 @@ import showModalReducer from "./features/showModal";
 
 import { register } from "./service/register";
 import { login } from "./service/login";
+import { course } from "./service/course";
 
 const store = configureStore({
   reducer: {
@@ -14,9 +15,13 @@ const store = configureStore({
 
     [register.reducerPath]: register.reducer,
     [login.reducerPath]: login.reducer,
+    [course.reducerPath]: course.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(register.middleware).concat(login.middleware),
+    getDefaultMiddleware()
+      .concat(register.middleware)
+      .concat(login.middleware)
+      .concat(course.middleware),
 });
 
 export default store;

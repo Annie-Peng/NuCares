@@ -22,7 +22,15 @@ export const authSlice = createSlice({
   },
   reducers: {
     storeAuth: (state, action) => {
-      state = action.payload;
+      const { Token } = action.payload;
+      const { UserName, Email, ImgUrl, IsNutritionist, UserCurrentStatus } =
+        action.payload.Data;
+      state.Token = Token;
+      state.UserName = UserName;
+      state.Email = Email;
+      state.ImgUrl = ImgUrl;
+      state.IsNutritionist = IsNutritionist;
+      state.UserCurrentStatus = UserCurrentStatus === "student" ? "user" : "nu";
     },
   },
 });
