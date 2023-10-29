@@ -31,7 +31,9 @@ const BodyRate = () => {
           className="absolute top-1/2 right-0 -translate-y-1/2"
         />
       </label>
-      <BodyRateChart tab={tab} />
+      <div className="h-[214px]">
+        <BodyRateChart tab={tab} />
+      </div>
     </div>
   );
 };

@@ -44,6 +44,7 @@ const BodyRateChart: FC<BodyRateChartProps> = ({ tab }) => {
           ],
         }}
         options={{
+          maintainAspectRatio: false,
           scales: {
             y: {
               beginAtZero: true,
