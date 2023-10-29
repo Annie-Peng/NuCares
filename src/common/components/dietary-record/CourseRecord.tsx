@@ -1,11 +1,13 @@
 import DashboardContainer from "@/common/components/DashboardContainer";
 import DailyDietary from "@/common/components/dietary-record/DailyDietary";
-import GoalCompletionRate from "@/common/components/dietary-record/GoalCompletionRate";
+import GoalCompletionRate from "@/common/components/dietary-record/goalChart/GoalCompletionRate";
 import CourseInfo from "@/common/components/dietary-record/CourseInfo";
 import Image from "next/image";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { showModal } from "@/common/redux/features/showModal";
+import BodyRate from "./BodyRate";
+
 
 const CourseRecord = () => {
   const [showInfo, setShowInfo] = useState<boolean>(false);
@@ -63,7 +65,7 @@ const CourseRecord = () => {
         </div>
         <div className="w-[68%]">
           <DashboardContainer title="身體紀錄">
-            1
+            <BodyRate />
             <button
               type="button"
               onClick={() => dispatch(showModal("BodyRateAddModal"))}
