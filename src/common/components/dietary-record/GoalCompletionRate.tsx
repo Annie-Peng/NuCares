@@ -1,16 +1,5 @@
-import dynamic from "next/dynamic";
-import d3 from "d3";
+import BMIGoalChart from "./BMIGoalChart";
 import WeightGoalChart from "./WeightGoalChart";
-
-// const WeightChart = dynamic(() => import("./WeightGoalChart"), {
-//   ssr: false,
-//   loading: () => <p>Loading...</p>,
-// });
-
-const BMIChart = dynamic(() => import("./BMIGoalChart"), {
-  ssr: false,
-  loading: () => <p>Loading...</p>,
-});
 
 const GoalCompletionRate = () => {
   return (
@@ -41,7 +30,9 @@ const GoalCompletionRate = () => {
           <span className="text-24 font-bold">30</span>
           <span className="text-12">公斤</span>
         </p>
-        <BMIChart />
+        <div className="w-[80px]">
+          <BMIGoalChart />
+        </div>
         <p className="text-14 text-black-400">
           現在
           <br />
