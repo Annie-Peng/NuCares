@@ -4,17 +4,14 @@ import GoalCompletionRate from "@/common/components/dietary-record/goalChart/Goa
 import CourseInfo from "@/common/components/dietary-record/CourseInfo";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { showModal } from "@/common/redux/features/showModal";
 import BodyRate from "./BodyRate";
 import MobileSidebar from "./MobileSidebar";
 import useResize from "@/common/hooks/useResize";
 
 const CourseRecord = () => {
+  const isMobile: boolean = useResize();
   const [showInfo, setShowInfo] = useState<boolean>(false);
-  const isMobile = useResize();
   const [showTab, setShowTab] = useState<number>(isMobile ? 1 : 0);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setShowTab(isMobile ? 1 : 0);
@@ -23,6 +20,7 @@ const CourseRecord = () => {
   const showDailyDietary = showTab === 0 || showTab === 1;
   const showBodyRate = showTab === 0 || showTab === 2;
   const showGoalRate = showTab === 0 || showTab === 3;
+  const showInfoMobile = showTab === 0 || showTab === 4;
 
   return (
     <>
@@ -48,32 +46,17 @@ const CourseRecord = () => {
             <CourseInfo />
           </div>
         )}
+        {showInfoMobile && (
+          <div className="w-full lg:hidden">
+            <DashboardContainer title="學員資訊">
+              <CourseInfo />
+            </DashboardContainer>
+          </div>
+        )}
         {showDailyDietary && (
           <div className="w-full">
             <DashboardContainer title="飲食日記">
-              <DailyDietary />
-              <button
-                type="button"
-                onClick={() => dispatch(showModal("MenuEditModal"))}
-                className="hidden lg:block"
-              >
-                <Image
-                  src="/images/dashboard/dietary-record/edit.svg"
-                  width="28"
-                  height="28"
-                  alt="arrow"
-                  className="absolute top-12 right-16"
-                />
-              </button>
-              <button type="button" className="hidden lg:block">
-                <Image
-                  src="/images/dashboard/dietary-record/hint.svg"
-                  width="28"
-                  height="28"
-                  alt="arrow"
-                  className="absolute top-12 left-16 hidden lg:block"
-                />
-              </button>
+              <DailyDietary isMobile={isMobile} />
             </DashboardContainer>
           </div>
         )}
@@ -81,19 +64,6 @@ const CourseRecord = () => {
           <div className="w-full lg:w-[68%]">
             <DashboardContainer title="身體紀錄">
               <BodyRate />
-              <button
-                type="button"
-                onClick={() => dispatch(showModal("BodyRateAddModal"))}
-                className="hidden lg:block"
-              >
-                <Image
-                  src="/images/dashboard/dietary-record/edit.svg"
-                  width="28"
-                  height="28"
-                  alt="arrow"
-                  className="absolute top-12 right-16"
-                />
-              </button>
             </DashboardContainer>
           </div>
         )}
@@ -101,15 +71,6 @@ const CourseRecord = () => {
           <div className="w-full lg:w-[30%]">
             <DashboardContainer title="目標">
               <GoalCompletionRate />
-              <button type="button">
-                <Image
-                  src="/images/dashboard/dietary-record/edit.svg"
-                  width="28"
-                  height="28"
-                  alt="arrow"
-                  className="absolute top-12 right-16 hidden lg:block"
-                />
-              </button>
             </DashboardContainer>
           </div>
         )}
