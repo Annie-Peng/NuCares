@@ -1,8 +1,8 @@
-import BigModal from "@/common/components/TitleModal";
+import TitleModal from "@/common/components/TitleModal";
 
 const ApplyModal = () => {
   return (
-    <BigModal title="申請成為平台營養師">
+    <TitleModal title="申請成為平台營養師">
       <form className="text-left flex flex-col gap-32">
         <label htmlFor="userName">
           <h4 className="font-bold">真實姓名*</h4>
@@ -46,7 +46,7 @@ const ApplyModal = () => {
           確認送出申請
         </button>
       </form>
-    </BigModal>
+    </TitleModal>
   );
 };
 export default ApplyModal;
