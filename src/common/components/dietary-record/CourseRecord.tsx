@@ -1,12 +1,18 @@
 import DashboardContainer from "@/common/components/DashboardContainer";
 import DailyDietary from "@/common/components/dietary-record/DailyDietary";
-import GoalCompletionRate from "@/common/components/dietary-record/GoalCompletionRate";
+import GoalCompletionRate from "@/common/components/dietary-record/goalChart/GoalCompletionRate";
 import CourseInfo from "@/common/components/dietary-record/CourseInfo";
 import Image from "next/image";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { showModal } from "@/common/redux/features/showModal";
+import BodyRate from "./BodyRate";
+
 
 const CourseRecord = () => {
   const [showInfo, setShowInfo] = useState<boolean>(false);
+  const dispatch = useDispatch();
+
   return (
     <>
       <p className="before:content-['<'] before:mr-4 text-left border-black-950 border-b w-fit">
@@ -34,14 +40,58 @@ const CourseRecord = () => {
         <div className="w-full">
           <DashboardContainer title="飲食日記">
             <DailyDietary />
+            <button
+              type="button"
+              onClick={() => dispatch(showModal("MenuEditModal"))}
+            >
+              <Image
+                src="/images/dashboard/dietary-record/edit.svg"
+                width="28"
+                height="28"
+                alt="arrow"
+                className="absolute top-12 right-16"
+              />
+            </button>
+            <button type="button">
+              <Image
+                src="/images/dashboard/dietary-record/hint.svg"
+                width="28"
+                height="28"
+                alt="arrow"
+                className="absolute top-12 left-16"
+              />
+            </button>
           </DashboardContainer>
         </div>
         <div className="w-[68%]">
-          <DashboardContainer title="身體紀錄">1</DashboardContainer>
+          <DashboardContainer title="身體紀錄">
+            <BodyRate />
+            <button
+              type="button"
+              onClick={() => dispatch(showModal("BodyRateAddModal"))}
+            >
+              <Image
+                src="/images/dashboard/dietary-record/edit.svg"
+                width="28"
+                height="28"
+                alt="arrow"
+                className="absolute top-12 right-16"
+              />
+            </button>
+          </DashboardContainer>
         </div>
         <div className="w-[30%]">
           <DashboardContainer title="目標">
             <GoalCompletionRate />
+            <button type="button">
+              <Image
+                src="/images/dashboard/dietary-record/edit.svg"
+                width="28"
+                height="28"
+                alt="arrow"
+                className="absolute top-12 right-16"
+              />
+            </button>
           </DashboardContainer>
         </div>
       </div>

@@ -8,7 +8,7 @@ export interface CourseTabs {
 }
 
 const courseTabs: CourseTabs = {
-  nutritionist: {
+  nu: {
     listName: "我的學員列表",
     tabs: [
       "訂單編號",
@@ -19,7 +19,7 @@ const courseTabs: CourseTabs = {
       "課程開始",
     ],
   },
-  student: {
+  user: {
     listName: "我的課程列表",
     tabs: [
       "訂單編號",

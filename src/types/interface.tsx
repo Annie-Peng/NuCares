@@ -1,4 +1,5 @@
 import auth, { Auth } from "@/common/redux/features/auth";
+import { ShowModalType } from "@/common/redux/features/showModal";
 import { ReactNode } from "react";
 export interface LayoutProps {
   children: ReactNode;
@@ -28,6 +29,7 @@ export interface RegisterData {
 export interface RootState {
   registerPhases?: RegisterData | undefined;
   auth: Auth;
+  showModal: ShowModalType;
 }
 
 export interface ErrorData {
@@ -44,11 +46,10 @@ export interface Error {
 export interface FetchError {
   error?: Error | unknown;
 }
-        
+
 export interface TypeInput {
   [key: string]: {
     name: string;
     type: "text" | "number" | "checkbox" | "password" | "email" | "file";
   }[];
-
 }
