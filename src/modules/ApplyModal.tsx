@@ -1,4 +1,4 @@
-import BigModal from "@/common/components/BigModal";
+import BigModal from "@/common/components/TitleModal";
 
 const ApplyModal = () => {
   return (
