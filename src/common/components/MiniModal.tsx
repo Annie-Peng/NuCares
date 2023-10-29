@@ -1,17 +1,13 @@
 import { ReactNode } from "react";
 
 interface MiniModalProps {
-  title: string;
   children: ReactNode;
 }
 
-const MiniModal: React.FC<MiniModalProps> = ({ title, children }) => {
+const MiniModal: React.FC<MiniModalProps> = ({ children }) => {
   return (
     <div className="cusModalBg">
-      <div className="cusModal min-h-[200px]">
-        <h4 className="text-20 font-bold text-center">{title}</h4>
-        {children}
-      </div>
+      <div className="cusModal py-32 min-h-[300px]">{children}</div>
     </div>
   );
 };

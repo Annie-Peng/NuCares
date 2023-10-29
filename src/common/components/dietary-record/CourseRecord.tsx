@@ -1,9 +1,10 @@
 import DashboardContainer from "@/common/components/DashboardContainer";
 import DailyDietary from "@/common/components/dietary-record/DailyDietary";
-import GoalCompletionRate from "@/common/components/dietary-record/GoalCompletionRate";
+import GoalCompletionRate from "@/common/components/dietary-record/goalChart/GoalCompletionRate";
 import CourseInfo from "@/common/components/dietary-record/CourseInfo";
 import Image from "next/image";
 import { useState } from "react";
+import BodyRate from "./BodyRate";
 
 const CourseRecord = () => {
   const [showInfo, setShowInfo] = useState<boolean>(false);
@@ -37,7 +38,9 @@ const CourseRecord = () => {
           </DashboardContainer>
         </div>
         <div className="w-[68%]">
-          <DashboardContainer title="身體紀錄">1</DashboardContainer>
+          <DashboardContainer title="身體紀錄">
+            <BodyRate />
+          </DashboardContainer>
         </div>
         <div className="w-[30%]">
           <DashboardContainer title="目標">
