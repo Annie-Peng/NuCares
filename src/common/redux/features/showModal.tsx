@@ -1,28 +1,28 @@
 import { RootState } from "@/types/interface";
 import { createSlice } from "@reduxjs/toolkit";
-import { geoStereographicRaw } from "d3";
 
 export interface ShowModalType {
-  CourseDeleteModal: boolean;
-  CourseStartModal: boolean;
-  MenuEditModal: boolean;
-  BodyRateAddModal: boolean;
+  showCourseDeleteModal: { showModal: boolean; data: any };
+  showCourseStartModal: { showModal: boolean; data: any };
+  showMenuEditModal: { showModal: boolean; data: any };
+  showBodyRateAddModal: { showModal: boolean; data: any };
 }
 
 export const showModalSlice = createSlice({
   name: "showModal",
   initialState: {
-    CourseDeleteModal: false,
-    CourseStartModal: false,
-    MenuEditModal: false,
-    BodyRateAddModal: false,
+    showCourseDeleteModal: { showModal: false, data: "" },
+    showCourseStartModal: { showModal: false, data: "" },
+    showMenuEditModal: { showModal: false, data: "" },
+    showBodyRateAddModal: { showModal: false, data: "" },
   },
   reducers: {
     showModal: (state, action) => {
-      state[action.payload as keyof typeof state] = true;
+      const item = action.payload[0] as keyof typeof state;
+      state[item] = { showModal: true, data: action.payload[1] };
     },
     closeModal: (state, action) => {
-      state[action.payload as keyof typeof state] = false;
+      state[action.payload as keyof typeof state].showModal = false;
     },
   },
 });

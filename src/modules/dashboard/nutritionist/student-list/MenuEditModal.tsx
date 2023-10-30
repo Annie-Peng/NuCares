@@ -1,10 +1,15 @@
 import foodMenu from "@/common/lib/dashboard/dietary-record/foodMenu";
 import MealEditForm from "./MealEditForm";
 import TitleModal from "@/common/components/TitleModal";
+import { FC } from "react";
 
-const MenuEditModal = () => {
+interface MenuEditModalProps {
+  data: string;
+}
+
+const MenuEditModal: FC<MenuEditModalProps> = ({ data }) => {
   return (
-    <TitleModal title="學員攝取份量" width="820px" modal="MenuEditModal">
+    <TitleModal title="學員攝取份量" width="820px" modal="showMenuEditModal">
       <form className="mt-32">
         <div className="text-center flex flex-wrap justify-between gap-y-32">
           <MealEditForm title="早餐" food={foodMenu.Breakfast} />

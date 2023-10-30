@@ -1,8 +1,14 @@
 import MiniModal from "@/common/components/MiniModal";
 
-const CourseStartModal = () => {
+import { FC } from "react";
+
+interface CourseStartModalProps {
+  data: Record<string, string>;
+}
+
+const CourseStartModal: FC<CourseStartModal> = ({ data }) => {
   return (
-    <MiniModal modal="CourseStartModal">
+    <MiniModal modal="showCourseStartModal">
       <div className="flex flex-col justify-between mx-auto max-w-[300px] h-[236px] text-20 font-bold">
         <div className="flex flex-col gap-8">
           <p className="border-black-950 border-b-2 w-fit mx-auto">
