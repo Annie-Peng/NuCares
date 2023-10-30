@@ -11,6 +11,7 @@ const loginApiErrMsg: LoginApiErrMsgProps = {
     400: {
       Email必填: "*必填",
       Email格式錯誤: "Email格式有誤",
+      用戶不存在: "此用戶不存在",
     },
   },
   Password: {
