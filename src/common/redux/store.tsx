@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { createWrapper } from "next-redux-wrapper";
 import registerReducer from "./features/registerPhases";
 import authReducer from "./features/auth";
 import showModalReducer from "./features/showModal";
@@ -24,4 +25,5 @@ const store = configureStore({
       .concat(course.middleware),
 });
 
-export default store;
+const wrapper = createWrapper(() => store, { debug: false });
+export default wrapper;
