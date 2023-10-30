@@ -1,9 +1,9 @@
 import courseTabs from "../../lib/dashboard/courseTabs";
 import CourseFormTr from "./CourseFormTr";
 import { useCourseListGetApiQuery } from "@/common/redux/service/course";
-import { useDispatch, useSelector } from "react-redux";
-import { selectAuth } from "@/common/redux/features/auth";
+import { useDispatch } from "react-redux";
 import { showModal } from "@/common/redux/features/showModal";
+import { FC, useEffect, useState } from "react";
 
 export interface Course {
   Title?: string;
@@ -39,6 +39,14 @@ export interface ButtonClass {
         courseOver?: { class: string; disable: boolean };
       };
     };
+  };
+}
+
+interface CourseFormProps {
+  auth: {
+    UserCurrentStatus: string;
+    Token: string;
+    [key: string]: any;
   };
 }
 
@@ -91,13 +99,13 @@ const API: CourseAPI = {
 };
 
 const buttonClass: ButtonClass = {
-  nutritionist: {
+  nu: {
     IsQuest: {
       true: { class: "btn-cusWritePrimary", disable: false },
       false: { class: "btn-cusWriteBlack", disable: true },
     },
   },
-  student: {
+  user: {
     IsQuest: {
       true: { class: "btn-cusDisableWriteBlack", disable: true },
       false: { class: "btn-cusWriteSecondary", disable: false },
@@ -146,30 +154,50 @@ const checkCommentClass = (
         </button>
       );
   }
+
   return comment;
 };
 
-const CourseForm = () => {
-  const dispatch = useDispatch();
-  const { UserCurrentStatus } = useSelector(selectAuth);
-  const { data } = useCourseListGetApiQuery({
-    UserCurrentStatus: "user",
-    PageId: "1",
+const CourseForm: FC<CourseFormProps> = ({ auth }) => {
+  const { Token, UserCurrentStatus } = auth;
+  const [showPage, setShowPage] = useState<Record<string, number>>({
+    Current_page: 1,
+    Total_pages: 1,
   });
-
-  if (!UserCurrentStatus || !data) return null;
+  const [renderData, setRenderData] = useState<Course[] | null>(null);
+  const dispatch = useDispatch();
+  const { data, error } = useCourseListGetApiQuery({
+    Token: Token,
+    UserCurrentStatus: UserCurrentStatus,
+    PageId: showPage.Current_page,
+  });
 
   const ID = UserCurrentStatus;
   const IDTabs = courseTabs[ID];
 
-  console.log(UserCurrentStatus);
+  const prevPage = showPage.Current_page - 1;
+  const nextPage = showPage.Current_page + 1;
+
+  useEffect(() => {
+    if (data) {
+      setRenderData(data.Data);
+      setShowPage(data.Pagination);
+    }
+    if (error) {
+      console.log(error);
+    }
+  }, [data]);
+
+  if (!renderData) return null;
+
+  console.log(renderData);
 
   return (
-    <div className="cusMContainer">
+    <div className="cusMContainer flex flex-col justify-between h-full">
       <h2 className="cusPrimaryTitle">{IDTabs.listName}</h2>
 
       {/* 電腦版 */}
-      <div className="hidden lg:block">
+      <div className="hidden lg:block grow">
         <table className="w-full mt-24 py-20 px-10 bg-white rounded-15">
           <thead>
             <tr>
@@ -179,13 +207,13 @@ const CourseForm = () => {
             </tr>
           </thead>
           <tbody>
-            {data.Data.map((course: Course, index: number) => {
+            {renderData.map((course: Course, index: number) => {
               return (
                 <tr key={index}>
                   <CourseFormTr
                     course={course}
                     key={course.OrderNumber}
-                    ID={UserCurrentStatus}
+                    ID={ID}
                     buttonClass={buttonClass}
                     comment={checkCommentClass(course, ID, buttonClass)}
                   />
@@ -198,7 +226,7 @@ const CourseForm = () => {
 
       {/* 手機版 */}
       <ul className="lg:hidden container flex flex-col gap-32 mt-32">
-        {data.Data.map((course: Course, index: number) => {
+        {renderData.map((course: Course, index: number) => {
           const comment = checkCommentClass(course, ID, buttonClass);
 
           return (
@@ -264,6 +292,40 @@ const CourseForm = () => {
           );
         })}
       </ul>
+
+      <nav className="mx-auto">
+        <ul className="flex gap-8">
+          <li className="py-6 px-16 rounded-[2px] border border-black-300 text-black-300 bg-white">
+            <button
+              type="button"
+              onClick={() => {
+                prevPage > 0 &&
+                  setShowPage({ ...showPage, Current_page: prevPage });
+              }}
+            >
+              {"<"}
+            </button>
+          </li>
+          <li className="py-6 px-10 rounded-[2px] border border-primary-500 text-white bg-primary-300 bold text-14">
+            {showPage.Current_page}
+          </li>
+          <li className="py-6 px-16 rounded-[2px] border border-black-300 text-black-300 bg-white">
+            <button
+              type="button"
+              onClick={() => {
+                if (
+                  nextPage === showPage.Total_pages ||
+                  nextPage < showPage.Total_pages
+                ) {
+                  setShowPage({ ...showPage, Current_page: nextPage });
+                }
+              }}
+            >
+              {">"}
+            </button>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 };

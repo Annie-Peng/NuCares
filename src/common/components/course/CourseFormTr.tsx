@@ -22,8 +22,7 @@ const CourseFormTr: FC<CourseFormTrProps> = ({
       <td className="text-14">{course.OrderNumber}</td>
       <td>
         <span className="border-b border-black-950">
-          {course.UserName ? course.UserName : course.Title}/
-          {course.CourseTitle}
+          {course.UserName ? course.UserName : course.Title}/{course.CourseName}
         </span>
       </td>
       <td>
