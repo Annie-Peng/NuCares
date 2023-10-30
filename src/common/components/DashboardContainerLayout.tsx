@@ -10,12 +10,19 @@ import CourseStartModal from "@/modules/dashboard/nutritionist/workshop/CourseSt
 import BodyRateAddModal from "@/modules/dashboard/student/courses/BodyRateAddModal";
 
 const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
-  const showModal = useSelector(selectShowModal);
+  const { showMenuEditModal, showCourseStartModal, showBodyRateAddModal } =
+    useSelector(selectShowModal);
   return (
     <>
-      {showModal.MenuEditModal && <MenuEditModal />}
-      {showModal.CourseStartModal && <CourseStartModal />}
-      {showModal.BodyRateAddModal && <BodyRateAddModal />}
+      {showMenuEditModal.showModal && (
+        <MenuEditModal data={showMenuEditModal.data} />
+      )}
+      {showCourseStartModal.showModal && (
+        <CourseStartModal data={showCourseStartModal.data} />
+      )}
+      {showBodyRateAddModal.showModal && (
+        <BodyRateAddModal data={showBodyRateAddModal.data} />
+      )}
       <div className="container p-20 flex mt-[54px] rounded-50 max-w-[1210px] relative cusBackgroundBackdrop min-h-[777px]">
         <div className="w-[20%]">
           <div className="profile flex flex-col items-center">
