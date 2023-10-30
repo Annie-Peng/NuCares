@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux";
 import { showModal } from "@/common/redux/features/showModal";
 import BodyRate from "./BodyRate";
 
-
 const CourseRecord = () => {
   const [showInfo, setShowInfo] = useState<boolean>(false);
   const dispatch = useDispatch();
@@ -42,7 +41,7 @@ const CourseRecord = () => {
             <DailyDietary />
             <button
               type="button"
-              onClick={() => dispatch(showModal("MenuEditModal"))}
+              onClick={() => dispatch(showModal(["showMenuEditModal", 0]))}
             >
               <Image
                 src="/images/dashboard/dietary-record/edit.svg"
@@ -68,7 +67,7 @@ const CourseRecord = () => {
             <BodyRate />
             <button
               type="button"
-              onClick={() => dispatch(showModal("BodyRateAddModal"))}
+              onClick={() => dispatch(showModal(["showBodyRateAddModal", 0]))}
             >
               <Image
                 src="/images/dashboard/dietary-record/edit.svg"

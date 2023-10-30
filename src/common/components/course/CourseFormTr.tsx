@@ -64,7 +64,9 @@ const CourseFormTr: FC<CourseFormTrProps> = ({
         ) : course.CourseState === "未開始" ? (
           <button
             className="btn-cusWriteSecondary"
-            onClick={() => dispatch(showModal("CourseStartModal"))}
+            onClick={() =>
+              dispatch(showModal(["showCourseStartModal", course]))
+            }
           >
             開始
           </button>

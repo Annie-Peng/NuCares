@@ -8,7 +8,7 @@ import { FC, useEffect, useState } from "react";
 export interface Course {
   Title?: string;
   UserName?: string;
-  CourseTitle: string;
+  CourseName: string;
   OrderNumber: string;
   CourseStartDate: string;
   CourseEndDate: string;
@@ -55,7 +55,7 @@ const API: CourseAPI = {
     {
       OrderNumber: "20231003001",
       UserName: "蛋黃哥",
-      CourseTitle: "進階 - 8週飲食建議",
+      CourseName: "進階 - 8週飲食建議",
       CourseStartDate: "2023/10/21",
       CourseEndDate: "2023/10/22",
       CourseState: "已結束",
@@ -63,7 +63,7 @@ const API: CourseAPI = {
     },
     // {
     //   Title: "陳亮亮",
-    //   CourseTitle: "體驗 - 1週飲食建議",
+    //   CourseName: "體驗 - 1週飲食建議",
     //   OrderNumber: "20231121001",
     //   CourseStartDate: "2023/08/03",
     //   CourseEndDate: "2023/08/10",
@@ -73,7 +73,7 @@ const API: CourseAPI = {
     // },
     // {
     //   Title: "陳亮亮",
-    //   CourseTitle: "體驗 - 1週飲食建議",
+    //   CourseName: "體驗 - 1週飲食建議",
     //   OrderNumber: "20231121001",
     //   CourseStartDate: "",
     //   CourseEndDate: "",
@@ -83,7 +83,7 @@ const API: CourseAPI = {
     // },
     // {
     //   Title: "陳亮亮",
-    //   CourseTitle: "體驗 - 1週飲食建議",
+    //   CourseName: "體驗 - 1週飲食建議",
     //   OrderNumber: "20231121001",
     //   CourseStartDate: "",
     //   CourseEndDate: "",
@@ -251,7 +251,9 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
                 ) : course.CourseState === "未開始" ? (
                   <button
                     className="btn-cusWriteSecondary"
-                    onClick={() => dispatch(showModal("CourseStartModal"))}
+                    onClick={() =>
+                      dispatch(showModal(["showCourseStartModal", course]))
+                    }
                   >
                     開始
                   </button>
@@ -263,7 +265,7 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
               </div>
               <h3 className="border-b w-fit border-black-950 font-bold">
                 {course.UserName ? course.UserName : course.Title}/
-                {course.CourseTitle}
+                {course.CourseName}
               </h3>
               <p className="text-14">訂單編號：{course.OrderNumber}</p>
               <p className="text-14">
