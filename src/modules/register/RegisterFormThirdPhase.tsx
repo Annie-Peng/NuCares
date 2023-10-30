@@ -1,10 +1,21 @@
-import { FC } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import logoPrimary from "public/images/logo-primary-300.svg";
 import registerStep3 from "public/images/register/registerStep3.svg";
+import { useRouter } from "next/router";
 
 const RegisterFormThirdPhase = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.push("/login");
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [router]);
+
   return (
     <form className="cusForm max-w-[464px] mx-auto mt-[75px] relative text-black-500">
       <div>
@@ -24,7 +35,9 @@ const RegisterFormThirdPhase = () => {
           <br />
           接下來請登入帳號，即可購買課程
         </p>
-        <p className="mx-auto w-fit border-b border-black-500">立即登入</p>
+        <Link href="/login" className="mx-auto w-fit border-b border-black-500">
+          立即登入
+        </Link>
         <p className="text-14 -mt-12">或等待5秒自動跳轉至登入畫面</p>
       </div>
     </form>
