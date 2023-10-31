@@ -7,8 +7,15 @@ import {
 import wrapper from "@/common/redux/store";
 import { getCookies } from "cookies-next";
 import { useRouter } from "next/router";
+import { FC } from "react";
 
-const StudentIdPage = ({ auth }) => {
+interface StudentListPageProps {
+  UserCurrentStatus: string;
+  Token: string;
+  [key: string]: any;
+}
+
+const StudentIdPage: FC<StudentListPageProps> = ({ auth }) => {
   const router = useRouter();
 
   const courseId = router.query.studentId;
@@ -53,11 +60,7 @@ const StudentIdPage = ({ auth }) => {
 
   console.log(BodyInfo, Goal);
 
-  return (
-    <>
-      <CourseRecord BodyInfo={BodyInfo} Goal={Goal} />
-    </>
-  );
+  return <>{/* <CourseRecord BodyInfo={BodyInfo} Goal={Goal} /> */}</>;
 };
 
 export default StudentIdPage;
