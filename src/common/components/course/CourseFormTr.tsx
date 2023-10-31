@@ -20,12 +20,13 @@ const CourseFormTr: FC<CourseFormTrProps> = ({
   Token,
 }) => {
   const dispatch = useDispatch();
+  const routeListPage = ID === "user" ? "course-list" : "student-list";
   return (
     <>
       <td className="text-14">{course.OrderNumber}</td>
       <td>
         <span className="border-b border-black-950">
-          <Link href={`student-list/${course.Id}`}>
+          <Link href={`${routeListPage}/${course.Id}`}>
             {course.UserName ? course.UserName : course.Title}/
             {course.CourseName}
           </Link>
