@@ -8,13 +8,19 @@ import { selectShowModal } from "../redux/features/showModal";
 import CourseStartModal from "@/modules/dashboard/nutritionist/workshop/CourseStartModal";
 import BodyRateAddModal from "@/modules/dashboard/student/courses/BodyRateAddModal";
 import { getCookie } from "cookies-next";
+import { useEffect, useState } from "react";
 
 const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
   const { showMenuEditModal, showCourseStartModal, showBodyRateAddModal } =
     useSelector(selectShowModal);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
 
   const UserCurrentStatus = getCookie("UserCurrentStatus");
   const UserName = getCookie("UserName");
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <>
@@ -37,7 +43,7 @@ const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
               alt="profile-photo"
               className="rounded-50 bg-black-200 border border-white"
             />
-            {UserCurrentStatus === "user" ? (
+            {isMounted && UserCurrentStatus === "user" ? (
               <p className="px-10 bg-primary-500 text-white w-fit rounded-10 mt-16 text-12 font-bold">
                 一般會員
               </p>
@@ -46,13 +52,15 @@ const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
                 營養師
               </p>
             )}
-            <p className="mt-4 text-24 font-normal relative">{UserName}</p>
-          </div>
-            {UserCurrentStatus === "user" ? (
-              <StudentSidebar />
-            ) : (
-              <NutritionistSidebar />
+            {isMounted && (
+              <p className="mt-4 text-24 font-normal relative">{UserName}</p>
             )}
+          </div>
+          {isMounted && UserCurrentStatus === "user" ? (
+            <StudentSidebar />
+          ) : (
+            <NutritionistSidebar />
+          )}
         </div>
         <div className="bg-white bg-opacity-50 w-[80%] rounded-35 text-center p-20">
           {children}

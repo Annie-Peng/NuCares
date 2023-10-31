@@ -13,6 +13,7 @@ const Header = () => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
 
   const UserCurrentStatus = getCookie("UserCurrentStatus");
+  const IsNutritionist = getCookie("IsNutritionist");
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -20,10 +21,9 @@ const Header = () => {
   return (
     <header className="bg-white">
       <div className="container py-10 items-center grid cusGrid relative lg:py-26 lg:pl-28 lg:pr-8">
-        {UserCurrentStatus &&
-          showDropdown &&
+        {showDropdown &&
           (UserCurrentStatus === "user" ? (
-            <StudentDropdown />
+            <StudentDropdown IsNutritionist={IsNutritionist} />
           ) : (
             <NutritionistDropdown />
           ))}
