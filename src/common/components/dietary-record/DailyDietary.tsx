@@ -230,7 +230,7 @@ const DailyDietary: FC<DailyDietaryProps> = ({ isMobile }) => {
     <>
       <button
         type="button"
-        onClick={() => dispatch(showModal("MenuEditModal"))}
+        onClick={() => dispatch(showModal(["showMenuEditModal", 0]))}
         className="hidden lg:block"
       >
         <Image
