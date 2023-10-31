@@ -3,7 +3,6 @@ import Link from "next/link";
 import logo from "public/images/logo.svg";
 import login from "public/images/login.svg";
 import logout from "public/images/logout.svg";
-import userData from "../lib/dashboard/user";
 import StudentDropdown from "@/modules/dashboard/student/StudentDropdown";
 import NutritionistDropdown from "@/modules/dashboard/nutritionist/NutritionistDropdown";
 import { useEffect, useState } from "react";
@@ -28,6 +27,7 @@ const Header = () => {
           ) : (
             <NutritionistDropdown />
           ))}
+
         <Link href="/" className="col-span-2">
           <Image src={logo} width="170" height="28" alt="logo-NuCares" />
         </Link>

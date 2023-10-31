@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { ButtonClass, Course } from "./CourseForm";
 import { FC, ReactNode } from "react";
 import { showModal } from "@/common/redux/features/showModal";
+import Link from "next/link";
 
 interface CourseFormTrProps {
   course: Course;
@@ -24,7 +25,10 @@ const CourseFormTr: FC<CourseFormTrProps> = ({
       <td className="text-14">{course.OrderNumber}</td>
       <td>
         <span className="border-b border-black-950">
-          {course.UserName ? course.UserName : course.Title}/{course.CourseName}
+          <Link href={`student-list/${course.Id}`}>
+            {course.UserName ? course.UserName : course.Title}/
+            {course.CourseName}
+          </Link>
         </span>
       </td>
       <td>
@@ -77,22 +81,6 @@ const CourseFormTr: FC<CourseFormTrProps> = ({
             開始
           </button>
         )}
-        {/* {comment ? (
-          comment
-        ) : course.CourseState === "未開始" ? (
-          <button
-            className="btn-cusWriteSecondary"
-            onClick={() =>
-              dispatch(showModal(["showCourseStartModal", { Token, course }]))
-            }
-          >
-            開始
-          </button>
-        ) : (
-          <button disabled className="btn-cusDisableWriteBlack">
-            開始
-          </button>
-        )} */}
       </td>
     </>
   );

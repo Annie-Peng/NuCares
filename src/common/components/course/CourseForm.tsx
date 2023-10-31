@@ -6,6 +6,7 @@ import { showModal } from "@/common/redux/features/showModal";
 import { FC, useEffect, useState } from "react";
 
 export interface Course {
+  Id: string;
   Title?: string;
   UserName?: string;
   CourseName: string;
@@ -20,11 +21,6 @@ export interface Course {
 interface Pagination {
   current_page: number;
   total_pages: number;
-}
-
-interface CourseAPI {
-  courses: Course[];
-  pagination: Pagination;
 }
 
 export interface ButtonClass {
@@ -49,54 +45,6 @@ interface CourseFormProps {
     [key: string]: any;
   };
 }
-
-const API: CourseAPI = {
-  courses: [
-    {
-      OrderNumber: "20231003001",
-      UserName: "蛋黃哥",
-      CourseName: "進階 - 8週飲食建議",
-      CourseStartDate: "2023/10/21",
-      CourseEndDate: "2023/10/22",
-      CourseState: "已結束",
-      IsQuest: true,
-    },
-    // {
-    //   Title: "陳亮亮",
-    //   CourseName: "體驗 - 1週飲食建議",
-    //   OrderNumber: "20231121001",
-    //   CourseStartDate: "2023/08/03",
-    //   CourseEndDate: "2023/08/10",
-    //   CourseState: "已結束",
-    //   IsQuest: false,
-    //   IsComment: false,
-    // },
-    // {
-    //   Title: "陳亮亮",
-    //   CourseName: "體驗 - 1週飲食建議",
-    //   OrderNumber: "20231121001",
-    //   CourseStartDate: "",
-    //   CourseEndDate: "",
-    //   CourseState: "已結束",
-    //   IsQuest: true,
-    //   IsComment: true,
-    // },
-    // {
-    //   Title: "陳亮亮",
-    //   CourseName: "體驗 - 1週飲食建議",
-    //   OrderNumber: "20231121001",
-    //   CourseStartDate: "",
-    //   CourseEndDate: "",
-    //   CourseState: "進行中",
-    //   IsQuest: true,
-    //   IsComment: false,
-    // },
-  ],
-  pagination: {
-    current_page: 1,
-    total_pages: 1,
-  },
-};
 
 const buttonClass: ButtonClass = {
   nu: {
