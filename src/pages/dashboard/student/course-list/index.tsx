@@ -1,8 +1,15 @@
 import CourseForm from "@/common/components/course/CourseForm";
 import wrapper from "@/common/redux/store";
 import { getCookies } from "cookies-next";
+import { FC } from "react";
 
-const CourseListPage = ({ auth }) => {
+interface CourseListPageProps {
+  UserCurrentStatus: string;
+  Token: string;
+  [key: string]: any;
+}
+
+const CourseListPage: FC<CourseListPageProps> = ({ auth }) => {
   console.log(auth);
   return (
     <>
