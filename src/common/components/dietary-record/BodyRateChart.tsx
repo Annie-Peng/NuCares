@@ -23,12 +23,27 @@ ChartJS.register(
 
 interface BodyRateChartProps {
   tab: string;
+  BodyRate: any;
 }
 
-let labels = ["2023/10/28", "2023/10/29", "2023/10/30", "2023/10/31"];
-let data = [12, 19, 3, 5];
+const BodyRateChart: FC<BodyRateChartProps> = ({ tab, BodyRate }) => {
+  console.log(BodyRate);
 
-const BodyRateChart: FC<BodyRateChartProps> = ({ tab }) => {
+  //   let labels = ["2023/10/28", "2023/10/29", "2023/10/30", "2023/10/31"];
+  // let data = [12, 19, 3, 5];
+
+  let labels: string[] = [];
+  let data: string[] = [];
+
+  if (Array.isArray(BodyRate)) {
+    BodyRate.map((item) => {
+      labels.push(item.Date);
+      data.push(item[tab]);
+    });
+  }
+
+  console.log(labels, data);
+
   return (
     <>
       <Line

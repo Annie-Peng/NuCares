@@ -1,19 +1,34 @@
 import Image from "next/image";
 import BodyRateChart from "./BodyRateChart";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { showModal } from "@/common/redux/features/showModal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { bodyRateTabs } from "@/common/lib/dashboard/dietary-record/bodyRate";
+import { selectBodyRate } from "@/common/redux/features/dietary-record/bodyRate";
 
-const BodyRate = () => {
+interface BodyRateProps {
+  Token: string;
+  CourseId: string;
+}
+
+const BodyRate: FC<BodyRateProps> = ({ Token, CourseId }) => {
   const [tab, setTab] = useState<string>("Height");
   const dispatch = useDispatch();
+
+  const BodyRate = useSelector(selectBodyRate);
 
   return (
     <>
       <button
         type="button"
-        onClick={() => dispatch(showModal(["showBodyRateAddModal", 0]))}
+        onClick={() =>
+          dispatch(
+            showModal([
+              "showBodyRateAddModal",
+              { Token: Token, CourseId: CourseId },
+            ])
+          )
+        }
       >
         <Image
           src="/images/dashboard/dietary-record/edit.svg"
@@ -45,7 +60,7 @@ const BodyRate = () => {
           />
         </label>
         <div className="h-[214px]">
-          <BodyRateChart tab={tab} />
+          <BodyRateChart tab={tab} BodyRate={BodyRate} />
         </div>
       </div>
       <ul className="flex flex-col gap-32 lg:hidden pb-[100px]">
@@ -55,7 +70,7 @@ const BodyRate = () => {
               {item.name}
             </p>
             <div className="h-[130px] mt-20">
-              <BodyRateChart tab={tab} />
+              <BodyRateChart tab={tab} BodyRate={BodyRate} />
             </div>
           </li>
         ))}
