@@ -52,7 +52,6 @@ const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
                 營養師
               </p>
             )}
-
             {isMounted && (
               <p className="mt-4 text-24 font-normal relative">{UserName}</p>
             )}
