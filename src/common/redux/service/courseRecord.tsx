@@ -29,6 +29,18 @@ export const courseRecord = createApi({
       }),
       providesTags: ["BodyInfo"],
     }),
+    bodyInfoPutApi: builder.mutation({
+      query: ({ Token, CourseId, body }) => ({
+        url: `/course/${CourseId}/inbody`,
+        method: "PUT",
+        headers: {
+          Authorization: `${Token}`,
+          "Content-Type": "application/json",
+        },
+        body,
+      }),
+      invalidatesTags: ["BodyInfo"],
+    }),
     GoalGetApi: builder.query({
       query: ({ Token, CourseId }) => ({
         url: `/course/${CourseId}/goal`,
@@ -46,5 +58,6 @@ export const courseRecord = createApi({
 export const {
   useDailyDietaryGetApiQuery,
   useBodyInfoGetApiQuery,
+  useBodyInfoPutApiMutation,
   useGoalGetApiQuery,
 } = courseRecord;
