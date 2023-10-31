@@ -3,17 +3,30 @@ import Link from "next/link";
 import Image from "next/image";
 import logoutTab from "@/common/lib/dashboard/logoutTab";
 import changeIdentity from "@/common/lib/dashboard/changeIdentity";
-import userData from "@/common/lib/dashboard/user";
+import { useDispatch } from "react-redux";
+import { getCookie, setCookie } from "cookies-next";
+import { updateChangeID } from "@/common/redux/features/changeID";
+import { useRouter } from "next/router";
 
 const StudentDropdown = () => {
+  const dispatch = useDispatch();
+  const UserCurrentStatus = getCookie("UserCurrentStatus");
+  const router = useRouter();
+
+  function handleChangeID() {
+    setCookie("UserCurrentStatus", "nu");
+    dispatch(updateChangeID("nu"));
+    router.push("/dashboard/nutritionist/student-list");
+  }
+
   return (
     <div className="cusDropdown">
       <div className="flex gap-4">
         <span className="cusSIdentity py-4 text-center w-full rounded-[45px]">
           一般會員
         </span>
-        {userData.IsNutritionist && (
-          <button type="button">
+        {UserCurrentStatus === "user" && (
+          <button type="button" onClick={handleChangeID}>
             <Image
               src={`${changeIdentity.iconURL}.svg`}
               width={27}

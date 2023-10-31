@@ -3,22 +3,31 @@ import Link from "next/link";
 import logo from "public/images/logo.svg";
 import login from "public/images/login.svg";
 import logout from "public/images/logout.svg";
-import userData from "../lib/dashboard/user";
 import StudentDropdown from "@/modules/dashboard/student/StudentDropdown";
 import NutritionistDropdown from "@/modules/dashboard/nutritionist/NutritionistDropdown";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getCookie } from "cookies-next";
 
 const Header = () => {
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+
+  const UserCurrentStatus = getCookie("UserCurrentStatus");
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
     <header className="bg-white">
       <div className="container py-10 items-center grid cusGrid relative lg:py-26 lg:pl-28 lg:pr-8">
-        {showDropdown &&
-          (userData.currentID === "student" ? (
+        {UserCurrentStatus &&
+          showDropdown &&
+          (UserCurrentStatus === "user" ? (
             <StudentDropdown />
           ) : (
             <NutritionistDropdown />
           ))}
+
         <Link href="/" className="col-span-2">
           <Image src={logo} width="170" height="28" alt="logo-NuCares" />
         </Link>
@@ -37,7 +46,7 @@ const Header = () => {
             </li>
           </ul>
         </nav>
-        {userData.currentID ? (
+        {isMounted && UserCurrentStatus && (
           <Image
             src={login}
             width="50"
@@ -46,7 +55,8 @@ const Header = () => {
             className="col-end-5 ml-auto lg:col-end-13 lg:mr-auto"
             onClick={() => setShowDropdown(!showDropdown)}
           />
-        ) : (
+        )}
+        {isMounted && !UserCurrentStatus && (
           <>
             <Link
               href="#"

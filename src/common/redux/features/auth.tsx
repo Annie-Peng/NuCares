@@ -6,7 +6,7 @@ export interface Auth {
   UserName: string;
   Email: string;
   ImgUrl: string;
-  IsNutritionist: string;
+  IsNutritionist: boolean;
   UserCurrentStatus: string;
 }
 
@@ -30,7 +30,7 @@ export const authSlice = createSlice({
       state.Email = Email;
       state.ImgUrl = ImgUrl;
       state.IsNutritionist = IsNutritionist;
-      state.UserCurrentStatus = UserCurrentStatus === "student" ? "user" : "nu";
+      state.UserCurrentStatus = UserCurrentStatus;
     },
   },
 });

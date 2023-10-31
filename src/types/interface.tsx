@@ -1,4 +1,5 @@
 import auth, { Auth } from "@/common/redux/features/auth";
+import { changeIDType } from "@/common/redux/features/changeID";
 import { ShowModalType } from "@/common/redux/features/showModal";
 import { ReactNode } from "react";
 export interface LayoutProps {
@@ -30,6 +31,7 @@ export interface RootState {
   registerPhases?: RegisterData | undefined;
   auth: Auth;
   showModal: ShowModalType;
+  changeID: changeIDType;
 }
 
 export interface ErrorData {
