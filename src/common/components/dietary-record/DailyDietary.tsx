@@ -204,9 +204,11 @@ const foodIcons: FoodIcon[] = [
 
 interface DailyDietaryProps {
   isMobile: boolean;
+  Token: string;
+  CourseId: string;
 }
 
-const DailyDietary: FC<DailyDietaryProps> = ({ isMobile }) => {
+const DailyDietary: FC<DailyDietaryProps> = ({ isMobile, Token, CourseId }) => {
   const dispatch = useDispatch();
   const [tab, setTab] = useState<Tab>(tabs[0]);
 

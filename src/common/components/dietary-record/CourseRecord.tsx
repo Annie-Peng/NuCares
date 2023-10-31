@@ -3,12 +3,17 @@ import DailyDietary from "@/common/components/dietary-record/DailyDietary";
 import GoalCompletionRate from "@/common/components/dietary-record/goalChart/GoalCompletionRate";
 import CourseInfo from "@/common/components/dietary-record/CourseInfo";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import BodyRate from "./BodyRate";
 import MobileSidebar from "./MobileSidebar";
 import useResize from "@/common/hooks/useResize";
 
-const CourseRecord = () => {
+interface CourseRecordProps {
+  Token: string;
+  CourseId: string;
+}
+
+const CourseRecord: FC<CourseRecordProps> = ({ Token, CourseId }) => {
   const isMobile: boolean = useResize();
   const [showInfo, setShowInfo] = useState<boolean>(false);
   const [showTab, setShowTab] = useState<number>(isMobile ? 1 : 0);
@@ -43,34 +48,38 @@ const CourseRecord = () => {
         </button>
         {showInfo && (
           <div className="absolute top-0 right-0 z-10 cusShadow p-20 rounded-10 min-w-[240px]">
-            <CourseInfo />
+            <CourseInfo Token={Token} CourseId={CourseId} />
           </div>
         )}
         {showInfoMobile && (
           <div className="w-full lg:hidden">
             <DashboardContainer title="學員資訊">
-              <CourseInfo />
+              <CourseInfo Token={Token} CourseId={CourseId} />
             </DashboardContainer>
           </div>
         )}
         {showDailyDietary && (
           <div className="w-full">
             <DashboardContainer title="飲食日記">
-              <DailyDietary isMobile={isMobile} />
+              <DailyDietary
+                isMobile={isMobile}
+                Token={Token}
+                CourseId={CourseId}
+              />
             </DashboardContainer>
           </div>
         )}
         {showBodyRate && (
           <div className="w-full lg:w-[68%]">
             <DashboardContainer title="身體紀錄">
-              <BodyRate />
+              <BodyRate Token={Token} CourseId={CourseId} />
             </DashboardContainer>
           </div>
         )}
         {showGoalRate && (
           <div className="w-full lg:w-[30%]">
             <DashboardContainer title="目標">
-              <GoalCompletionRate />
+              <GoalCompletionRate Token={Token} CourseId={CourseId} />
             </DashboardContainer>
           </div>
         )}

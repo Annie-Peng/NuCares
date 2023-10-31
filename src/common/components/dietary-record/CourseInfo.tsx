@@ -1,6 +1,12 @@
 import Image from "next/image";
+import { FC } from "react";
 
-const CourseInfo = () => {
+interface CourseInfoProps {
+  Token: string;
+  CourseId: string;
+}
+
+const CourseInfo: FC<CourseInfoProps> = ({ Token, CourseId }) => {
   return (
     <div className="w-[200px] mx-auto text-14 lg:text-16">
       <p className="text-primary-500 border border-primary-500 rounded-35 text-center">
