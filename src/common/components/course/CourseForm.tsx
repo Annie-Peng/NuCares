@@ -202,7 +202,7 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
           <thead>
             <tr>
               {IDTabs.tabs.map((tab, index) => (
-                <th key="index">{tab}</th>
+                <th key={index}>{tab}</th>
               ))}
             </tr>
           </thead>
@@ -216,6 +216,7 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
                     ID={ID}
                     buttonClass={buttonClass}
                     comment={checkCommentClass(course, ID, buttonClass)}
+                    Token={Token}
                   />
                 </tr>
               );
@@ -252,7 +253,9 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
                   <button
                     className="btn-cusWriteSecondary"
                     onClick={() =>
-                      dispatch(showModal(["showCourseStartModal", course]))
+                      dispatch(
+                        showModal(["showCourseStartModal", { Token, course }])
+                      )
                     }
                   >
                     開始

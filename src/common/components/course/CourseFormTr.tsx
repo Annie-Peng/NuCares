@@ -8,6 +8,7 @@ interface CourseFormTrProps {
   ID: string;
   buttonClass: ButtonClass;
   comment: ReactNode;
+  Token: string;
 }
 
 const CourseFormTr: FC<CourseFormTrProps> = ({
@@ -15,6 +16,7 @@ const CourseFormTr: FC<CourseFormTrProps> = ({
   ID,
   buttonClass,
   comment,
+  Token,
 }) => {
   const dispatch = useDispatch();
   return (
@@ -61,11 +63,11 @@ const CourseFormTr: FC<CourseFormTrProps> = ({
       <td>
         {comment ? (
           comment
-        ) : course.CourseState === "未開始" ? (
+        ) : course.CourseState === "未開始" && course.IsQuest ? (
           <button
             className="btn-cusWriteSecondary"
             onClick={() =>
-              dispatch(showModal(["showCourseStartModal", course]))
+              dispatch(showModal(["showCourseStartModal", { Token, course }]))
             }
           >
             開始
@@ -75,6 +77,22 @@ const CourseFormTr: FC<CourseFormTrProps> = ({
             開始
           </button>
         )}
+        {/* {comment ? (
+          comment
+        ) : course.CourseState === "未開始" ? (
+          <button
+            className="btn-cusWriteSecondary"
+            onClick={() =>
+              dispatch(showModal(["showCourseStartModal", { Token, course }]))
+            }
+          >
+            開始
+          </button>
+        ) : (
+          <button disabled className="btn-cusDisableWriteBlack">
+            開始
+          </button>
+        )} */}
       </td>
     </>
   );
