@@ -30,8 +30,10 @@ const BodyRate = () => {
             className="border-primary-400 pr-32 bg-transparent relative z-10"
             onChange={(e) => setTab(e.target.value)}
           >
-            {bodyRateTabs.map((item) => (
-              <option value={item.enName}>{item.name}</option>
+            {bodyRateTabs.map((item, index) => (
+              <option key={index} value={item.enName}>
+                {item.name}
+              </option>
             ))}
           </select>
           <Image
@@ -47,8 +49,8 @@ const BodyRate = () => {
         </div>
       </div>
       <ul className="flex flex-col gap-32 lg:hidden pb-[100px]">
-        {bodyRateTabs.map((item) => (
-          <li>
+        {bodyRateTabs.map((item, index) => (
+          <li key={index}>
             <p className="rounded-35 border border-primary-500 text-primary-500 w-80 text-center text-14 mx-auto">
               {item.name}
             </p>
