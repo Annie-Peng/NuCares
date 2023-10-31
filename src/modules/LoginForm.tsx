@@ -7,8 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectAuth, storeAuth } from "@/common/redux/features/auth";
 import { useRouter } from "next/router";
 import { setCookie } from "cookies-next";
+import { useState } from "react";
+import loginApiErrMsg from "@/common/lib/dashboard/errMsg/loginApiErrMsg";
+import errInput from "@/common/helpers/errInput";
 
 interface LoginType {
+  [key: string]: string;
   Email: string;
   Password: string;
 }
@@ -23,6 +27,7 @@ const LoginForm = () => {
   const [userLoginPostApi] = useUserLoginPostApiMutation();
   const dispatch = useDispatch();
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit: SubmitHandler<LoginType> = async (formData) => {
     console.log(formData);
@@ -40,11 +45,11 @@ const LoginForm = () => {
       router.push("/");
     } catch (error: unknown) {
       console.log(error);
-      // const e = error as { data?: { Message: unknown }; status?: unknown };
+      const e = error as { data?: { Message: unknown }; status?: unknown };
 
-      // const errMsgs = Object.entries(e.data?.Message as string);
-      // const errStatus = e?.status as number;
-      // errInput(registerApiErrMsg, errMsgs, errStatus, setError);
+      const errMsgs = Object.entries(e.data?.Message as string);
+      const errStatus = e?.status as number;
+      errInput(loginApiErrMsg, errMsgs, errStatus, setError);
     }
   };
 
@@ -55,36 +60,40 @@ const LoginForm = () => {
     >
       <Image src={logoPrimary} width="147" height="27" alt="NuCares-logo" />
       <h2 className="text-20 text-primary-400 font-normal">會員登入</h2>
-      <label className="w-full mt-20 lg:mt-0 relative">
-        <input
-          className="cusInputWithIcon"
-          placeholder="帳號(Email)"
-          type="email"
-          {...register("Email", { required: "必填" })}
-        />
-        <div className="cusShowLeftIcon bg-emailIcon" />
-        <p className="text-left text-secondary-600">{errors.Email?.message}</p>
-      </label>
-      <label htmlFor="email" className="w-full mt-14 lg:mt-0 relative">
-        <input
-          className="cusInputWithIcon"
-          placeholder="密碼"
-          type="password"
-          {...register("Password", { required: "必填" })}
-        />
-        <div className="cusShowLeftIcon bg-passwordIcon" />
-        <div className="cusShowRightIcon bg-eyeCloseIcon" />
-        <p className="text-left text-secondary-600">
+      <div className="flex flex-col w-full text-14 lg:text-16">
+        <label className="relative">
+          <input
+            className="cusInputWithIcon"
+            placeholder="帳號(Email)"
+            type="email"
+            {...register("Email", { required: "*必填" })}
+          />
+          <div className="cusShowLeftIcon bg-emailIcon" />
+        </label>
+        <p className="text-left text-secondary-600 mt-4">
+          {errors.Email?.message}
+        </p>
+        <label className="mt-24 lg:mt-32 relative">
+          <input
+            className="cusInputWithIcon"
+            placeholder="密碼"
+            type={showPassword ? "text" : "password"}
+            {...register("Password", { required: "*必填" })}
+          />
+          <div className="cusShowLeftIcon bg-passwordIcon" />
+          <div
+            className="cusShowRightIcon bg-eyeCloseIcon"
+            onClick={() => setShowPassword(!showPassword)}
+          />
+        </label>
+        <p className="text-left text-secondary-600 mt-4">
           {errors.Password?.message}
         </p>
-      </label>
-      <button
-        type="submit"
-        className="btn-cusSecondary w-full mt-14 lg:mt-0 lg:py-20"
-      >
+      </div>
+      <button type="submit" className="btn-cusBigSecondary w-full">
         登入
       </button>
-      <Link href="/" className="mt-20 text-14 lg:mt-0">
+      <Link href="/reset-password" className="mt-20 text-14 lg:mt-0">
         忘記密碼
       </Link>
       <span className="mt-6 text-14 lg:mt-0">
