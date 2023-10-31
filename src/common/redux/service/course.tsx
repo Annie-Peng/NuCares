@@ -5,6 +5,7 @@ export const course = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_URL,
   }),
+  tagTypes: ["Course"],
   endpoints: (builder) => ({
     courseListGetApi: builder.query({
       query: ({ Token, UserCurrentStatus, PageId }) => ({
@@ -15,8 +16,38 @@ export const course = createApi({
           "Content-Type": "application/json",
         },
       }),
+      providesTags: ["Course"],
+    }),
+    courseGetTimeApi: builder.query({
+      query: ({ Token, CourseId }) => ({
+        url: `/course/${CourseId}/time`,
+        method: "GET",
+        headers: {
+          Authorization: `${Token}`,
+          "Content-Type": "application/json",
+        },
+      }),
+    }),
+    coursePutStartApi: builder.mutation({
+      query: ({ Token, CourseId, body }) => {
+        console.log(Token, CourseId, body);
+        return {
+          url: `/course/${CourseId}/start`,
+          method: "PUT",
+          headers: {
+            Authorization: `${Token}`,
+            "Content-Type": "application/json",
+          },
+          body,
+        };
+      },
+      invalidatesTags: ["Course"],
     }),
   }),
 });
 
-export const { useCourseListGetApiQuery } = course;
+export const {
+  useCourseListGetApiQuery,
+  useCourseGetTimeApiQuery,
+  useCoursePutStartApiMutation,
+} = course;
