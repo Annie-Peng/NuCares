@@ -13,7 +13,7 @@ const BodyRate = () => {
     <>
       <button
         type="button"
-        onClick={() => dispatch(showModal("BodyRateAddModal"))}
+        onClick={() => dispatch(showModal(["showBodyRateAddModal", 0]))}
       >
         <Image
           src="/images/dashboard/dietary-record/edit.svg"
