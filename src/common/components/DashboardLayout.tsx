@@ -10,12 +10,20 @@ import BodyRateAddModal from "@/modules/dashboard/student/courses/BodyRateAddMod
 
 const DashboardLayout: FC<DashboardLayoutProps> = ({ value, children }) => {
   const showModal = useSelector(selectShowModal);
+  const { showMenuEditModal, showCourseStartModal, showBodyRateAddModal } =
+    useSelector(selectShowModal);
 
   return (
     <>
-      {showModal.MenuEditModal && <MenuEditModal />}
-      {showModal.CourseStartModal && <CourseStartModal />}
-      {showModal.BodyRateAddModal && <BodyRateAddModal />}
+      {showMenuEditModal.showModal && (
+        <MenuEditModal data={showMenuEditModal.data} />
+      )}
+      {showCourseStartModal.showModal && (
+        <CourseStartModal data={showCourseStartModal.data} />
+      )}
+      {showBodyRateAddModal.showModal && (
+        <BodyRateAddModal data={showBodyRateAddModal.data} />
+      )}
       <div className="flex flex-col min-h-screen">
         <Header />
         <main className="grow">{children}</main>

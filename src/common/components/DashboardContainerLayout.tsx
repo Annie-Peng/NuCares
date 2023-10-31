@@ -11,8 +11,6 @@ import { getCookie } from "cookies-next";
 import { useEffect, useState } from "react";
 
 const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
-  const { showMenuEditModal, showCourseStartModal, showBodyRateAddModal } =
-    useSelector(selectShowModal);
   const [isMounted, setIsMounted] = useState<boolean>(false);
 
   const UserCurrentStatus = getCookie("UserCurrentStatus");
@@ -24,15 +22,6 @@ const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
 
   return (
     <>
-      {showMenuEditModal.showModal && (
-        <MenuEditModal data={showMenuEditModal.data} />
-      )}
-      {showCourseStartModal.showModal && (
-        <CourseStartModal data={showCourseStartModal.data} />
-      )}
-      {showBodyRateAddModal.showModal && (
-        <BodyRateAddModal data={showBodyRateAddModal.data} />
-      )}
       <div className="container p-20 flex mt-[54px] rounded-50 max-w-[1210px] relative cusBackgroundBackdrop min-h-[777px]">
         <div className="w-[20%]">
           <div className="profile flex flex-col items-center">
