@@ -38,6 +38,11 @@ button {
   @apply rounded-5 border border-primary-400 text-primary-400 py-4 px-10;
 }
 
+//編輯筆
+.btn-cusEditPrimary {
+  @apply rounded-5 border border-primary-500 py-8;
+}
+
 //其他：自訂
 .btn-cusPrimary {
   @apply rounded-5 text-primary-500 bg-white p-5;
@@ -87,8 +92,8 @@ button {
 //下拉式選單, 學員資訊, 營養師資訊
 .cusShadow {
   content: "";
-  border: 1px solid rgb(255, 255, 255, 0.3);
-  background-color: rgb(255, 255, 255, 0.3);
+  border: 1px solid rgb(255, 255, 255, 0.8);
+  background-color: rgb(255, 255, 255, 0.8);
   box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
 }

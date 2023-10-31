@@ -46,14 +46,13 @@ const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
                 營養師
               </p>
             )}
-
             <p className="mt-4 text-24 font-normal relative">{UserName}</p>
           </div>
-          {UserCurrentStatus === "user" ? (
-            <StudentSidebar />
-          ) : (
-            <NutritionistSidebar />
-          )}
+            {UserCurrentStatus === "user" ? (
+              <StudentSidebar />
+            ) : (
+              <NutritionistSidebar />
+            )}
         </div>
         <div className="bg-white bg-opacity-50 w-[80%] rounded-35 text-center p-20">
           {children}
