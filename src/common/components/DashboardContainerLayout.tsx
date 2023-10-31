@@ -2,16 +2,26 @@ import NutritionistSidebar from "@/modules/dashboard/nutritionist/NutritionistSi
 import StudentSidebar from "@/modules/dashboard/student/StudentSidebar";
 import { DashboardLayoutProps } from "@/types/interface";
 import Image from "next/image";
-import userData from "../lib/dashboard/user";
 import MenuEditModal from "@/modules/dashboard/nutritionist/student-list/MenuEditModal";
 import { useSelector } from "react-redux";
 import { selectShowModal } from "../redux/features/showModal";
 import CourseStartModal from "@/modules/dashboard/nutritionist/workshop/CourseStartModal";
 import BodyRateAddModal from "@/modules/dashboard/student/courses/BodyRateAddModal";
+import { getCookie } from "cookies-next";
+import { useEffect, useState } from "react";
 
 const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
   const { showMenuEditModal, showCourseStartModal, showBodyRateAddModal } =
     useSelector(selectShowModal);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+
+  const UserCurrentStatus = getCookie("UserCurrentStatus");
+  const UserName = getCookie("UserName");
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
     <>
       {showMenuEditModal.showModal && (
@@ -33,7 +43,7 @@ const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
               alt="profile-photo"
               className="rounded-50 bg-black-200 border border-white"
             />
-            {userData.currentID === "student" ? (
+            {isMounted && UserCurrentStatus === "user" ? (
               <p className="px-10 bg-primary-500 text-white w-fit rounded-10 mt-16 text-12 font-bold">
                 一般會員
               </p>
@@ -43,11 +53,11 @@ const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
               </p>
             )}
 
-            <p className="mt-4 text-24 font-normal relative">
-              {userData.RelName}
-            </p>
+            {isMounted && (
+              <p className="mt-4 text-24 font-normal relative">{UserName}</p>
+            )}
           </div>
-          {userData.currentID === "student" ? (
+          {isMounted && UserCurrentStatus === "user" ? (
             <StudentSidebar />
           ) : (
             <NutritionistSidebar />
