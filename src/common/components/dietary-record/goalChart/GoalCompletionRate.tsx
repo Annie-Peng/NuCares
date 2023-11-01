@@ -1,9 +1,17 @@
 import Image from "next/image";
 import BMIGoalChart from "./BMIGoalChart";
 import WeightGoalChart from "./WeightGoalChart";
-import { useState } from "react";
+import { FC, useState } from "react";
 
-const GoalCompletionRate = () => {
+interface GoalCompletionRateProps {
+  Token: string;
+  CourseId: string;
+}
+
+const GoalCompletionRate: FC<GoalCompletionRateProps> = ({
+  Token,
+  CourseId,
+}) => {
   const [editGoal, setEditGoal] = useState(false);
   return (
     <>
