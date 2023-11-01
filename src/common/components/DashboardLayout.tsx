@@ -26,7 +26,7 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({ value, children }) => {
       )}
       <div className="flex flex-col min-h-screen">
         <Header />
-        <main className="grow">{children}</main>
+        <main className="grow lg:py-[75px]">{children}</main>
         {value ? null : <Footer />}
       </div>
     </>

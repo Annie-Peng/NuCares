@@ -22,7 +22,7 @@ const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
 
   return (
     <>
-      <div className="container p-20 flex mt-[54px] rounded-50 max-w-[1210px] relative cusBackgroundBackdrop min-h-[777px]">
+      <div className="container p-20 flex rounded-50 max-w-[1210px] relative cusBackgroundBackdrop min-h-[777px]">
         <div className="w-[20%]">
           <div className="profile flex flex-col items-center">
             <Image

@@ -47,7 +47,7 @@ const CourseRecord: FC<CourseRecordProps> = ({
         返回我的課程列表
       </Link>
       <h2 className="cusPrimaryTitle py-4 hidden lg:block">我的紀錄</h2>
-      <div className="mt-12 flex flex-wrap gap-12 w-full justify-center relative">
+      <div className="flex flex-wrap gap-12 w-full justify-center relative lg:mt-12">
         <button
           className="absolute right-0 -top-[56px] p-10 btn-cusPrimaryInfo items-center gap-10 hidden lg:flex"
           onClick={() => setShowInfo(!showInfo)}

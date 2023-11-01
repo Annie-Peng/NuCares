@@ -82,7 +82,7 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
 
   return (
     <form
-      className="cusForm max-w-[464px] mx-auto mt-[75px] relative text-black-500"
+      className="cusForm max-w-[464px] mx-auto relative text-black-500 lg:mt-[75px]"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div>
@@ -180,7 +180,13 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
             }`}
             placeholder="手機號碼"
             type="number"
-            {...register("Phone", { required: "*必填" })}
+            {...register("Phone", {
+              required: "*必填",
+              pattern: {
+                value: /^09\d{8}$/,
+                message: "手機號碼格式有誤",
+              },
+            })}
           />
           <div className="cusShowLeftIcon bg-mobileIcon" />
         </label>
@@ -192,10 +198,11 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
             type="checkbox"
             className="form-checkbox bg-transparent text-black-500 focus:ring-offset-0 focus:ring-0"
             value="UserRule"
-            {...register("UserRule", { required: "*必填" })}
+            {...register("UserRule", { required: "*請勾選" })}
           />
           <span className="ms-4">使用者條款</span>
         </label>
+        <p className="text-secondary-600 mt-4">{errors.UserRule?.message}</p>
       </div>
       <button type="submit" className="btn-cusBigSecondary w-full">
         註冊
