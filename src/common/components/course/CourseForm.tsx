@@ -4,6 +4,7 @@ import { useCourseListGetApiQuery } from "@/common/redux/service/course";
 import { useDispatch } from "react-redux";
 import { showModal } from "@/common/redux/features/showModal";
 import { FC, useEffect, useState } from "react";
+import Link from "next/link";
 
 export interface Course {
   Id: string;
@@ -122,6 +123,8 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
 
   const ID = UserCurrentStatus;
   const IDTabs = courseTabs[ID];
+  const routeListPage =
+    UserCurrentStatus === "user" ? "course-list" : "student-list";
 
   const prevPage = showPage.Current_page - 1;
   const nextPage = showPage.Current_page + 1;
@@ -137,7 +140,7 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
   }, [data]);
 
   if (!renderData) return null;
-
+  
   console.log(renderData);
 
   return (
@@ -197,7 +200,7 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
                 </span>
                 {comment ? (
                   comment
-                ) : course.CourseState === "未開始" ? (
+                ) : course.CourseState === "未開始" && course.IsQuest ? (
                   <button
                     className="btn-cusWriteSecondary"
                     onClick={() =>
@@ -214,9 +217,12 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
                   </button>
                 )}
               </div>
+
               <h3 className="border-b w-fit border-black-950 font-bold">
-                {course.UserName ? course.UserName : course.Title}/
-                {course.CourseName}
+                <Link href={`${routeListPage}/${course.Id}`}>
+                  {course.UserName ? course.UserName : course.Title}/
+                  {course.CourseName}
+                </Link>
               </h3>
               <p className="text-14">訂單編號：{course.OrderNumber}</p>
               <p className="text-14">
@@ -245,8 +251,7 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
           );
         })}
       </ul>
-
-      <nav className="mx-auto">
+      <nav className="mx-auto mt-20">
         <ul className="flex gap-8">
           <li className="py-6 px-16 rounded-[2px] border border-black-300 text-black-300 bg-white">
             <button
