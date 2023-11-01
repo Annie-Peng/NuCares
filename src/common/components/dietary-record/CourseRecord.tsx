@@ -97,6 +97,7 @@ const CourseRecord: FC<CourseRecordProps> = ({
                 isMobile={isMobile}
                 Token={Token}
                 CourseId={CourseId}
+                UserCurrentStatus={UserCurrentStatus}
               />
             </DashboardContainer>
           </div>
