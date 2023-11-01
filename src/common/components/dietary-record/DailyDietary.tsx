@@ -75,7 +75,7 @@ interface FoodApi {
 
 const foodAPI: FoodApi = {
   Id: "1",
-  InsertDate: "2023-10-27",
+  InsertDate: "2023-11-01",
   StarchSum: "1, 3",
   ProteinSum: "2, 9",
   VegetableSum: "3, 6",
@@ -206,9 +206,15 @@ interface DailyDietaryProps {
   isMobile: boolean;
   Token: string;
   CourseId: string;
+  UserCurrentStatus: string;
 }
 
-const DailyDietary: FC<DailyDietaryProps> = ({ isMobile, Token, CourseId }) => {
+const DailyDietary: FC<DailyDietaryProps> = ({
+  isMobile,
+  Token,
+  CourseId,
+  UserCurrentStatus,
+}) => {
   const dispatch = useDispatch();
   const [tab, setTab] = useState<Tab>(tabs[0]);
 
@@ -230,19 +236,21 @@ const DailyDietary: FC<DailyDietaryProps> = ({ isMobile, Token, CourseId }) => {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => dispatch(showModal(["showMenuEditModal", 0]))}
-        className="hidden lg:block"
-      >
-        <Image
-          src="/images/dashboard/dietary-record/edit.svg"
-          width="28"
-          height="28"
-          alt="arrow"
-          className="absolute top-12 right-16"
-        />
-      </button>
+      {UserCurrentStatus === "nu" && (
+        <button
+          type="button"
+          onClick={() => dispatch(showModal(["showMenuEditModal", 0]))}
+          className="hidden lg:block"
+        >
+          <Image
+            src="/images/dashboard/dietary-record/edit.svg"
+            width="28"
+            height="28"
+            alt="arrow"
+            className="absolute top-12 right-16"
+          />
+        </button>
+      )}
       <button type="button" className="hidden lg:block">
         <Image
           src="/images/dashboard/dietary-record/hint.svg"
@@ -267,7 +275,9 @@ const DailyDietary: FC<DailyDietaryProps> = ({ isMobile, Token, CourseId }) => {
           },
         }}
         dayHeaders={false}
-        eventContent={() => renderEventContent(events[0], tab, setTab)}
+        eventContent={() =>
+          renderEventContent(events[0], tab, setTab, UserCurrentStatus)
+        }
         headerToolbar={{
           start: "prev",
           center: "title",
@@ -284,7 +294,8 @@ export default DailyDietary;
 function renderEventContent(
   event: Event,
   tab: Tab,
-  setTab: (tab: Tab) => void
+  setTab: (tab: Tab) => void,
+  UserCurrentStatus: string
 ) {
   function changeTab(tab: Tab) {
     setTab(tab);
@@ -319,8 +330,9 @@ function renderEventContent(
           );
         })}
       </ul>
+
       <div className="flex min-h-[154px] mt-28 items-center">
-        {tab.enName !== "All" && (
+        {UserCurrentStatus === "user" && tab.enName !== "All" && (
           <div className="w-[60%] self-stretch p-8 border border-primary-300 flex gap-8">
             {dailyDietaryInput[tab.enName].map((item) => (
               <>
