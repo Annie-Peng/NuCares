@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 interface CourseIdProps {
   Token: string;
   CourseId: string;
+  UserCurrentStatus: string;
   [key: string]: any;
 }
 
@@ -40,7 +41,7 @@ const CourseIdPage: FC<CourseIdProps> = ({ auth }) => {
     {
       // If the page is not yet generated, router.isFallback will be true
       // initially until getStaticProps() finishes running
-      skip: router.isFallback,
+      // skip: router.isFallback,
     }
   );
   // const goalResult = useGoalGetApiQuery(
@@ -58,17 +59,30 @@ const CourseIdPage: FC<CourseIdProps> = ({ auth }) => {
     error: BodyInfoError,
     data: BodyInfo,
   } = bodyInfoResult;
-  // const { isLoading: isGoalLoading, error: GoalError, data: Goal } = goalResult;
+  // // const { isLoading: isGoalLoading, error: GoalError, data: Goal } = goalResult;
+
+  // useEffect(() => {
+  //   if (BodyInfo) {
+  //     dispatch(storeBodyRate(BodyInfo.Data));
+  //   }
+  // }, [BodyInfo, dispatch]);
 
   useEffect(() => {
     if (BodyInfo) {
       dispatch(storeBodyRate(BodyInfo.Data));
     }
-  }, [BodyInfo, dispatch]);
+    if (BodyInfoError) {
+      console.log(BodyInfoError);
+    }
+  }, [BodyInfo]);
 
   return (
     <>
-      <CourseRecord Token={auth.Token} CourseId={courseId} />
+      <CourseRecord
+        Token={auth.Token}
+        CourseId={courseId as string}
+        UserCurrentStatus={auth.UserCurrentStatus}
+      />
     </>
   );
 };

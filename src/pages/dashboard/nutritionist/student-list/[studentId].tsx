@@ -1,4 +1,5 @@
 import CourseRecord from "@/common/components/dietary-record/CourseRecord";
+import { storeBodyRate } from "@/common/redux/features/dietary-record/bodyRate";
 import {
   useBodyInfoGetApiQuery,
   useDailyDietaryGetApiQuery,
@@ -7,18 +8,20 @@ import {
 import wrapper from "@/common/redux/store";
 import { getCookies } from "cookies-next";
 import { useRouter } from "next/router";
-import { FC } from "react";
+import { FC, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
-interface StudentListPageProps {
-  UserCurrentStatus: string;
+interface StudentIdProps {
   Token: string;
+  CourseId: string;
+  UserCurrentStatus: string;
   [key: string]: any;
 }
 
-const StudentIdPage: FC<StudentListPageProps> = ({ auth }) => {
+const StudentIdPage: FC<StudentIdProps> = ({ auth }) => {
   const router = useRouter();
-
   const courseId = router.query.studentId;
+  const dispatch = useDispatch();
 
   console.log(auth);
 
@@ -38,29 +41,50 @@ const StudentIdPage: FC<StudentListPageProps> = ({ auth }) => {
     {
       // If the page is not yet generated, router.isFallback will be true
       // initially until getStaticProps() finishes running
-      skip: router.isFallback,
+      // skip: router.isFallback,
     }
   );
-  const goalResult = useGoalGetApiQuery(
-    {
-      Token: auth.Token,
-      CourseId: courseId,
-    },
-    {
-      skip: router.isFallback,
-    }
-  );
+  // const goalResult = useGoalGetApiQuery(
+  //   {
+  //     Token: auth.Token,
+  //     CourseId: courseId,
+  //   },
+  //   {
+  //     skip: router.isFallback,
+  //   }
+  // );
 
   const {
     isLoading: isBodyInfoLoading,
     error: BodyInfoError,
     data: BodyInfo,
   } = bodyInfoResult;
-  const { isLoading: isGoalLoading, error: GoalError, data: Goal } = goalResult;
+  // // const { isLoading: isGoalLoading, error: GoalError, data: Goal } = goalResult;
 
-  console.log(BodyInfo, Goal);
+  // useEffect(() => {
+  //   if (BodyInfo) {
+  //     dispatch(storeBodyRate(BodyInfo.Data));
+  //   }
+  // }, [BodyInfo, dispatch]);
 
-  return <>{/* <CourseRecord BodyInfo={BodyInfo} Goal={Goal} /> */}</>;
+  useEffect(() => {
+    if (BodyInfo) {
+      dispatch(storeBodyRate(BodyInfo.Data));
+    }
+    if (BodyInfoError) {
+      console.log(BodyInfoError);
+    }
+  }, [BodyInfo]);
+
+  return (
+    <>
+      <CourseRecord
+        Token={auth.Token}
+        UserCurrentStatus={auth.UserCurrentStatus}
+        CourseId={courseId as string}
+      />
+    </>
+  );
 };
 
 export default StudentIdPage;
