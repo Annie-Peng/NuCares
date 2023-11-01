@@ -7,13 +7,19 @@ import { FC, useEffect, useState } from "react";
 import BodyRate from "./BodyRate";
 import MobileSidebar from "./MobileSidebar";
 import useResize from "@/common/hooks/useResize";
+import Link from "next/link";
 
 interface CourseRecordProps {
   Token: string;
+  UserCurrentStatus: string;
   CourseId: string;
 }
 
-const CourseRecord: FC<CourseRecordProps> = ({ Token, CourseId }) => {
+const CourseRecord: FC<CourseRecordProps> = ({
+  Token,
+  UserCurrentStatus,
+  CourseId,
+}) => {
   const isMobile: boolean = useResize();
   const [showInfo, setShowInfo] = useState<boolean>(false);
   const [showTab, setShowTab] = useState<number>(isMobile ? 1 : 0);
@@ -27,11 +33,19 @@ const CourseRecord: FC<CourseRecordProps> = ({ Token, CourseId }) => {
   const showGoalRate = showTab === 0 || showTab === 3;
   const showInfoMobile = showTab === 0 || showTab === 4;
 
+  const routeListPage =
+    UserCurrentStatus === "user"
+      ? "/dashboard/student/course-list"
+      : "/dashboard/nutritionist/student-list";
+
   return (
     <>
-      <p className="before:content-['<'] before:mr-4 text-left border-black-950 border-b w-fit hidden lg:block">
+      <Link
+        href={routeListPage}
+        className="before:content-['<'] before:mr-4 text-left border-black-950 border-b w-fit hidden lg:block"
+      >
         返回我的課程列表
-      </p>
+      </Link>
       <h2 className="cusPrimaryTitle py-4 hidden lg:block">我的紀錄</h2>
       <div className="mt-12 flex flex-wrap gap-12 w-full justify-center relative">
         <button
@@ -54,6 +68,15 @@ const CourseRecord: FC<CourseRecordProps> = ({ Token, CourseId }) => {
         {showInfoMobile && (
           <div className="w-full lg:hidden">
             <DashboardContainer title="學員資訊">
+              <Link href={routeListPage}>
+                <Image
+                  src="/images/dashboard/dietary-record/back.svg"
+                  width={26}
+                  height={26}
+                  alt="back.svg"
+                  className="absolute top-20 left-24"
+                />
+              </Link>
               <CourseInfo Token={Token} CourseId={CourseId} />
             </DashboardContainer>
           </div>
@@ -61,6 +84,15 @@ const CourseRecord: FC<CourseRecordProps> = ({ Token, CourseId }) => {
         {showDailyDietary && (
           <div className="w-full">
             <DashboardContainer title="飲食日記">
+              <Link href={routeListPage}>
+                <Image
+                  src="/images/dashboard/dietary-record/back.svg"
+                  width={26}
+                  height={26}
+                  alt="back.svg"
+                  className="absolute top-20 left-24 lg:hidden"
+                />
+              </Link>
               <DailyDietary
                 isMobile={isMobile}
                 Token={Token}
@@ -72,13 +104,35 @@ const CourseRecord: FC<CourseRecordProps> = ({ Token, CourseId }) => {
         {showBodyRate && (
           <div className="w-full lg:w-[68%]">
             <DashboardContainer title="身體紀錄">
-              <BodyRate Token={Token} CourseId={CourseId} />
+              <Link href={routeListPage}>
+                <Image
+                  src="/images/dashboard/dietary-record/back.svg"
+                  width={26}
+                  height={26}
+                  alt="back.svg"
+                  className="absolute top-20 left-24 lg:hidden"
+                />
+              </Link>
+              <BodyRate
+                Token={Token}
+                CourseId={CourseId}
+                UserCurrentStatus={UserCurrentStatus}
+              />
             </DashboardContainer>
           </div>
         )}
         {showGoalRate && (
           <div className="w-full lg:w-[30%]">
             <DashboardContainer title="目標">
+              <Link href={routeListPage}>
+                <Image
+                  src="/images/dashboard/dietary-record/back.svg"
+                  width={26}
+                  height={26}
+                  alt="back.svg"
+                  className="absolute top-20 left-24 lg:hidden"
+                />
+              </Link>
               <GoalCompletionRate Token={Token} CourseId={CourseId} />
             </DashboardContainer>
           </div>
