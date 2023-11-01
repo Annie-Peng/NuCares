@@ -4,6 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "cusBackdropFilter";
 @import "cusInput";
 @import "cusButton";
 @import "datePicker";
@@ -39,25 +40,8 @@
     @apply rounded-20 p-32 flex flex-col items-center gap-y-32 lg:py-[48px]  cusBackgroundBackdrop;
   }
 
-  .cusBackgroundBackdrop {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    border: 2px solid rgb(255, 255, 255, 0.3);
-    background-color: rgb(255, 255, 255, 0.3);
-    box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-  }
-
   .cusActiveTags {
     @apply border rounded-50 py-4 px-10;
-  }
-
-  .cusModal {
-    @apply absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-white bg-opacity-80  p-50 rounded-10 w-[820px] z-10 cusShareBg;
   }
 
   .cusModalBg {
@@ -117,10 +101,6 @@
     @apply bg-black-200;
   }
 
-  .cusDropdown {
-    @apply p-20 rounded-10 absolute top-full right-0 z-10 min-w-[196px] cusShareBg;
-  }
-
   .formHead {
     @apply font-bold;
   }
@@ -140,12 +120,4 @@
   .cusPrimaryTag {
     @apply rounded-35 text-white font-bold text-14 bg-primary-400;
   }
-  
-  .cusShareBg {
-    border: 1px solid rgb(255, 255, 255, 0.3);
-    background-color: rgb(255, 255, 255, 0.8);
-    box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-  }
-  
 }

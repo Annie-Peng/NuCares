@@ -83,12 +83,3 @@ button {
 .cusSIdentity {
   @apply text-white text-14 font-bold  bg-primary-400;
 }
-
-//下拉式選單, 學員資訊, 營養師資訊
-.cusShadow {
-  content: "";
-  border: 1px solid rgb(255, 255, 255, 0.3);
-  background-color: rgb(255, 255, 255, 0.3);
-  box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
-}
