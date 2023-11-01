@@ -11,7 +11,7 @@ const registerApiErrMsg: RegisterApiErrMsgProps = {
     400: {
       Email必填: "*必填",
       Email格式錯誤: "Email格式有誤",
-      Email重複: "此用戶已存在",
+      用戶已存在: "此用戶已存在",
     },
   },
   Password: {

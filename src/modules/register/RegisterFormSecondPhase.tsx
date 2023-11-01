@@ -24,6 +24,7 @@ export interface SecondFormInput {
   Birthday: string;
   Gender: string;
   Phone: string;
+  UserRule: string;
 }
 
 const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
@@ -73,9 +74,7 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
 
     if (e.target.value) {
       setColor("text-black-500");
-      const a = await trigger("Gender");
-
-      console.log(a);
+      await trigger("Gender");
     } else {
       setColor("text-black-200");
     }
@@ -97,7 +96,7 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
         alt="registerStep2"
         layout="responsive"
       />
-      <div className="flex flex-col gap-24 w-full text-14 lg:text-16 lg:gap-32">
+      <div className="flex flex-col w-full text-14 lg:text-16">
         <label className="relative">
           <input
             className={`cusInputWithIcon ${
@@ -108,11 +107,11 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
             {...register("UserName", { required: "*必填" })}
           />
           <div className="cusShowLeftIcon bg-nameIcon" />
-          <p className="text-left text-secondary-600">
-            {errors.UserName?.message}
-          </p>
         </label>
-        <label className="relative">
+        <p className="text-left text-secondary-600 mt-4">
+          {errors.UserName?.message}
+        </p>
+        <label className="relative  mt-24 lg:mt-32">
           <Controller
             control={control}
             name="Birthday"
@@ -150,11 +149,11 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
           />
           <div className="cusShowLeftIcon bg-birthdayIcon" />
           <div className="cusShowRightIcon bg-calendarIcon" />
-          <p className="text-left text-secondary-600">
-            {errors.Birthday?.message}
-          </p>
         </label>
-        <label className="relative">
+        <p className="text-left text-secondary-600 mt-4">
+          {errors.Birthday?.message}
+        </p>
+        <label className="relative  mt-24 lg:mt-32">
           <select
             className={`cusInputWithIcon ${color} ${
               errors.Gender && "focus:ring-secondary-500"
@@ -170,37 +169,35 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
           </select>
           <div className="cusShowLeftIcon bg-clipPathIcon" />
           <div className="cusShowRightIcon bg-arrowDownIcon" />
-          <p className="text-left text-secondary-600">
-            {errors.Gender?.message}
-          </p>
         </label>
-        <label className="relative">
+        <p className="text-left text-secondary-600 mt-4">
+          {errors.Gender?.message}
+        </p>
+        <label className="relative  mt-24 lg:mt-32">
           <input
             className={`cusInputWithIcon ${
               errors.Phone && "focus:ring-secondary-500"
             }`}
             placeholder="手機號碼"
-            type="text"
+            type="number"
             {...register("Phone", { required: "*必填" })}
           />
           <div className="cusShowLeftIcon bg-mobileIcon" />
-          <p className="text-left text-secondary-600">
-            {errors.Phone?.message}
-          </p>
         </label>
-        <label htmlFor="userRule">
+        <p className="text-left text-secondary-600 mt-4">
+          {errors.Phone?.message}
+        </p>
+        <label className="relative mt-24 lg:mt-32">
           <input
             type="checkbox"
-            name="userRule"
             className="form-checkbox bg-transparent text-black-500 focus:ring-offset-0 focus:ring-0"
+            value="UserRule"
+            {...register("UserRule", { required: "*必填" })}
           />
           <span className="ms-4">使用者條款</span>
         </label>
       </div>
-      <button
-        type="submit"
-        className="btn-cusSecondary py-8 w-full -mt-20 lg:mt-0 lg:py-20"
-      >
+      <button type="submit" className="btn-cusBigSecondary w-full">
         註冊
       </button>
     </form>

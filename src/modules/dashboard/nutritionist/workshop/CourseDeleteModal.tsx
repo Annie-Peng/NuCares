@@ -1,8 +1,13 @@
 import MiniModal from "@/common/components/MiniModal";
+import { FC } from "react";
 
-const CourseDeleteModal = () => {
+interface CourseDeleteModalProps {
+  data: string;
+}
+
+const CourseDeleteModal: FC<CourseDeleteModalProps> = ({ data }) => {
   return (
-    <MiniModal modal="CourseDeleteModal">
+    <MiniModal modal="showCourseDeleteModal">
       <p>確定刪除此課程？</p>
       <button
         type="button"

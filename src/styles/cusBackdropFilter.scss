@@ -1,0 +1,45 @@
+//下拉式選單, 學員資訊, 營養師資訊
+.cusShadow {
+  content: "";
+  border: 1px solid rgb(255, 255, 255, 0.8);
+  background-color: rgb(255, 255, 255, 0.8);
+  box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+//手機選單
+.cusMobileSidebarShadow {
+  content: "";
+  border: 1px solid rgb(255, 255, 255, 0.3);
+  background-color: rgb(255, 255, 255, 0.3);
+  box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.cusBackgroundBackdrop {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border: 2px solid rgb(255, 255, 255, 0.3);
+  background-color: rgb(255, 255, 255, 0.3);
+  box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.cusShareBg {
+  border: 1px solid rgb(255, 255, 255, 0.3);
+  background-color: rgb(255, 255, 255, 0.8);
+  box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.cusDropdown {
+  @apply p-20 rounded-10 absolute top-full right-0 z-10 min-w-[196px] cusShareBg;
+}
+
+.cusModal {
+  @apply absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-white bg-opacity-80  p-50 rounded-10 w-[820px] z-10 cusShareBg;
+}

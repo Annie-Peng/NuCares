@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -22,6 +22,12 @@ export interface FormInput {
 const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
   const [userRegisterEmailPostApi] = useUserRegisterEmailPostApiMutation();
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState({
+    Password: false,
+    RePassword: false,
+  });
+
+  console.log(showPassword);
 
   const {
     handleSubmit,
@@ -47,7 +53,6 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
     }
   };
 
-  console.log(errors);
   return (
     <form
       className="cusForm max-w-[464px] mx-auto mt-[75px] relative text-black-500"
@@ -57,9 +62,15 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
         <Image src={logoPrimary} width="147" height="27" alt="NuCares-logo" />
         <h2 className="text-20 text-primary-400 font-normal mt-12">會員註冊</h2>
       </div>
-      <Image src={registerStep1} width="290" height="20" alt="registerStep1" />
-      <div className="flex flex-col gap-24 w-full text-14 lg:text-16 lg:gap-32">
-        <label htmlFor="Email" className="relative">
+      <Image
+        src={registerStep1}
+        width="290"
+        height="20"
+        layout="responsive"
+        alt="registerStep1"
+      />
+      <div className="flex flex-col w-full text-14 lg:text-16">
+        <label className="relative">
           <input
             className={`cusInputWithIcon ${
               errors.Email && "focus:ring-secondary-500"
@@ -75,18 +86,19 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
               },
             })}
           />
-          <p className="text-left text-secondary-600">
-            {errors.Email?.message}
-          </p>
+
           <div className="cusShowLeftIcon bg-emailIcon" />
         </label>
-        <label htmlFor="Password" className="relative">
+        <p className="text-left text-secondary-600 mt-4">
+          {errors.Email?.message}
+        </p>
+        <label className="relative mt-24 lg:mt-32">
           <input
             className={`cusInputWithIcon ${
               errors.Password && "focus:ring-secondary-500"
             }`}
             placeholder="密碼(請輸入6-12字元英數組合)"
-            type="password"
+            type={showPassword.Password ? "text" : "password"}
             {...register("Password", {
               required: "*必填",
               pattern: {
@@ -95,33 +107,51 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
               },
             })}
           />
-          <p className="text-left text-secondary-600">
-            {errors.Password?.message}
-          </p>
+
           <div className="cusShowLeftIcon bg-passwordIcon" />
-          <div className="cusShowRightIcon bg-eyeCloseIcon" />
+          <div
+            className="cusShowRightIcon bg-eyeCloseIcon"
+            onClick={() =>
+              setShowPassword({
+                ...showPassword,
+                Password: !showPassword.Password,
+              })
+            }
+          />
         </label>
-        <label htmlFor="RePassword" className="relative">
+        <p className="text-left text-secondary-600 mt-4">
+          {errors.Password?.message}
+        </p>
+        <label className="relative mt-24 lg:mt-32">
           <input
             className={`cusInputWithIcon ${
               errors.RePassword && "focus:ring-secondary-500"
             }`}
             placeholder="再次確認密碼"
-            type="password"
+            type={showPassword.RePassword ? "text" : "password"}
             {...register("RePassword", {
               required: "*必填",
               validate: (value, formValues) =>
                 value === formValues.Password || "您輸入的密碼不一致",
             })}
           />
-          <p className="text-left text-secondary-600">
-            {errors.RePassword?.message}
-          </p>
+
           <div className="cusShowLeftIcon bg-passwordIcon" />
-          <div className="cusShowRightIcon bg-eyeCloseIcon" />
+          <div
+            className="cusShowRightIcon bg-eyeCloseIcon"
+            onClick={() =>
+              setShowPassword({
+                ...showPassword,
+                RePassword: !showPassword.RePassword,
+              })
+            }
+          />
         </label>
+        <p className="text-left text-secondary-600 mt-4">
+          {errors.RePassword?.message}
+        </p>
       </div>
-      <button type="submit" className="btn-cusSecondary w-full -mt-8 lg:mt-0">
+      <button type="submit" className="btn-cusBigSecondary w-full">
         下一步
       </button>
       <span className="text-14">
