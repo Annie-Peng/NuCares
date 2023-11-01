@@ -2,12 +2,14 @@ import { useDispatch } from "react-redux";
 import { ButtonClass, Course } from "./CourseForm";
 import { FC, ReactNode } from "react";
 import { showModal } from "@/common/redux/features/showModal";
+import Link from "next/link";
 
 interface CourseFormTrProps {
   course: Course;
   ID: string;
   buttonClass: ButtonClass;
   comment: ReactNode;
+  Token: string;
 }
 
 const CourseFormTr: FC<CourseFormTrProps> = ({
@@ -15,15 +17,19 @@ const CourseFormTr: FC<CourseFormTrProps> = ({
   ID,
   buttonClass,
   comment,
+  Token,
 }) => {
   const dispatch = useDispatch();
+  const routeListPage = ID === "user" ? "course-list" : "student-list";
   return (
     <>
       <td className="text-14">{course.OrderNumber}</td>
       <td>
-        <span className="border-b border-black-950">
-          {course.UserName ? course.UserName : course.Title}/
-          {course.CourseTitle}
+        <span className="border-b border-black-950 overflow-hidden whitespace-nowrap text-ellipsis">
+          <Link href={`${routeListPage}/${course.Id}`}>
+            {course.UserName ? course.UserName : course.Title}/
+            {course.CourseName}
+          </Link>
         </span>
       </td>
       <td>
@@ -62,10 +68,12 @@ const CourseFormTr: FC<CourseFormTrProps> = ({
       <td>
         {comment ? (
           comment
-        ) : course.CourseState === "未開始" ? (
+        ) : course.CourseState === "未開始" && course.IsQuest ? (
           <button
             className="btn-cusWriteSecondary"
-            onClick={() => dispatch(showModal("CourseStartModal"))}
+            onClick={() =>
+              dispatch(showModal(["showCourseStartModal", { Token, course }]))
+            }
           >
             開始
           </button>

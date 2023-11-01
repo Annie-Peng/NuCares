@@ -1,4 +1,6 @@
 import auth, { Auth } from "@/common/redux/features/auth";
+import { changeIDType } from "@/common/redux/features/changeID";
+import { BodyRateType } from "@/common/redux/features/dietary-record/bodyRate";
 import { ShowModalType } from "@/common/redux/features/showModal";
 import { ReactNode } from "react";
 export interface LayoutProps {
@@ -30,6 +32,8 @@ export interface RootState {
   registerPhases?: RegisterData | undefined;
   auth: Auth;
   showModal: ShowModalType;
+  changeID: changeIDType;
+  bodyRate: BodyRateType;
 }
 
 export interface ErrorData {
