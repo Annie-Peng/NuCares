@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const CourseInfo = () => {
   return (
-    <>
+    <div className="w-[200px] mx-auto text-14 lg:text-16">
       <p className="text-primary-500 border border-primary-500 rounded-35 text-center">
         進階 - 8週飲食建議
       </p>
@@ -15,7 +15,9 @@ const CourseInfo = () => {
             alt="member-photo"
           />
         </div>
-        <p>陳瘦瘦</p>
+        <p className="text-20">陳瘦瘦</p>
+        <p className="mt-4">女</p>
+        <p>28歲</p>
       </div>
       <ul className="flex flex-col gap-8 text-left mt-24">
         <li>
@@ -49,7 +51,7 @@ const CourseInfo = () => {
           thinthingood
         </li>
       </ul>
-    </>
+    </div>
   );
 };
 

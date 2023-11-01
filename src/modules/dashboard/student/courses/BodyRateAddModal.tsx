@@ -1,9 +1,14 @@
 import TitleModal from "@/common/components/TitleModal";
 import { bodyRateAdd } from "@/common/lib/dashboard/dietary-record/bodyRate";
+import { FC } from "react";
 
-const BodyRateAddModal = () => {
+interface BodyRateAddModalProps {
+  data: string;
+}
+
+const BodyRateAddModal: FC<BodyRateAddModalProps> = ({ data }) => {
   return (
-    <TitleModal title="今天身體數值" width="820px" modal="BodyRateAddModal">
+    <TitleModal title="今天身體數值" width="820px" modal="showBodyRateAddModal">
       <form>
         <ul className="flex gap-32 my-32">
           {bodyRateAdd.map((item, index) => (
