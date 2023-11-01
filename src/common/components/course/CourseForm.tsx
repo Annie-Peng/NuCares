@@ -140,7 +140,7 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
   }, [data]);
 
   if (!renderData) return null;
-
+  
   console.log(renderData);
 
   return (
@@ -251,7 +251,6 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
           );
         })}
       </ul>
-
       <nav className="mx-auto mt-20">
         <ul className="flex gap-8">
           <li className="py-6 px-16 rounded-[2px] border border-black-300 text-black-300 bg-white">

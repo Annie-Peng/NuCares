@@ -25,7 +25,7 @@ const CourseFormTr: FC<CourseFormTrProps> = ({
     <>
       <td className="text-14">{course.OrderNumber}</td>
       <td>
-        <span className="border-b border-black-950 overflow-hidden  whitespace-nowrap text-ellipsis">
+        <span className="border-b border-black-950 overflow-hidden whitespace-nowrap text-ellipsis">
           <Link href={`${routeListPage}/${course.Id}`}>
             {course.UserName ? course.UserName : course.Title}/
             {course.CourseName}
