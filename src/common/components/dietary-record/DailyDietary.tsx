@@ -1,9 +1,11 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import Image from "next/image";
-import { useState } from "react";
+import { FC, useState } from "react";
 import Input from "../Input";
 import dailyDietaryInput from "@/common/lib/dashboard/dailyDietaryInput";
+import { showModal } from "@/common/redux/features/showModal";
+import { useDispatch } from "react-redux";
 
 interface FoodIcon {
   PC: string;
@@ -73,7 +75,7 @@ interface FoodApi {
 
 const foodAPI: FoodApi = {
   Id: "1",
-  InsertDate: "2023-10-27",
+  InsertDate: "2023-11-01",
   StarchSum: "1, 3",
   ProteinSum: "2, 9",
   VegetableSum: "3, 6",
@@ -200,7 +202,20 @@ const foodIcons: FoodIcon[] = [
   },
 ];
 
-const DailyDietary = () => {
+interface DailyDietaryProps {
+  isMobile: boolean;
+  Token: string;
+  CourseId: string;
+  UserCurrentStatus: string;
+}
+
+const DailyDietary: FC<DailyDietaryProps> = ({
+  isMobile,
+  Token,
+  CourseId,
+  UserCurrentStatus,
+}) => {
+  const dispatch = useDispatch();
   const [tab, setTab] = useState<Tab>(tabs[0]);
 
   const events: Event[] = [
@@ -220,29 +235,57 @@ const DailyDietary = () => {
   ];
 
   return (
-    <FullCalendar
-      plugins={[dayGridPlugin]}
-      initialView="dayGridDay"
-      events={events}
-      views={{
-        dayGrid: {
-          titleFormat: (date) => {
-            const getWeekDay = date.date.marker.getDay();
-            return `${date.date.month + 1}月${date.date.day}日(${
-              weekDays[getWeekDay]
-            })`;
+    <>
+      {UserCurrentStatus === "nu" && (
+        <button
+          type="button"
+          onClick={() => dispatch(showModal(["showMenuEditModal", 0]))}
+          className="hidden lg:block"
+        >
+          <Image
+            src="/images/dashboard/dietary-record/edit.svg"
+            width="28"
+            height="28"
+            alt="arrow"
+            className="absolute top-12 right-16"
+          />
+        </button>
+      )}
+      <button type="button" className="hidden lg:block">
+        <Image
+          src="/images/dashboard/dietary-record/hint.svg"
+          width="28"
+          height="28"
+          alt="arrow"
+          className="absolute top-12 left-16 hidden lg:block"
+        />
+      </button>
+      <FullCalendar
+        plugins={[dayGridPlugin]}
+        initialView="dayGridDay"
+        events={events}
+        views={{
+          dayGrid: {
+            titleFormat: (date) => {
+              const getWeekDay = date.date.marker.getDay();
+              return `${date.date.month + 1}月${date.date.day}日(${
+                weekDays[getWeekDay]
+              })`;
+            },
           },
-        },
-      }}
-      dayHeaders={false}
-      eventContent={() => renderEventContent(events[0], tab, setTab)}
-      headerToolbar={{
-        start: "prev",
-        center: "title",
-        end: "next",
-      }}
-      height="285px"
-    />
+        }}
+        dayHeaders={false}
+        eventContent={() =>
+          renderEventContent(events[0], tab, setTab, UserCurrentStatus)
+        }
+        headerToolbar={{
+          start: "prev",
+          center: "title",
+          end: "next",
+        }}
+        height={isMobile ? "550px" : "285px"}
+      />
+    </>
   );
 };
 
@@ -251,7 +294,8 @@ export default DailyDietary;
 function renderEventContent(
   event: Event,
   tab: Tab,
-  setTab: (tab: Tab) => void
+  setTab: (tab: Tab) => void,
+  UserCurrentStatus: string
 ) {
   function changeTab(tab: Tab) {
     setTab(tab);
@@ -268,7 +312,7 @@ function renderEventContent(
   return (
     <>
       {/* {event.tab} */}
-      <ul className="w-full flex justify-center gap-32 text-primary-500">
+      <ul className="overflow-x-auto no-scrollbar bg-primary-100 text-14 gap-28 w-full flex justify-center text-primary-500 lg:text-16 lg:gap-32 lg:bg-white">
         {tabs.map((title, index) => {
           return (
             <li key={index}>
@@ -286,8 +330,9 @@ function renderEventContent(
           );
         })}
       </ul>
+
       <div className="flex min-h-[154px] mt-28 items-center">
-        {tab.enName !== "All" && (
+        {UserCurrentStatus === "user" && tab.enName !== "All" && (
           <div className="w-[60%] self-stretch p-8 border border-primary-300 flex gap-8">
             {dailyDietaryInput[tab.enName].map((item) => (
               <>
@@ -297,7 +342,7 @@ function renderEventContent(
             ))}
           </div>
         )}
-        <ul className="mx-auto flex justify-center gap-[45px] text-black-950">
+        <ul className="mx-auto flex flex-wrap justify-center text-black-950 gap-y-20 lg:gap-[45px] lg:flex-nowrap">
           {filterFoodIcons.map((filterFoodIcon, index) => {
             //飲食達成icon切換
             const sumAchieved = `${[filterFoodIcon.enName]}SumAchieved`;
@@ -314,12 +359,13 @@ function renderEventContent(
             }
 
             return (
-              <li key={index} className="text-center">
+              <li key={index} className="text-center w-1/2 lg:w-auto">
                 <Image
                   src={`/images/dashboard/dietary-record/foods/${showFoodIcon}`}
                   alt={filterFoodIcon.PC}
                   width={75}
                   height={75}
+                  className="mx-auto"
                 />
                 <p className="mt-6">{filterFoodIcon.name}</p>
                 <p className="mt-8">
