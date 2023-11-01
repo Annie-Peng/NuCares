@@ -3,8 +3,8 @@ import Image from "next/image";
 import logoPrimary from "public/images/logo-primary-300.svg";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useUserLoginPostApiMutation } from "@/common/redux/service/login";
-import { useDispatch, useSelector } from "react-redux";
-import { selectAuth, storeAuth } from "@/common/redux/features/auth";
+import { useDispatch } from "react-redux";
+import { storeAuth } from "@/common/redux/features/auth";
 import { useRouter } from "next/router";
 import { setCookie } from "cookies-next";
 import { useState } from "react";
@@ -55,7 +55,7 @@ const LoginForm = () => {
 
   return (
     <form
-      className="cusForm max-w-[464px] mx-auto mt-[75px] relative text-black-500"
+      className="cusForm max-w-[464px] mx-auto relative text-black-500 lg:mt-[75px]"
       onSubmit={handleSubmit(onSubmit)}
     >
       <Image src={logoPrimary} width="147" height="27" alt="NuCares-logo" />
