@@ -24,5 +24,5 @@ export const bodyRateTabs: BodyRateTabsType[] = [
   { name: "內臟脂肪", enName: "VisceralFat" },
   { name: "骨骼肌率", enName: "SMM" },
   { name: "BMI", enName: "Bmi" },
-  { name: "BMR", enName: "BMR" },
+  { name: "BMR", enName: "Bmr" },
 ];

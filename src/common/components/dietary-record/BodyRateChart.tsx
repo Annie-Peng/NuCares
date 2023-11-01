@@ -10,6 +10,7 @@ import {
   Legend,
 } from "chart.js";
 import { FC } from "react";
+import useResize from "@/common/hooks/useResize";
 
 ChartJS.register(
   CategoryScale,
@@ -24,21 +25,31 @@ ChartJS.register(
 interface BodyRateChartProps {
   tab: string;
   BodyRate: any;
+  item?: string;
 }
 
-const BodyRateChart: FC<BodyRateChartProps> = ({ tab, BodyRate }) => {
+const BodyRateChart: FC<BodyRateChartProps> = ({ item, tab, BodyRate }) => {
   console.log(BodyRate);
 
-  //   let labels = ["2023/10/28", "2023/10/29", "2023/10/30", "2023/10/31"];
+  // let labels = ["2023/10/28", "2023/10/29", "2023/10/30", "2023/10/31"];
   // let data = [12, 19, 3, 5];
+
+  const isMobile = useResize();
 
   let labels: string[] = [];
   let data: string[] = [];
 
-  if (Array.isArray(BodyRate)) {
-    BodyRate.map((item) => {
-      labels.push(item.Date);
-      data.push(item[tab]);
+  if (isMobile && Array.isArray(BodyRate)) {
+    BodyRate.map((bodyBate, index) => {
+      labels.push(bodyBate.CreateDate);
+      data.push(bodyBate[item as string]);
+    });
+  }
+
+  if (!isMobile && Array.isArray(BodyRate)) {
+    BodyRate.map((bodyBate) => {
+      labels.push(bodyBate.CreateDate);
+      data.push(bodyBate[tab]);
     });
   }
 

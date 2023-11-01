@@ -2,7 +2,7 @@ import { RootState } from "@/types/interface";
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface BodyRateType {
-  Date: string;
+  CreateDate: string;
   Heigh: string;
   Weight: string;
   BodyFat: string;
@@ -15,7 +15,7 @@ export interface BodyRateType {
 export const bodyRateSlice = createSlice({
   name: "bodyRate",
   initialState: {
-    Date: "",
+    CreateDate: "",
     Heigh: "",
     Weight: "",
     BodyFat: "",
@@ -25,7 +25,10 @@ export const bodyRateSlice = createSlice({
     Bmr: "",
   },
   reducers: {
-    storeBodyRate: (state, action) => {},
+    storeBodyRate: (state, action) => {
+      console.log(action.payload);
+      return action.payload;
+    },
   },
 });
 

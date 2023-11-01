@@ -9,35 +9,44 @@ import { selectBodyRate } from "@/common/redux/features/dietary-record/bodyRate"
 interface BodyRateProps {
   Token: string;
   CourseId: string;
+  UserCurrentStatus: string;
 }
 
-const BodyRate: FC<BodyRateProps> = ({ Token, CourseId }) => {
+const BodyRate: FC<BodyRateProps> = ({
+  Token,
+  CourseId,
+  UserCurrentStatus,
+}) => {
   const [tab, setTab] = useState<string>("Height");
   const dispatch = useDispatch();
 
   const BodyRate = useSelector(selectBodyRate);
 
+  console.log(BodyRate);
+
   return (
     <>
-      <button
-        type="button"
-        onClick={() =>
-          dispatch(
-            showModal([
-              "showBodyRateAddModal",
-              { Token: Token, CourseId: CourseId },
-            ])
-          )
-        }
-      >
-        <Image
-          src="/images/dashboard/dietary-record/edit.svg"
-          width="28"
-          height="28"
-          alt="arrow"
-          className="absolute top-20 right-16 lg:top-12"
-        />
-      </button>
+      {UserCurrentStatus === "user" && (
+        <button
+          type="button"
+          onClick={() =>
+            dispatch(
+              showModal([
+                "showBodyRateAddModal",
+                { Token: Token, CourseId: CourseId },
+              ])
+            )
+          }
+        >
+          <Image
+            src="/images/dashboard/dietary-record/edit.svg"
+            width="28"
+            height="28"
+            alt="arrow"
+            className="absolute top-20 right-16 lg:top-12"
+          />
+        </button>
+      )}
       <div className="flex-col h-full gap-16 hidden lg:flex">
         <label htmlFor="BodyRateChart" className="w-[100px] mx-auto relative">
           <select
@@ -70,7 +79,7 @@ const BodyRate: FC<BodyRateProps> = ({ Token, CourseId }) => {
               {item.name}
             </p>
             <div className="h-[130px] mt-20">
-              <BodyRateChart tab={tab} BodyRate={BodyRate} />
+              <BodyRateChart item={item.enName} tab={tab} BodyRate={BodyRate} />
             </div>
           </li>
         ))}

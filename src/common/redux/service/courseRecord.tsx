@@ -29,10 +29,10 @@ export const courseRecord = createApi({
       }),
       providesTags: ["BodyInfo"],
     }),
-    bodyInfoPutApi: builder.mutation({
+    bodyInfoPostApi: builder.mutation({
       query: ({ Token, CourseId, body }) => ({
         url: `/course/${CourseId}/inbody`,
-        method: "PUT",
+        method: "POST",
         headers: {
           Authorization: `${Token}`,
           "Content-Type": "application/json",
@@ -58,6 +58,6 @@ export const courseRecord = createApi({
 export const {
   useDailyDietaryGetApiQuery,
   useBodyInfoGetApiQuery,
-  useBodyInfoPutApiMutation,
+  useBodyInfoPostApiMutation,
   useGoalGetApiQuery,
 } = courseRecord;
