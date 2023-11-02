@@ -11,21 +11,20 @@ interface InitFileSrcFoodType {
   Water: string;
 }
 
-interface UseUploadFile {
+export interface UseUploadFileProps {
   data: Tab;
   Token: string;
   initFileSrc: InitFileSrcFoodType;
 }
 
-const useUploadFile: FC<UseUploadFile> = ({ data, Token, initFileSrc }) => {
+const useUploadFile = ({ data, Token, initFileSrc }: UseUploadFileProps) => {
   const [fileSrc, setFileSrc] = useState(initFileSrc);
 
   const handleUploadFile = async (
     e: ChangeEvent<HTMLInputElement>,
     tab: Tab,
     Token: string
-  ): void => {
-    console.log(Token);
+  ): Promise<void> => {
     try {
       let reader;
       const file = e.target.files ? e.target.files[0] : null;
@@ -52,21 +51,21 @@ const useUploadFile: FC<UseUploadFile> = ({ data, Token, initFileSrc }) => {
     }
   };
 
-  function previewFile(file) {
+  function previewFile(file: File) {
     let reader;
     if (file) {
       reader = new FileReader();
       reader.readAsDataURL(file);
+      reader.onload = function (event) {
+        const result = event.target?.result;
+        if (result) {
+          setFileSrc((prevState) => ({
+            ...prevState,
+            [data.enName]: result,
+          }));
+        }
+      };
     }
-    reader.onload = function (event) {
-      const result = event.target?.result;
-      if (result) {
-        setFileSrc((prevState) => ({
-          ...prevState,
-          [data.enName]: result,
-        }));
-      }
-    };
   }
   return [fileSrc, setFileSrc, handleUploadFile];
 };
