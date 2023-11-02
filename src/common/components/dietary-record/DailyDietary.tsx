@@ -1,7 +1,7 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import Image from "next/image";
-import { FC, useState, MouseEvent, ChangeEvent, Fragment } from "react";
+import { FC, useState, MouseEvent, Fragment } from "react";
 import Input from "../Input";
 import dailyDietaryInput from "@/common/lib/dashboard/dailyDietaryInput";
 import { showModal } from "@/common/redux/features/showModal";
@@ -16,6 +16,7 @@ import {
 } from "@/common/lib/dashboard/dietary-record/foodMenu";
 import { interactionSettingsStore } from "@fullcalendar/core/internal.js";
 import axios from "axios";
+import useUploadFile from "@/common/hooks/useUploadFile";
 
 interface DailyDietaryProps {
   isMobile: boolean;
@@ -39,15 +40,6 @@ interface HandleEditClickProps {
   UserCurrentStatus: string;
 }
 
-interface FileSrcType {
-  Breakfast: string;
-  Lunch: string;
-  Dinner: string;
-  Oil: string;
-  Fruit: string;
-  Water: string;
-}
-
 const DailyDietary: FC<DailyDietaryProps> = ({
   isMobile,
   Token,
@@ -64,13 +56,20 @@ const DailyDietary: FC<DailyDietaryProps> = ({
     Fruit: false,
     Water: false,
   });
-  const [fileSrc, setFileSrc] = useState<FileSrcType>({
+
+  const initFileSrc = {
     Breakfast: "",
     Lunch: "",
     Dinner: "",
     Oil: "",
     Fruit: "",
     Water: "",
+  };
+
+  const [fileSrc, setFileSrc, handleUploadFile] = useUploadFile({
+    data: tab,
+    Token,
+    initFileSrc,
   });
 
   const events: Event[] = [
@@ -154,7 +153,8 @@ const DailyDietary: FC<DailyDietaryProps> = ({
             Token,
             edit,
             fileSrc,
-            setFileSrc
+            setFileSrc,
+            handleUploadFile
           )
         }
         headerToolbar={{
@@ -178,7 +178,8 @@ function renderEventContent(
   Token: string,
   edit: EditType,
   fileSrc: FileSrcType,
-  setFileSrc: (fileSrc: FileSrcType) => void
+  setFileSrc: (fileSrc: FileSrcType) => void,
+  handleUploadFile
 ) {
   function changeTab(tab: Tab) {
     setTab(tab);
@@ -191,55 +192,6 @@ function renderEventContent(
   const fetchData = event.extendedProps;
 
   // console.log(filterFoodIcons);
-
-  const handleUploadFile = async (
-    e: ChangeEvent<HTMLInputElement>,
-    tab: Tab,
-    Token: string
-  ): void => {
-    console.log(Token);
-    try {
-      let reader;
-      const file = e.target.files ? e.target.files[0] : null;
-      if (!file) return;
-
-      previewFile(file);
-
-      const formData = new FormData();
-      formData.append("upFile", file, file.name);
-
-      const result = await axios(
-        `${process.env.NEXT_PUBLIC_API_URL}/upload/image`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `${Token}`,
-          },
-          data: formData,
-        }
-      );
-      console.log(result.data.Data.ImageUrl);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  function previewFile(file) {
-    let reader;
-    if (file) {
-      reader = new FileReader();
-      reader.readAsDataURL(file);
-    }
-    reader.onload = function (event) {
-      const result = event.target?.result;
-      if (result) {
-        setFileSrc((prevState) => ({
-          ...prevState,
-          [tab.enName]: result,
-        }));
-      }
-    };
-  }
 
   return (
     <>
@@ -282,8 +234,6 @@ function renderEventContent(
                       }
                       fill
                       objectFit="cover"
-                      // width={220}
-                      // height={150}
                       alt={item.name}
                     />
                     <input
