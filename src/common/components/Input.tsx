@@ -16,6 +16,7 @@ interface InputProps {
   inputClass?: string;
   errClass?: string;
   errMsg?: string;
+  accept?: string;
 }
 
 const Input: FC<InputProps> = ({
@@ -33,6 +34,7 @@ const Input: FC<InputProps> = ({
   onChange,
   errClass,
   errMsg,
+  accept,
 }) => {
   return (
     <label htmlFor={name} className={labelClass}>
@@ -48,6 +50,7 @@ const Input: FC<InputProps> = ({
         onChange={onChange}
         required={required}
         disabled={disabled}
+        accept={accept}
       />
       <p className={errClass}>{errMsg}</p>
     </label>

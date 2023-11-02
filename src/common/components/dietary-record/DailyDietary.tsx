@@ -1,212 +1,51 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import Image from "next/image";
-import { FC, useState } from "react";
+import { FC, useState, MouseEvent, ChangeEvent, Fragment } from "react";
 import Input from "../Input";
 import dailyDietaryInput from "@/common/lib/dashboard/dailyDietaryInput";
 import { showModal } from "@/common/redux/features/showModal";
 import { useDispatch } from "react-redux";
-
-interface FoodIcon {
-  PC: string;
-  completed: string;
-  mobile: string;
-  name: string;
-  enName: string;
-  showTab: string[];
-}
-
-interface Tab {
-  name: string;
-  enName: string;
-}
-
-interface Event {
-  start: string;
-  tab: string;
-  extendedProps: {
-    [key: string]: any | string;
-  };
-}
-
-interface Meal {
-  Id: string;
-  DailyLogId: string;
-  MealTime: string;
-  MealDescription: string;
-  Image: string;
-  Starch: string;
-  Protein: string;
-  Vegetable: string;
-  StarchAchieved: boolean;
-  ProteinAchieved: boolean;
-  VegetableAchieved: boolean;
-}
-
-interface FoodApi {
-  [key: string]: string | boolean | Meal;
-  Id: string;
-  InsertDate: string;
-  StarchSum: string;
-  ProteinSum: string;
-  VegetableSum: string;
-  OilSum: string;
-  FruitSum: string;
-  WaterSum: string;
-  StarchSumAchieved: boolean;
-  ProteinSumAchieved: boolean;
-  VegetableSumAchieved: boolean;
-  OilSumAchieved: boolean;
-  FruitSumAchieved: boolean;
-  WaterSumAchieved: boolean;
-  Breakfast: Meal;
-  Lunch: Meal;
-  Dinner: Meal;
-  Fruit: string;
-  FruitDescription: string;
-  FruitImgUrl: string;
-  Oil: string;
-  OilDescription: string;
-  OilImgUrl: string;
-  Water: string;
-  WaterDescription: string;
-  WaterImgUrl: string;
-}
-
-const foodAPI: FoodApi = {
-  Id: "1",
-  InsertDate: "2023-11-01",
-  StarchSum: "1, 3",
-  ProteinSum: "2, 9",
-  VegetableSum: "3, 6",
-  OilSum: "1, 1",
-  FruitSum: "2, 3",
-  WaterSum: "3700, 2000",
-  StarchSumAchieved: false,
-  ProteinSumAchieved: false,
-  VegetableSumAchieved: false,
-  OilSumAchieved: true,
-  FruitSumAchieved: true,
-  WaterSumAchieved: false,
-  Breakfast: {
-    Id: "1",
-    DailyLogId: "1",
-    MealTime: "早餐",
-    MealDescription: "吐司...",
-    Image: "/upload/images/...",
-    Starch: "BStarch,2",
-    Protein: "BProtein,2",
-    Vegetable: "BVegetable,2",
-    StarchAchieved: false,
-    ProteinAchieved: true,
-    VegetableAchieved: true,
-  },
-  Lunch: {
-    // {
-    Id: "2",
-    DailyLogId: "1",
-    MealTime: "午餐",
-    MealDescription: "吐司...",
-    Image: "/upload/images/...",
-    Starch: "LStarch,2",
-    Protein: "LProtein,2",
-    Vegetable: "LVegetable,2",
-    StarchAchieved: true,
-    ProteinAchieved: false,
-    VegetableAchieved: true,
-  },
-  Dinner: {
-    Id: "3",
-    DailyLogId: "1",
-    MealTime: "晚餐",
-    MealDescription: "吐司...",
-    Image: "/upload/images/...",
-    Starch: "DStarch,2",
-    Protein: "DProtein,2",
-    Vegetable: "Degetable,2",
-    StarchAchieved: true,
-    ProteinAchieved: true,
-    VegetableAchieved: false,
-  },
-  Fruit: "Fruit,Fruit",
-  FruitDescription: "",
-  FruitImgUrl: "/upload/images/...",
-  Oil: "Oil,Oil",
-  OilDescription: "",
-  OilImgUrl: "/upload/images/...",
-  Water: "Water,Water",
-  WaterDescription: "",
-  WaterImgUrl: "/upload/images/...",
-};
-
-const weekDays: string[] = ["日", "一", "二", "三", "四", "五", "六"];
-
-const tabs: Tab[] = [
-  { name: "總覽", enName: "All" },
-  { name: "早餐", enName: "Breakfast" },
-  { name: "午餐", enName: "Lunch" },
-  { name: "晚餐", enName: "Dinner" },
-  { name: "油脂", enName: "Oil" },
-  { name: "水果", enName: "Fruit" },
-  { name: "飲水", enName: "Water" },
-];
-
-const foodIcons: FoodIcon[] = [
-  {
-    PC: "starch_PC.svg",
-    completed: "starch-completed_PC.png",
-    mobile: "starch_mobile.svg",
-    name: "澱粉",
-    enName: "Starch",
-    showTab: ["All", "Breakfast", "Lunch", "Dinner"],
-  },
-  {
-    PC: "protein_PC.svg",
-    completed: "protein-completed_PC.png",
-    mobile: "protein_mobile.svg",
-    name: "蛋白質",
-    enName: "Protein",
-    showTab: ["All", "Breakfast", "Lunch", "Dinner"],
-  },
-  {
-    PC: "vegetable_PC.svg",
-    completed: "vegetable-completed_PC.png",
-    mobile: "vegetable_mobile.svg",
-    name: "蔬菜",
-    enName: "Vegetable",
-    showTab: ["All", "Breakfast", "Lunch", "Dinner"],
-  },
-  {
-    PC: "oil_PC.svg",
-    completed: "oil-completed_PC.png",
-    mobile: "oil_mobile.svg",
-    name: "油脂",
-    enName: "Oil",
-    showTab: ["All", "Oil"],
-  },
-  {
-    PC: "fruit_PC.svg",
-    completed: "fruit-completed_PC.png",
-    mobile: "fruit_mobile.svg",
-    name: "水果",
-    enName: "Fruit",
-    showTab: ["All", "Fruit"],
-  },
-  {
-    PC: "water_PC.svg",
-    completed: "water-completed_PC.png",
-    mobile: "water_mobile.svg",
-    name: "水",
-    enName: "Water",
-    showTab: ["All", "Water"],
-  },
-];
+import {
+  Tab,
+  foodAPI,
+  foodIcons,
+  tabs,
+  weekDays,
+  Event,
+} from "@/common/lib/dashboard/dietary-record/foodMenu";
+import { interactionSettingsStore } from "@fullcalendar/core/internal.js";
+import axios from "axios";
 
 interface DailyDietaryProps {
   isMobile: boolean;
   Token: string;
   CourseId: string;
   UserCurrentStatus: string;
+}
+
+interface EditType {
+  Breakfast: boolean;
+  Lunch: boolean;
+  Dinner: boolean;
+  Oil: boolean;
+  Fruit: boolean;
+  Water: boolean;
+}
+
+interface HandleEditClickProps {
+  event: MouseEvent<HTMLButtonElement>;
+  tab: Tab;
+  UserCurrentStatus: string;
+}
+
+interface FileSrcType {
+  Breakfast: string;
+  Lunch: string;
+  Dinner: string;
+  Oil: string;
+  Fruit: string;
+  Water: string;
 }
 
 const DailyDietary: FC<DailyDietaryProps> = ({
@@ -217,6 +56,22 @@ const DailyDietary: FC<DailyDietaryProps> = ({
 }) => {
   const dispatch = useDispatch();
   const [tab, setTab] = useState<Tab>(tabs[0]);
+  const [edit, setEdit] = useState<EditType>({
+    Breakfast: false,
+    Lunch: false,
+    Dinner: false,
+    Oil: false,
+    Fruit: false,
+    Water: false,
+  });
+  const [fileSrc, setFileSrc] = useState<FileSrcType>({
+    Breakfast: "",
+    Lunch: "",
+    Dinner: "",
+    Oil: "",
+    Fruit: "",
+    Water: "",
+  });
 
   const events: Event[] = [
     {
@@ -234,23 +89,38 @@ const DailyDietary: FC<DailyDietaryProps> = ({
     },
   ];
 
+  const handleEditClick = ({
+    event,
+    tab,
+    UserCurrentStatus,
+  }: HandleEditClickProps): void => {
+    if (UserCurrentStatus === "nu") {
+      dispatch(showModal(["showMenuEditModal", 0]));
+    } else {
+      setEdit({
+        ...edit,
+        [tab.enName]: !edit[tab.enName as keyof EditType],
+      });
+    }
+  };
+
+  console.log(edit);
+
   return (
     <>
-      {UserCurrentStatus === "nu" && (
-        <button
-          type="button"
-          onClick={() => dispatch(showModal(["showMenuEditModal", 0]))}
-          className="hidden lg:block"
-        >
-          <Image
-            src="/images/dashboard/dietary-record/edit.svg"
-            width="28"
-            height="28"
-            alt="arrow"
-            className="absolute top-12 right-16"
-          />
-        </button>
-      )}
+      <button
+        type="button"
+        onClick={(e) => handleEditClick({ event: e, tab, UserCurrentStatus })}
+        className="hidden lg:block"
+      >
+        <Image
+          src="/images/dashboard/dietary-record/edit.svg"
+          width="28"
+          height="28"
+          alt="arrow"
+          className="absolute top-12 right-16"
+        />
+      </button>
       <button type="button" className="hidden lg:block">
         <Image
           src="/images/dashboard/dietary-record/hint.svg"
@@ -276,7 +146,16 @@ const DailyDietary: FC<DailyDietaryProps> = ({
         }}
         dayHeaders={false}
         eventContent={() =>
-          renderEventContent(events[0], tab, setTab, UserCurrentStatus)
+          renderEventContent(
+            events[0],
+            tab,
+            setTab,
+            UserCurrentStatus,
+            Token,
+            edit,
+            fileSrc,
+            setFileSrc
+          )
         }
         headerToolbar={{
           start: "prev",
@@ -295,7 +174,11 @@ function renderEventContent(
   event: Event,
   tab: Tab,
   setTab: (tab: Tab) => void,
-  UserCurrentStatus: string
+  UserCurrentStatus: string,
+  Token: string,
+  edit: EditType,
+  fileSrc: FileSrcType,
+  setFileSrc: (fileSrc: FileSrcType) => void
 ) {
   function changeTab(tab: Tab) {
     setTab(tab);
@@ -308,6 +191,55 @@ function renderEventContent(
   const fetchData = event.extendedProps;
 
   // console.log(filterFoodIcons);
+
+  const handleUploadFile = async (
+    e: ChangeEvent<HTMLInputElement>,
+    tab: Tab,
+    Token: string
+  ): void => {
+    console.log(Token);
+    try {
+      let reader;
+      const file = e.target.files ? e.target.files[0] : null;
+      if (!file) return;
+
+      previewFile(file);
+
+      const formData = new FormData();
+      formData.append("upFile", file, file.name);
+
+      const result = await axios(
+        `${process.env.NEXT_PUBLIC_API_URL}/upload/image`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `${Token}`,
+          },
+          data: formData,
+        }
+      );
+      console.log(result.data.Data.ImageUrl);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  function previewFile(file) {
+    let reader;
+    if (file) {
+      reader = new FileReader();
+      reader.readAsDataURL(file);
+    }
+    reader.onload = function (event) {
+      const result = event.target?.result;
+      if (result) {
+        setFileSrc((prevState) => ({
+          ...prevState,
+          [tab.enName]: result,
+        }));
+      }
+    };
+  }
 
   return (
     <>
@@ -331,18 +263,52 @@ function renderEventContent(
         })}
       </ul>
 
-      <div className="flex min-h-[154px] mt-28 items-center">
+      <div className="flex min-h-[154px] mt-28 mb-8 mx-20 items-center">
         {UserCurrentStatus === "user" && tab.enName !== "All" && (
           <div className="w-[60%] self-stretch p-8 border border-primary-300 flex gap-8">
-            {dailyDietaryInput[tab.enName].map((item) => (
-              <>
-                <Input name={item.name} type={item.type} />
-                <textarea name="MealDescription"></textarea>
-              </>
-            ))}
+            {dailyDietaryInput[tab.enName].map((item, index) => {
+              console.log(fileSrc);
+              return (
+                <Fragment key={index}>
+                  <label
+                    htmlFor={item.name}
+                    className="h-[150px] w-[220px] relative"
+                  >
+                    <Image
+                      src={
+                        `${fileSrc[tab.enName]}`
+                          ? `${fileSrc[tab.enName]}`
+                          : "/images/dashboard/dietary-record/upload-photo.svg"
+                      }
+                      fill
+                      objectFit="cover"
+                      // width={220}
+                      // height={150}
+                      alt={item.name}
+                    />
+                    <input
+                      id={item.name}
+                      name={item.name}
+                      type="file"
+                      accept={item.accept}
+                      className="hidden"
+                      onChange={(e) => handleUploadFile(e, tab, Token)}
+                    />
+                  </label>
+                  <textarea
+                    name="MealDescription"
+                    className="w-[270px] h-full"
+                  ></textarea>
+                </Fragment>
+              );
+            })}
           </div>
         )}
-        <ul className="mx-auto flex flex-wrap justify-center text-black-950 gap-y-20 lg:gap-[45px] lg:flex-nowrap">
+        <ul
+          className={`mx-auto flex flex-wrap justify-center text-black-950 gap-y-20 lg:flex-nowrap ${
+            tab.enName === "All" ? "lg:gap-x-[45px]" : "lg:gap-x-8"
+          }`}
+        >
           {filterFoodIcons.map((filterFoodIcon, index) => {
             //飲食達成icon切換
             const sumAchieved = `${[filterFoodIcon.enName]}SumAchieved`;
@@ -363,18 +329,27 @@ function renderEventContent(
                 <Image
                   src={`/images/dashboard/dietary-record/foods/${showFoodIcon}`}
                   alt={filterFoodIcon.PC}
-                  width={75}
-                  height={75}
+                  width={`${tab.enName === "All" ? "75" : "48"}`}
+                  height={`${tab.enName === "All" ? "75" : "48"}`}
                   className="mx-auto"
                 />
                 <p className="mt-6">{filterFoodIcon.name}</p>
-                <p className="mt-8">
-                  {/* 顯示 "紀錄/菜單" */}
-                  {fetchData[filterFoodIcon.enName]
-                    ? fetchData[filterFoodIcon.enName]
-                    : fetchData[tab.enName][filterFoodIcon.enName]
-                    ? fetchData[tab.enName][filterFoodIcon.enName]
-                    : fetchData[tab.enName][`${filterFoodIcon.enName}Sum`]}
+                <p className="mt-8 w-[78px] h-[42px]">
+                  {edit[tab.enName as keyof EditType] ? (
+                    <input
+                      name={filterFoodIcon.name}
+                      placeholder="份數"
+                      className="w-full text-center"
+                      type="number"
+                    />
+                  ) : // 顯示 "紀錄/菜單"
+                  fetchData[filterFoodIcon.enName] ? (
+                    fetchData[filterFoodIcon.enName]
+                  ) : fetchData[tab.enName][filterFoodIcon.enName] ? (
+                    fetchData[tab.enName][filterFoodIcon.enName]
+                  ) : (
+                    fetchData[tab.enName][`${filterFoodIcon.enName}Sum`]
+                  )}
                 </p>
               </li>
             );

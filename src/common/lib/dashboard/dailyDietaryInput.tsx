@@ -5,6 +5,7 @@ const dailyDietaryInput: TypeInput = {
     {
       name: "Image",
       type: "file",
+      accept: "image/png, image/jpeg, image/jpg",
     },
     // {
     //   name: "MealDescription",
@@ -15,30 +16,35 @@ const dailyDietaryInput: TypeInput = {
     {
       name: "Image",
       type: "file",
+      accept: "image/png, image/jpeg, image/jpg",
     },
   ],
   Dinner: [
     {
       name: "Image",
       type: "file",
+      accept: "image/png, image/jpeg, image/jpg",
     },
   ],
   Oil: [
     {
       name: "OilImgUrl",
       type: "file",
+      accept: "image/png, image/jpeg, image/jpg",
     },
   ],
   Fruit: [
     {
       name: "FruitImgUrl",
       type: "file",
+      accept: "image/png, image/jpeg, image/jpg",
     },
   ],
   Water: [
     {
       name: "WaterImgUrl",
       type: "file",
+      accept: "image/png, image/jpeg, image/jpg",
     },
   ],
 };

@@ -55,5 +55,6 @@ export interface TypeInput {
   [key: string]: {
     name: string;
     type: "text" | "number" | "checkbox" | "password" | "email" | "file";
+    accept: string;
   }[];
 }
