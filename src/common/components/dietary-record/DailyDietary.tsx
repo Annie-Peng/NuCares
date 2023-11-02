@@ -16,7 +16,11 @@ import {
 } from "@/common/lib/dashboard/dietary-record/foodMenu";
 import { interactionSettingsStore } from "@fullcalendar/core/internal.js";
 import axios from "axios";
-import useUploadFile from "@/common/hooks/useUploadFile";
+import useUploadFile, {
+  HandleUploadFileProps,
+  InitFileSrcFoodType,
+  UseUploadFileProps,
+} from "@/common/hooks/useUploadFile";
 
 interface DailyDietaryProps {
   isMobile: boolean;
@@ -177,9 +181,9 @@ function renderEventContent(
   UserCurrentStatus: string,
   Token: string,
   edit: EditType,
-  fileSrc: FileSrcType,
-  setFileSrc: (fileSrc: FileSrcType) => void,
-  handleUploadFile
+  fileSrc: InitFileSrcFoodType,
+  setFileSrc: (fileSrc: InitFileSrcFoodType) => void,
+  handleUploadFile: (onChange: HandleUploadFileProps) => void
 ) {
   function changeTab(tab: Tab) {
     setTab(tab);
@@ -228,8 +232,10 @@ function renderEventContent(
                   >
                     <Image
                       src={
-                        `${fileSrc[tab.enName]}`
-                          ? `${fileSrc[tab.enName]}`
+                        `${fileSrc[tab.enName as keyof InitFileSrcFoodType]}`
+                          ? `${
+                              fileSrc[tab.enName as keyof InitFileSrcFoodType]
+                            }`
                           : "/images/dashboard/dietary-record/upload-photo.svg"
                       }
                       fill
@@ -242,7 +248,9 @@ function renderEventContent(
                       type="file"
                       accept={item.accept}
                       className="hidden"
-                      onChange={(e) => handleUploadFile(e, tab, Token)}
+                      onChange={(e) =>
+                        handleUploadFile({ e: e, tab: tab, Token: Token })
+                      }
                     />
                   </label>
                   <textarea

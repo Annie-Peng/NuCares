@@ -2,7 +2,7 @@ import axios from "axios";
 import { FC, useState, ChangeEvent } from "react";
 import { Tab } from "../lib/dashboard/dietary-record/foodMenu";
 
-interface InitFileSrcFoodType {
+export interface InitFileSrcFoodType {
   Breakfast: string;
   Lunch: string;
   Dinner: string;
@@ -17,14 +17,20 @@ export interface UseUploadFileProps {
   initFileSrc: InitFileSrcFoodType;
 }
 
-const useUploadFile = ({ data, Token, initFileSrc }: UseUploadFileProps) => {
-  const [fileSrc, setFileSrc] = useState(initFileSrc);
+export interface HandleUploadFileProps {
+  e: ChangeEvent<HTMLInputElement>;
+  tab: Tab;
+  Token: string;
+}
 
-  const handleUploadFile = async (
-    e: ChangeEvent<HTMLInputElement>,
-    tab: Tab,
-    Token: string
-  ): Promise<void> => {
+const useUploadFile = ({ data, Token, initFileSrc }: UseUploadFileProps) => {
+  const [fileSrc, setFileSrc] = useState<InitFileSrcFoodType>(initFileSrc);
+
+  const handleUploadFile = async ({
+    e,
+    tab,
+    Token,
+  }: HandleUploadFileProps): Promise<void> => {
     try {
       let reader;
       const file = e.target.files ? e.target.files[0] : null;
