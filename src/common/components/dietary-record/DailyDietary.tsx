@@ -5,14 +5,14 @@ import { FC, useState, MouseEvent, Fragment } from "react";
 import Input from "../Input";
 import dailyDietaryInput from "@/common/lib/dashboard/dailyDietaryInput";
 import { showModal } from "@/common/redux/features/showModal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Tab,
-  foodAPI,
   foodIcons,
   tabs,
   weekDays,
   Event,
+  DailyDietaryType,
 } from "@/common/lib/dashboard/dietary-record/foodMenu";
 import { interactionSettingsStore } from "@fullcalendar/core/internal.js";
 import axios from "axios";
@@ -21,6 +21,7 @@ import useUploadFile, {
   InitFileSrcFoodType,
   UseUploadFileProps,
 } from "@/common/hooks/useUploadFile";
+import { selectDailyDietary } from "@/common/redux/features/dietary-record/dailyDietary";
 
 interface DailyDietaryProps {
   isMobile: boolean;
@@ -76,18 +77,21 @@ const DailyDietary: FC<DailyDietaryProps> = ({
     initFileSrc,
   });
 
+  const dailyDietaryData = useSelector(selectDailyDietary);
+  console.log(dailyDietaryData);
+
   const events: Event[] = [
     {
-      start: foodAPI.InsertDate,
+      start: dailyDietaryData.MenuDate,
       tab: tab.enName,
       extendedProps: {
-        All: foodAPI,
-        Breakfast: foodAPI.Breakfast,
-        Lunch: foodAPI.Lunch,
-        Dinner: foodAPI.Dinner,
-        Oil: foodAPI.Oil,
-        Fruit: foodAPI.Fruit,
-        Water: foodAPI.Water,
+        All: dailyDietaryData,
+        Breakfast: dailyDietaryData.Breakfast,
+        Lunch: dailyDietaryData.Lunch,
+        Dinner: dailyDietaryData.Dinner,
+        Oil: dailyDietaryData.Oil,
+        Fruit: dailyDietaryData.Fruit,
+        Water: dailyDietaryData.Water,
       },
     },
   ];
@@ -106,8 +110,6 @@ const DailyDietary: FC<DailyDietaryProps> = ({
       });
     }
   };
-
-  console.log(edit);
 
   return (
     <>
@@ -158,7 +160,8 @@ const DailyDietary: FC<DailyDietaryProps> = ({
             edit,
             fileSrc,
             setFileSrc,
-            handleUploadFile
+            handleUploadFile,
+            dailyDietaryData
           )
         }
         headerToolbar={{
@@ -183,7 +186,8 @@ function renderEventContent(
   edit: EditType,
   fileSrc: InitFileSrcFoodType,
   setFileSrc: (fileSrc: InitFileSrcFoodType) => void,
-  handleUploadFile: (onChange: HandleUploadFileProps) => void
+  handleUploadFile: (onChange: HandleUploadFileProps) => void,
+  dailyDietaryData: DailyDietaryType
 ) {
   function changeTab(tab: Tab) {
     setTab(tab);
@@ -273,11 +277,11 @@ function renderEventContent(
             const achieved = `${[filterFoodIcon.enName]}Achieved`;
             let showFoodIcon = filterFoodIcon.PC;
 
-            if (foodAPI[sumAchieved]) {
+            if (dailyDietaryData[sumAchieved]) {
               showFoodIcon = filterFoodIcon.completed;
             } else if (
-              foodAPI[tab.enName] &&
-              (foodAPI[tab.enName] as any)[achieved]
+              dailyDietaryData[tab.enName] &&
+              (dailyDietaryData[tab.enName] as any)[achieved]
             ) {
               showFoodIcon = filterFoodIcon.completed;
             }

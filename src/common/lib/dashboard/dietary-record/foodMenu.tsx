@@ -1,3 +1,5 @@
+import { DailyDietaryType } from "@/common/redux/features/dietary-record/dailyDietary";
+
 interface FoodIconType {
   [key: string]: Record<string, string>;
 }
@@ -151,37 +153,7 @@ export const foodIcons: FoodIcon[] = [
   },
 ];
 
-interface FoodApi {
-  [key: string]: string | boolean | Meal;
-  Id: string;
-  InsertDate: string;
-  StarchSum: string;
-  ProteinSum: string;
-  VegetableSum: string;
-  OilSum: string;
-  FruitSum: string;
-  WaterSum: string;
-  StarchSumAchieved: boolean;
-  ProteinSumAchieved: boolean;
-  VegetableSumAchieved: boolean;
-  OilSumAchieved: boolean;
-  FruitSumAchieved: boolean;
-  WaterSumAchieved: boolean;
-  Breakfast: Meal;
-  Lunch: Meal;
-  Dinner: Meal;
-  Fruit: string;
-  FruitDescription: string;
-  FruitImgUrl: string;
-  Oil: string;
-  OilDescription: string;
-  OilImgUrl: string;
-  Water: string;
-  WaterDescription: string;
-  WaterImgUrl: string;
-}
-
-export const foodAPI: FoodApi = {
+export const dailyDietaryType: DailyDietaryType = {
   Id: "1",
   InsertDate: "2023-11-01",
   StarchSum: "1, 3",
