@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FC, ReactEventHandler, ReactNode } from "react";
 
 interface SelectProps {
@@ -14,6 +15,7 @@ interface SelectProps {
   selectClass?: string;
   errClass?: string;
   errMsg?: string;
+  imageClass?: string;
 }
 
 const Select: FC<SelectProps> = ({
@@ -29,14 +31,15 @@ const Select: FC<SelectProps> = ({
   errMsg,
   disabledOption,
   options,
+  imageClass,
 }) => {
   return (
-    <label htmlFor={name} className={labelClass}>
+    <label htmlFor={name} className={`${labelClass} mt-20 block relative`}>
       <h4 className="formHead">{hMsg}</h4>
-      <p className="fromContent">{pMsg}</p>
+      <p className="formContent">{pMsg}</p>
       {children}
       <select
-        className={`formSelect ${selectClass}`}
+        className={`formSelect ${selectClass} mt-12 py-8 relative`}
         name={name}
         onChange={onChange}
         required={required}
@@ -52,6 +55,13 @@ const Select: FC<SelectProps> = ({
           );
         })}
       </select>
+      <Image
+        src="/images/dashboard/nutritionist/course/dropdown.svg"
+        width={20}
+        height={20}
+        alt="arrow"
+        className={`${imageClass} absolute`}
+      />
       <p className={errClass}>{errMsg}</p>
     </label>
   );

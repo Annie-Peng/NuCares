@@ -35,14 +35,14 @@ const Input: FC<InputProps> = ({
   errMsg,
 }) => {
   return (
-    <label htmlFor={name} className={labelClass}>
-      <h4 className="font-normal font-weight">{hMsg}</h4>
-      <p className="text-14 font-normal text-black-400">{pMsg}</p>
+    <label htmlFor={name} className={`${labelClass} mt-20 block`}>
+      <h4 className="formHead">{hMsg}</h4>
+      <p className="formContent">{pMsg}</p>
       {children}
       <input
         type={type}
         name={name}
-        className={inputClass}
+        className={`${inputClass} mt-12 py-8`}
         value={value}
         placeholder={placeholder}
         onChange={onChange}
