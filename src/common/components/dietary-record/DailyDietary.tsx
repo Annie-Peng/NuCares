@@ -109,6 +109,8 @@ const DailyDietary: FC<DailyDietaryProps> = ({
   }: HandleEditClickProps): void => {
     if (UserCurrentStatus === "nu") {
       dispatch(showModal(["showMenuEditModal", 0]));
+    } else if (tab.enName === "All") {
+      return;
     } else {
       setEdit({
         ...edit,
@@ -205,7 +207,7 @@ function renderEventContent(
 
   const fetchData = event.extendedProps;
 
-  // console.log(filterFoodIcons);
+  const newEdit = edit[tab.enName as keyof EditType];
 
   return (
     <>
@@ -231,7 +233,7 @@ function renderEventContent(
 
       <div className="flex min-h-[154px] mt-28 mb-8 mx-20 items-center">
         {UserCurrentStatus === "user" && tab.enName !== "All" && (
-          <div className="w-[60%] self-stretch p-8 border border-primary-300 flex gap-8 mr-12">
+          <div className="w-[60%] self-stretch p-8 flex gap-8 mr-12">
             {dailyDietaryInput[tab.enName].map((item, index) => {
               console.log(fileSrc);
               return (
@@ -252,21 +254,28 @@ function renderEventContent(
                       objectFit="cover"
                       alt={item.name}
                     />
-                    <input
-                      id={item.name}
-                      name={item.name}
-                      type="file"
-                      accept={item.accept}
-                      className="hidden"
-                      onChange={(e) =>
-                        handleUploadFile({ e: e, tab: tab, Token: Token })
-                      }
-                    />
+                    {newEdit && (
+                      <input
+                        id={item.name}
+                        name={item.name}
+                        type="file"
+                        accept={item.accept}
+                        className="hidden"
+                        onChange={(e) =>
+                          handleUploadFile({ e: e, tab: tab, Token: Token })
+                        }
+                      />
+                    )}
                   </label>
-                  <textarea
-                    name="MealDescription"
-                    className="w-[270px] h-full"
-                  ></textarea>
+                  {newEdit ? (
+                    <textarea
+                      name="MealDescription"
+                      className="w-[270px] h-full"
+                      placeholder="今天吃了什麼食物？"
+                    ></textarea>
+                  ) : (
+                    <p></p>
+                  )}
                 </Fragment>
               );
             })}
@@ -274,7 +283,7 @@ function renderEventContent(
         )}
         <ul
           className={`mx-auto flex flex-wrap justify-center text-black-950 gap-y-20 lg:flex-nowrap ${
-            edit ? "lg:gap-x-[45px]" : "lg:gap-x-8"
+            tab.enName === "All" ? "lg:gap-x-[45px]" : "lg:gap-x-8"
           }`}
         >
           {filterFoodIcons.map((filterFoodIcon, index) => {
@@ -297,13 +306,13 @@ function renderEventContent(
                 <Image
                   src={`/images/dashboard/dietary-record/foods/${showFoodIcon}`}
                   alt={filterFoodIcon.PC}
-                  width={`${edit ? "75" : "48"}`}
-                  height={`${edit ? "75" : "48"}`}
+                  width={tab.enName === "All" ? "75" : "48"}
+                  height={tab.enName === "All" ? "75" : "48"}
                   className="mx-auto"
                 />
                 <p className="mt-6">{filterFoodIcon.name}</p>
                 <p className="mt-8 w-[78px] h-[42px]">
-                  {edit[tab.enName as keyof EditType] ? (
+                  {newEdit ? (
                     <input
                       name={filterFoodIcon.name}
                       placeholder="份數"
