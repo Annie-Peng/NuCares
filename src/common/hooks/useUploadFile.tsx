@@ -3,12 +3,12 @@ import { FC, useState, ChangeEvent } from "react";
 import { Tab } from "../lib/dashboard/dietary-record/foodMenu";
 
 export interface InitFileSrcFoodType {
-  Breakfast: string;
-  Lunch: string;
-  Dinner: string;
-  Oil: string;
-  Fruit: string;
-  Water: string;
+  Breakfast: { fetch: string; file: string };
+  Lunch: { fetch: string; file: string };
+  Dinner: { fetch: string; file: string };
+  Oil: { fetch: string; file: string };
+  Fruit: { fetch: string; file: string };
+  Water: { fetch: string; file: string };
 }
 
 export interface UseUploadFileProps {
@@ -44,8 +44,6 @@ const useUploadFile = ({
       const file = e.target.files ? e.target.files[0] : null;
       if (!file) return;
 
-      previewFile(file);
-
       const formData = new FormData();
       formData.append("upFile", file, file.name);
 
@@ -59,13 +57,15 @@ const useUploadFile = ({
           data: formData,
         }
       );
-      console.log(result.data.Data.ImageUrl);
+      const fetchData = result.data.Data.ImageUrl;
+
+      previewFile(file, fetchData);
     } catch (error) {
       console.log(error);
     }
   };
 
-  function previewFile(file: File) {
+  function previewFile(file: File, fetchData: string) {
     let reader;
     if (file) {
       reader = new FileReader();
@@ -75,7 +75,7 @@ const useUploadFile = ({
         if (result) {
           setFileSrc((prevState) => ({
             ...prevState,
-            [data.enName]: result,
+            [data.enName]: { fetch: fetchData, file: result },
           }));
         }
       };
