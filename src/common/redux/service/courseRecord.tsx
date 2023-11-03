@@ -8,8 +8,8 @@ export const courseRecord = createApi({
   tagTypes: ["Course", "BodyInfo", "Goal"],
   endpoints: (builder) => ({
     dailyDietaryGetApi: builder.query({
-      query: ({ Token, CourseId, date }) => ({
-        url: `/course/${CourseId}/daily`,
+      query: ({ Token, CourseId, Date }) => ({
+        url: `/course/${CourseId}/daily?date=${Date}`,
         method: "GET",
         headers: {
           Authorization: `${Token}`,

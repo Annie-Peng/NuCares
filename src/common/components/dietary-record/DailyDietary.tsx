@@ -12,7 +12,6 @@ import {
   tabs,
   weekDays,
   Event,
-  DailyDietaryType,
 } from "@/common/lib/dashboard/dietary-record/foodMenu";
 import { interactionSettingsStore } from "@fullcalendar/core/internal.js";
 import axios from "axios";
@@ -21,7 +20,11 @@ import useUploadFile, {
   InitFileSrcFoodType,
   UseUploadFileProps,
 } from "@/common/hooks/useUploadFile";
-import { selectDailyDietary } from "@/common/redux/features/dietary-record/dailyDietary";
+import {
+  DailyDietaryType,
+  selectDailyDietary,
+} from "@/common/redux/features/dietary-record/dailyDietary";
+import turnStringFormat from "@/common/helpers/turnStringFormat";
 
 interface DailyDietaryProps {
   isMobile: boolean;
@@ -82,16 +85,19 @@ const DailyDietary: FC<DailyDietaryProps> = ({
 
   const events: Event[] = [
     {
-      start: dailyDietaryData.MenuDate,
+      start: String(dailyDietaryData.MenuDate),
       tab: tab.enName,
       extendedProps: {
-        All: dailyDietaryData,
-        Breakfast: dailyDietaryData.Breakfast,
-        Lunch: dailyDietaryData.Lunch,
-        Dinner: dailyDietaryData.Dinner,
-        Oil: dailyDietaryData.Oil,
-        Fruit: dailyDietaryData.Fruit,
-        Water: dailyDietaryData.Water,
+        All: turnStringFormat(dailyDietaryData, "mealSlashFormat"),
+        Breakfast: turnStringFormat(
+          dailyDietaryData.Breakfast,
+          "mealSlashFormat"
+        ),
+        Lunch: turnStringFormat(dailyDietaryData.Lunch, "mealSlashFormat"),
+        Dinner: turnStringFormat(dailyDietaryData.Dinner, "mealSlashFormat"),
+        Oil: turnStringFormat(dailyDietaryData.Oil, "otherSlashFormat"),
+        Fruit: turnStringFormat(dailyDietaryData.Fruit, "otherSlashFormat"),
+        Water: turnStringFormat(dailyDietaryData.Water, "otherSlashFormat"),
       },
     },
   ];
@@ -225,7 +231,7 @@ function renderEventContent(
 
       <div className="flex min-h-[154px] mt-28 mb-8 mx-20 items-center">
         {UserCurrentStatus === "user" && tab.enName !== "All" && (
-          <div className="w-[60%] self-stretch p-8 border border-primary-300 flex gap-8">
+          <div className="w-[60%] self-stretch p-8 border border-primary-300 flex gap-8 mr-12">
             {dailyDietaryInput[tab.enName].map((item, index) => {
               console.log(fileSrc);
               return (
@@ -268,7 +274,7 @@ function renderEventContent(
         )}
         <ul
           className={`mx-auto flex flex-wrap justify-center text-black-950 gap-y-20 lg:flex-nowrap ${
-            tab.enName === "All" ? "lg:gap-x-[45px]" : "lg:gap-x-8"
+            edit ? "lg:gap-x-[45px]" : "lg:gap-x-8"
           }`}
         >
           {filterFoodIcons.map((filterFoodIcon, index) => {
@@ -291,8 +297,8 @@ function renderEventContent(
                 <Image
                   src={`/images/dashboard/dietary-record/foods/${showFoodIcon}`}
                   alt={filterFoodIcon.PC}
-                  width={`${tab.enName === "All" ? "75" : "48"}`}
-                  height={`${tab.enName === "All" ? "75" : "48"}`}
+                  width={`${edit ? "75" : "48"}`}
+                  height={`${edit ? "75" : "48"}`}
                   className="mx-auto"
                 />
                 <p className="mt-6">{filterFoodIcon.name}</p>
