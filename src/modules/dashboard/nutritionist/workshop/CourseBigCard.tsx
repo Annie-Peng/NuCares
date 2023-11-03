@@ -1,6 +1,10 @@
+import { showModal } from "@/common/redux/features/showModal";
 import Image from "next/image";
+import { useDispatch, useSelector } from "react-redux";
 
 const CourseBigCard = () => {
+  const dispatch = useDispatch();
+
   return (
     <div className="courseBigCard p-20 bg-white rounded-10 border border-black-200 flex gap-[47px]">
       <table className="flex gap-x-20 after:content-[''] after:top-0 after:bottom-0 after:block after:bg-black-200 after:w-[1px]">
@@ -27,7 +31,10 @@ const CourseBigCard = () => {
         </tbody>
       </table>
       <div className="flex flex-wrap content-center gap-16 p-12">
-        <button type="button">
+        <button
+          type="button"
+          onClick={() => dispatch(showModal(["showCourseSaveModal", 0]))}
+        >
           <Image
             src="/images/dashboard/nutritionist/course/clipPath.svg"
             width={28}
@@ -35,7 +42,10 @@ const CourseBigCard = () => {
             alt="edit"
           />
         </button>
-        <button type="button">
+        <button
+          type="button"
+          onClick={() => dispatch(showModal(["showCourseDeleteModal", 0]))}
+        >
           <Image
             src="/images/dashboard/nutritionist/course/trashcan.svg"
             width={28}
