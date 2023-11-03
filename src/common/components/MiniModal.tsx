@@ -13,7 +13,7 @@ const MiniModal: React.FC<MiniModalProps> = ({ children, modal }) => {
 
   return (
     <div className="cusModalBg z-10">
-      <div className="cusModal py-32 min-h-[300px] relative">
+      <div className="cusModal py-32 min-h-[180px] relative">
         {children}
         <button
           className="absolute -top-[25px] -right-[25px]"
