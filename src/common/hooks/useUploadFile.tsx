@@ -23,7 +23,15 @@ export interface HandleUploadFileProps {
   Token: string;
 }
 
-const useUploadFile = ({ data, Token, initFileSrc }: UseUploadFileProps) => {
+const useUploadFile = ({
+  data,
+  Token,
+  initFileSrc,
+}: UseUploadFileProps): [
+  InitFileSrcFoodType,
+  (fileSrc: InitFileSrcFoodType) => void,
+  (onChange: HandleUploadFileProps) => void
+] => {
   const [fileSrc, setFileSrc] = useState<InitFileSrcFoodType>(initFileSrc);
 
   const handleUploadFile = async ({
