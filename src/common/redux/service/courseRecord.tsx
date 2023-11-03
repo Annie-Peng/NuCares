@@ -5,7 +5,7 @@ export const courseRecord = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_URL,
   }),
-  tagTypes: ["Course", "BodyInfo", "Goal"],
+  tagTypes: ["DailyDietary", "BodyInfo", "Goal"],
   endpoints: (builder) => ({
     dailyDietaryGetApi: builder.query({
       query: ({ Token, CourseId, Date }) => ({
@@ -16,7 +16,38 @@ export const courseRecord = createApi({
           "Content-Type": "application/json",
         },
       }),
-      providesTags: ["Course"],
+      providesTags: ["DailyDietary"],
+    }),
+    dailyDietaryMealTimePutApi: builder.mutation({
+      query: ({
+        Token,
+        CourseId,
+        DailyLogId,
+        MealTime,
+        DailyMealTimeId,
+        body,
+      }) => ({
+        url: `/course/${CourseId}/daily/${DailyLogId}/${MealTime}/${DailyMealTimeId}`,
+        method: "PUT",
+        headers: {
+          Authorization: `${Token}`,
+          "Content-Type": "application/json",
+        },
+        body,
+      }),
+      invalidatesTags: ["DailyDietary"],
+    }),
+    dailyDietaryOtherPutApi: builder.mutation({
+      query: ({ Token, CourseId, DailyLogId, body }) => ({
+        url: `/course/${CourseId}/daily/${DailyLogId}`,
+        method: "PUT",
+        headers: {
+          Authorization: `${Token}`,
+          "Content-Type": "application/json",
+        },
+        body,
+      }),
+      invalidatesTags: ["DailyDietary"],
     }),
     bodyInfoGetApi: builder.query({
       query: ({ Token, CourseId }) => ({
@@ -57,6 +88,8 @@ export const courseRecord = createApi({
 
 export const {
   useDailyDietaryGetApiQuery,
+  useDailyDietaryMealTimePutApiMutation,
+  useDailyDietaryOtherPutApiMutation,
   useBodyInfoGetApiQuery,
   useBodyInfoPostApiMutation,
   useGoalGetApiQuery,
