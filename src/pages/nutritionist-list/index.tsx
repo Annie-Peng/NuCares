@@ -1,8 +1,11 @@
+import usePagination from "@/common/hooks/usePagination";
 import NutritionistCard from "@/modules/NutritionistCard";
 
 const NutritionistListPage = () => {
+  const { showPage, setShowPage, renderData } = usePagination();
+
   return (
-    <div className="container grid cusGrid">
+    <div className="container grid cusGrid my-24">
       <div className="col-start-2 col-span-10">
         <div className="text-center text-20 font-bold">
           為您找到合適的營養師
@@ -40,6 +43,7 @@ const NutritionistListPage = () => {
             <NutritionistCard />
           </li>
         </ul>
+        {renderData}
       </div>
     </div>
   );
