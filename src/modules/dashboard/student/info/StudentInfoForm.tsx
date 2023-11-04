@@ -2,7 +2,6 @@ import Image from "next/image";
 import { ComponentType } from "@/types/interface";
 import Input from "@/common/components/Input";
 import Select from "@/common/components/Select";
-import Textarea from "@/common/components/Textarea";
 
 const studentInfoFormData: ComponentType[] = [
   {
@@ -53,7 +52,10 @@ const studentInfoFormData: ComponentType[] = [
     name: "Gender",
     required: true,
     hMsg: "生理性別*",
-    pMsg: "請選擇與身分證上相同的性別，<br/>因營養師需依據身理性別計算身體所需營養",
+    pMsg: "請選擇與身分證上相同的性別，",
+    children: (
+      <p className="formContent">因營養師需依據身理性別計算身體所需營養</p>
+    ),
     selectClass: "w-[96px] z-10 relative bg-transparent",
     disabledOption: "請選擇",
     options: [
@@ -75,7 +77,7 @@ const studentInfoFormData: ComponentType[] = [
 
 const StudentInfoForm = () => {
   return (
-    <form className="text-left flex flex-col cusDashboardInnerContainer">
+    <form className="text-left flex flex-col cusDashboardInnerContainer mt-32 px-20 pb-20 lg:mt-0 lg:p-0">
       <ul>
         {studentInfoFormData.map((data, index) => (
           <li key={index}>
@@ -105,18 +107,23 @@ const StudentInfoForm = () => {
                 disabledOption={data.disabledOption || "請選擇"}
                 options={data.options || []}
                 imageClass={data.imageClass}
-              />
+              >
+                {data.children}
+              </Select>
             )}
           </li>
         ))}
       </ul>
-      <div className="text-center mt-[60px]">
-        <button type="button" className="btn-cusWritePrimary !py-8 w-[278px]">
+      <div className="text-center mt-[60px] flex flex-col gap-10 justify-center items-center lg:flex-row">
+        <button
+          type="button"
+          className="btn-cusWritePrimary !py-8 w-full lg:w-[278px] order-2 lg:order-1"
+        >
           放棄變更
         </button>
         <button
           type="submit"
-          className="btn-cusWriteSecondary !py-8 w-[278px] ml-10"
+          className="btn-cusWriteSecondary !py-8 w-full lg:w-[278px] order-1 lg:order-2"
         >
           儲存
         </button>
