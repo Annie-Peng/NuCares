@@ -10,18 +10,6 @@ const cityOption = cities.map((data) => {
 });
 
 const nutritionistIntroFormData: ComponentType[] = [
-  // {
-  //   component: "input",
-  //   name: "IsPublic",
-  //   type: "checkbox",
-  //   required: true,
-  //   hMsg: "公開您的介紹*",
-  //   pMsg: "在設定為公開狀態後，您才能開始接案。但即使處於未公開狀態，您仍然可為正在進行中的學員提供飲食建議。",
-  //   labelClass:
-  //     "block border rounded-l-50 rounded-r-50 w-[41px] h-[22px] cusSwitch relative",
-  //   id: "IsPublic",
-  //   inputClass: "hidden",
-  // },
   {
     component: "input",
     name: "PortraitImage",
@@ -62,14 +50,47 @@ const nutritionistIntroFormData: ComponentType[] = [
     options: cityOption,
     imageClass: "bottom-12 left-[64px]",
   },
-  // {
-  //   component: "input",
-  //   name: "Expertise",
-  //   required: true,
-  //   hMsg: "專長主題*",
-  //   pMsg: "您擅長的飲食建議主題（可複選）",
-  //   children: <></>,
-  // },
+  {
+    component: "input",
+    name: "Expertise",
+    type: "hidden",
+    required: true,
+    hMsg: "專長主題*",
+    pMsg: "您擅長的飲食建議主題（可複選）",
+    children: (
+      <ul className="flex flex-wrap gap-12 mt-12 text-14 font-bold">
+        <li>
+          <input
+            type="button"
+            value="體重控制"
+            className="btn-cusWritePrimary !p-10"
+          />
+        </li>
+        <li>
+          <input
+            type="button"
+            value="上班族營養"
+            className="btn-cusWritePrimary !p-10"
+          />
+        </li>
+        <li>
+          <input
+            type="button"
+            value="孕期營養"
+            className="btn-cusWritePrimary !p-10"
+          />
+        </li>
+
+        <li>
+          <input
+            type="button"
+            value="樂齡營養與保健"
+            className="btn-cusWritePrimary !p-10"
+          />
+        </li>
+      </ul>
+    ),
+  },
   {
     component: "input",
     name: "Education",
@@ -100,6 +121,30 @@ const nutritionistIntroFormData: ComponentType[] = [
     hMsg: "課程介紹*",
     pMsg: "更多詳細的課程說明",
     textareaClass: "w-full h-[137px]",
+  },
+  {
+    component: "input",
+    name: "Contact",
+    type: "hidden",
+    required: true,
+    hMsg: "聯絡方式*",
+    pMsg: "與學員聯絡的方式（不會公開在營養師個人介紹頁面，僅提供給購買課程之學員）",
+    children: (
+      <ul className="flex flex-wrap gap-12 mt-12">
+        <li className="w-full relative">
+          <input type="text" name="Email" className="w-full pl-[62px]" />
+          <p className="absolute top-12 left-12">Email</p>
+        </li>
+        <li className="w-full relative">
+          <input type="number" name="Phone" className="w-full pl-[62px]" />
+          <p className="absolute top-12 left-12">手機</p>
+        </li>
+        <li className="w-full relative">
+          <input type="text" name="Line" className="w-full pl-[62px]" />
+          <p className="absolute top-12 left-12">LINE</p>
+        </li>
+      </ul>
+    ),
   },
 ];
 
@@ -179,44 +224,3 @@ const NutritionistIntroForm = () => {
 };
 
 export default NutritionistIntroForm;
-
-{
-  /* <label htmlFor="strength">
-        <h4 className="font-bold">專長主題*</h4>
-        <p>您擅長的飲食建議之主題，點選主題按鈕進行設定</p>
-        <ul className="flex gap-10">
-          <li>
-            <input
-              type="button"
-              name="strength"
-              value="體重控制"
-              className="cusActiveTags"
-            />
-          </li>
-          <li>
-            <input
-              type="button"
-              name="strength"
-              value="上班族營養"
-              className="cusActiveTags"
-            />
-          </li>
-          <li>
-            <input
-              type="button"
-              name="strength"
-              value="孕期營養"
-              className="cusActiveTags"
-            />
-          </li>
-          <li>
-            <input
-              type="button"
-              name="strength"
-              value="樂齡營養與保健"
-              className="cusActiveTags"
-            />
-          </li>
-        </ul>
-      </label> */
-}

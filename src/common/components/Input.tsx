@@ -6,7 +6,8 @@ export type InputType =
   | "checkbox"
   | "password"
   | "email"
-  | "file";
+  | "file"
+  | "hidden";
 
 export interface InputProps {
   name: string;

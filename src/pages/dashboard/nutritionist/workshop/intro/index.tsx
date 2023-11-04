@@ -3,7 +3,7 @@ import NutritionistIntroForm from "@/modules/dashboard/nutritionist/workshop/Nut
 const NutritionistIntroPage = () => {
   return (
     <>
-      <h2 className="cusPrimaryTitle">課程方案</h2>
+      <h2 className="cusPrimaryTitle">關於我</h2>
       <NutritionistIntroForm />
     </>
   );
