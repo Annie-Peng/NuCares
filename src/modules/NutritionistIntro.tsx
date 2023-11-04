@@ -4,11 +4,11 @@ import NutritionistComment from "./NutritionistComment";
 const NutritionistIntro = () => {
   return (
     <>
-      <div className="profile rounded-20 flex p-20 gap-10 bg-white">
-        <div className="bg-secondary-200 rounded-15 w-[65%]" />
+      <div className="profile rounded-20 flex flex-wrap p-20 gap-10 bg-white lg:flex-nowrap">
+        <div className="bg-secondary-200 rounded-15 w-full h-[200px] lg:w-[65%] lg:h-auto" />
         <div className="flex flex-col gap-20 w-full relative">
-          <h3 className="text-24 font-normal">陳瘦瘦 營養師</h3>
-          <ul className="w-fit flex gap-8 -mt-12">
+          <h3 className="text-22 font-normal lg:text-24">陳瘦瘦 營養師</h3>
+          <ul className="w-fit flex flex-wrap gap-8 -mt-12">
             <li className="text-14 border-primary-500 text-primary-500 px-12 rounded-l-35 rounded-r-35 border">
               體重控制
             </li>
@@ -38,11 +38,11 @@ const NutritionistIntro = () => {
             高雄市
           </p>
           <ul className="education">
-            <li className="flex gap-8">
+            <li className="flex flex-wrap gap-8">
               <p className="font-bold">學歷</p>
               <p>中山醫學大學營養學系</p>
             </li>
-            <li className="flex gap-8 mt-12">
+            <li className="flex flex-wrap gap-8 mt-12">
               <p className="whitespace-nowrap font-bold">經歷</p>
               <p>
                 火箭隊健康諮詢機構 營養師

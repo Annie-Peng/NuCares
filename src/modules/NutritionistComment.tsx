@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const NutritionistComment = () => {
   return (
-    <div className="p-20 rounded-10 border max-w-[280px]">
+    <div className="p-20 rounded-10 border w-full lg:max-w-[280px]">
       <div className="flex gap-12">
         <Image src="/images/login.svg" width={46} height={46} alt="photo" />
         <div>
