@@ -4,9 +4,9 @@ import NutritionistComment from "./NutritionistComment";
 const NutritionistIntro = () => {
   return (
     <>
-      <div className="profile rounded-20 flex p-20 bg-white">
-        <div className="bg-secondary-200 rounded-15 w-[227px]" />
-        <div className="flex flex-col ms-10 gap-20 max-w-[349px]">
+      <div className="profile rounded-20 flex p-20 gap-10 bg-white">
+        <div className="bg-secondary-200 rounded-15 w-[65%]" />
+        <div className="flex flex-col gap-20 w-full relative">
           <h3 className="text-24 font-normal">陳瘦瘦 營養師</h3>
           <ul className="w-fit flex gap-8 -mt-12">
             <li className="text-14 border-primary-500 text-primary-500 px-12 rounded-l-35 rounded-r-35 border">
@@ -53,6 +53,15 @@ const NutritionistIntro = () => {
               </p>
             </li>
           </ul>
+          <button type="button">
+            <Image
+              src="/images/icons/favorite.svg"
+              width={30}
+              height={30}
+              alt="favorite"
+              className="absolute top-0 right-0"
+            />
+          </button>
         </div>
       </div>
       <div className="about rounded-20 bg-white p-24">
