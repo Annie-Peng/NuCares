@@ -4,17 +4,17 @@ import CourseMiniCard from "./CourseMiniCard";
 const NutritionistCard = () => {
   return (
     <>
-      <div className="w-[227px] h-[283px] bg-secondary-200 rounded-20"></div>
+      <div className="w-full h-[283px] bg-secondary-200 rounded-20 lg:w-[227px]"></div>
       <div className="content w-full relative max-w-[454px] flex flex-col">
         <h3 className="text-24 font-normal">陳瘦瘦 營養師</h3>
-        <ul className="w-fit flex gap-8 mt-8">
-          <li className="text-14 border-primary-500 text-primary-500 px-12 rounded-l-35 rounded-r-35 border">
+        <ul className="text-12 w-fit flex gap-8 mt-8 lg:text-14">
+          <li className="border-primary-500 text-primary-500 px-12 rounded-l-35 rounded-r-35 border">
             體重控制
           </li>
-          <li className="text-14 border-primary-500 text-primary-500 px-12 rounded-l-35 rounded-r-35 border">
+          <li className="border-primary-500 text-primary-500 px-12 rounded-l-35 rounded-r-35 border">
             上班族營養
           </li>
-          <li className="text-14 border-primary-500 text-primary-500 px-12 rounded-l-35 rounded-r-35 border">
+          <li className="border-primary-500 text-primary-500 px-12 rounded-l-35 rounded-r-35 border">
             運動營養
           </li>
         </ul>

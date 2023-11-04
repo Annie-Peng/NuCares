@@ -6,25 +6,25 @@ const NutritionistListPage = () => {
 
   return (
     <div className="container grid cusGrid my-24">
-      <div className="col-start-2 col-span-10">
+      <div className="col-span-4 lg:col-start-2 lg:col-span-10">
         <div className="text-center text-20 font-bold">
           為您找到合適的營養師
         </div>
-        <ul className="flex justify-between gap-x-10 text-center mt-24 text-20 font-bold">
-          <li className="!p-20 w-full btn-cusWritePrimary text-18 !rounded-15 bg-white flex justify-center items-center">
+        <ul className="flex flex-wrap justify-between gap-4 text-center mt-24 text-16 font-bold lg:flex-nowrap lg:gap-10 lg:text-18">
+          <li className="!p-20 w-[48%] btn-cusWritePrimary !rounded-15 bg-white flex justify-center items-center lg:w-full">
             <h2>體重控制</h2>
           </li>
-          <li className="!p-20 w-full btn-cusWritePrimary text-18 !rounded-15 bg-white flex justify-center items-center">
+          <li className="!p-20 w-[48%] btn-cusWritePrimary !rounded-15 bg-white flex justify-center items-center lg:w-full">
             <h2>上班族營養</h2>
           </li>
-          <li className="!p-20 w-full btn-cusWritePrimary text-18 !rounded-15 bg-white flex justify-center items-center">
+          <li className="!p-20 w-[48%] btn-cusWritePrimary !rounded-15 bg-white flex justify-center items-center lg:w-full">
             <h2>孕期營養</h2>
           </li>
-          <li className="!p-20 w-full btn-cusWritePrimary text-18 !rounded-15 bg-white flex justify-center items-center">
+          <li className="!p-20 w-[48%] btn-cusWritePrimary !rounded-15 bg-white flex justify-center items-center lg:w-full">
             <h2>樂玲營養與保健</h2>
           </li>
         </ul>
-        <div className="mt-[36px] flex justify-end items-center">
+        <div className="mt-[36px] flex flex-wrap justify-end items-center">
           <span className="font-bold">排列依序</span>
           <ul className="flex gap-8 ms-8">
             <li className="border border-black-950 rounded-50 py-4 px-10">
@@ -39,7 +39,7 @@ const NutritionistListPage = () => {
           </ul>
         </div>
         <ul>
-          <li className="bg-white rounded-20 mt-16 p-40 flex gap-20">
+          <li className="bg-white rounded-20 mt-16 p-40 flex flex-wrap gap-20 lg:flex-nowrap">
             <NutritionistCard />
           </li>
         </ul>
