@@ -1,9 +1,10 @@
-import Input from "@/common/components/Input";
+import Input, { InputType } from "@/common/components/Input";
 import Select from "@/common/components/Select";
-import Textarea from "@/common/components/TextArea";
-import { Fragment } from "react";
+import Textarea from "@/common/components/Textarea";
+import { Fragment, ReactNode } from "react";
+import { ComponentType } from "@/types/interface";
 
-const courseAddFormData = [
+const courseAddFormData: ComponentType[] = [
   {
     component: "input",
     name: "Rank",
@@ -65,14 +66,15 @@ const CourseAddForm = () => {
           {data.component === "input" && (
             <Input
               name={data.name}
-              type={data.type}
+              type={data.type || "text"}
               labelClass={data.labelClass}
               inputClass={data.inputClass}
               required={data.required}
               hMsg={data.hMsg}
               pMsg={data.pMsg}
-              children={data.children}
-            />
+            >
+              {data.children}
+            </Input>
           )}
           {data.component === "select" && (
             <Select
@@ -81,8 +83,8 @@ const CourseAddForm = () => {
               hMsg={data.hMsg}
               pMsg={data.pMsg}
               selectClass={data.selectClass}
-              disabledOption={data.disabledOption}
-              options={data.options}
+              disabledOption={data.disabledOption || "請選擇"}
+              options={data.options || []}
               imageClass={data.imageClass}
             />
           )}
