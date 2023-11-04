@@ -76,4 +76,5 @@ export interface ComponentType {
   accept?: string;
   id?: string;
   options?: Array<{ option: string; value: string }>;
+  disabled?: boolean;
 }
