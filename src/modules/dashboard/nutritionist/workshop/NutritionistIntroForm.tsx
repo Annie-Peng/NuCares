@@ -37,7 +37,7 @@ const nutritionistIntroFormData: ComponentType[] = [
     required: true,
     hMsg: "顯示名稱*",
     pMsg: "您可使用真實姓名或希望學員如何稱呼您的名字",
-    inputClass: "w-[294px]",
+    inputClass: "w-[270px] lg:w-[294px]",
   },
   {
     component: "select",
@@ -59,33 +59,33 @@ const nutritionistIntroFormData: ComponentType[] = [
     pMsg: "您擅長的飲食建議主題（可複選）",
     children: (
       <ul className="flex flex-wrap gap-12 mt-12 text-14 font-bold">
-        <li>
+        <li className="w-[45%] lg:w-auto">
           <input
             type="button"
             value="體重控制"
-            className="btn-cusWritePrimary !p-10"
+            className="btn-cusWritePrimary !p-10 w-full"
           />
         </li>
-        <li>
+        <li className="w-[45%] lg:w-auto">
           <input
             type="button"
             value="上班族營養"
-            className="btn-cusWritePrimary !p-10"
+            className="btn-cusWritePrimary !p-10 w-full"
           />
         </li>
-        <li>
+        <li className="w-[45%] lg:w-auto">
           <input
             type="button"
             value="孕期營養"
-            className="btn-cusWritePrimary !p-10"
+            className="btn-cusWritePrimary !p-10 w-full"
           />
         </li>
 
-        <li>
+        <li className="w-[45%] lg:w-auto">
           <input
             type="button"
             value="樂齡營養與保健"
-            className="btn-cusWritePrimary !p-10"
+            className="btn-cusWritePrimary !p-10 w-full"
           />
         </li>
       </ul>
@@ -97,7 +97,7 @@ const nutritionistIntroFormData: ComponentType[] = [
     required: false,
     hMsg: "學歷",
     pMsg: "您的營養師相關學歷",
-    inputClass: "w-[294px]",
+    inputClass: "w-[270px] lg:w-[294px]",
   },
   {
     component: "textarea",
@@ -150,7 +150,7 @@ const nutritionistIntroFormData: ComponentType[] = [
 
 const NutritionistIntroForm = () => {
   return (
-    <form className="text-left flex flex-col cusDashboardInnerContainer">
+    <form className="text-left flex flex-col cusDashboardInnerContainer mt-32 p-20 lg:mt-0 lg:p-0">
       <ul>
         <li>
           <h4 className="formHead">公開您的介紹</h4>
@@ -208,13 +208,16 @@ const NutritionistIntroForm = () => {
           </li>
         ))}
       </ul>
-      <div className="text-center mt-[60px]">
-        <button type="button" className="btn-cusWritePrimary !py-8 w-[278px]">
+      <div className="text-center mt-[60px] flex flex-col gap-10 justify-center items-center lg:flex-row">
+        <button
+          type="button"
+          className="btn-cusWritePrimary !py-8 w-full lg:w-[278px] order-2 lg:order-1"
+        >
           放棄變更
         </button>
         <button
           type="submit"
-          className="btn-cusWriteSecondary !py-8 w-[278px] ml-10"
+          className="btn-cusWriteSecondary !py-8 w-full lg:w-[278px] order-1 lg:order-2"
         >
           儲存
         </button>
