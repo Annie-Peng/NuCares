@@ -6,7 +6,7 @@ interface SelectProps {
   hMsg: string;
   pMsg: string;
   disabledOption: string;
-  options: [{ option: string; value: string }];
+  options: Array<{ option: string; value: string }>;
   children?: ReactNode;
   id?: string;
   required?: boolean;

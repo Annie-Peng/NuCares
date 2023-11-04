@@ -1,8 +1,16 @@
 import { FC, ReactEventHandler, ReactNode } from "react";
 
-interface InputProps {
+export type InputType =
+  | "text"
+  | "number"
+  | "checkbox"
+  | "password"
+  | "email"
+  | "file";
+
+export interface InputProps {
   name: string;
-  type: "text" | "number" | "checkbox" | "password" | "email" | "file";
+  type: InputType;
   hMsg?: string;
   pMsg?: string;
   children?: ReactNode;

@@ -1,3 +1,4 @@
+import { InputType } from "@/common/components/Input";
 import auth, { Auth } from "@/common/redux/features/auth";
 import { changeIDType } from "@/common/redux/features/changeID";
 import { BodyRateType } from "@/common/redux/features/dietary-record/bodyRate";
@@ -54,6 +55,23 @@ export interface FetchError {
 export interface TypeInput {
   [key: string]: {
     name: string;
-    type: "text" | "number" | "checkbox" | "password" | "email" | "file";
+    type: InputType;
   }[];
+}
+
+export interface ComponentType {
+  component: "input" | "select" | "textarea";
+  name: string;
+  type?: InputType;
+  required: boolean;
+  hMsg: string;
+  pMsg: string;
+  inputClass?: string;
+  labelClass?: string;
+  selectClass?: string;
+  textareaClass?: string;
+  imageClass?: string;
+  disabledOption?: string;
+  children?: ReactNode;
+  options?: Array<{ option: string; value: string }>;
 }
