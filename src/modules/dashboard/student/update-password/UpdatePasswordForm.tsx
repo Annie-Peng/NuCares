@@ -40,7 +40,7 @@ const UpdatePasswordForm = () => {
   // });
 
   return (
-    <form className="text-left flex flex-col cusDashboardInnerContainer">
+    <form className="text-left flex flex-col cusDashboardInnerContainer mt-32 px-20 pb-20 lg:mt-0 lg:p-0">
       <ul>
         {updatePasswordData.map((data, index) => (
           <li key={index}>
@@ -63,13 +63,16 @@ const UpdatePasswordForm = () => {
           </li>
         ))}
       </ul>
-      <div className="text-center mt-[60px]">
-        <button type="button" className="btn-cusWritePrimary !py-8 w-[278px]">
+      <div className="text-center mt-[60px] flex flex-col gap-10 justify-center items-center lg:flex-row">
+        <button
+          type="button"
+          className="btn-cusWritePrimary !py-8 w-full lg:w-[278px] order-2 lg:order-1"
+        >
           放棄變更
         </button>
         <button
           type="submit"
-          className="btn-cusWriteSecondary !py-8 w-[278px] ml-10"
+          className="btn-cusWriteSecondary !py-8 w-full lg:w-[278px] order-1 lg:order-2"
         >
           儲存
         </button>
