@@ -17,6 +17,7 @@ export interface InputProps {
   placeholder?: string;
   value?: string;
   id?: string;
+  accept?: string;
   required?: boolean;
   disabled?: boolean;
   onChange?: ReactEventHandler;
@@ -28,6 +29,8 @@ export interface InputProps {
 
 const Input: FC<InputProps> = ({
   name,
+  id,
+  accept,
   labelClass,
   type,
   inputClass,
@@ -56,6 +59,8 @@ const Input: FC<InputProps> = ({
         onChange={onChange}
         required={required}
         disabled={disabled}
+        accept={accept}
+        id={id}
       />
       <p className={errClass}>{errMsg}</p>
     </label>
