@@ -1,6 +1,9 @@
 const CourseNormalCard = () => {
   return (
     <div className="border border-primary-200 p-20 rounded-15 flex flex-col gap-12 relative">
+      {/* <p className="leading-[261px] font-bold text-black-300 mx-auto">
+        營養師尚未建立課程
+      </p> */}
       <h4 className="text-20 font-bold">題驗 - 1週飲食建議</h4>
       <p className="text-14 -mt-4">課程期間：1週</p>
       <h5 className="text-[28px] font-bold">NT$ 1,500</h5>
