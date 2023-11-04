@@ -55,7 +55,7 @@ const LoginForm = () => {
 
   return (
     <form
-      className="cusForm max-w-[464px] mx-auto relative text-black-500 lg:mt-[75px]"
+      className="cusForm max-w-[464px] mx-auto relative text-black-500"
       onSubmit={handleSubmit(onSubmit)}
     >
       <Image src={logoPrimary} width="147" height="27" alt="NuCares-logo" />

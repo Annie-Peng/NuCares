@@ -55,7 +55,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
 
   return (
     <form
-      className="cusForm max-w-[464px] mx-auto relative text-black-500 lg:mt-[75px]"
+      className="cusForm max-w-[464px] mx-auto relative text-black-500"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div>

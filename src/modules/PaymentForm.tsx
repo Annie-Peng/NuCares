@@ -1,6 +1,6 @@
 const PaymentForm = () => {
   return (
-    <form className=" bg-teal-400 max-w-[856px] mx-auto mt-[75px] relative flex flex-wrap justify-between text-left p-32 rounded-20">
+    <form className=" bg-teal-400 max-w-[856px] mx-auto relative flex flex-wrap justify-between text-left p-32 rounded-20">
       <div className="w-[35%] flex flex-col gap-28">
         <div>
           <h3 className="text-24 font-normal mt-12">訂購者資料</h3>
