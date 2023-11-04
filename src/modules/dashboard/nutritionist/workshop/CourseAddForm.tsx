@@ -12,6 +12,7 @@ const courseAddFormData: ComponentType[] = [
     required: true,
     hMsg: "排列順序",
     pMsg: "課程方案在營養師個人介紹頁面上的排列",
+    labelClass: "mt-0",
     inputClass: "w-[64px]",
   },
   {
