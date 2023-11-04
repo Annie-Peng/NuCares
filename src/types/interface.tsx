@@ -65,7 +65,7 @@ export interface ComponentType {
   type?: InputType;
   required: boolean;
   hMsg: string;
-  pMsg: string;
+  pMsg?: string;
   inputClass?: string;
   labelClass?: string;
   selectClass?: string;
