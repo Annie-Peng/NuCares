@@ -26,7 +26,6 @@ export const bodyRateSlice = createSlice({
   },
   reducers: {
     storeBodyRate: (state, action) => {
-      console.log(action.payload);
       return action.payload;
     },
   },
