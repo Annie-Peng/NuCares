@@ -1,5 +1,11 @@
 input {
   @apply rounded-5 py-10 px-12 border border-black-200;
+  appearance: none;
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
   &::placeholder {
     @apply text-black-200;
   }
