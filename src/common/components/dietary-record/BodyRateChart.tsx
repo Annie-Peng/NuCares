@@ -29,8 +29,6 @@ interface BodyRateChartProps {
 }
 
 const BodyRateChart: FC<BodyRateChartProps> = ({ item, tab, BodyRate }) => {
-  console.log(BodyRate);
-
   // let labels = ["2023/10/28", "2023/10/29", "2023/10/30", "2023/10/31"];
   // let data = [12, 19, 3, 5];
 
@@ -52,8 +50,6 @@ const BodyRateChart: FC<BodyRateChartProps> = ({ item, tab, BodyRate }) => {
       data.push(bodyBate[tab]);
     });
   }
-
-  console.log(labels, data);
 
   return (
     <>
