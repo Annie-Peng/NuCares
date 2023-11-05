@@ -115,7 +115,7 @@
   }
 
   .cusMContainer {
-    @apply container pt-20 pb-80 px-24;
+    @apply container pt-20 pb-80 px-24 lg:pb-0;
   }
 
   .cusPrimaryTag {
