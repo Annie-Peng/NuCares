@@ -82,7 +82,7 @@ const CourseAddForm = () => {
               name={data.name}
               required={data.required}
               hMsg={data.hMsg}
-              pMsg={data.pMsg}
+              pMsg={data.pMsg as string}
               selectClass={data.selectClass}
               disabledOption={data.disabledOption || "請選擇"}
               options={data.options || []}
