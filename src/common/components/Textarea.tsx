@@ -39,7 +39,7 @@ const Textarea: FC<TextareaProps> = ({
       {children}
       <textarea
         name={name}
-        className={`${textareaClass} mt-12 py-8`}
+        className={`${textareaClass} mt-12 py-8 w-full h-[137px]`}
         value={value}
         placeholder={placeholder}
         onChange={onChange}

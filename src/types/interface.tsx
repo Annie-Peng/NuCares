@@ -73,5 +73,7 @@ export interface ComponentType {
   imageClass?: string;
   disabledOption?: string;
   children?: ReactNode;
+  accept?: string;
+  id?: string;
   options?: Array<{ option: string; value: string }>;
 }
