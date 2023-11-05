@@ -52,6 +52,15 @@ export const courseRecord = createApi({
       }),
       providesTags: ["Goal"],
     }),
+    
+    GoalPutApi: builder.mutation({
+      query: ({ Token, CourseId, body }) => ({
+        url: `/course/${CourseId}/goal`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Goal"],
+    }),
     InfoGetApi: builder.query({
       query: ({ Token, CourseId, ID }) => ({
         url: `/course/${CourseId}/${ID}`,
@@ -59,8 +68,7 @@ export const courseRecord = createApi({
         headers: {
           Authorization: `${Token}`,
           "Content-Type": "application/json",
-        },
-      }),
+        },   
       providesTags: ["Info"],
     }),
   }),
@@ -71,5 +79,6 @@ export const {
   useBodyInfoGetApiQuery,
   useBodyInfoPostApiMutation,
   useGoalGetApiQuery,
+  useGoalPutApiMutation,
   useInfoGetApiQuery,
 } = courseRecord;

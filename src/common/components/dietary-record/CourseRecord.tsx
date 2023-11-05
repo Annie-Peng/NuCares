@@ -129,7 +129,11 @@ const CourseRecord: FC<CourseRecordProps> = ({
                   className="absolute top-20 left-24 lg:hidden"
                 />
               </Link>
-              <GoalCompletionRate Token={Token} CourseId={CourseId} />
+              <GoalCompletionRate
+                Token={Token}
+                CourseId={CourseId}
+                UserCurrentStatus={UserCurrentStatus}
+              />
             </DashboardContainer>
           </div>
         )}
