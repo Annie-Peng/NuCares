@@ -17,7 +17,7 @@ const RegisterFormThirdPhase = () => {
   }, [router]);
 
   return (
-    <form className="cusForm max-w-[464px] mx-auto relative text-black-500 lg:mt-[75px]">
+    <form className="cusForm max-w-[464px] mx-auto relative text-black-500">
       <div>
         <Image src={logoPrimary} width="147" height="27" alt="NuCares-logo" />
         <h2 className="text-20 text-primary-400 font-normal mt-12">會員註冊</h2>
