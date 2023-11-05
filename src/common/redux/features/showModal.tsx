@@ -2,6 +2,7 @@ import { RootState } from "@/types/interface";
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface ShowModalType {
+  showCourseSaveModal: { showModal: boolean; data: any };
   showCourseDeleteModal: { showModal: boolean; data: any };
   showCourseStartModal: { showModal: boolean; data: any };
   showMenuEditModal: { showModal: boolean; data: any };
@@ -11,6 +12,7 @@ export interface ShowModalType {
 export const showModalSlice = createSlice({
   name: "showModal",
   initialState: {
+    showCourseSaveModal: { showModal: false, data: "" },
     showCourseDeleteModal: { showModal: false, data: "" },
     showCourseStartModal: { showModal: false, data: "" },
     showMenuEditModal: { showModal: false, data: "" },

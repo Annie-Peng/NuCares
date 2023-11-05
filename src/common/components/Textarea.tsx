@@ -1,16 +1,7 @@
 import { FC, ReactEventHandler, ReactNode } from "react";
 
-export type InputType =
-  | "text"
-  | "number"
-  | "checkbox"
-  | "password"
-  | "email"
-  | "file";
-
-export interface InputProps {
+interface TextareaProps {
   name: string;
-  type: InputType;
   hMsg?: string;
   pMsg?: string;
   children?: ReactNode;
@@ -21,16 +12,15 @@ export interface InputProps {
   disabled?: boolean;
   onChange?: ReactEventHandler;
   labelClass?: string;
-  inputClass?: string;
+  textareaClass?: string;
   errClass?: string;
   errMsg?: string;
 }
 
-const Input: FC<InputProps> = ({
+const Textarea: FC<TextareaProps> = ({
   name,
   labelClass,
-  type,
-  inputClass,
+  textareaClass,
   value,
   required,
   disabled,
@@ -47,10 +37,9 @@ const Input: FC<InputProps> = ({
       <h4 className="formHead">{hMsg}</h4>
       <p className="formContent">{pMsg}</p>
       {children}
-      <input
-        type={type}
+      <textarea
         name={name}
-        className={`${inputClass} mt-12 py-8`}
+        className={`${textareaClass} mt-12 py-8`}
         value={value}
         placeholder={placeholder}
         onChange={onChange}
@@ -62,4 +51,4 @@ const Input: FC<InputProps> = ({
   );
 };
 
-export default Input;
+export default Textarea;
