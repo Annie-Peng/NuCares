@@ -8,6 +8,7 @@ import BodyRate from "./BodyRate";
 import MobileSidebar from "./MobileSidebar";
 import useResize from "@/common/hooks/useResize";
 import Link from "next/link";
+import InfoBtn from "./InfoBtn";
 
 interface CourseRecordProps {
   Token: string;
@@ -21,7 +22,6 @@ const CourseRecord: FC<CourseRecordProps> = ({
   CourseId,
 }) => {
   const isMobile: boolean = useResize();
-  const [showInfo, setShowInfo] = useState<boolean>(false);
   const [showTab, setShowTab] = useState<number>(isMobile ? 1 : 0);
 
   useEffect(() => {
@@ -38,6 +38,8 @@ const CourseRecord: FC<CourseRecordProps> = ({
       ? "/dashboard/student/course-list"
       : "/dashboard/nutritionist/student-list";
 
+  const infoTitle = UserCurrentStatus === "user" ? "營養師資訊" : "學員資訊";
+
   return (
     <>
       <Link
@@ -48,26 +50,15 @@ const CourseRecord: FC<CourseRecordProps> = ({
       </Link>
       <h2 className="cusPrimaryTitle py-4 hidden lg:block">我的紀錄</h2>
       <div className="flex flex-wrap gap-12 w-full justify-center relative lg:mt-12">
-        <button
-          className="absolute right-0 -top-[56px] p-10 btn-cusPrimaryInfo items-center gap-10 hidden lg:flex"
-          onClick={() => setShowInfo(!showInfo)}
-        >
-          <Image
-            src="/images/dashboard/dietary-record/menu-white.svg"
-            width="20"
-            height="20"
-            alt="menu"
-          />
-          學員資訊
-        </button>
-        {showInfo && (
-          <div className="absolute top-0 right-0 z-10 cusShadow p-20 rounded-10 min-w-[240px]">
-            <CourseInfo Token={Token} CourseId={CourseId} />
-          </div>
-        )}
+        <InfoBtn
+          Token={Token}
+          CourseId={CourseId}
+          UserCurrentStatus={UserCurrentStatus}
+          infoTitle={infoTitle}
+        />
         {showInfoMobile && (
           <div className="w-full lg:hidden">
-            <DashboardContainer title="學員資訊">
+            <DashboardContainer title={infoTitle}>
               <Link href={routeListPage}>
                 <Image
                   src="/images/dashboard/dietary-record/back.svg"
@@ -77,7 +68,11 @@ const CourseRecord: FC<CourseRecordProps> = ({
                   className="absolute top-20 left-24"
                 />
               </Link>
-              <CourseInfo Token={Token} CourseId={CourseId} />
+              <CourseInfo
+                Token={Token}
+                CourseId={CourseId}
+                UserCurrentStatus={UserCurrentStatus}
+              />
             </DashboardContainer>
           </div>
         )}

@@ -5,7 +5,7 @@ export const courseRecord = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_URL,
   }),
-  tagTypes: ["Course", "BodyInfo", "Goal"],
+  tagTypes: ["Course", "BodyInfo", "Goal", "Info"],
   endpoints: (builder) => ({
     dailyDietaryGetApi: builder.query({
       query: ({ Token, CourseId, date }) => ({
@@ -52,6 +52,17 @@ export const courseRecord = createApi({
       }),
       providesTags: ["Goal"],
     }),
+    InfoGetApi: builder.query({
+      query: ({ Token, CourseId, ID }) => ({
+        url: `/course/${CourseId}/${ID}`,
+        method: "GET",
+        headers: {
+          Authorization: `${Token}`,
+          "Content-Type": "application/json",
+        },
+      }),
+      providesTags: ["Info"],
+    }),
   }),
 });
 
@@ -60,4 +71,5 @@ export const {
   useBodyInfoGetApiQuery,
   useBodyInfoPostApiMutation,
   useGoalGetApiQuery,
+  useInfoGetApiQuery,
 } = courseRecord;
