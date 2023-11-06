@@ -18,12 +18,14 @@
 
   th,
   td {
-    @apply py-16 px-20;
+    @apply py-16 px-12;
   }
 
-  .courseBigCard th,
-  td {
-    @apply p-0 min-h-[24px];
+  .courseBigCard {
+    th,
+    td {
+      @apply p-0 min-h-[24px];
+    }
   }
 
   textarea {

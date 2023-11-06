@@ -14,7 +14,7 @@ const NutritionistCoursePage = () => {
   };
 
   return (
-    <>
+    <div className="container">
       <h2 className="cusPrimaryTitle">課程方案</h2>
       <form className="p-20 bg-white mt-24 rounded-15">
         <ul className="flex flex-col gap-20">
@@ -60,7 +60,7 @@ const NutritionistCoursePage = () => {
           新增方案
         </button>
       </form>
-    </>
+    </div>
   );
 };
 
