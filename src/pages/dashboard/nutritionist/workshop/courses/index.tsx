@@ -1,4 +1,8 @@
-import { usePlanGetApiQuery } from "@/common/redux/service/plan";
+import CourseForm from "@/common/components/course/CourseForm";
+import {
+  usePlanGetApiQuery,
+  usePlanPostApiMutation,
+} from "@/common/redux/service/plan";
 import wrapper from "@/common/redux/store";
 import CourseAddForm from "@/modules/dashboard/nutritionist/workshop/CourseAddForm";
 import CourseBigCard from "@/modules/dashboard/nutritionist/workshop/CourseBigCard";
@@ -15,6 +19,7 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
   const [courseForms, setCourseForms] = useState<ReactElement[]>([]);
 
   const { data: renderData, isLoading, error } = usePlanGetApiQuery({ Token });
+  const [planPostApi] = usePlanPostApiMutation();
 
   if (isLoading || !renderData) {
     return <p>Plan is Loading</p>;
@@ -27,16 +32,40 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
   console.log(renderData);
 
   const handleAddCourseClick = () => {
-    setCourseForms([
-      ...courseForms,
-      <CourseAddForm key={courseForms.length} />,
-    ]);
+    const newKey = `${new Date().getTime()}-${courseForms.length}`;
+    setCourseForms([...courseForms, <CourseAddForm key={newKey} />]);
+    console.log(newKey);
+  };
+
+  const handleDeleteClick = (key) => {
+    const newCourseForms = courseForms.filter((courseForm) => {
+      console.log(courseForm.key, key);
+      return courseForm.key !== key;
+    });
+    setCourseForms(newCourseForms);
+  };
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      let body = {};
+      formData.forEach((value, key) => {
+        body[key] = value;
+      });
+      console.log(body);
+      const result = await planPostApi({ Token, body }).unwrap();
+
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div className="container">
       <h2 className="cusPrimaryTitle">課程方案</h2>
-      <form className="p-20 bg-white mt-24 rounded-15">
+      <form className="p-20 bg-white mt-24 rounded-15" onSubmit={handleSubmit}>
         <ul className="flex flex-col gap-20">
           {renderData.Data.map((item) => (
             <li key={item.Id}>
@@ -55,6 +84,7 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
                 <button
                   type="button"
                   className="btn-cusWritePrimary !py-8 w-full lg:w-[278px] order-2 lg:order-1"
+                  onClick={() => handleDeleteClick(form.key)}
                 >
                   放棄變更
                 </button>
