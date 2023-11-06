@@ -18,12 +18,14 @@
 
   th,
   td {
-    @apply py-16 px-20;
+    @apply py-16 px-12;
   }
 
-  .courseBigCard th,
-  td {
-    @apply p-0 min-h-[24px];
+  .courseBigCard {
+    th,
+    td {
+      @apply p-0 min-h-[24px];
+    }
   }
 
   textarea {
@@ -124,10 +126,25 @@
   }
 
   .cusMContainer {
-    @apply container pt-20 pb-80 px-24;
+    @apply container pt-20 pb-80 px-24 lg:pb-0;
   }
 
   .cusPrimaryTag {
     @apply rounded-35 text-white font-bold text-14 bg-primary-400;
+  }
+}
+
+@layer utilities {
+  @variants responsive {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
   }
 }
