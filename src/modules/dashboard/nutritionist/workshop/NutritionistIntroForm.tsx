@@ -150,7 +150,7 @@ const nutritionistIntroFormData: ComponentType[] = [
 
 const NutritionistIntroForm = () => {
   return (
-    <form className="text-left flex flex-col cusDashboardInnerContainer mt-32 p-20 lg:mt-0 lg:p-0">
+    <form className="text-left flex flex-col cusDashboardInnerContainer mt-32 p-20">
       <ul>
         <li>
           <h4 className="formHead">公開您的介紹</h4>
