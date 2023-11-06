@@ -1,10 +1,30 @@
+import { usePlanGetApiQuery } from "@/common/redux/service/plan";
+import wrapper from "@/common/redux/store";
 import CourseAddForm from "@/modules/dashboard/nutritionist/workshop/CourseAddForm";
 import CourseBigCard from "@/modules/dashboard/nutritionist/workshop/CourseBigCard";
+import { getCookies } from "cookies-next";
 import Image from "next/image";
-import { ReactElement, useState } from "react";
+import { FC, ReactElement, useState } from "react";
 
-const NutritionistCoursePage = () => {
+interface NutritionistCoursePageProps {
+  [key: string]: any;
+}
+
+const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
+  const Token = auth.Token;
   const [courseForms, setCourseForms] = useState<ReactElement[]>([]);
+
+  const { data: renderData, isLoading, error } = usePlanGetApiQuery({ Token });
+
+  if (isLoading || !renderData) {
+    return <p>Plan is Loading</p>;
+  }
+
+  if (error) {
+    console.log(error);
+  }
+
+  console.log(renderData);
 
   const handleAddCourseClick = () => {
     setCourseForms([
@@ -18,9 +38,11 @@ const NutritionistCoursePage = () => {
       <h2 className="cusPrimaryTitle">課程方案</h2>
       <form className="p-20 bg-white mt-24 rounded-15">
         <ul className="flex flex-col gap-20">
-          <li>
-            <CourseBigCard />
-          </li>
+          {renderData.Data.map((item) => (
+            <li key={item.Id}>
+              <CourseBigCard planData={item} />
+            </li>
+          ))}
         </ul>
         <ul>
           {courseForms.map((form, index) => (
@@ -65,3 +87,19 @@ const NutritionistCoursePage = () => {
 };
 
 export default NutritionistCoursePage;
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  () =>
+    async ({ req, res }) => {
+      const auth = getCookies({ req, res });
+      if (!auth.Token) {
+        res.writeHead(400, { Location: "/login" });
+        res.end();
+      }
+      return {
+        props: {
+          auth,
+        },
+      };
+    }
+);
