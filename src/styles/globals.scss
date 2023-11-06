@@ -121,4 +121,8 @@
   .cusPrimaryTag {
     @apply rounded-35 text-white font-bold text-14 bg-primary-400;
   }
+
+  .cusDashboardInnerContainer {
+    @apply bg-white rounded-15 p-20 mt-24;
+  }
 }
