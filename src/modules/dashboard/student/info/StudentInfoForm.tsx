@@ -12,6 +12,7 @@ const studentInfoFormData: ComponentType[] = [
     hMsg: "會員顯示圖*",
     pMsg: "圖片需小於 3mb",
     inputClass: "w-[294px] hidden",
+    labelClass: "mt-0",
     id: "ImgUrl",
     accept: "image/png, image/jpeg, image/jpg",
     children: (
@@ -77,7 +78,7 @@ const studentInfoFormData: ComponentType[] = [
 
 const StudentInfoForm = () => {
   return (
-    <form className="text-left flex flex-col cusDashboardInnerContainer mt-32 px-20 pb-20 lg:mt-0 lg:p-0">
+    <form className="text-left flex flex-col cusDashboardInnerContainer mt-32">
       <ul>
         {studentInfoFormData.map((data, index) => (
           <li key={index}>
