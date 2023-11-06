@@ -58,6 +58,10 @@ export const courseRecord = createApi({
         url: `/course/${CourseId}/goal`,
         method: "PUT",
         body,
+        headers: {
+          Authorization: `${Token}`,
+          "Content-Type": "application/json",
+        },
       }),
       invalidatesTags: ["Goal"],
     }),
