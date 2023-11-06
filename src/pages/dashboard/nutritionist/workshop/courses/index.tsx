@@ -40,7 +40,7 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
         <ul className="flex flex-col gap-20">
           {renderData.Data.map((item) => (
             <li key={item.Id}>
-              <CourseBigCard planData={item} />
+              <CourseBigCard Token={Token} planData={item} />
             </li>
           ))}
         </ul>

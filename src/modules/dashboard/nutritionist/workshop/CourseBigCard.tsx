@@ -1,6 +1,5 @@
 import useResize from "@/common/hooks/useResize";
 import { showModal } from "@/common/redux/features/showModal";
-import { usePlanGetApiQuery } from "@/common/redux/service/plan";
 import Image from "next/image";
 import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,9 +14,10 @@ interface CourseBigCardProps {
     Tag: string;
     Detail: string;
   };
+  Token: string;
 }
 
-const CourseBigCard: FC<CourseBigCardProps> = ({ planData }) => {
+const CourseBigCard: FC<CourseBigCardProps> = ({ Token, planData }) => {
   const dispatch = useDispatch();
   const isMobile = useResize();
 
@@ -67,7 +67,9 @@ const CourseBigCard: FC<CourseBigCardProps> = ({ planData }) => {
         </button>
         <button
           type="button"
-          onClick={() => dispatch(showModal(["showCourseDeleteModal", 0]))}
+          onClick={() =>
+            dispatch(showModal(["showCourseDeleteModal", planData.Id]))
+          }
           className={
             isMobile
               ? "flex items-center gap-4 btn-cusWritePrimary !py-8 !px-20"
@@ -84,7 +86,14 @@ const CourseBigCard: FC<CourseBigCardProps> = ({ planData }) => {
             height={isMobile ? 20 : 28}
             alt="delete"
           />
-          <span className="lg:hidden">刪除</span>
+          <span
+            className="lg:hidden"
+            onClick={() =>
+              dispatch(showModal(["showCourseDeleteModal", planData]))
+            }
+          >
+            刪除
+          </span>
         </button>
       </div>
     </div>

@@ -45,7 +45,7 @@ export const plan = createApi({
     planDeleteApi: builder.mutation({
       query: ({ Token, PlanId }) => ({
         url: `/nu/plan/${PlanId}`,
-        method: "PUT",
+        method: "DELETE",
         headers: {
           Authorization: `${Token}`,
           "Content-Type": "application/json",
