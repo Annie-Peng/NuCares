@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FC, ReactEventHandler, ReactNode } from "react";
+import { FC, ReactEventHandler, ReactNode, FocusEventHandler } from "react";
 
 interface SelectProps {
   name: string;
@@ -16,6 +16,8 @@ interface SelectProps {
   errClass?: string;
   errMsg?: string;
   imageClass?: string;
+  onBlur?: FocusEventHandler;
+  error?: boolean;
 }
 
 const Select: FC<SelectProps> = ({
@@ -32,38 +34,45 @@ const Select: FC<SelectProps> = ({
   disabledOption,
   options,
   imageClass,
+  onBlur,
+  error,
 }) => {
   return (
-    <label htmlFor={name} className={`${labelClass} mt-20 block relative`}>
-      <h4 className="formHead">{hMsg}</h4>
-      <p className="formContent">{pMsg}</p>
-      {children}
-      <select
-        className={`formSelect ${selectClass} mt-12 py-8 relative`}
-        name={name}
-        onChange={onChange}
-        required={required}
-      >
-        <option value="" disabled selected>
-          {disabledOption}
-        </option>
-        {options.map((option, index) => {
-          return (
-            <option key={index} value={option.value}>
-              {option.option}
-            </option>
-          );
-        })}
-      </select>
-      <Image
-        src="/images/dashboard/nutritionist/course/dropdown.svg"
-        width={20}
-        height={20}
-        alt="arrow"
-        className={`${imageClass} absolute`}
-      />
-      <p className={errClass}>{errMsg}</p>
-    </label>
+    <>
+      <label htmlFor={name} className={`${labelClass} mt-20 block relative`}>
+        <h4 className="formHead">{hMsg}</h4>
+        <p className="formContent">{pMsg}</p>
+        {children}
+        <select
+          className={`formSelect ${selectClass} mt-12 py-8 relative ${
+            error && "focus:ring-secondary-500"
+          }`}
+          name={name}
+          onChange={onChange}
+          required={required}
+          onBlur={onBlur}
+        >
+          <option value="" disabled selected>
+            {disabledOption}
+          </option>
+          {options.map((option, index) => {
+            return (
+              <option key={index} value={option.value}>
+                {option.option}
+              </option>
+            );
+          })}
+        </select>
+        <Image
+          src="/images/dashboard/nutritionist/course/dropdown.svg"
+          width={20}
+          height={20}
+          alt="arrow"
+          className={`${imageClass} absolute`}
+        />
+      </label>
+      {error && <p className={errClass}>{errMsg}</p>}
+    </>
   );
 };
 

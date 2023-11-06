@@ -63,14 +63,16 @@ export interface ComponentType {
   component: "input" | "select" | "textarea";
   name: string;
   type?: InputType;
-  required: boolean;
+  required?: boolean;
   hMsg: string;
   pMsg: string;
+  errMsg?: string;
   inputClass?: string;
   labelClass?: string;
   selectClass?: string;
   textareaClass?: string;
   imageClass?: string;
+  errClass?: string;
   disabledOption?: string;
   children?: ReactNode;
   options?: Array<{ option: string; value: string }>;
