@@ -12,7 +12,7 @@ interface DailyDietaryInputType {
 const dailyDietaryInput: DailyDietaryInputType = {
   Breakfast: [
     {
-      name: "ImgUrl",
+      name: "MealImgUrl",
       type: "file",
       accept: "image/png, image/jpeg, image/jpg",
       description: "MealDescription",
@@ -20,7 +20,7 @@ const dailyDietaryInput: DailyDietaryInputType = {
   ],
   Lunch: [
     {
-      name: "ImgUrl",
+      name: "MealImgUrl",
       type: "file",
       accept: "image/png, image/jpeg, image/jpg",
       description: "MealDescription",
@@ -28,7 +28,7 @@ const dailyDietaryInput: DailyDietaryInputType = {
   ],
   Dinner: [
     {
-      name: "ImgUrl",
+      name: "MealImgUrl",
       type: "file",
       accept: "image/png, image/jpeg, image/jpg",
       description: "MealDescription",
