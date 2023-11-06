@@ -17,12 +17,21 @@ const courseAddFormData: ComponentType[] = [
   },
   {
     component: "input",
-    name: "CourseWeek",
+    name: "CourseName",
     type: "text",
     required: true,
     hMsg: "課程名稱",
     pMsg: "限18字元，超過之字無法顯示",
     inputClass: "w-[294px]",
+  },
+  {
+    component: "input",
+    name: "CourseWeek",
+    type: "number",
+    required: true,
+    hMsg: "週數",
+    pMsg: "與學員諮詢的週數",
+    inputClass: "w-[64px]",
   },
   {
     component: "input",
