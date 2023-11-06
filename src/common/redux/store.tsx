@@ -6,6 +6,7 @@ import showModalReducer from "./features/showModal";
 import changeIDReducer from "./features/changeID";
 import bodyRateReducer from "./features/dietary-record/bodyRate";
 import dailyDietaryReducer from "./features/dietary-record/dailyDietary";
+import goalReducer from "./features/dietary-record/goal";
 
 import { register } from "./service/register";
 import { login } from "./service/login";
@@ -20,6 +21,7 @@ const store = configureStore({
     // changeID: changeIDReducer,
     dailyDietary: dailyDietaryReducer,
     bodyRate: bodyRateReducer,
+    goal: goalReducer,
 
     [register.reducerPath]: register.reducer,
     [login.reducerPath]: login.reducer,

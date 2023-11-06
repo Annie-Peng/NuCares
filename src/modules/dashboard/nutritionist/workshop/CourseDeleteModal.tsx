@@ -8,10 +8,10 @@ interface CourseDeleteModalProps {
 const CourseDeleteModal: FC<CourseDeleteModalProps> = ({ data }) => {
   return (
     <MiniModal modal="showCourseDeleteModal">
-      <p>確定刪除此課程？</p>
+      <p className="text-center text-20 font-bold">確定刪除此方案？</p>
       <button
         type="button"
-        className="btn-cusSecondary block mx-auto mt-24 py-8 w-[250px]"
+        className="btn-cusSecondary block mx-auto mt-[36px] py-8 w-[250px]"
       >
         確定
       </button>

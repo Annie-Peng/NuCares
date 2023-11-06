@@ -1,4 +1,5 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from "chart.js";
+import { FC } from "react";
 import { Doughnut } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
@@ -20,8 +21,16 @@ const textCenter = {
   },
 };
 
-const WeightGoalChart = () => {
-  const data = ["80", "20"];
+interface WeightGoalChartProps {
+  WeightCompletionRate: string;
+}
+
+const WeightGoalChart: FC<WeightGoalChartProps> = ({
+  WeightCompletionRate,
+}) => {
+  const UnAchievement = 100 - Number(WeightCompletionRate);
+
+  const data = [WeightCompletionRate, String(UnAchievement)];
   const AchievementColor = data[0] === "100" ? "#E9A197" : "#3690A4";
   const borderRadius = data[0] === "100" ? 0 : 50;
 

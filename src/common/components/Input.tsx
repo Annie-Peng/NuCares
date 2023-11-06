@@ -1,14 +1,24 @@
 import { FC, ReactEventHandler, ReactNode } from "react";
 
-interface InputProps {
+export type InputType =
+  | "text"
+  | "number"
+  | "checkbox"
+  | "password"
+  | "email"
+  | "file"
+  | "hidden";
+
+export interface InputProps {
   name: string;
-  type: "text" | "number" | "checkbox" | "password" | "email" | "file";
+  type: InputType;
   hMsg?: string;
   pMsg?: string;
   children?: ReactNode;
   placeholder?: string;
   value?: string;
   id?: string;
+  accept?: string;
   required?: boolean;
   disabled?: boolean;
   onChange?: ReactEventHandler;
@@ -16,11 +26,12 @@ interface InputProps {
   inputClass?: string;
   errClass?: string;
   errMsg?: string;
-  accept?: string;
 }
 
 const Input: FC<InputProps> = ({
   name,
+  id,
+  accept,
   labelClass,
   type,
   inputClass,
@@ -34,23 +45,23 @@ const Input: FC<InputProps> = ({
   onChange,
   errClass,
   errMsg,
-  accept,
 }) => {
   return (
-    <label htmlFor={name} className={labelClass}>
-      <h4 className="font-normal font-weight">{hMsg}</h4>
-      <p className="text-14 font-normal text-black-400">{pMsg}</p>
+    <label htmlFor={name} className={`${labelClass} mt-20 block`}>
+      <h4 className="formHead">{hMsg}</h4>
+      <p className="formContent">{pMsg}</p>
       {children}
       <input
         type={type}
         name={name}
-        className={inputClass}
+        className={`${inputClass} mt-12 py-8`}
         value={value}
         placeholder={placeholder}
         onChange={onChange}
         required={required}
         disabled={disabled}
         accept={accept}
+        id={id}
       />
       <p className={errClass}>{errMsg}</p>
     </label>
