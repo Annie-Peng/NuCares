@@ -10,7 +10,7 @@ import {
 } from "@/common/lib/dashboard/errMsg/commonErrMsg";
 import { usePlanPostApiMutation } from "@/common/redux/service/plan";
 
-const courseAddFormData: ComponentType[] = [
+export const courseAddFormData: ComponentType[] = [
   {
     component: "input",
     name: "Rank",
