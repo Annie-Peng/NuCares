@@ -243,8 +243,8 @@ const DailyDietary: FC<DailyDietaryProps> = ({
           )
         }
         validRange={{
-          start: "2023-11-06",
-          end: "2023-11-08",
+          start: dailyDietaryData.CourseStartDate.replaceAll("/", "-"),
+          end: addOneDay(dailyDietaryData.CourseEndDate.replaceAll("/", "-")),
         }}
         datesSet={(dateInfo) => {
           const today = new Date(dateInfo.start);
@@ -494,4 +494,10 @@ function toYMD(date) {
   const day = date.getDate().toString().padStart(2, "0");
 
   return `${year}/${month}/${day}`;
+}
+
+function addOneDay(dateStr) {
+  const date = new Date(dateStr);
+  date.setDate(date.getDate() + 1); // 在当前日期上加一天
+  return date.toISOString().split("T")[0]; // 返回格式化的日期字符串 'YYYY-MM-DD'
 }
