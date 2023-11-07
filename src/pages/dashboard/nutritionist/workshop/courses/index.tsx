@@ -1,8 +1,4 @@
-import CourseForm from "@/common/components/course/CourseForm";
-import {
-  usePlanGetApiQuery,
-  usePlanPostApiMutation,
-} from "@/common/redux/service/plan";
+import { usePlanGetApiQuery } from "@/common/redux/service/plan";
 import wrapper from "@/common/redux/store";
 import CourseAddForm from "@/modules/dashboard/nutritionist/workshop/CourseAddForm";
 import CourseBigCard from "@/modules/dashboard/nutritionist/workshop/CourseBigCard";
@@ -14,12 +10,21 @@ interface NutritionistCoursePageProps {
   [key: string]: any;
 }
 
+interface RenderDataType {
+  Id: number;
+  Rank: number;
+  CourseName: string;
+  CourseWeek: number;
+  CoursePrice: number;
+  Tag: string;
+  Detail: string;
+}
+
 const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
   const Token = auth.Token;
   const [courseForms, setCourseForms] = useState<ReactElement[]>([]);
 
   const { data: renderData, isLoading, error } = usePlanGetApiQuery({ Token });
-  const [planPostApi] = usePlanPostApiMutation();
 
   if (isLoading || !renderData) {
     return <p>Plan is Loading</p>;
@@ -31,43 +36,34 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
 
   console.log(renderData);
 
+  const handleDeleteClick = (formKey: string) => {
+    setCourseForms((prevCourseForms) =>
+      prevCourseForms.filter((form) => form.key !== formKey)
+    );
+  };
+
   const handleAddCourseClick = () => {
     const newKey = `${new Date().getTime()}-${courseForms.length}`;
-    setCourseForms([...courseForms, <CourseAddForm key={newKey} />]);
-    console.log(newKey);
+    setCourseForms((prevCourseForms) => [
+      ...prevCourseForms,
+      <CourseAddForm
+        key={newKey}
+        courseForms={courseForms}
+        formKey={newKey}
+        handleDeleteClick={handleDeleteClick}
+        Token={Token}
+      />,
+    ]);
   };
 
-  const handleDeleteClick = (key) => {
-    const newCourseForms = courseForms.filter((courseForm) => {
-      console.log(courseForm.key, key);
-      return courseForm.key !== key;
-    });
-    setCourseForms(newCourseForms);
-  };
-
-  const handleSubmit = async (e) => {
-    try {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      let body = {};
-      formData.forEach((value, key) => {
-        body[key] = value;
-      });
-      console.log(body);
-      const result = await planPostApi({ Token, body }).unwrap();
-
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  console.log(courseForms);
 
   return (
     <div className="container">
       <h2 className="cusPrimaryTitle">課程方案</h2>
-      <form className="p-20 bg-white mt-24 rounded-15" onSubmit={handleSubmit}>
+      <div className="p-20 bg-white mt-24 rounded-15">
         <ul className="flex flex-col gap-20">
-          {renderData.Data.map((item) => (
+          {renderData.Data.map((item: RenderDataType) => (
             <li key={item.Id}>
               <CourseBigCard Token={Token} planData={item} />
             </li>
@@ -80,21 +76,6 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
               className="mt-20 px-20 pt-20 pb-40 bg-white rounded-10 border border-black-200 text-left"
             >
               {form}
-              <div className="text-center mt-[60px] flex flex-col gap-10 justify-center items-center lg:flex-row">
-                <button
-                  type="button"
-                  className="btn-cusWritePrimary !py-8 w-full lg:w-[278px] order-2 lg:order-1"
-                  onClick={() => handleDeleteClick(form.key)}
-                >
-                  放棄變更
-                </button>
-                <button
-                  type="submit"
-                  className="btn-cusWriteSecondary !py-8 w-full lg:w-[278px] order-1 lg:order-2"
-                >
-                  儲存
-                </button>
-              </div>
             </li>
           ))}
         </ul>
@@ -111,7 +92,7 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
           />
           新增方案
         </button>
-      </form>
+      </div>
     </div>
   );
 };
