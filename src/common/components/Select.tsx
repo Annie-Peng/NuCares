@@ -4,7 +4,7 @@ import { FC, ReactEventHandler, ReactNode, FocusEventHandler } from "react";
 interface SelectProps {
   name: string;
   hMsg: string;
-  pMsg: string;
+  pMsg?: string;
   disabledOption: string;
   options: Array<{ option: string; value: string }>;
   children?: ReactNode;
