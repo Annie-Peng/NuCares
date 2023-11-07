@@ -44,7 +44,7 @@ const Textarea: FC<TextareaProps> = ({
         {children}
         <textarea
           name={name}
-          className={`${textareaClass} mt-12 py-8 ${
+          className={`${textareaClass} mt-12 py-8 w-full h-[137px]${
             error && "focus:ring-secondary-500"
           }`}
           value={value}

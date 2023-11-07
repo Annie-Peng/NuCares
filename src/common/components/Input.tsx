@@ -6,7 +6,8 @@ export type InputType =
   | "checkbox"
   | "password"
   | "email"
-  | "file";
+  | "file"
+  | "hidden";
 
 export interface InputProps {
   name: string;
@@ -17,6 +18,7 @@ export interface InputProps {
   placeholder?: string;
   value?: string | number;
   id?: string;
+  accept?: string;
   required?: boolean;
   disabled?: boolean;
   onChange?: ReactEventHandler;
@@ -30,6 +32,8 @@ export interface InputProps {
 
 const Input: FC<InputProps> = ({
   name,
+  id,
+  accept,
   labelClass,
   type,
   inputClass,
@@ -64,6 +68,8 @@ const Input: FC<InputProps> = ({
           required={required}
           disabled={disabled}
           onBlur={onBlur}
+          accept={accept}
+          id={id}
         />
       </label>
       {error && <p className={errClass}>{errMsg}</p>}

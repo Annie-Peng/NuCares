@@ -2,6 +2,7 @@ import { InputType } from "@/common/components/Input";
 import auth, { Auth } from "@/common/redux/features/auth";
 import { changeIDType } from "@/common/redux/features/changeID";
 import { BodyRateType } from "@/common/redux/features/dietary-record/bodyRate";
+import { GoalType } from "@/common/redux/features/dietary-record/goal";
 import { ShowModalType } from "@/common/redux/features/showModal";
 import { ReactNode } from "react";
 export interface LayoutProps {
@@ -35,6 +36,7 @@ export interface RootState {
   showModal: ShowModalType;
   changeID: changeIDType;
   bodyRate: BodyRateType;
+  goal: GoalType;
 }
 
 export interface ErrorData {
@@ -65,7 +67,7 @@ export interface ComponentType {
   type?: InputType;
   required?: boolean;
   hMsg: string;
-  pMsg: string;
+  pMsg?: string;
   errMsg?: string;
   inputClass?: string;
   labelClass?: string;
@@ -75,5 +77,8 @@ export interface ComponentType {
   errClass?: string;
   disabledOption?: string;
   children?: ReactNode;
+  accept?: string;
+  id?: string;
   options?: Array<{ option: string; value: string }>;
+  disabled?: boolean;
 }
