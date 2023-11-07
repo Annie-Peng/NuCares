@@ -18,6 +18,7 @@ interface SelectProps {
   imageClass?: string;
   onBlur?: FocusEventHandler;
   error?: boolean;
+  value?: string | number;
 }
 
 const Select: FC<SelectProps> = ({
@@ -36,6 +37,7 @@ const Select: FC<SelectProps> = ({
   imageClass,
   onBlur,
   error,
+  value,
 }) => {
   return (
     <>
@@ -51,6 +53,7 @@ const Select: FC<SelectProps> = ({
           onChange={onChange}
           required={required}
           onBlur={onBlur}
+          value={value}
         >
           <option value="" disabled selected>
             {disabledOption}

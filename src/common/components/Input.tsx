@@ -15,7 +15,7 @@ export interface InputProps {
   pMsg?: string;
   children?: ReactNode;
   placeholder?: string;
-  value?: string;
+  value?: string | number;
   id?: string;
   required?: boolean;
   disabled?: boolean;
