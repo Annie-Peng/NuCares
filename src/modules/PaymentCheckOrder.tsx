@@ -1,6 +1,6 @@
 const PaymentCheckOrder = () => {
   return (
-    <form className=" bg-teal-400 max-w-[856px] mx-auto mt-[75px] relative flex flex-wrap justify-between text-left p-32 rounded-20">
+    <form className=" bg-teal-400 max-w-[856px] mx-auto relative flex flex-wrap justify-between text-left p-32 rounded-20">
       <div className="w-full flex flex-col gap-28">
         <div className="p-20 border rounded-15">
           <h3>訂購人資料</h3>

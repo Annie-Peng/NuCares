@@ -5,11 +5,13 @@ import authReducer from "./features/auth";
 import showModalReducer from "./features/showModal";
 import changeIDReducer from "./features/changeID";
 import bodyRateReducer from "./features/dietary-record/bodyRate";
+import goalReducer from "./features/dietary-record/goal";
 
 import { register } from "./service/register";
 import { login } from "./service/login";
 import { course } from "./service/course";
 import { courseRecord } from "./service/courseRecord";
+import { plan } from "./service/plan";
 
 const store = configureStore({
   reducer: {
@@ -18,18 +20,21 @@ const store = configureStore({
     showModal: showModalReducer,
     // changeID: changeIDReducer,
     bodyRate: bodyRateReducer,
+    goal: goalReducer,
 
     [register.reducerPath]: register.reducer,
     [login.reducerPath]: login.reducer,
     [course.reducerPath]: course.reducer,
     [courseRecord.reducerPath]: courseRecord.reducer,
+    [plan.reducerPath]: plan.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(register.middleware)
       .concat(login.middleware)
       .concat(course.middleware)
-      .concat(courseRecord.middleware),
+      .concat(courseRecord.middleware)
+      .concat(plan.middleware),
 });
 
 const wrapper = createWrapper(() => store, { debug: false });

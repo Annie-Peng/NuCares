@@ -22,8 +22,6 @@ const BodyRate: FC<BodyRateProps> = ({
 
   const BodyRate = useSelector(selectBodyRate);
 
-  console.log(BodyRate);
-
   return (
     <>
       {UserCurrentStatus === "user" && (
