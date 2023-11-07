@@ -31,11 +31,11 @@ export const plan = createApi({
       invalidatesTags: ["Plan"],
     }),
     planPutApi: builder.mutation({
-      query: ({ Token, PlanId, body }) => ({
-        url: `/nu/plan/${PlanId}`,
+      query: ({ putApiData, body }) => ({
+        url: `/nu/plan/${putApiData.Id}`,
         method: "PUT",
         headers: {
-          Authorization: `${Token}`,
+          Authorization: `${putApiData.Token}`,
           "Content-Type": "application/json",
         },
         body,
