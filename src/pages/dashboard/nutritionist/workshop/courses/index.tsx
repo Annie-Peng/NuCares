@@ -1,26 +1,73 @@
+import { usePlanGetApiQuery } from "@/common/redux/service/plan";
+import wrapper from "@/common/redux/store";
 import CourseAddForm from "@/modules/dashboard/nutritionist/workshop/CourseAddForm";
 import CourseBigCard from "@/modules/dashboard/nutritionist/workshop/CourseBigCard";
+import { getCookies } from "cookies-next";
 import Image from "next/image";
-import { ReactElement, useState } from "react";
+import { FC, ReactElement, useState } from "react";
 
-const NutritionistCoursePage = () => {
+interface NutritionistCoursePageProps {
+  [key: string]: any;
+}
+
+interface RenderDataType {
+  Id: number;
+  Rank: number;
+  CourseName: string;
+  CourseWeek: number;
+  CoursePrice: number;
+  Tag: string;
+  Detail: string;
+}
+
+const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
+  const Token = auth.Token;
   const [courseForms, setCourseForms] = useState<ReactElement[]>([]);
 
+  const { data: renderData, isLoading, error } = usePlanGetApiQuery({ Token });
+
+  if (isLoading || !renderData) {
+    return <p>Plan is Loading</p>;
+  }
+
+  if (error) {
+    console.log(error);
+  }
+
+  console.log(renderData);
+
+  const handleDeleteClick = (formKey: string) => {
+    setCourseForms((prevCourseForms) =>
+      prevCourseForms.filter((form) => form.key !== formKey)
+    );
+  };
+
   const handleAddCourseClick = () => {
-    setCourseForms([
-      ...courseForms,
-      <CourseAddForm key={courseForms.length} />,
+    const newKey = `${new Date().getTime()}-${courseForms.length}`;
+    setCourseForms((prevCourseForms) => [
+      ...prevCourseForms,
+      <CourseAddForm
+        key={newKey}
+        courseForms={courseForms}
+        formKey={newKey}
+        handleDeleteClick={handleDeleteClick}
+        Token={Token}
+      />,
     ]);
   };
+
+  console.log(courseForms);
 
   return (
     <div className="container">
       <h2 className="cusPrimaryTitle">課程方案</h2>
-      <form className="p-20 bg-white mt-24 rounded-15">
+      <div className="p-20 bg-white mt-24 rounded-15">
         <ul className="flex flex-col gap-20">
-          <li>
-            <CourseBigCard />
-          </li>
+          {renderData.Data.map((item: RenderDataType) => (
+            <li key={item.Id}>
+              <CourseBigCard Token={Token} planData={item} />
+            </li>
+          ))}
         </ul>
         <ul>
           {courseForms.map((form, index) => (
@@ -29,20 +76,6 @@ const NutritionistCoursePage = () => {
               className="mt-20 px-20 pt-20 pb-40 bg-white rounded-10 border border-black-200 text-left"
             >
               {form}
-              <div className="text-center mt-[60px] flex flex-col gap-10 justify-center items-center lg:flex-row">
-                <button
-                  type="button"
-                  className="btn-cusWritePrimary !py-8 w-full lg:w-[278px] order-2 lg:order-1"
-                >
-                  放棄變更
-                </button>
-                <button
-                  type="submit"
-                  className="btn-cusWriteSecondary !py-8 w-full lg:w-[278px] order-1 lg:order-2"
-                >
-                  儲存
-                </button>
-              </div>
             </li>
           ))}
         </ul>
@@ -59,9 +92,25 @@ const NutritionistCoursePage = () => {
           />
           新增方案
         </button>
-      </form>
+      </div>
     </div>
   );
 };
 
 export default NutritionistCoursePage;
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  () =>
+    async ({ req, res }) => {
+      const auth = getCookies({ req, res });
+      if (!auth.Token) {
+        res.writeHead(400, { Location: "/login" });
+        res.end();
+      }
+      return {
+        props: {
+          auth,
+        },
+      };
+    }
+);

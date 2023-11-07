@@ -11,6 +11,7 @@ import { register } from "./service/register";
 import { login } from "./service/login";
 import { course } from "./service/course";
 import { courseRecord } from "./service/courseRecord";
+import { plan } from "./service/plan";
 
 const store = configureStore({
   reducer: {
@@ -25,13 +26,15 @@ const store = configureStore({
     [login.reducerPath]: login.reducer,
     [course.reducerPath]: course.reducer,
     [courseRecord.reducerPath]: courseRecord.reducer,
+    [plan.reducerPath]: plan.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(register.middleware)
       .concat(login.middleware)
       .concat(course.middleware)
-      .concat(courseRecord.middleware),
+      .concat(courseRecord.middleware)
+      .concat(plan.middleware),
 });
 
 const wrapper = createWrapper(() => store, { debug: false });
