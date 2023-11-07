@@ -84,3 +84,8 @@
 .fc-h-event .fc-event-main {
   @apply text-black-950;
 }
+
+// 箭頭disabled (<課程開始日, >課程結束日)
+.fc .fc-button-primary:disabled {
+  @apply bg-transparent text-black-300;
+}

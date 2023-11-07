@@ -1,44 +1,61 @@
 import { TypeInput } from "@/types/interface";
 
-const dailyDietaryInput: TypeInput = {
+interface DailyDietaryInputType {
+  [key: string]: {
+    name: string;
+    type: "text" | "number" | "checkbox" | "password" | "email" | "file";
+    accept: string;
+    description: string;
+  }[];
+}
+
+const dailyDietaryInput: DailyDietaryInputType = {
   Breakfast: [
     {
-      name: "Image",
+      name: "MealImgUrl",
       type: "file",
+      accept: "image/png, image/jpeg, image/jpg",
+      description: "MealDescription",
     },
-    // {
-    //   name: "MealDescription",
-    //   type: "text",
-    // },
   ],
   Lunch: [
     {
-      name: "Image",
+      name: "MealImgUrl",
       type: "file",
+      accept: "image/png, image/jpeg, image/jpg",
+      description: "MealDescription",
     },
   ],
   Dinner: [
     {
-      name: "Image",
+      name: "MealImgUrl",
       type: "file",
+      accept: "image/png, image/jpeg, image/jpg",
+      description: "MealDescription",
     },
   ],
   Oil: [
     {
       name: "OilImgUrl",
       type: "file",
+      accept: "image/png, image/jpeg, image/jpg",
+      description: "OilDescription",
     },
   ],
   Fruit: [
     {
       name: "FruitImgUrl",
       type: "file",
+      accept: "image/png, image/jpeg, image/jpg",
+      description: "FruitDescription",
     },
   ],
   Water: [
     {
       name: "WaterImgUrl",
       type: "file",
+      accept: "image/png, image/jpeg, image/jpg",
+      description: "WaterDescription",
     },
   ],
 };
