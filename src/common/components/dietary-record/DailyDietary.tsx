@@ -1,10 +1,10 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import Image from "next/image";
-import { FC, useState, MouseEvent, Fragment, useEffect } from "react";
+import { FC, useState, FormEvent, Fragment } from "react";
 import dailyDietaryInput from "@/common/lib/dashboard/dailyDietaryInput";
 import { showModal } from "@/common/redux/features/showModal";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   Tab,
   foodIcons,
@@ -41,12 +41,13 @@ interface EditType {
 }
 
 interface HandleSubmitProps {
-  event: MouseEvent<HTMLButtonElement>;
+  event: FormEvent<HTMLFormElement>;
   tab: Tab;
-  fetchData: {
-    [key: string]: any | string;
-  };
   UserCurrentStatus: string;
+}
+
+interface ObjType {
+  [key: string]: any;
 }
 
 const DailyDietary: FC<DailyDietaryProps> = ({
@@ -142,9 +143,9 @@ const DailyDietary: FC<DailyDietaryProps> = ({
         [tab.enName]: !edit[tab.enName as keyof EditType],
       });
 
-      if (edit[tab.enName]) {
+      if (edit[tab.enName as keyof EditType]) {
         try {
-          const formData = new FormData(event.target);
+          const formData = new FormData(event.target as HTMLFormElement);
 
           const body = tellMeal(tab.enName, formData);
 
@@ -177,15 +178,15 @@ const DailyDietary: FC<DailyDietaryProps> = ({
     }
   };
 
-  const tellMeal = (tab, formData) => {
-    let obj = {};
-    for (let [key, value] of formData.entries()) {
+  const tellMeal = (tab: string, formData: FormData) => {
+    let obj: ObjType = {};
+    formData.forEach((value, key) => {
       if (key === "MealImgUrl" || key === `${tab}ImgUrl`) {
-        obj[key] = fileSrc[tab].fetch;
+        obj[key] = fileSrc[tab as keyof InitFileSrcFoodType].fetch;
       } else {
         obj[key] = value;
       }
-    }
+    });
     return obj;
   };
 
@@ -250,17 +251,6 @@ const DailyDietary: FC<DailyDietaryProps> = ({
           const today = new Date(dateInfo.start);
           const todayString = toYMD(today);
           setCurrentDate(todayString);
-          // // 计算前一天的日期
-          // const prevDate = new Date(dateInfo.start);
-          // prevDate.setDate(prevDate.getDate() - 1);
-          // const prevDateString = toYMD(prevDate);
-          // // 计算后一天的日期
-          // const nextDate = new Date(dateInfo.start);
-          // nextDate.setDate(nextDate.getDate() + 1);
-          // const nextDateString = toYMD(nextDate);
-          // console.log(prevDateString); // 显示前一天的日期，格式为YYYY/MM/DD
-          // console.log(nextDateString); // 显示后一天的日期，格式为YYYY/MM/DD
-          // setNearDates({ prev: prevDateString, next: nextDateString });
         }}
         headerToolbar={{
           start: "prev",
@@ -431,62 +421,7 @@ function renderEventContent(
   );
 }
 
-// a custom render function
-
-// const img = eventInfo.event.extendedProps.picture;
-// console.log(eventInfo.event.start);
-{
-  /* <b>{eventInfo.timeText}</b> */
-}
-{
-  /* <i>{eventInfo.event.title}</i> */
-}
-
-{
-  /* <i>
-            {eventInfo.event.title} {eventInfo.event.extendedProps.fuilfillQty}/
-            {eventInfo.event.extendedProps.targetQty}
-          </i> */
-}
-
-// <div>
-//   {fetchData.tab}
-//   <ul className="flex justify-center gap-12 mt-12">
-//     {tabs.map((tab, index) => {
-//       return (
-//         <li key={index}>
-//           <button type="button">{tab.name}</button>
-//         </li>
-//       );
-//     })}
-//   </ul>
-//   <ul className="flex gap-[90px] text-black-950">
-//     {foodIcons.map((foodIcon, index) => {
-//       // if (fetchData[index].Breakfast !== undefined) {
-//       //   console.log(fetchData[index].Breakfast.Protein);
-//       // }
-//       return (
-//         <li key={index}>
-//           <Image
-//             src={`/images/dashboard/dietary-record/foods/${foodIcon.PC}`}
-//             alt={foodIcons.PC}
-//             width={75}
-//             height={75}
-//           />
-//           <p className="text-center mt-6">{foodIcon.name}</p>
-
-//           <p>
-//             {fetchData[index + 1][foodIcon.enName]
-//               ? fetchData[index + 1][foodIcon.enName]
-//               : undefined}
-//           </p>
-//         </li>
-//       );
-//     })}
-//   </ul>
-// </div>
-
-function toYMD(date) {
+function toYMD(date: Date) {
   const year = date.getFullYear();
   // 由于getMonth()返回0-11，表示1-12月，所以需要+1
   // 然后用`String.prototype.padStart()`确保月和日都是两位数字
@@ -496,7 +431,7 @@ function toYMD(date) {
   return `${year}/${month}/${day}`;
 }
 
-function addOneDay(dateStr) {
+function addOneDay(dateStr: string) {
   const date = new Date(dateStr);
   date.setDate(date.getDate() + 1); // 在当前日期上加一天
   return date.toISOString().split("T")[0]; // 返回格式化的日期字符串 'YYYY-MM-DD'
