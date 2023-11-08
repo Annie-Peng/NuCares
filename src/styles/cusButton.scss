@@ -56,8 +56,8 @@ button {
   @apply rounded-10 bg-primary-500 text-white p-10;
 }
 
-//營養師專頁：關於我
-.cusSwitch::before {
+//營養師專頁：關於我_公開
+.cusPublic::before {
   content: "";
   position: absolute;
   display: block;
@@ -67,6 +67,19 @@ button {
   top: 2px;
   right: 2px;
   @apply bg-primary-500;
+}
+
+//營養師專頁：關於我_不公開
+.cusNoPublic::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 100%;
+  top: 2px;
+  left: 2px;
+  @apply bg-black-300;
 }
 
 //側邊選單
