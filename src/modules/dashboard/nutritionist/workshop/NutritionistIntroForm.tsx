@@ -4,6 +4,7 @@ import cities from "@/common/lib/dashboard/cities";
 import Input from "@/common/components/Input";
 import Select from "@/common/components/Select";
 import Textarea from "@/common/components/Textarea";
+import InputImage from "@/common/components/InputImage";
 
 const cityOption = cities.map((data) => {
   return { option: data.name, value: data.name };
@@ -11,7 +12,7 @@ const cityOption = cities.map((data) => {
 
 const nutritionistIntroFormData: ComponentType[] = [
   {
-    component: "input",
+    component: "inputImage",
     name: "PortraitImage",
     type: "file",
     required: true,
@@ -204,6 +205,21 @@ const NutritionistIntroForm = () => {
                 hMsg={data.hMsg}
                 pMsg={data.pMsg}
               />
+            )}
+            {data.component === "inputImage" && (
+              <InputImage
+                name={data.name}
+                type={data.type || "file"}
+                labelClass={data.labelClass}
+                inputClass={data.inputClass}
+                required={data.required}
+                hMsg={data.hMsg}
+                pMsg={data.pMsg}
+                id={data.id}
+                accept={data.accept}
+              >
+                {data.children}
+              </InputImage>
             )}
           </li>
         ))}

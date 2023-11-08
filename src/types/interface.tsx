@@ -62,7 +62,7 @@ export interface TypeInput {
 }
 
 export interface ComponentType {
-  component: "input" | "select" | "textarea";
+  component: "input" | "select" | "textarea" | "inputImage";
   name: string;
   type?: InputType;
   required?: boolean;
