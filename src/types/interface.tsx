@@ -2,6 +2,7 @@ import { InputType } from "@/common/components/Input";
 import auth, { Auth } from "@/common/redux/features/auth";
 import { changeIDType } from "@/common/redux/features/changeID";
 import { BodyRateType } from "@/common/redux/features/dietary-record/bodyRate";
+import { DailyDietaryType } from "@/common/redux/features/dietary-record/dailyDietary";
 import { GoalType } from "@/common/redux/features/dietary-record/goal";
 import { ShowModalType } from "@/common/redux/features/showModal";
 import { ReactNode } from "react";
@@ -36,6 +37,7 @@ export interface RootState {
   showModal: ShowModalType;
   changeID: changeIDType;
   bodyRate: BodyRateType;
+  dailyDietary: DailyDietaryType;
   goal: GoalType;
 }
 
@@ -57,6 +59,7 @@ export interface FetchError {
 export interface TypeInput {
   [key: string]: {
     name: string;
+    accept: string;
     type: InputType;
   }[];
 }

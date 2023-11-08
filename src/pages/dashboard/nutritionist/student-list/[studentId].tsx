@@ -1,5 +1,6 @@
 import CourseRecord from "@/common/components/dietary-record/CourseRecord";
 import { storeBodyRate } from "@/common/redux/features/dietary-record/bodyRate";
+import { storeDailyDietary } from "@/common/redux/features/dietary-record/dailyDietary";
 import { storeGoal } from "@/common/redux/features/dietary-record/goal";
 import {
   useBodyInfoGetApiQuery,
@@ -26,13 +27,16 @@ const StudentIdPage: FC<StudentIdProps> = ({ auth }) => {
 
   console.log(auth);
 
-  // const dailyDietaryResult = useDailyDietaryGetApiQuery({
-  //   Token: auth.Token,
-  //   CourseId: courseId,
-  // },
-  // {
-  //   skip: router.isFallback,
-  // });
+  const dailyDietaryResult = useDailyDietaryGetApiQuery(
+    {
+      Token: auth.Token,
+      CourseId: courseId,
+      Date: "2023/11/01",
+    },
+    {
+      skip: router.isFallback,
+    }
+  );
 
   const bodyInfoResult = useBodyInfoGetApiQuery(
     {
@@ -56,19 +60,25 @@ const StudentIdPage: FC<StudentIdProps> = ({ auth }) => {
   );
 
   const {
+    isLoading: isDailyDietaryLoading,
+    error: DailyDietaryError,
+    data: DailyDietary,
+  } = dailyDietaryResult;
+
+  const {
     isLoading: isBodyInfoLoading,
     error: BodyInfoError,
     data: BodyInfo,
   } = bodyInfoResult;
   const { isLoading: isGoalLoading, error: GoalError, data: Goal } = goalResult;
 
-  // useEffect(() => {
-  //   if (BodyInfo) {
-  //     dispatch(storeBodyRate(BodyInfo.Data));
-  //   }
-  // }, [BodyInfo, dispatch]);
-
   useEffect(() => {
+    if (DailyDietary) {
+      dispatch(storeDailyDietary(DailyDietary.Data));
+    }
+    if (DailyDietaryError) {
+      console.log(DailyDietaryError);
+    }
     if (BodyInfo) {
       dispatch(storeBodyRate(BodyInfo.Data));
     }
@@ -81,7 +91,7 @@ const StudentIdPage: FC<StudentIdProps> = ({ auth }) => {
     if (GoalError) {
       console.log(GoalError);
     }
-  }, [BodyInfo, Goal]);
+  }, [BodyInfo, Goal, DailyDietary]);
 
   return (
     <>

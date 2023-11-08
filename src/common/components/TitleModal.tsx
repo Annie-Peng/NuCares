@@ -7,6 +7,7 @@ interface TitleModalProps {
   title: string;
   children: ReactNode;
   width: string;
+  mobileWidth?: string;
   modal: string;
 }
 
@@ -14,12 +15,13 @@ const TitleModal: React.FC<TitleModalProps> = ({
   title,
   children,
   width,
+  mobileWidth,
   modal,
 }) => {
   const dispatch = useDispatch();
   return (
     <div className="cusModalBg z-10">
-      <div className={`cusModal w-[${width}]`}>
+      <div className={`max-w-[${mobileWidth}] cusModal lg:max-w-[${width}]`}>
         <h4 className="cusPrimaryTitle">{title}</h4>
         {children}
         <button
