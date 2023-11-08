@@ -42,6 +42,7 @@ input {
 }
 
 textarea {
+  resize: none;
   @apply rounded-5 py-10 px-12 w-full border border-black-200;
   &::placeholder {
     @apply text-black-200;
