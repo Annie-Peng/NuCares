@@ -71,7 +71,7 @@ export interface Event {
   };
 }
 
-interface Meal {
+export interface Meal {
   Id: string;
   DailyLogId: string;
   MealTime: string;

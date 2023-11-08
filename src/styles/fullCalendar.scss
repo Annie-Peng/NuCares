@@ -5,12 +5,12 @@
 
 // 整體行事曆
 .fc-theme-standard {
-  @apply text-primary-400;
+  @apply text-primary-400 -mt-20 lg:mt-0;
 }
 
 // 移除toolbar margin
 .fc .fc-toolbar.fc-header-toolbar {
-  @apply m-0;
+  @apply m-0 gap-20 bg-primary-100 py-12 lg:pt-20 lg:bg-transparent;
 }
 
 // toolbar置中
@@ -77,7 +77,7 @@
 
 // 事件樣式
 .fc-daygrid-event {
-  @apply bg-transparent border-0 text-14;
+  @apply bg-transparent border-0 text-14 whitespace-normal;
 }
 
 // 事件文字顏色
@@ -88,4 +88,15 @@
 // 箭頭disabled (<課程開始日, >課程結束日)
 .fc .fc-button-primary:disabled {
   @apply bg-transparent text-black-300;
+}
+
+//三餐header
+.fc-direction-ltr .fc-daygrid-event.fc-event-end,
+.fc-direction-rtl .fc-daygrid-event.fc-event-start {
+  @apply m-0;
+}
+
+//事件與日期間的間距
+.fc .fc-daygrid-day-events {
+  @apply mt-0;
 }

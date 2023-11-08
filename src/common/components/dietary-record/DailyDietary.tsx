@@ -240,7 +240,8 @@ const DailyDietary: FC<DailyDietaryProps> = ({
             fileSrc,
             setFileSrc,
             handleUploadFile,
-            dailyDietaryData
+            dailyDietaryData,
+            isMobile
           )
         }
         validRange={{
@@ -257,7 +258,7 @@ const DailyDietary: FC<DailyDietaryProps> = ({
           center: "title",
           end: "next",
         }}
-        height={isMobile ? "550px" : "285px"}
+        height="auto"
       />
     </form>
   );
@@ -275,7 +276,8 @@ function renderEventContent(
   fileSrc: InitFileSrcFoodType,
   setFileSrc: (fileSrc: InitFileSrcFoodType) => void,
   handleUploadFile: (onChange: HandleUploadFileProps) => void,
-  dailyDietaryData: DailyDietaryType
+  dailyDietaryData: DailyDietaryType,
+  isMobile: boolean
 ) {
   function changeTab(tab: Tab) {
     setTab(tab);
@@ -292,7 +294,7 @@ function renderEventContent(
   return (
     <>
       {/* {event.tab} */}
-      <ul className="overflow-x-auto no-scrollbar bg-primary-100 text-14 gap-28 w-full flex justify-center text-primary-500 lg:text-16 lg:gap-32 lg:bg-white">
+      <ul className="overflow-x-auto no-scrollbar whitespace-nowrap bg-primary-100 text-14 gap-28 flex text-primary-500 lg:text-16 lg:gap-32 lg:bg-white lg:justify-center">
         {tabs.map((title, index) => {
           return (
             <li key={index}>
@@ -311,9 +313,19 @@ function renderEventContent(
         })}
       </ul>
 
-      <div className="flex min-h-[154px] mt-28 mb-8 mx-20 items-center">
-        {UserCurrentStatus === "user" && tab.enName !== "All" && (
-          <div className="w-[60%] self-stretch p-8 flex gap-8 mr-12">
+      <div
+        className={`mb-[100px] flex flex-col min-h-[154px] mt-28 mx-20 p-20 items-center lg:flex-row lg:border-none lg:p-0 lg:mb-8 ${
+          tab.enName !== "All" && "border border-primary-400 rounded-15"
+        }`}
+      >
+        {tab.enName !== "All" && (
+          <div
+            className={`w-full self-stretch  flex flex-wrap gap-8 lg:mr-12 lg:w-[65%] lg:py-8 lg:pl-8 ${
+              edit[tab.enName as keyof EditType] &&
+              !isMobile &&
+              'after:content-[""] after:top-0 after:bottom-0 after:ml-12 after:block after:bg-blue-300 lg:after:w-[1px]'
+            }`}
+          >
             {dailyDietaryInput[tab.enName].map((item, index) => {
               const otherTabDes = `${[tab.enName]}Description`;
               const otherTabImg = `${[tab.enName]}ImgUrl`;
@@ -322,7 +334,7 @@ function renderEventContent(
                 <Fragment key={index}>
                   <label
                     htmlFor={item.name}
-                    className="h-[150px] w-[220px] relative"
+                    className="h-[227px] w-full relative lg:w-[220px] lg:h-full"
                   >
                     <Image
                       src={
@@ -334,6 +346,7 @@ function renderEventContent(
                       fill
                       objectFit="cover"
                       alt={item.name}
+                      className="rounded-5"
                     />
                     {newEdit && (
                       <input
@@ -351,11 +364,11 @@ function renderEventContent(
                   {newEdit ? (
                     <textarea
                       name={item.description}
-                      className="w-[270px] h-full"
+                      className="h-[117px] w-[270px] overflow-y-scroll lg:h-full"
                       placeholder="今天吃了什麼食物？"
                     />
                   ) : (
-                    <p>
+                    <p className="min-h-[117px] w-[270px] px-12 py-10 lg:h-full">
                       {fetchData[tab.enName].MealDescription ||
                         dailyDietaryData[otherTabDes]}
                     </p>
@@ -366,8 +379,10 @@ function renderEventContent(
           </div>
         )}
         <ul
-          className={`mx-auto flex flex-wrap justify-center text-black-950 gap-y-20 lg:flex-nowrap ${
-            tab.enName === "All" ? "lg:gap-x-[45px]" : "lg:gap-x-8"
+          className={`mx-auto flex justify-center text-black-950 gap-y-20 lg:flex-nowrap ${
+            tab.enName === "All"
+              ? "flex-wrap lg:gap-x-[45px]"
+              : "flex-nowrap gap-x-26 lg:gap-x-8"
           }`}
         >
           {filterFoodIcons.map((filterFoodIcon, index) => {
@@ -386,7 +401,12 @@ function renderEventContent(
             }
 
             return (
-              <li key={index} className="text-center w-1/2 lg:w-auto">
+              <li
+                key={index}
+                className={`text-center ${
+                  tab.enName === "All" && "w-1/2"
+                } mt-8 lg:w-auto lg:mt-0`}
+              >
                 <Image
                   src={`/images/dashboard/dietary-record/foods/${showFoodIcon}`}
                   alt={filterFoodIcon.PC}
@@ -395,7 +415,7 @@ function renderEventContent(
                   className="mx-auto"
                 />
                 <p className="mt-6">{filterFoodIcon.name}</p>
-                <p className="mt-8 w-[78px] h-[42px]">
+                <p className="mt-8 w-[70px] h-[42px] mx-auto lg:w-[78px]">
                   {newEdit ? (
                     <input
                       name={filterFoodIcon.enName}
@@ -416,6 +436,43 @@ function renderEventContent(
             );
           })}
         </ul>
+        {UserCurrentStatus === "nu" && tab.enName === "All" && (
+          <button
+            type="submit"
+            className="btn-cusEditPrimary py-8 w-[240px] block mx-auto mt-32 lg:hidden"
+          >
+            <Image
+              src="/images/dashboard/dietary-record/clip.svg"
+              width="20"
+              height="20"
+              alt="edit"
+              className="mx-auto"
+            />
+          </button>
+        )}
+        {UserCurrentStatus === "user" &&
+          tab.enName !== "All" &&
+          (newEdit ? (
+            <button
+              type="submit"
+              className="btn-cusSecondary py-8 w-[240px] block mx-auto mt-32 lg:hidden"
+            >
+              儲存
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="btn-cusEditPrimary py-8 w-[240px] block mx-auto mt-32 lg:hidden"
+            >
+              <Image
+                src="/images/dashboard/dietary-record/clip.svg"
+                width="20"
+                height="20"
+                alt="edit"
+                className="mx-auto"
+              />
+            </button>
+          ))}
       </div>
     </>
   );
