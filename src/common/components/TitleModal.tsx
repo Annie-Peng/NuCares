@@ -21,7 +21,7 @@ const TitleModal: React.FC<TitleModalProps> = ({
   const dispatch = useDispatch();
   return (
     <div className="cusModalBg z-10">
-      <div className={`max-w-[${mobileWidth}] cusModal lg:max-w-[${width}]`}>
+      <div className={`w-[${mobileWidth}] cusModal lg:w-[${width}]`}>
         <h4 className="cusPrimaryTitle">{title}</h4>
         {children}
         <button
