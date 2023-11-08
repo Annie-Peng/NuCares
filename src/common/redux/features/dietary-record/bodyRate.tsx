@@ -6,16 +6,7 @@ export type BodyRateType = SingleBodyRateType[];
 
 export const bodyRateSlice = createSlice({
   name: "bodyRate",
-  initialState: {
-    CreateDate: "",
-    Heigh: "",
-    Weight: "",
-    BodyFat: "",
-    VisceralFat: "",
-    SMM: "",
-    Bmi: "",
-    Bmr: "",
-  },
+  initialState: [],
   reducers: {
     storeBodyRate: (state, action) => {
       return action.payload;

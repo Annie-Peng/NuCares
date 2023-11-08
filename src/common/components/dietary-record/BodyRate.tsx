@@ -33,7 +33,7 @@ const BodyRate: FC<BodyRateProps> = ({
   const formattedDate = `${year}/${month}/${day}`;
 
   const hasTodayBodyRate = BodyRate.filter(
-    (item: SingleBodyRateType) => item.CreateDate === formattedDate
+    (item) => item.CreateDate === formattedDate
   );
 
   return (
