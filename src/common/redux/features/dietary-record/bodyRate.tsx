@@ -1,16 +1,8 @@
 import { RootState } from "@/types/interface";
 import { createSlice } from "@reduxjs/toolkit";
+import { SingleBodyRateType } from "@/common/lib/dashboard/dietary-record/bodyRate";
 
-export interface BodyRateType {
-  CreateDate: string;
-  Heigh: string;
-  Weight: string;
-  BodyFat: string;
-  VisceralFat: string;
-  SMM: string;
-  Bmi: string;
-  Bmr: string;
-}
+type BodyRateType = SingleBodyRateType[];
 
 export const bodyRateSlice = createSlice({
   name: "bodyRate",
