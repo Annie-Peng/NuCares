@@ -2,20 +2,11 @@ import { RootState } from "@/types/interface";
 import { createSlice } from "@reduxjs/toolkit";
 import { SingleBodyRateType } from "@/common/lib/dashboard/dietary-record/bodyRate";
 
-type BodyRateType = SingleBodyRateType[];
+export type BodyRateType = SingleBodyRateType[];
 
 export const bodyRateSlice = createSlice({
   name: "bodyRate",
-  initialState: {
-    CreateDate: "",
-    Heigh: "",
-    Weight: "",
-    BodyFat: "",
-    VisceralFat: "",
-    SMM: "",
-    Bmi: "",
-    Bmr: "",
-  },
+  initialState: [],
   reducers: {
     storeBodyRate: (state, action) => {
       return action.payload;
