@@ -3,7 +3,10 @@ import BodyRateChart from "./BodyRateChart";
 import { FC, useState } from "react";
 import { showModal } from "@/common/redux/features/showModal";
 import { useDispatch, useSelector } from "react-redux";
-import { bodyRateTabs } from "@/common/lib/dashboard/dietary-record/bodyRate";
+import {
+  SingleBodyRateType,
+  bodyRateTabs,
+} from "@/common/lib/dashboard/dietary-record/bodyRate";
 import { selectBodyRate } from "@/common/redux/features/dietary-record/bodyRate";
 
 interface BodyRateProps {
@@ -22,9 +25,20 @@ const BodyRate: FC<BodyRateProps> = ({
 
   const BodyRate = useSelector(selectBodyRate);
 
+  //取得今天日期
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+  const day = currentDate.getDate().toString().padStart(2, "0");
+  const formattedDate = `${year}/${month}/${day}`;
+
+  const hasTodayBodyRate = BodyRate.filter(
+    (item: SingleBodyRateType) => item.CreateDate === formattedDate
+  );
+
   return (
     <>
-      {UserCurrentStatus === "user" && (
+      {hasTodayBodyRate.length === 0 && UserCurrentStatus === "user" && (
         <button
           type="button"
           onClick={() =>
@@ -45,6 +59,28 @@ const BodyRate: FC<BodyRateProps> = ({
           />
         </button>
       )}
+
+      {/* {UserCurrentStatus === "user" && (
+        <button
+          type="button"
+          onClick={() =>
+            dispatch(
+              showModal([
+                "showBodyRateAddModal",
+                { Token: Token, CourseId: CourseId },
+              ])
+            )
+          }
+        >
+          <Image
+            src="/images/dashboard/dietary-record/edit.svg"
+            width="28"
+            height="28"
+            alt="arrow"
+            className="absolute top-20 right-16 lg:top-12"
+          />
+        </button>
+      )} */}
       <div className="flex-col h-full gap-16 hidden lg:flex">
         <label htmlFor="BodyRateChart" className="w-[100px] mx-auto relative">
           <select
