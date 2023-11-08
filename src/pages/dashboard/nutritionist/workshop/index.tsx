@@ -1,12 +1,47 @@
+import { useIntroGetApiQuery } from "@/common/redux/service/intro";
+import wrapper from "@/common/redux/store";
 import NutritionistIntroForm from "@/modules/dashboard/nutritionist/workshop/NutritionistIntroForm";
+import { getCookies } from "cookies-next";
+import { FC } from "react";
 
-const NutritionistIntroPage = () => {
+interface StudentListPageProps {
+  [key: string]: any;
+}
+
+const NutritionistIntroPage: FC<StudentListPageProps> = ({ auth }) => {
+  const Token = auth.Token;
+  const { data, isLoading, error } = useIntroGetApiQuery({ Token });
+
+  if (isLoading || !data) {
+    return <p>Intro is Loading</p>;
+  }
+
+  if (error) {
+    console.log(error);
+  }
+
   return (
     <div className="py-20 container lg:py-0">
       <h2 className="cusPrimaryTitle">關於我</h2>
-      <NutritionistIntroForm />
+      <NutritionistIntroForm Token={auth.Token} renderData={data.Data} />
     </div>
   );
 };
 
 export default NutritionistIntroPage;
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  () =>
+    async ({ req, res }) => {
+      const auth = getCookies({ req, res });
+      if (!auth.Token) {
+        res.writeHead(400, { Location: "/login" });
+        res.end();
+      }
+      return {
+        props: {
+          auth,
+        },
+      };
+    }
+);

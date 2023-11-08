@@ -21,7 +21,7 @@ export const intro = createApi({
     introPutApi: builder.mutation({
       query: ({ Token, body }) => ({
         url: "/nu/info",
-        method: "POST",
+        method: "PUT",
         headers: {
           Authorization: `${Token}`,
           "Content-Type": "application/json",
