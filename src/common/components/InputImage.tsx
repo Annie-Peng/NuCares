@@ -63,10 +63,10 @@ const InputImage: FC<InputImageProps> = ({
     initFileSrc,
   });
 
-  useEffect(() => {
-    const PutPhoto = fileSrc[name as keyof InitFileSrcFoodType]?.fetch;
+  const PutPhoto = fileSrc[name as keyof InitFileSrcFoodType]?.fetch;
+  if (fileSrc[name as keyof InitFileSrcFoodType]?.fetch) {
     setValue(name, PutPhoto);
-  }, [fileSrc]);
+  }
 
   return (
     <>
