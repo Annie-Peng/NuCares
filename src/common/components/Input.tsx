@@ -7,7 +7,8 @@ export type InputType =
   | "password"
   | "email"
   | "file"
-  | "hidden";
+  | "hidden"
+  | "button";
 
 export interface InputProps {
   name: string;

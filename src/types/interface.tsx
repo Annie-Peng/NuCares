@@ -1,4 +1,5 @@
 import { InputType } from "@/common/components/Input";
+import { InitFileSrcFoodType } from "@/common/hooks/useUploadFile";
 import auth, { Auth } from "@/common/redux/features/auth";
 import { changeIDType } from "@/common/redux/features/changeID";
 import { BodyRateType } from "@/common/redux/features/dietary-record/bodyRate";
@@ -6,6 +7,7 @@ import { DailyDietaryType } from "@/common/redux/features/dietary-record/dailyDi
 import { GoalType } from "@/common/redux/features/dietary-record/goal";
 import { ShowModalType } from "@/common/redux/features/showModal";
 import { ReactNode } from "react";
+
 export interface LayoutProps {
   children: ReactNode;
 }
@@ -65,11 +67,20 @@ export interface TypeInput {
 }
 
 export interface ComponentType {
-  component: "input" | "select" | "textarea" | "inputImage";
+  component:
+    | "input"
+    | "select"
+    | "textarea"
+    | "inputImage"
+    | "inputSwitch"
+    | "inputButtonGroup";
+  Token?: string;
+  initFileSrc?: InitFileSrcFoodType;
+  chName?: string;
   name: string;
   type?: InputType;
   required?: boolean;
-  hMsg: string;
+  hMsg?: string;
   pMsg?: string;
   errMsg?: string;
   inputClass?: string;
@@ -78,6 +89,11 @@ export interface ComponentType {
   textareaClass?: string;
   imageClass?: string;
   errClass?: string;
+  selectButtonClass?: string;
+  unSelectButtonClass?: string;
+  buttonOptions?: string[];
+  ulClass?: string;
+  liClass?: string;
   disabledOption?: string;
   children?: ReactNode;
   accept?: string;
