@@ -3,12 +3,13 @@ import { FC, useState, ChangeEvent } from "react";
 import { Tab } from "../lib/dashboard/dietary-record/foodMenu";
 
 export interface InitFileSrcFoodType {
-  Breakfast: { fetch: string; file: string };
-  Lunch: { fetch: string; file: string };
-  Dinner: { fetch: string; file: string };
-  Oil: { fetch: string; file: string };
-  Fruit: { fetch: string; file: string };
-  Water: { fetch: string; file: string };
+  Breakfast?: { fetch: string; file: string };
+  Lunch?: { fetch: string; file: string };
+  Dinner?: { fetch: string; file: string };
+  Oil?: { fetch: string; file: string };
+  Fruit?: { fetch: string; file: string };
+  Water?: { fetch: string; file: string };
+  PortraitImage?: { fetch: string; file: string };
 }
 
 export interface UseUploadFileProps {
@@ -19,7 +20,7 @@ export interface UseUploadFileProps {
 
 export interface HandleUploadFileProps {
   e: ChangeEvent<HTMLInputElement>;
-  tab: Tab;
+  tab: Tab | string;
   Token: string;
 }
 
@@ -34,11 +35,15 @@ const useUploadFile = ({
 ] => {
   const [fileSrc, setFileSrc] = useState<InitFileSrcFoodType>(initFileSrc);
 
+  // console.log(data, Token, initFileSrc);
+
   const handleUploadFile = async ({
     e,
     tab,
     Token,
   }: HandleUploadFileProps): Promise<void> => {
+    console.log(e, tab, Token);
+
     try {
       let reader;
       const file = e.target.files ? e.target.files[0] : null;
@@ -58,6 +63,8 @@ const useUploadFile = ({
         }
       );
       const fetchData = result.data.Data.ImageUrl;
+
+      console.log(fetchData);
 
       previewFile(file, fetchData);
     } catch (error) {

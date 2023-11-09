@@ -1,6 +1,15 @@
-import { FC, ReactEventHandler, ReactNode, FocusEventHandler } from "react";
+import {
+  FC,
+  ReactEventHandler,
+  ReactNode,
+  FocusEventHandler,
+  useEffect,
+} from "react";
+import useUploadFile, { InitFileSrcFoodType } from "../hooks/useUploadFile";
+import Image from "next/image";
 
 export interface InputImageProps {
+  chName: string;
   name: string;
   type: "file";
   hMsg?: string;
@@ -19,9 +28,13 @@ export interface InputImageProps {
   errMsg?: string;
   onBlur?: FocusEventHandler;
   error?: boolean;
+  Token: string;
+  initFileSrc: InitFileSrcFoodType;
+  setValue: (value: string) => void;
 }
 
 const InputImage: FC<InputImageProps> = ({
+  chName,
   name,
   id,
   accept,
@@ -40,22 +53,54 @@ const InputImage: FC<InputImageProps> = ({
   errMsg,
   onBlur,
   error,
+  Token,
+  initFileSrc,
+  setValue,
 }) => {
+  const [fileSrc, setFileSrc, handleUploadFile] = useUploadFile({
+    data: { name: chName, enName: name },
+    Token,
+    initFileSrc,
+  });
+
+  useEffect(() => {
+    const PutPhoto = fileSrc[name as keyof InitFileSrcFoodType]?.fetch;
+    setValue(name, PutPhoto);
+  }, [fileSrc]);
+
   return (
     <>
       <label htmlFor={name} className={`${labelClass} mt-20 block`}>
         <h4 className="formHead">{hMsg}</h4>
         <p className="formContent">{pMsg}</p>
         {children}
+        <div className="w-[220px] h-[275px]">
+          <Image
+            src={
+              fileSrc[name as keyof InitFileSrcFoodType]?.file ||
+              value ||
+              "/images/uploadPhoto.svg"
+            }
+            fill
+            objectFit="cover"
+            alt={name}
+            className="mt-12 rounded-5 !relative"
+          />
+        </div>
         <input
           type={type}
           name={name}
           className={`${inputClass} mt-12 py-8 ${
             error && "focus:ring-secondary-500"
           }`}
-          value={value}
           placeholder={placeholder}
-          onChange={onChange}
+          onChange={(e) =>
+            handleUploadFile({
+              e: e,
+              tab: { name: chName, enName: name },
+              Token: Token,
+            })
+          }
           required={required}
           disabled={disabled}
           onBlur={onBlur}
