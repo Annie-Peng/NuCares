@@ -1,8 +1,37 @@
 import usePagination from "@/common/hooks/usePagination";
+import { useNutritionistListGetApiQuery } from "@/common/redux/service/nutritionistList";
 import NutritionistCard from "@/modules/NutritionistCard";
+
+export interface CourseType {
+  Rank: number;
+  CourseName: string;
+  CourseWeek: number;
+  CoursePrice: number;
+  Tag: string;
+}
+
+export interface NutritionistsRenderDataType {
+  Id: string;
+  Title: string;
+  PortraitImage: string;
+  Expertise: string[];
+  AboutMe: string;
+  Favorite: boolean;
+  Course: CourseType[];
+}
 
 const NutritionistListPage = () => {
   const { showPage, setShowPage, renderData } = usePagination();
+
+  const { data, isLoading, error } = useNutritionistListGetApiQuery({
+    PageId: showPage.Current_page,
+  });
+
+  if (isLoading || !data) {
+    return <p>NutritionistList is Loading</p>;
+  }
+
+  const nutritionistsRenderData: NutritionistsRenderDataType[] = data.Data;
 
   return (
     <div className="container grid cusGrid my-24">
@@ -39,9 +68,16 @@ const NutritionistListPage = () => {
           </ul>
         </div>
         <ul>
-          <li className="bg-white rounded-20 mt-16 p-40 flex flex-wrap gap-20 lg:flex-nowrap">
-            <NutritionistCard />
-          </li>
+          {nutritionistsRenderData.map((nutritionistData, index) => {
+            return (
+              <li
+                key={index}
+                className="bg-white rounded-20 mt-16 p-40 flex flex-wrap gap-20 lg:flex-nowrap"
+              >
+                <NutritionistCard nutritionistData={nutritionistData} />
+              </li>
+            );
+          })}
         </ul>
         {renderData}
       </div>
