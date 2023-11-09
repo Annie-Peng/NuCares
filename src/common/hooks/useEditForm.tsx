@@ -4,9 +4,12 @@ import { ComponentType } from "@/types/interface";
 import Input from "../components/Input";
 import Select from "../components/Select";
 import Textarea from "../components/Textarea";
+import InputImage from "../components/InputImage";
+import InputSwitch from "../components/InputSwitch";
+import InputButtonGroup from "../components/InputButtonGroup";
 
 interface useEditFormProps {
-  initialState: Record<string, string | number>;
+  initialState: Record<string, string | number | string[] | boolean>;
   formData: ComponentType[];
   putApi: any;
   putApiData: Record<string, string | number>;
@@ -27,7 +30,7 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
   putApiData,
   formData,
 }) => {
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, setValue, getValues } = useForm({
     defaultValues: initialState,
     criteriaMode: "all",
   });
@@ -73,6 +76,8 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     errClass={data.errClass}
                     errMsg={data.errMsg}
                     onChange={field.onChange}
+                    id={data.id}
+                    accept={data.accept}
                   >
                     {data.children}
                   </Input>
@@ -82,7 +87,7 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     {...field}
                     name={data.name}
                     required={data.required}
-                    hMsg={data.hMsg}
+                    hMsg={data.hMsg || "title"}
                     pMsg={data.pMsg}
                     selectClass={data.selectClass}
                     disabledOption={data.disabledOption || "請選擇"}
@@ -108,6 +113,75 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     errMsg={data.errMsg}
                     onChange={field.onChange}
                   />
+                )}
+                {data.component === "inputImage" && (
+                  <InputImage
+                    chName={data.chName as string}
+                    name={data.name}
+                    type={data.type || "file"}
+                    labelClass={data.labelClass}
+                    inputClass={data.inputClass}
+                    required={data.required}
+                    hMsg={data.hMsg}
+                    pMsg={data.pMsg}
+                    id={data.id}
+                    accept={data.accept}
+                    Token={data.Token as string}
+                    initFileSrc={data.initFileSrc}
+                    setValue={setValue}
+                    value={field.value}
+                  >
+                    {data.children}
+                  </InputImage>
+                )}
+                {data.component === "inputSwitch" && (
+                  <InputSwitch
+                    {...field}
+                    name={data.name}
+                    type={data.type || "checkbox"}
+                    labelClass={data.labelClass}
+                    inputClass={data.inputClass}
+                    required={data.required}
+                    hMsg={data.hMsg}
+                    pMsg={data.pMsg}
+                    error={invalid}
+                    errClass={data.errClass}
+                    errMsg={data.errMsg}
+                    value={field.value}
+                    onChange={field.onChange}
+                    id={data.id}
+                    accept={data.accept}
+                  >
+                    {data.children}
+                  </InputSwitch>
+                )}
+                {data.component === "inputButtonGroup" && (
+                  <InputButtonGroup
+                    {...field}
+                    name={data.name}
+                    type={data.type || "checkbox"}
+                    labelClass={data.labelClass}
+                    inputClass={data.inputClass}
+                    required={data.required}
+                    hMsg={data.hMsg}
+                    pMsg={data.pMsg}
+                    error={invalid}
+                    errClass={data.errClass}
+                    errMsg={data.errMsg}
+                    value={field.value}
+                    onChange={field.onChange}
+                    id={data.id}
+                    accept={data.accept}
+                    setValue={setValue}
+                    getValues={getValues}
+                    buttonOptions={data.buttonOptions || []}
+                    selectButtonClass={data.selectButtonClass}
+                    unSelectButtonClass={data.unSelectButtonClass}
+                    ulClass={data.ulClass as string}
+                    liClass={data.liClass as string}
+                  >
+                    {data.children}
+                  </InputButtonGroup>
                 )}
               </>
             )}
