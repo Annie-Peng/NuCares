@@ -5,6 +5,10 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { FC } from "react";
 
+interface NutritionistType {
+  Id: number;
+}
+
 export interface CourseType {
   Rank: string;
   CourseName: string;
@@ -60,7 +64,7 @@ const NutritionistIdPage: FC<NutritionistIdPageProps> = ({
       </div>
       <div className="mt-16 col-span-4 bg-white p-20 self-start rounded-20 lg:col-end-12 lg:mt-0">
         <ul className="flex flex-col gap-10">
-          {nutritionistData[0].Course ? (
+          {nutritionistData[0].Course.length > 0 ? (
             nutritionistData[0].Course.map((course, index) => (
               <li key={index}>
                 <CourseNormalCard course={course} />
@@ -81,18 +85,23 @@ const NutritionistIdPage: FC<NutritionistIdPageProps> = ({
 
 export default NutritionistIdPage;
 
-export async function getStaticPaths() {
-  let ids = [];
-  for (let i = 0; i < 100; i++) {
-    ids.push(i);
-  }
+export const getStaticPaths = async () => {
+  const result = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/nutritionistsid`
+  );
+  const nutritionists = result.data.Data;
 
-  const paths = ids.map((id) => ({
-    params: { nutritionistId: id.toString() },
-  }));
+  const paths = nutritionists.map((nutritionist: NutritionistType) => {
+    return {
+      params: { nutritionistId: nutritionist.Id.toString() },
+    };
+  });
 
-  return { paths, fallback: true };
-}
+  return {
+    paths,
+    fallback: true,
+  };
+};
 
 export const getStaticProps: GetServerSideProps = async (context) => {
   try {
