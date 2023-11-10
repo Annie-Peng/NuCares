@@ -17,7 +17,9 @@ const NutritionistCard: FC<NutritionistCardProps> = ({ nutritionistData }) => {
       >
         <Image
           src={
-            nutritionistData.PortraitImage ? nutritionistData.PortraitImage : ""
+            nutritionistData.PortraitImage
+              ? nutritionistData.PortraitImage
+              : "/images/icons/favorite.svg"
           }
           fill
           alt="PortraitImage"

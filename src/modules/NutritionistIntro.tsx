@@ -17,7 +17,11 @@ const NutritionistIntro: FC<NutritionistIntroProps> = ({
       <div className="profile rounded-20 flex flex-wrap p-20 gap-10 bg-white lg:flex-nowrap">
         <div className="bg-secondary-200 rounded-15 w-full h-[200px] lg:w-[65%] lg:h-auto">
           <Image
-            src={nutritionistData.PortraitImage}
+            src={
+              nutritionistData.PortraitImage
+                ? nutritionistData.PortraitImage
+                : "/images/icons/favorite.svg"
+            }
             fill
             alt="PortraitImage"
             objectFit="cover"
