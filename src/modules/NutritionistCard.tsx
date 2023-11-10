@@ -15,7 +15,15 @@ const NutritionistCard: FC<NutritionistCardProps> = ({ nutritionistData }) => {
         href={`/nutritionist-list/${nutritionistData.Id}`}
         className="relative w-full h-[283px] rounded-20 lg:w-[227px]"
       >
-        <Image src="/images/icons/favorite.svg" fill alt="favorite" />
+        <Image
+          src={
+            nutritionistData.PortraitImage ? nutritionistData.PortraitImage : ""
+          }
+          fill
+          alt="PortraitImage"
+          objectFit="cover"
+          className="rounded-20"
+        />
       </Link>
       <div className="content w-full relative max-w-[454px] flex flex-col">
         <Link href={`/nutritionist-list/${nutritionistData.Id}`}>

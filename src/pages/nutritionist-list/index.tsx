@@ -75,10 +75,10 @@ const NutritionistListPage: FC<NutritionistListPageProps> = ({
           </ul>
         </div>
         <ul>
-          {nutritionistsRenderData.map((nutritionistData, index) => {
+          {nutritionistsRenderData.map((nutritionistData) => {
             return (
               <li
-                key={index}
+                key={nutritionistData.Id}
                 className="bg-white rounded-20 mt-16 p-40 flex flex-wrap gap-20 lg:flex-nowrap"
               >
                 <NutritionistCard nutritionistData={nutritionistData} />
