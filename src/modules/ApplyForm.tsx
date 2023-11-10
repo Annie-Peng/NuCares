@@ -1,46 +1,85 @@
-const ApplyForm = () => {
+import useEditForm from "@/common/hooks/useEditForm";
+import { useApplyPostApiMutation } from "@/common/redux/service/apply";
+import { ComponentType } from "@/types/interface";
+import {
+  commonErrMsgClass,
+  commonRequiredErrMsg,
+} from "@/common/lib/dashboard/errMsg/commonErrMsg";
+import { getCookie } from "cookies-next";
+import { FC } from "react";
+
+interface ApplyFormProps {
+  Token: string;
+}
+
+const ApplyFormData: ComponentType[] = [
+  {
+    component: "input",
+    name: "UserName",
+    type: "text",
+    hMsg: "真實姓名*",
+    pMsg: "請填寫身份證上的姓名",
+    inputClass: "w-full",
+    errMsg: commonRequiredErrMsg,
+    errClass: commonErrMsgClass,
+  },
+  {
+    component: "select",
+    name: "Gender",
+    hMsg: "生理性別*",
+    pMsg: "請填寫身份證性別，",
+    selectClass: "w-[96px] z-10 relative bg-transparent",
+    disabledOption: "請選擇",
+    options: [
+      { option: "男", value: "male" },
+      { option: "女", value: "female" },
+    ],
+    imageClass: "bottom-12 left-[64px]",
+    errMsg: commonRequiredErrMsg,
+    errClass: commonErrMsgClass,
+  },
+  {
+    component: "inputImage",
+    chName: "營養師證照",
+    name: "CertificateImage",
+    type: "file",
+    hMsg: "營養師證照*",
+    pMsg: "請上傳您的營養師證照供平台審核",
+    inputClass: "w-[294px] hidden",
+    id: "CertificateImage",
+    accept: "image/png, image/jpeg, image/jpg",
+    Token: getCookie("Token"),
+    initFileSrc: { CertificateImage: { fetch: "", file: "" } },
+    errMsg: commonRequiredErrMsg,
+    errClass: commonErrMsgClass,
+  },
+];
+
+const ApplyForm: FC<ApplyFormProps> = ({ Token }) => {
+  const putApiData = { Token };
+
+  const [applyPostApi] = useApplyPostApiMutation();
+
+  const initialState = {
+    UserName: "",
+    Gender: "",
+    CertificateImage: "",
+  };
+
+  const { renderEditForm } = useEditForm({
+    initialState,
+    formData: ApplyFormData,
+    putApi: applyPostApi,
+    putApiData,
+  });
+
   return (
-    <form className="text-left flex flex-col gap-32">
-      <h3>申請成為平台營養師</h3>
-      <label htmlFor="userName">
-        <h4 className="font-bold">真實姓名*</h4>
-        <p>請填寫身分證上的姓名</p>
-        <input type="text" className="cusInput" name="userName" />
-      </label>
-      <label htmlFor="Email">
-        <h4 className="font-bold">信箱</h4>
-        <p>此為註冊之帳號，不可更改</p>
-        <input type="text" className="cusInput" name="Email" disabled />
-      </label>
-      <label htmlFor="Gender">
-        <h4 className="font-bold">生理性別*</h4>
-        <p>請選擇與身分證上相同的性別</p>
-        <select name="Gender" id="Gender">
-          <option value="male">男</option>
-          <option value="female">女</option>
-        </select>
-      </label>
-      <div>
-        <h4 className="font-bold">營養師證照</h4>
-        <p>請上傳您的營養師證照供平台審核</p>
-        <label htmlFor="CertificateImage" className="cusFileUpload">
-          上傳營養師證照
-          <input
-            type="file"
-            name="CertificateImage"
-            id="CertificateImage"
-            className="hidden"
-          />
-        </label>
+    <div className="text-left flex flex-col max-w-[856px] mx-auto p-24 rounded-20 cusBackgroundBackdrop !relative">
+      <h3 className="cusPrimaryTitle">申請成為平台營養師</h3>
+      <div className="cusDashboardInnerContainer">
+        <div className="max-w-[306px] mx-auto">{renderEditForm}</div>
       </div>
-      <label htmlFor="UserRule">
-        <input type="checkbox" name="UserRule" />
-        使用者條款
-      </label>
-      <button type="submit" className="btn-cusSecondary w-[250px] mx-auto py-8">
-        確認送出申請
-      </button>
-    </form>
+    </div>
   );
 };
 export default ApplyForm;
