@@ -1,50 +1,51 @@
+import { CommentType } from "@/pages/nutritionist-list/[nutritionistId]";
 import Image from "next/image";
+import { FC } from "react";
 
-const NutritionistComment = () => {
+interface NutritionistCommentProps {
+  comment: CommentType;
+}
+
+const NutritionistComment: FC<NutritionistCommentProps> = ({ comment }) => {
+  const starsNum = Array(5).fill(null);
+
   return (
-    <div className="p-20 rounded-10 border w-full lg:max-w-[280px]">
+    <div className="p-20 rounded-10 border h-full">
       <div className="flex gap-12">
         <Image src="/images/login.svg" width={46} height={46} alt="photo" />
         <div>
-          <p className="text-13">張Ｏ明</p>
-          <div className="flex gap-4">
-            <Image
-              src="/images/icons/full-star.svg"
-              width={20}
-              height={20}
-              alt="star"
-            />
-            <Image
-              src="/images/icons/empty-star.svg"
-              width={20}
-              height={20}
-              alt="star"
-            />
-            <Image
-              src="/images/icons/empty-star.svg"
-              width={20}
-              height={20}
-              alt="star"
-            />
-            <Image
-              src="/images/icons/empty-star.svg"
-              width={20}
-              height={20}
-              alt="star"
-            />
-            <Image
-              src="/images/icons/empty-star.svg"
-              width={20}
-              height={20}
-              alt="star"
-            />
-          </div>
+          <p className="text-13">{comment.UserName}</p>
+          <ul className="flex gap-4">
+            {starsNum.map((star, index) => {
+              if (index + 1 <= comment.Rate) {
+                return (
+                  <li key={index}>
+                    <Image
+                      src="/images/icons/full-star.svg"
+                      width={20}
+                      height={20}
+                      alt="star"
+                    />
+                  </li>
+                );
+              } else {
+                return (
+                  <li key={index}>
+                    <Image
+                      src="/images/icons/empty-star.svg"
+                      width={20}
+                      height={20}
+                      alt="star"
+                    />
+                  </li>
+                );
+              }
+            })}
+          </ul>
         </div>
-        <p className="text-12">2023/03/07</p>
+        <p className="text-12">{comment.CreateDate}</p>
       </div>
-      <p className="mt-[36px]">
-        專業營養師課程簡直驚豔！知識深入、指導具體，營養師的專業使我在健康路上更自信！知識深入、指導具體知識深入、指導具體
-      </p>
+      <p className="mt-[36px]">{comment.Content}</p>
     </div>
   );
 };

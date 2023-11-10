@@ -24,8 +24,11 @@ const NutritionistCard: FC<NutritionistCardProps> = ({ nutritionistData }) => {
           </h3>
         </Link>
         <ul className="text-12 w-fit flex gap-8 mt-8 lg:text-14">
-          {nutritionistData.Expertise.map((tag: string) => (
-            <li className="border-primary-500 text-primary-500 px-12 rounded-l-35 rounded-r-35 border">
+          {nutritionistData.Expertise.map((tag, index) => (
+            <li
+              key={index}
+              className="border-primary-500 text-primary-500 px-12 rounded-l-35 rounded-r-35 border"
+            >
               {tag}
             </li>
           ))}
