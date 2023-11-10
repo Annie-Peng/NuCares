@@ -1,6 +1,8 @@
 import usePagination from "@/common/hooks/usePagination";
-import { useNutritionistListGetApiQuery } from "@/common/redux/service/nutritionistList";
 import NutritionistCard from "@/modules/NutritionistCard";
+import axios from "axios";
+import { GetServerSideProps } from "next";
+import { FC } from "react";
 
 export interface CourseType {
   Rank: number;
@@ -20,18 +22,23 @@ export interface NutritionistsRenderDataType {
   Course: CourseType[];
 }
 
-const NutritionistListPage = () => {
-  const { showPage, setShowPage, renderData } = usePagination();
+interface NutritionistListPageProps {
+  nutritionistsRenderData: NutritionistsRenderDataType[];
+  pagination: {
+    Current_page: number;
+    Total_pages: number;
+  };
+}
 
-  const { data, isLoading, error } = useNutritionistListGetApiQuery({
-    PageId: showPage.Current_page,
+const NutritionistListPage: FC<NutritionistListPageProps> = ({
+  nutritionistsRenderData,
+  pagination,
+}) => {
+  const url = "/nutritionist-list?page=";
+  const { showPage, setShowPage, renderPaginationData } = usePagination({
+    pagination,
+    url,
   });
-
-  if (isLoading || !data) {
-    return <p>NutritionistList is Loading</p>;
-  }
-
-  const nutritionistsRenderData: NutritionistsRenderDataType[] = data.Data;
 
   return (
     <div className="container grid cusGrid my-24">
@@ -79,10 +86,36 @@ const NutritionistListPage = () => {
             );
           })}
         </ul>
-        {renderData}
+        {renderPaginationData}
       </div>
     </div>
   );
 };
 
 export default NutritionistListPage;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  try {
+    const { query } = context;
+    const { page } = query;
+
+    const queryString = page ? `page=${page}` : "";
+    const result = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/nutritionists?${queryString}`
+    );
+
+    const data = result.data;
+
+    return {
+      props: {
+        nutritionistsRenderData: data.Data,
+        pagination: data.Pagination,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      props: {},
+    };
+  }
+};

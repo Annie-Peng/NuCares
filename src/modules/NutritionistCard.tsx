@@ -9,17 +9,16 @@ interface NutritionistCardProps {
 }
 
 const NutritionistCard: FC<NutritionistCardProps> = ({ nutritionistData }) => {
-  console.log(nutritionistData);
   return (
     <>
       <Link
-        href="/nutritionist-list/1"
+        href={`/nutritionist-list/${nutritionistData.Id}`}
         className="relative w-full h-[283px] rounded-20 lg:w-[227px]"
       >
         <Image src="/images/icons/favorite.svg" fill alt="favorite" />
       </Link>
       <div className="content w-full relative max-w-[454px] flex flex-col">
-        <Link href="/nutritionist-list/1">
+        <Link href={`/nutritionist-list/${nutritionistData.Id}`}>
           <h3 className="text-24 font-normal">
             {nutritionistData.Title} 營養師
           </h3>
@@ -32,7 +31,10 @@ const NutritionistCard: FC<NutritionistCardProps> = ({ nutritionistData }) => {
           ))}
         </ul>
         <p className="mt-24 grow">{nutritionistData.AboutMe}</p>
-        <Link href="/nutritionist-list/1" className="ms-auto">
+        <Link
+          href={`/nutritionist-list/${nutritionistData.Id}`}
+          className="ms-auto"
+        >
           了解更多課程{">>"}
         </Link>
         <button type="button">
