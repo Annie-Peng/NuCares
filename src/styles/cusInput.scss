@@ -17,6 +17,14 @@ input {
   }
 }
 
+input[type="radio"] + span {
+  transition: background 0.2s, transform 0.2s;
+}
+
+input[type="radio"]:checked + span {
+  @apply bg-black-950 shadow-[0px_0px_0px_2px_white_inset];
+}
+
 .cusInputWithIcon {
   @apply pl-[36px] pr-12 text-14 relative w-full lg:py-16 lg:text-16;
 }
