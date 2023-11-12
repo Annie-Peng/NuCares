@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
 import registerReducer from "./features/registerPhases";
+import paymentReducer from "./features/paymentPhases";
 import authReducer from "./features/auth";
 import showModalReducer from "./features/showModal";
 import changeIDReducer from "./features/changeID";
@@ -23,6 +24,7 @@ const store = configureStore({
     // changeID: changeIDReducer,
     bodyRate: bodyRateReducer,
     goal: goalReducer,
+    paymentPhases: paymentReducer,
 
     [register.reducerPath]: register.reducer,
     [login.reducerPath]: login.reducer,

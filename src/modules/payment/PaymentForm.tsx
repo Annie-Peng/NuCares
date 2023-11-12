@@ -1,56 +1,49 @@
 import { Auth } from "@/common/redux/features/auth";
-import { usePaymentGetApiQuery } from "@/common/redux/service/payment";
+import {
+  PaymentDataType,
+  selectPayment,
+  storePaymentForm,
+} from "@/common/redux/features/paymentPhases";
+import { PlanType } from "@/types/interface";
 import Image from "next/image";
 import paymentStep1 from "public/images/payment/paymentStep1.svg";
 import { FC } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 
 interface PaymentFormProps {
   auth: Auth;
-  planId: string;
+  renderData: PlanType;
+  setCurrentPhase: (currentPhase: number) => void;
 }
 
-export interface FormInput {
-  UserName: string;
-  UserEmail: string;
-  UserLineId: string;
-  UserPhone: string;
-  ContactTime: string;
-  Invoice: string;
-  PaymentMethod: string;
-}
-
-const PaymentForm: FC<PaymentFormProps> = ({ auth, planId }) => {
-  const {
-    data: renderData,
-    isLoading,
-    error,
-  } = usePaymentGetApiQuery({ Token: auth.Token, planId });
+const PaymentForm: FC<PaymentFormProps> = ({
+  auth,
+  renderData,
+  setCurrentPhase,
+}) => {
+  const dispatch = useDispatch();
+  const paymentData = useSelector(selectPayment);
 
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<FormInput>({
+  } = useForm<PaymentDataType>({
     defaultValues: {
       UserName: auth.UserName,
       UserEmail: auth.Email,
-      UserLineId: "",
-      UserPhone: "",
-      ContactTime: "",
-      Invoice: "",
-      PaymentMethod: "",
+      UserLineId: paymentData.UserLineId,
+      UserPhone: paymentData.UserPhone,
+      ContactTime: paymentData.ContactTime,
+      Invoice: paymentData.Invoice,
+      PaymentMethod: paymentData.PaymentMethod,
     },
   });
 
-  console.log(renderData);
-
-  if (isLoading || !renderData) {
-    return <p>Payment is Loading</p>;
-  }
-
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<PaymentDataType> = (formData) => {
+    dispatch(storePaymentForm(formData));
+    setCurrentPhase(2);
   };
 
   return (
@@ -65,7 +58,7 @@ const PaymentForm: FC<PaymentFormProps> = ({ auth, planId }) => {
         />
       </div>
       <form
-        className=" bg-white flex flex-wrap justify-center text-left mt-16 p-40 rounded-20 gap-x-[200px]"
+        className=" bg-white flex flex-wrap justify-center text-left mt-16 p-20 rounded-20 gap-x-[200px] lg:p-40"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="w-full flex flex-col gap-12 lg:w-[30%]">
@@ -153,11 +146,11 @@ const PaymentForm: FC<PaymentFormProps> = ({ auth, planId }) => {
           <div className="p-20 border rounded-15 border-black-300 flex flex-col gap-4">
             <h3 className="text-18 font-bold">訂購項目</h3>
             <hr className="mt-16 border-black-300" />
-            <p className="mt-16 font-bold">{renderData.Data.Title} 營養師</p>
-            <p className="font-bold">{renderData.Data.CourseName}</p>
-            <p className="text-14">共{renderData.Data.CourseWeek}週</p>
+            <p className="mt-16 font-bold">{renderData.Title} 營養師</p>
+            <p className="font-bold">{renderData.CourseName}</p>
+            <p className="text-14">共{renderData.CourseWeek}週</p>
             <p className="mt-8 text-20 font-bold">
-              NT$ {renderData.Data.CoursePrice}
+              NT$ {renderData.CoursePrice}
             </p>
           </div>
           <div className="p-20 border rounded-15 border-black-300">
