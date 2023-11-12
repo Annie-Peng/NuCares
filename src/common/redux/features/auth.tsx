@@ -1,15 +1,6 @@
 import { RootState } from "@/types/interface";
 import { createSlice } from "@reduxjs/toolkit";
 
-export interface Auth {
-  Token: string;
-  UserName: string;
-  Email: string;
-  ImgUrl: string;
-  IsNutritionist: boolean;
-  UserCurrentStatus: string;
-}
-
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
