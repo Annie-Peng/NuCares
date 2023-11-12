@@ -15,6 +15,9 @@ input {
   &:invalid {
     @apply ring-secondary-500;
   }
+  &:disabled {
+    @apply bg-black-200 text-black-400;
+  }
 }
 
 input[type="radio"] + span {
