@@ -68,7 +68,7 @@ const PaymentForm: FC<PaymentFormProps> = ({ auth, planId }) => {
         className=" bg-white flex flex-wrap justify-center text-left mt-16 p-40 rounded-20 gap-x-[200px]"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="w-[30%] flex flex-col gap-12">
+        <div className="w-full flex flex-col gap-12 lg:w-[30%]">
           <div className="flex flex-wrap gap-8 items-center lg:flex">
             <h3 className="text-20 font-normal">訂購人資料</h3>
             <span className="text-14 text-black-400">
@@ -149,7 +149,7 @@ const PaymentForm: FC<PaymentFormProps> = ({ auth, planId }) => {
             {errors.ContactTime?.message}
           </p>
         </div>
-        <div className="w-full flex flex-col gap-12 lg:w-[30%]">
+        <div className="w-full flex flex-col gap-12 mt-20 lg:w-[30%] lg:mt-0">
           <div className="p-20 border rounded-15 border-black-300 flex flex-col gap-4">
             <h3 className="text-18 font-bold">訂購項目</h3>
             <hr className="mt-16 border-black-300" />
