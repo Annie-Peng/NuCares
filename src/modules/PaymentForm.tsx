@@ -1,13 +1,27 @@
+import { usePaymentGetApiQuery } from "@/common/redux/service/payment";
 import Image from "next/image";
 import Link from "next/link";
 import paymentStep1 from "public/images/payment/paymentStep1.svg";
 import { FC } from "react";
 
 interface PaymentFormProps {
+  Token: string;
   planId: string;
 }
 
-const PaymentForm: FC<PaymentFormProps> = ({ planId }) => {
+const PaymentForm: FC<PaymentFormProps> = ({ Token, planId }) => {
+  const {
+    data: renderData,
+    isLoading,
+    error,
+  } = usePaymentGetApiQuery({ Token, planId });
+
+  console.log(renderData);
+
+  if (isLoading || !renderData) {
+    return <p>Payment is Loading</p>;
+  }
+
   return (
     <>
       <div className="hidden mt-16 px-[140px] lg:block">
@@ -82,10 +96,12 @@ const PaymentForm: FC<PaymentFormProps> = ({ planId }) => {
           <div className="p-20 border rounded-15 border-black-300 flex flex-col gap-4">
             <h3 className="text-18 font-bold">訂購項目</h3>
             <hr className="mt-16 border-black-300" />
-            <p className="mt-16 font-bold">陳瘦瘦 營養師</p>
-            <p className="font-bold">小資 - 4週飲食建議</p>
-            <p className="text-14">共5堂</p>
-            <p className="mt-8 text-20 font-bold">NT$ 4,000</p>
+            <p className="mt-16 font-bold">{renderData.Data.Title} 營養師</p>
+            <p className="font-bold">{renderData.Data.CourseName}</p>
+            <p className="text-14">共{renderData.Data.CourseWeek}週</p>
+            <p className="mt-8 text-20 font-bold">
+              NT$ {renderData.Data.CoursePrice}
+            </p>
           </div>
           <div className="p-20 border rounded-15 border-black-300">
             <h3 className="text-18 font-bold">付款方式</h3>
