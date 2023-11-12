@@ -4,7 +4,7 @@ import axios from "axios";
 import { GetServerSideProps } from "next";
 import { FC } from "react";
 
-export interface CourseType {
+export interface PlanType {
   Rank: number;
   CourseName: string;
   CourseWeek: number;
@@ -19,7 +19,7 @@ export interface NutritionistsRenderDataType {
   Expertise: string[];
   AboutMe: string;
   Favorite: boolean;
-  Course: CourseType[];
+  Plan: PlanType[];
 }
 
 interface NutritionistListPageProps {

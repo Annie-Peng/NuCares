@@ -13,13 +13,13 @@ const NutritionistCard: FC<NutritionistCardProps> = ({ nutritionistData }) => {
     <>
       <Link
         href={`/nutritionist-list/${nutritionistData.Id}`}
-        className="relative w-full h-[283px] rounded-20 lg:w-[227px]"
+        className="relative w-full h-[283px] lg:w-[227px]"
       >
         <Image
           src={
             nutritionistData.PortraitImage
               ? nutritionistData.PortraitImage
-              : "/images/icons/favorite.svg"
+              : "/images/uploadphoto-no-word.svg"
           }
           fill
           alt="PortraitImage"
@@ -61,11 +61,19 @@ const NutritionistCard: FC<NutritionistCardProps> = ({ nutritionistData }) => {
         </button>
       </div>
       <ul className="min-w-[260px] flex flex-col gap-16">
-        {nutritionistData.Course.map((course, index) => (
-          <li key={index}>
-            <CourseMiniCard course={course} />
-          </li>
-        ))}
+        {nutritionistData.Plan.length > 0 ? (
+          nutritionistData.Plan.map((plan, index) => (
+            <li key={index}>
+              <CourseMiniCard plan={plan} />
+            </li>
+          ))
+        ) : (
+          <div className="border border-primary-200 p-20 rounded-15 flex flex-col gap-12 relative">
+            <p className="leading-[96px] font-bold text-black-300 mx-auto">
+              營養師尚未建立課程
+            </p>
+          </div>
+        )}
       </ul>
     </>
   );

@@ -1,21 +1,29 @@
-import { CourseType } from "@/pages/nutritionist-list/[nutritionistId]";
+import { PlanType } from "@/pages/nutritionist-list/[nutritionistId]";
+import { useRouter } from "next/router";
 import { FC } from "react";
 
 interface CourseNormalCardProps {
-  course: CourseType;
+  plan: PlanType;
 }
 
-const CourseNormalCard: FC<CourseNormalCardProps> = ({ course }) => {
+const CourseNormalCard: FC<CourseNormalCardProps> = ({ plan }) => {
+  const router = useRouter();
   return (
     <div className="border border-primary-200 p-20 rounded-15 flex flex-col gap-12 relative">
-      <h4 className="text-20 font-bold">{course.CourseName}</h4>
-      <p className="text-14 -mt-4">課程期間：{course.CourseWeek}週</p>
-      <h5 className="text-[28px] font-bold">NT$ {course.CoursePrice}</h5>
-      <p className="text-14">{course.Detail}</p>
-      <div className="absolute top-18 -right-8 px-8 py-4 bg-tertiary-400 text-white font-bold text-12">
-        {course.Tag}
-      </div>
-      <button type="button" className="btn-cusSecondary w-full py-8">
+      <h4 className="text-20 font-bold">{plan.CourseName}</h4>
+      <p className="text-14 -mt-4">課程期間：{plan.CourseWeek}週</p>
+      <h5 className="text-[28px] font-bold">NT$ {plan.CoursePrice}</h5>
+      <p className="text-14 min-h-[58px]">{plan.Detail}</p>
+      {plan.Tag !== "無" && (
+        <div className="absolute top-18 -right-8 px-8 py-4 bg-tertiary-400 text-white font-bold text-12">
+          {plan.Tag}
+        </div>
+      )}
+      <button
+        type="button"
+        onClick={() => router.push("/payment")}
+        className="btn-cusSecondary w-full py-8"
+      >
         購買
       </button>
     </div>

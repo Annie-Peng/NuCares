@@ -15,17 +15,17 @@ const NutritionistIntro: FC<NutritionistIntroProps> = ({
   return (
     <>
       <div className="profile rounded-20 flex flex-wrap p-20 gap-10 bg-white lg:flex-nowrap">
-        <div className="bg-secondary-200 rounded-15 w-full h-[200px] lg:w-[65%] lg:h-auto">
+        <div className="w-full h-[200px] relative lg:w-[65%] lg:h-auto">
           <Image
             src={
               nutritionistData.PortraitImage
                 ? nutritionistData.PortraitImage
-                : "/images/icons/favorite.svg"
+                : "/images/uploadphoto-no-word.svg"
             }
             fill
             alt="PortraitImage"
             objectFit="cover"
-            className="!relative rounded-15"
+            className="rounded-15"
           />
         </div>
         <div className="flex flex-col gap-20 w-full relative">

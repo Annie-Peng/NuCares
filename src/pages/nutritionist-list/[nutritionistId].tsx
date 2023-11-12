@@ -9,7 +9,8 @@ interface NutritionistType {
   Id: number;
 }
 
-export interface CourseType {
+export interface PlanType {
+  Id: NutritionistType;
   Rank: string;
   CourseName: string;
   CourseWeek: string;
@@ -26,7 +27,6 @@ export interface CommentType {
 }
 
 export interface NutritionistDataType {
-  Id: string;
   Title: string;
   PortraitImage: string;
   Expertise: string[];
@@ -36,13 +36,14 @@ export interface NutritionistDataType {
   Experience: string;
   AboutMe: string;
   CourseIntro: string;
-  Course: CourseType[];
+  Plan: PlanType[];
   Comment: CommentType[];
   RateAVG: number;
+  Favorite: boolean;
 }
 
 interface NutritionistIdPageProps {
-  nutritionistData: NutritionistDataType[];
+  nutritionistData: NutritionistDataType;
 }
 
 const NutritionistIdPage: FC<NutritionistIdPageProps> = ({
@@ -53,21 +54,17 @@ const NutritionistIdPage: FC<NutritionistIdPageProps> = ({
     return <h1>Data is Loading ...</h1>;
   }
 
-  if (nutritionistData.length === 0) {
-    return;
-  }
-
   return (
     <div className="container cusGrid grid my-24">
       <div className="col-span-4 flex flex-col gap-16 lg:col-start-2 lg:col-span-6">
-        <NutritionistIntro nutritionistData={nutritionistData[0]} />
+        <NutritionistIntro nutritionistData={nutritionistData} />
       </div>
       <div className="mt-16 col-span-4 bg-white p-20 self-start rounded-20 lg:col-end-12 lg:mt-0">
         <ul className="flex flex-col gap-10">
-          {nutritionistData[0].Course.length > 0 ? (
-            nutritionistData[0].Course.map((course, index) => (
+          {nutritionistData.Plan.length > 0 ? (
+            nutritionistData.Plan.map((plan, index) => (
               <li key={index}>
-                <CourseNormalCard course={course} />
+                <CourseNormalCard plan={plan} />
               </li>
             ))
           ) : (
