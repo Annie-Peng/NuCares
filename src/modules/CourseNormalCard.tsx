@@ -1,4 +1,5 @@
 import { PlanType } from "@/pages/nutritionist-list/[nutritionistId]";
+import { getCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { FC } from "react";
 
@@ -8,6 +9,7 @@ interface CourseNormalCardProps {
 
 const CourseNormalCard: FC<CourseNormalCardProps> = ({ plan }) => {
   const router = useRouter();
+  const Token = getCookie("Token");
   return (
     <div className="border border-primary-200 p-20 rounded-15 flex flex-col gap-12 relative">
       <h4 className="text-20 font-bold">{plan.CourseName}</h4>
@@ -21,7 +23,18 @@ const CourseNormalCard: FC<CourseNormalCardProps> = ({ plan }) => {
       )}
       <button
         type="button"
-        onClick={() => router.push("/payment")}
+        onClick={() => {
+          if (!Token) {
+            router.push({
+              pathname: "/login",
+            });
+          } else {
+            router.push({
+              pathname: "/payment",
+              query: { planId: plan.Id },
+            });
+          }
+        }}
         className="btn-cusSecondary w-full py-8"
       >
         購買

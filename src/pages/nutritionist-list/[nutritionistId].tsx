@@ -10,7 +10,7 @@ interface NutritionistType {
 }
 
 export interface PlanType {
-  Id: NutritionistType;
+  Id: number;
   Rank: string;
   CourseName: string;
   CourseWeek: string;
@@ -69,7 +69,7 @@ const NutritionistIdPage: FC<NutritionistIdPageProps> = ({
             ))
           ) : (
             <div className="border border-primary-200 p-20 rounded-15 flex flex-col gap-12 relative">
-              <p className="leading-[261px] font-bold text-black-300 mx-auto">
+              <p className="leading-[203px] font-bold text-black-300 mx-auto">
                 營養師尚未建立課程
               </p>
             </div>
