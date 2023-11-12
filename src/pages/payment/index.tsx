@@ -15,14 +15,14 @@ interface PaymentPageProps {
 
 const PaymentPage: FC<PaymentPageProps> = ({ auth }) => {
   const router = useRouter();
-  const { planId } = router.query;
-  const [currentPhase, setCurrentPhase] = useState<number>(1);
+  const { nutritionist, plan } = router.query;
+  const [currentPhase, setCurrentPhase] = useState<number>(4);
 
   const {
     data: renderData,
     isLoading,
     error,
-  } = usePaymentGetApiQuery({ Token: auth.Token, planId });
+  } = usePaymentGetApiQuery({ Token: auth.Token, planId: plan });
 
   if (isLoading || !renderData) {
     return <p>Payment is Loading</p>;
@@ -34,7 +34,7 @@ const PaymentPage: FC<PaymentPageProps> = ({ auth }) => {
     <div className="container text-center grid cusGrid">
       <div className=" col-span-4 lg:col-start-2 lg:col-span-10 ">
         <Link
-          href={`/nutritionist-list/${planId}`}
+          href={`/nutritionist-list/${nutritionist}`}
           className="text-left block border-b border-black-950 w-fit"
         >
           {"<"} 返回營養師專頁

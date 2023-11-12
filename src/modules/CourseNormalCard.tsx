@@ -31,7 +31,10 @@ const CourseNormalCard: FC<CourseNormalCardProps> = ({ plan }) => {
           } else {
             router.push({
               pathname: "/payment",
-              query: { planId: plan.Id },
+              query: {
+                nutritionist: router.query.nutritionistId,
+                plan: plan.Id,
+              },
             });
           }
         }}
