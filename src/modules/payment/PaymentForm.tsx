@@ -15,7 +15,7 @@ interface PaymentFormProps {
   auth: Auth;
   renderData: PlanType;
   setCurrentPhase: (currentPhase: number) => void;
-  planId: number;
+  planId: string;
 }
 
 const PaymentForm: FC<PaymentFormProps> = ({

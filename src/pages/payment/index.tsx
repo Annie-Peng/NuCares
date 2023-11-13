@@ -45,6 +45,7 @@ const PaymentPage: FC<PaymentPageProps> = ({ auth }) => {
             auth={auth}
             renderData={renderData.Data}
             setCurrentPhase={setCurrentPhase}
+            planId={plan as string}
           />
         )}
         {currentPhase === 2 && (
