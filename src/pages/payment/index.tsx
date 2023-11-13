@@ -16,7 +16,7 @@ interface PaymentPageProps {
 const PaymentPage: FC<PaymentPageProps> = ({ auth }) => {
   const router = useRouter();
   const { nutritionist, plan } = router.query;
-  const [currentPhase, setCurrentPhase] = useState<number>(4);
+  const [currentPhase, setCurrentPhase] = useState<number>(1);
 
   const {
     data: renderData,
