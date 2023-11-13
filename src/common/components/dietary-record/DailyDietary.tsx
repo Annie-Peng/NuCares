@@ -180,9 +180,10 @@ const DailyDietary: FC<DailyDietaryProps> = ({
 
   const tellMeal = (tab: string, formData: FormData) => {
     let obj: ObjType = {};
+
     formData.forEach((value, key) => {
       if (key === "MealImgUrl" || key === `${tab}ImgUrl`) {
-        obj[key] = fileSrc[tab as keyof InitFileSrcFoodType].fetch;
+        obj[key] = fileSrc[tab as keyof InitFileSrcFoodType]?.fetch;
       } else {
         obj[key] = value;
       }
@@ -340,7 +341,8 @@ function renderEventContent(
                       src={
                         fetchData[tab.enName].MealImgUrl ||
                         dailyDietaryData[otherTabImg] ||
-                        fileSrc[tab.enName as keyof InitFileSrcFoodType].file ||
+                        fileSrc[tab.enName as keyof InitFileSrcFoodType]
+                          ?.file ||
                         "/images/dashboard/dietary-record/upload-photo.svg"
                       }
                       fill
