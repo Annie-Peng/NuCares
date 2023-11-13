@@ -10,6 +10,7 @@ export interface InitFileSrcFoodType {
   Fruit?: { fetch: string; file: string };
   Water?: { fetch: string; file: string };
   PortraitImage?: { fetch: string; file: string };
+  ImgUrl?: { fetch: string; file: string };
 }
 
 export interface UseUploadFileProps {
