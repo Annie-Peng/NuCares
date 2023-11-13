@@ -6,7 +6,7 @@ interface TextareaProps {
   pMsg?: string;
   children?: ReactNode;
   placeholder?: string;
-  value?: string | string[] | boolean;
+  value?: string | string[] | boolean | number;
   required?: boolean;
   disabled?: boolean;
   onChange?: ReactEventHandler;

@@ -9,7 +9,7 @@ import InputSwitch from "../components/InputSwitch";
 import InputButtonGroup from "../components/InputButtonGroup";
 
 export interface InitialStateType {
-  [key: string]: string | string[] | boolean;
+  [key: string]: string | string[] | boolean | number;
 }
 
 interface useEditFormProps {
