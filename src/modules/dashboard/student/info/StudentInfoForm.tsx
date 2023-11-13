@@ -1,57 +1,53 @@
-import Image from "next/image";
 import { ComponentType } from "@/types/interface";
 import Input from "@/common/components/Input";
 import Select from "@/common/components/Select";
+import {
+  commonErrMsgClass,
+  commonRequiredErrMsg,
+} from "@/common/lib/dashboard/errMsg/commonErrMsg";
+import { getCookie } from "cookies-next";
 
 const studentInfoFormData: ComponentType[] = [
   {
-    component: "input",
+    component: "inputImage",
+    chName: "會員顯示圖",
     name: "ImgUrl",
     type: "file",
-    required: true,
     hMsg: "會員顯示圖*",
     pMsg: "圖片需小於 3mb",
     inputClass: "w-[294px] hidden",
     labelClass: "mt-0",
     id: "ImgUrl",
     accept: "image/png, image/jpeg, image/jpg",
-    children: (
-      <div>
-        <Image
-          src="/images/uploadPhoto-no-word.svg"
-          // fill
-          width={220}
-          height={220}
-          objectFit="cover"
-          alt="photo"
-          className="mt-12 rounded-5"
-        />
-      </div>
-    ),
+    Token: getCookie("Token"),
+    initFileSrc: { ImgUrl: { fetch: "", file: "" } },
+    errMsg: commonRequiredErrMsg,
+    errClass: commonErrMsgClass,
   },
   {
     component: "input",
     name: "UserName",
     type: "text",
-    required: true,
     hMsg: "姓名*",
     pMsg: "請輸入欲顯示的姓名或暱稱",
     inputClass: "w-[250px]",
+    errMsg: commonRequiredErrMsg,
+    errClass: commonErrMsgClass,
   },
   {
     component: "input",
     name: "Email",
     type: "text",
-    required: true,
     hMsg: "信箱*",
     pMsg: "此為註冊之帳號，不可更改",
     disabled: true,
     inputClass: "w-[250px] btn-cusDisableWriteBlack !py-8 !px-12",
+    errMsg: commonRequiredErrMsg,
+    errClass: commonErrMsgClass,
   },
   {
     component: "select",
     name: "Gender",
-    required: true,
     hMsg: "生理性別*",
     pMsg: "請選擇與身分證上相同的性別，",
     children: (
@@ -64,15 +60,18 @@ const studentInfoFormData: ComponentType[] = [
       { option: "女", value: "female" },
     ],
     imageClass: "bottom-12 left-[64px]",
+    errMsg: commonRequiredErrMsg,
+    errClass: commonErrMsgClass,
   },
   {
     component: "input",
     name: "Phone",
     type: "number",
-    required: true,
     hMsg: "手機*",
     pMsg: "請填寫您的手機號碼",
     inputClass: "w-[250px]",
+    errMsg: commonRequiredErrMsg,
+    errClass: commonErrMsgClass,
   },
 ];
 
@@ -91,8 +90,6 @@ const StudentInfoForm = () => {
                 required={data.required}
                 hMsg={data.hMsg}
                 pMsg={data.pMsg}
-                id={data.id}
-                accept={data.accept}
                 disabled={data.disabled}
               >
                 {data.children}

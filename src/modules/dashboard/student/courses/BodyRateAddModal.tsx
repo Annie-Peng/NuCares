@@ -50,21 +50,29 @@ const BodyRateAddModal: FC<BodyRateAddModalProps> = ({ data }) => {
   };
 
   return (
-    <TitleModal title="今天身體數值" width="820px" modal="showBodyRateAddModal">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <ul className="flex gap-32 my-32 text-center">
+    <TitleModal
+      title="今天身體數值"
+      width="820px"
+      mobileWidth="342px"
+      modal="showBodyRateAddModal"
+    >
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="max-w-[342px] lg:max-w-[820px]"
+      >
+        <ul className="flex flex-wrap gap-32 my-32 text-center lg:flex-nowrap">
           {bodyRateAdd.map((item, index) => (
-            <li key={index}>
+            <li key={index} className="w-[90px] mx-auto lg:w-full">
               <label className="relative">
                 <p className="bg-primary-400 text-white rounded-35">
                   {item.name}
                 </p>
                 <input
                   type="number"
-                  className="w-full mt-8 pr-[42px]"
+                  className="w-full mt-8 pr-[48px]"
                   {...register(`${item.enName}`, { required: "*必填" })}
                 />
-                <p className="absolute right-12 top-[42px] text-black-400">
+                <p className="absolute right-12 top-[43px] whitespace-nowrap text-black-400">
                   {item.unit}
                 </p>
               </label>
@@ -76,7 +84,7 @@ const BodyRateAddModal: FC<BodyRateAddModalProps> = ({ data }) => {
         </ul>
         <button
           type="submit"
-          className="btn-cusSecondary p-6 w-[270px] block mx-auto"
+          className="btn-cusSecondary p-8 w-[270px] block mx-auto lg:p-6"
         >
           新增
         </button>
