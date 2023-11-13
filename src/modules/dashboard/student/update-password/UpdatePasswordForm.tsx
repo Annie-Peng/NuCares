@@ -53,8 +53,6 @@ const UpdatePasswordForm = () => {
                 required={data.required}
                 hMsg={data.hMsg}
                 pMsg={data.pMsg}
-                id={data.id}
-                accept={data.accept}
                 disabled={data.disabled}
               >
                 {data.children}
