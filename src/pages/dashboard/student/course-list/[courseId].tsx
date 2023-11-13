@@ -3,7 +3,6 @@ import { storeBodyRate } from "@/common/redux/features/dietary-record/bodyRate";
 import { storeGoal } from "@/common/redux/features/dietary-record/goal";
 import {
   useBodyInfoGetApiQuery,
-  useDailyDietaryGetApiQuery,
   useGoalGetApiQuery,
 } from "@/common/redux/service/courseRecord";
 import wrapper from "@/common/redux/store";
@@ -26,14 +25,6 @@ const CourseIdPage: FC<CourseIdProps> = ({ auth }) => {
 
   console.log(auth);
 
-  // const dailyDietaryResult = useDailyDietaryGetApiQuery({
-  //   Token: auth.Token,
-  //   CourseId: courseId,
-  // },
-  // {
-  //   skip: router.isFallback,
-  // });
-
   const bodyInfoResult = useBodyInfoGetApiQuery(
     {
       Token: auth.Token,
@@ -42,7 +33,7 @@ const CourseIdPage: FC<CourseIdProps> = ({ auth }) => {
     {
       // If the page is not yet generated, router.isFallback will be true
       // initially until getStaticProps() finishes running
-      // skip: router.isFallback,
+      skip: router.isFallback,
     }
   );
   const goalResult = useGoalGetApiQuery(
@@ -60,13 +51,8 @@ const CourseIdPage: FC<CourseIdProps> = ({ auth }) => {
     error: BodyInfoError,
     data: BodyInfo,
   } = bodyInfoResult;
-  const { isLoading: isGoalLoading, error: GoalError, data: Goal } = goalResult;
 
-  // useEffect(() => {
-  //   if (BodyInfo) {
-  //     dispatch(storeBodyRate(BodyInfo.Data));
-  //   }
-  // }, [BodyInfo, dispatch]);
+  const { isLoading: isGoalLoading, error: GoalError, data: Goal } = goalResult;
 
   useEffect(() => {
     if (BodyInfo) {

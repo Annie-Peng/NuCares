@@ -22,17 +22,17 @@ const textCenter = {
 };
 
 interface WeightGoalChartProps {
-  WeightCompletionRate: string;
+  WeightCompletionRate: number;
 }
 
 const WeightGoalChart: FC<WeightGoalChartProps> = ({
   WeightCompletionRate,
 }) => {
-  const UnAchievement = 100 - Number(WeightCompletionRate);
+  const UnAchievement = 100 - WeightCompletionRate;
 
-  const data = [WeightCompletionRate, String(UnAchievement)];
-  const AchievementColor = data[0] === "100" ? "#E9A197" : "#3690A4";
-  const borderRadius = data[0] === "100" ? 0 : 50;
+  const data = [WeightCompletionRate, UnAchievement];
+  const AchievementColor = data[0] === 100 ? "#E9A197" : "#3690A4";
+  const borderRadius = data[0] === 100 ? 0 : 50;
 
   return (
     <Doughnut
