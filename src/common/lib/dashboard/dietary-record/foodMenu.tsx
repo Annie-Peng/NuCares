@@ -1,14 +1,20 @@
 import { DailyDietaryType } from "@/common/redux/features/dietary-record/dailyDietary";
 
 interface FoodIconType {
-  [key: string]: Record<string, string>;
+  [key: string]: FoodType;
+}
+
+export interface FoodType {
+  name: string;
+  enName: string;
+  foodIcon: string;
 }
 
 export interface FoodMenuType {
-  Breakfast: Record<string, string>[];
-  Lunch: Record<string, string>[];
-  Dinner: Record<string, string>[];
-  Others: Record<string, string>[];
+  Breakfast: FoodType[];
+  Lunch: FoodType[];
+  Dinner: FoodType[];
+  Others: FoodType[];
 }
 
 const foodIcon: FoodIconType = {
