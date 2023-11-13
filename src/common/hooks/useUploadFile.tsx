@@ -15,7 +15,7 @@ export interface InitFileSrcFoodType {
 export interface UseUploadFileProps {
   data: Tab;
   Token: string;
-  initFileSrc: InitFileSrcFoodType;
+  initFileSrc?: InitFileSrcFoodType;
 }
 
 export interface HandleUploadFileProps {
@@ -33,7 +33,9 @@ const useUploadFile = ({
   (fileSrc: InitFileSrcFoodType) => void,
   (onChange: HandleUploadFileProps) => void
 ] => {
-  const [fileSrc, setFileSrc] = useState<InitFileSrcFoodType>(initFileSrc);
+  const [fileSrc, setFileSrc] = useState<InitFileSrcFoodType>(
+    initFileSrc || {}
+  );
 
   // console.log(data, Token, initFileSrc);
 

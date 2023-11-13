@@ -1,5 +1,5 @@
 import { FC, Fragment, useState, Dispatch, SetStateAction } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import { ComponentType } from "@/types/interface";
 import Input from "../components/Input";
 import Select from "../components/Select";
@@ -8,18 +8,22 @@ import InputImage from "../components/InputImage";
 import InputSwitch from "../components/InputSwitch";
 import InputButtonGroup from "../components/InputButtonGroup";
 
+export interface InitialStateType {
+  [key: string]: string | string[] | boolean;
+}
+
 interface useEditFormProps {
-  initialState: Record<string, string | number | string[] | boolean>;
+  initialState: InitialStateType;
   formData: ComponentType[];
   putApi: any;
-  putApiData: Record<string, string | number>;
+  putApiData: string | Record<string, string | number> | string;
 }
 
 interface JSXEditFormProps {
-  initialState: Record<string, string | number>;
+  initialState: InitialStateType;
   formData: ComponentType[];
   putApi: any;
-  putApiData: Record<string, string | number>;
+  putApiData: string | Record<string, string | number>;
   setEdit: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -35,7 +39,7 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
     criteriaMode: "all",
   });
 
-  const onSubmit = async (body: Record<string, string | number>) => {
+  const onSubmit: SubmitHandler<InitialStateType> = async (body) => {
     try {
       const formData = {
         putApiData,
@@ -76,8 +80,6 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     errClass={data.errClass}
                     errMsg={data.errMsg}
                     onChange={field.onChange}
-                    id={data.id}
-                    accept={data.accept}
                   >
                     {data.children}
                   </Input>
@@ -90,6 +92,7 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     hMsg={data.hMsg || "title"}
                     pMsg={data.pMsg}
                     selectClass={data.selectClass}
+                    labelClass={data.labelClass}
                     disabledOption={data.disabledOption || "請選擇"}
                     options={data.options || []}
                     imageClass={data.imageClass}
@@ -97,7 +100,9 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     errClass={data.errClass}
                     errMsg={data.errMsg}
                     onChange={field.onChange}
-                  />
+                  >
+                    {data.children}
+                  </Select>
                 )}
                 {data.component === "textarea" && (
                   <Textarea
@@ -118,7 +123,7 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                   <InputImage
                     chName={data.chName as string}
                     name={data.name}
-                    type={data.type || "file"}
+                    type="file"
                     labelClass={data.labelClass}
                     inputClass={data.inputClass}
                     required={data.required}
@@ -129,7 +134,7 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     Token={data.Token as string}
                     initFileSrc={data.initFileSrc}
                     setValue={setValue}
-                    value={field.value}
+                    value={field.value as string}
                   >
                     {data.children}
                   </InputImage>
@@ -138,7 +143,7 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                   <InputSwitch
                     {...field}
                     name={data.name}
-                    type={data.type || "checkbox"}
+                    type="checkbox"
                     labelClass={data.labelClass}
                     inputClass={data.inputClass}
                     required={data.required}
@@ -147,7 +152,7 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     error={invalid}
                     errClass={data.errClass}
                     errMsg={data.errMsg}
-                    value={field.value}
+                    value={field.value as string}
                     onChange={field.onChange}
                     id={data.id}
                     accept={data.accept}
@@ -159,21 +164,16 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                   <InputButtonGroup
                     {...field}
                     name={data.name}
-                    type={data.type || "checkbox"}
+                    type="button"
                     labelClass={data.labelClass}
-                    inputClass={data.inputClass}
-                    required={data.required}
                     hMsg={data.hMsg}
                     pMsg={data.pMsg}
                     error={invalid}
                     errClass={data.errClass}
                     errMsg={data.errMsg}
-                    value={field.value}
-                    onChange={field.onChange}
-                    id={data.id}
-                    accept={data.accept}
+                    value={field.value as string[]}
+                    // onChange={field.onChange}
                     setValue={setValue}
-                    getValues={getValues}
                     buttonOptions={data.buttonOptions || []}
                     selectButtonClass={data.selectButtonClass}
                     unSelectButtonClass={data.unSelectButtonClass}
