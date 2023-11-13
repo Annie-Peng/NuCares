@@ -1,4 +1,3 @@
-import { InputType } from "@/common/components/Input";
 import { InitFileSrcFoodType } from "@/common/hooks/useUploadFile";
 import auth, { Auth } from "@/common/redux/features/auth";
 import { changeIDType } from "@/common/redux/features/changeID";
@@ -101,3 +100,13 @@ export interface ComponentType {
   options?: Array<{ option: string; value: string }>;
   disabled?: boolean;
 }
+
+export type InputType =
+  | "text"
+  | "number"
+  | "checkbox"
+  | "password"
+  | "email"
+  | "file"
+  | "hidden"
+  | "button";
