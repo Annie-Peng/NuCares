@@ -1,36 +1,102 @@
-import { FC } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import Image from "next/image";
+import { FoodType } from "@/common/lib/dashboard/dietary-record/foodMenu";
+
+interface RenderDataType {
+  Id: number;
+  MenuDate: string;
+  CourseId: number;
+  Fruit: number;
+  Water: number;
+  Oil: number;
+  Protein: string;
+  Vegetable: string;
+  Starch: string;
+  [key: string]: string | number;
+}
 
 interface MealEditFormProps {
   title: string;
-  food: Record<string, string>[];
+  food: FoodType[];
+  renderData: RenderDataType;
 }
-const MealEditForm: FC<MealEditFormProps> = ({ title, food }) => {
-  console.log(food);
+
+interface InitialStateType {
+  [key: string]: string | number | undefined;
+}
+
+const MealEditForm: FC<MealEditFormProps> = ({ title, food, renderData }) => {
+  const foodInputNameArray = food.map((item) => {
+    return `${title}${item.enName}`;
+  });
+
+  let newRenderData: (string | number | undefined)[] = food.map((item) => {
+    if (typeof renderData[item.enName] === "string") {
+      const array = (renderData[item.enName] as string).split(",");
+      return tellMeal(title, array);
+    } else {
+      return renderData[item.enName];
+    }
+  });
+
+  let initialState: InitialStateType = {};
+  food.forEach((item, index) => {
+    initialState[foodInputNameArray[index]] = newRenderData[index];
+  });
+
+  const [qty, setQty] = useState(initialState);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setQty({
+      ...qty,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  function tellMeal(title: string, foodArray: string[]) {
+    switch (title) {
+      case "早餐": {
+        return foodArray[0];
+      }
+      case "午餐": {
+        return foodArray[1];
+      }
+      case "晚餐": {
+        return foodArray[2];
+      }
+    }
+  }
+
+  console.log(qty);
+
   return (
     <div className="breakfastQuantity w-full lg:w-[36%]">
       <h5 className="text-white bg-primary-400 rounded-35">{title}</h5>
       <ul className="flex justify-center gap-24 mt-12">
-        {food.map((item, index) => (
-          <li key={index}>
-            <label htmlFor={`${title}${item.enName}`}>
-              <Image
-                src={`/images/dashboard/dietary-record/foods/${item.foodIcon}`}
-                height={48}
-                width={48}
-                alt={item.enName}
-                className="mx-auto"
-              />
-              <p className="mt-8">{item.name}</p>
-              <input
-                name={`${title}${item.enName}`}
-                placeholder="份數"
-                className="w-full text-center"
-                type="number"
-              />
-            </label>
-          </li>
-        ))}
+        {food.map((item, index) => {
+          return (
+            <li key={index}>
+              <label htmlFor={foodInputNameArray[index]}>
+                <Image
+                  src={`/images/dashboard/dietary-record/foods/${item.foodIcon}`}
+                  height={48}
+                  width={48}
+                  alt={item.enName}
+                  className="mx-auto"
+                />
+                <p className="mt-8">{item.name}</p>
+                <input
+                  name={foodInputNameArray[index]}
+                  placeholder="份數"
+                  className="w-full text-center"
+                  type="number"
+                  value={qty[foodInputNameArray[index]]}
+                  onChange={handleChange}
+                />
+              </label>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
