@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
 import registerReducer from "./features/registerPhases";
+import paymentReducer from "./features/paymentPhases";
 import authReducer from "./features/auth";
 import showModalReducer from "./features/showModal";
 import changeIDReducer from "./features/changeID";
@@ -14,6 +15,7 @@ import { course } from "./service/course";
 import { courseRecord } from "./service/courseRecord";
 import { plan } from "./service/plan";
 import { nutritionistList } from "./service/nutritionistList";
+import { payment } from "./service/payment";
 
 const store = configureStore({
   reducer: {
@@ -24,6 +26,7 @@ const store = configureStore({
     dailyDietary: dailyDietaryReducer,
     bodyRate: bodyRateReducer,
     goal: goalReducer,
+    paymentPhases: paymentReducer,
 
     [register.reducerPath]: register.reducer,
     [login.reducerPath]: login.reducer,
@@ -31,6 +34,7 @@ const store = configureStore({
     [courseRecord.reducerPath]: courseRecord.reducer,
     [plan.reducerPath]: plan.reducer,
     [nutritionistList.reducerPath]: nutritionistList.reducer,
+    [payment.reducerPath]: payment.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -39,7 +43,8 @@ const store = configureStore({
       .concat(course.middleware)
       .concat(courseRecord.middleware)
       .concat(plan.middleware)
-      .concat(nutritionistList.middleware),
+      .concat(nutritionistList.middleware)
+      .concat(payment.middleware),
 });
 
 const wrapper = createWrapper(() => store, { debug: false });
