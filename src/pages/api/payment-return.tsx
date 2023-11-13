@@ -1,5 +1,7 @@
 // pages/api/payment-callback.js
-export default function handler(req, res) {
+import { NextApiRequest, NextApiResponse } from "next";
+
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const { Status } = req.query;
 
   // 检查支付状态
