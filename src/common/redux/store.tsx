@@ -15,6 +15,7 @@ import { course } from "./service/course";
 import { courseRecord } from "./service/courseRecord";
 import { plan } from "./service/plan";
 import { intro } from "./service/intro";
+import { apply } from "./service/apply";
 import { nutritionistList } from "./service/nutritionistList";
 import { payment } from "./service/payment";
 
@@ -35,6 +36,7 @@ const store = configureStore({
     [courseRecord.reducerPath]: courseRecord.reducer,
     [plan.reducerPath]: plan.reducer,
     [intro.reducerPath]: intro.reducer,
+    [apply.reducerPath]: apply.reducer,
     [nutritionistList.reducerPath]: nutritionistList.reducer,
     [payment.reducerPath]: payment.reducer,
   },
@@ -45,6 +47,7 @@ const store = configureStore({
       .concat(course.middleware)
       .concat(courseRecord.middleware)
       .concat(plan.middleware)
+      .concat(apply.middleware)
       .concat(intro.middleware)
       .concat(nutritionistList.middleware)
       .concat(payment.middleware),
