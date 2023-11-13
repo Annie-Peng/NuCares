@@ -6,8 +6,7 @@ interface TextareaProps {
   pMsg?: string;
   children?: ReactNode;
   placeholder?: string;
-  value?: string | number;
-  id?: string;
+  value?: string | string[] | boolean;
   required?: boolean;
   disabled?: boolean;
   onChange?: ReactEventHandler;
@@ -47,7 +46,7 @@ const Textarea: FC<TextareaProps> = ({
           className={`${textareaClass} mt-12 py-8 ${
             error && "focus:ring-secondary-500"
           }`}
-          value={value}
+          value={value as string}
           placeholder={placeholder}
           onChange={onChange}
           required={required}

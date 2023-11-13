@@ -1,12 +1,8 @@
-import {
-  FC,
-  ReactEventHandler,
-  ReactNode,
-  FocusEventHandler,
-  useEffect,
-} from "react";
+import { FC, ReactEventHandler, ReactNode, FocusEventHandler } from "react";
 import useUploadFile, { InitFileSrcFoodType } from "../hooks/useUploadFile";
 import Image from "next/image";
+import { UseFormSetValue } from "react-hook-form";
+import { InitialStateType } from "../hooks/useEditForm";
 
 export interface InputImageProps {
   chName: string;
@@ -16,7 +12,7 @@ export interface InputImageProps {
   pMsg?: string;
   children?: ReactNode;
   placeholder?: string;
-  value?: string | number;
+  value?: string;
   id?: string;
   accept?: string;
   required?: boolean;
@@ -29,8 +25,8 @@ export interface InputImageProps {
   onBlur?: FocusEventHandler;
   error?: boolean;
   Token: string;
-  initFileSrc: InitFileSrcFoodType;
-  setValue: (value: string) => void;
+  initFileSrc?: InitFileSrcFoodType;
+  setValue: UseFormSetValue<InitialStateType>;
 }
 
 const InputImage: FC<InputImageProps> = ({
@@ -65,7 +61,7 @@ const InputImage: FC<InputImageProps> = ({
 
   const PutPhoto = fileSrc[name as keyof InitFileSrcFoodType]?.fetch;
   if (fileSrc[name as keyof InitFileSrcFoodType]?.fetch) {
-    setValue(name, PutPhoto);
+    setValue(name, PutPhoto || "");
   }
 
   return (
@@ -78,7 +74,7 @@ const InputImage: FC<InputImageProps> = ({
           <Image
             src={
               fileSrc[name as keyof InitFileSrcFoodType]?.file ||
-              value ||
+              (value as string) ||
               "/images/uploadPhoto.svg"
             }
             fill

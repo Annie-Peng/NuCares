@@ -1,15 +1,13 @@
 import { FC, ReactEventHandler, ReactNode, FocusEventHandler } from "react";
-import Image from "next/image";
 
 export interface InputSwitchProps {
-  chName: string;
   name: string;
   type: "checkbox";
   hMsg?: string;
   pMsg?: string;
   children?: ReactNode;
   placeholder?: string;
-  value?: string | number;
+  value?: string;
   id?: string;
   accept?: string;
   required?: boolean;
@@ -21,11 +19,9 @@ export interface InputSwitchProps {
   errMsg?: string;
   onBlur?: FocusEventHandler;
   error?: boolean;
-  Token: string;
 }
 
 const InputSwitch: FC<InputSwitchProps> = ({
-  chName,
   name,
   id,
   accept,

@@ -1,4 +1,6 @@
-import { FC, ReactEventHandler, ReactNode, FocusEventHandler } from "react";
+import { FC, ReactNode } from "react";
+import { InitialStateType } from "../hooks/useEditForm";
+import { UseFormSetValue } from "react-hook-form";
 
 export interface InputButtonGroupProps {
   name: string;
@@ -15,7 +17,8 @@ export interface InputButtonGroupProps {
   buttonOptions: string[];
   ulClass: string;
   liClass: string;
-  setValue: (value: string[]) => void;
+  setValue: UseFormSetValue<InitialStateType>;
+  children?: ReactNode;
 }
 
 const InputButtonGroup: FC<InputButtonGroupProps> = ({
@@ -34,6 +37,7 @@ const InputButtonGroup: FC<InputButtonGroupProps> = ({
   ulClass,
   liClass,
   setValue,
+  children,
 }) => {
   const handleClick = (index: number, option: string) => {
     if (value?.includes(option)) {
@@ -50,9 +54,10 @@ const InputButtonGroup: FC<InputButtonGroupProps> = ({
       <label htmlFor={name} className={`${labelClass} mt-20 block`}>
         <h4 className="formHead">{hMsg}</h4>
         <p className="formContent">{pMsg}</p>
+        {children}
         <ul className={ulClass}>
           {buttonOptions.map((option, index) => (
-            <li className={liClass}>
+            <li key={index} className={liClass}>
               <input
                 key={option}
                 type={type}
