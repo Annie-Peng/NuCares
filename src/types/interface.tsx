@@ -1,9 +1,10 @@
 import { InputType } from "@/common/components/Input";
-import auth, { Auth } from "@/common/redux/features/auth";
+import auth from "@/common/redux/features/auth";
 import { changeIDType } from "@/common/redux/features/changeID";
 import { BodyRateType } from "@/common/redux/features/dietary-record/bodyRate";
 import { DailyDietaryType } from "@/common/redux/features/dietary-record/dailyDietary";
 import { GoalType } from "@/common/redux/features/dietary-record/goal";
+import { PaymentDataType } from "@/common/redux/features/paymentPhases";
 import { ShowModalType } from "@/common/redux/features/showModal";
 import { ReactNode } from "react";
 export interface LayoutProps {
@@ -33,6 +34,7 @@ export interface RegisterData {
 
 export interface RootState {
   registerPhases?: RegisterData | undefined;
+  paymentPhases: PaymentDataType;
   auth: Auth;
   showModal: ShowModalType;
   changeID: changeIDType;
@@ -84,4 +86,20 @@ export interface ComponentType {
   id?: string;
   options?: Array<{ option: string; value: string }>;
   disabled?: boolean;
+}
+
+export interface PlanType {
+  Title: string;
+  CourseName: string;
+  CourseWeek: string;
+  CoursePrice: string;
+}
+
+export interface Auth {
+  Token: string;
+  UserName: string;
+  Email: string;
+  ImgUrl: string;
+  IsNutritionist: boolean;
+  UserCurrentStatus: string;
 }
