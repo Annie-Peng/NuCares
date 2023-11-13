@@ -105,7 +105,7 @@ export const getStaticProps: GetServerSideProps = async (context) => {
     const nutritionistId = context.params?.nutritionistId as string;
 
     const result = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/nutritionist?nutritionistid=${nutritionistId}`
+      `${process.env.NEXT_PUBLIC_API_URL}/nutritionist/${nutritionistId}`
     );
     const data = result.data;
 
