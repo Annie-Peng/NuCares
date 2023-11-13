@@ -1,14 +1,5 @@
 import { FC, ReactEventHandler, ReactNode, FocusEventHandler } from "react";
-
-export type InputType =
-  | "text"
-  | "number"
-  | "checkbox"
-  | "password"
-  | "email"
-  | "file"
-  | "hidden"
-  | "button";
+import { InputType } from "@/types/interface";
 
 export interface InputProps {
   name: string;
@@ -17,9 +8,7 @@ export interface InputProps {
   pMsg?: string;
   children?: ReactNode;
   placeholder?: string;
-  value?: string | number;
-  id?: string;
-  accept?: string;
+  value?: string | string[] | boolean | number;
   required?: boolean;
   disabled?: boolean;
   onChange?: ReactEventHandler;
@@ -33,8 +22,6 @@ export interface InputProps {
 
 const Input: FC<InputProps> = ({
   name,
-  id,
-  accept,
   labelClass,
   type,
   inputClass,
@@ -63,14 +50,12 @@ const Input: FC<InputProps> = ({
           className={`${inputClass} mt-12 py-8 ${
             error && "focus:ring-secondary-500"
           }`}
-          value={value}
+          value={value as string}
           placeholder={placeholder}
           onChange={onChange}
           required={required}
           disabled={disabled}
           onBlur={onBlur}
-          accept={accept}
-          id={id}
         />
       </label>
       {error && <p className={errClass}>{errMsg}</p>}

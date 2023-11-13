@@ -19,11 +19,11 @@ export const intro = createApi({
       providesTags: ["Intro"],
     }),
     introPutApi: builder.mutation({
-      query: ({ Token, body }) => ({
+      query: ({ putApiData, body }) => ({
         url: "/nu/info",
         method: "PUT",
         headers: {
-          Authorization: `${Token}`,
+          Authorization: `${putApiData.Token}`,
           "Content-Type": "application/json",
         },
         body,

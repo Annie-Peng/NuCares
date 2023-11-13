@@ -6,8 +6,8 @@ export interface GoalType {
   GoalBodyFat: string;
   Weight: string;
   BodyFat: string;
-  WeightCompletionRate: string;
-  BodyFatCompletionRate: string;
+  WeightCompletionRate: number;
+  BodyFatCompletionRate: number;
 }
 
 export const goalSlice = createSlice({

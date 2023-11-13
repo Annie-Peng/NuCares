@@ -11,12 +11,13 @@ export interface InitFileSrcFoodType {
   Water?: { fetch: string; file: string };
   PortraitImage?: { fetch: string; file: string };
   CertificateImage?: { fetch: string; file: string };
+  ImgUrl?: { fetch: string; file: string };
 }
 
 export interface UseUploadFileProps {
   data: Tab;
   Token: string;
-  initFileSrc: InitFileSrcFoodType;
+  initFileSrc?: InitFileSrcFoodType;
 }
 
 export interface HandleUploadFileProps {
@@ -34,7 +35,9 @@ const useUploadFile = ({
   (fileSrc: InitFileSrcFoodType) => void,
   (onChange: HandleUploadFileProps) => void
 ] => {
-  const [fileSrc, setFileSrc] = useState<InitFileSrcFoodType>(initFileSrc);
+  const [fileSrc, setFileSrc] = useState<InitFileSrcFoodType>(
+    initFileSrc || {}
+  );
 
   // console.log(data, Token, initFileSrc);
 
