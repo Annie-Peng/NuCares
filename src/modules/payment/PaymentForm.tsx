@@ -1,10 +1,9 @@
-import { Auth } from "@/common/redux/features/auth";
 import {
   PaymentDataType,
   selectPayment,
   storePaymentForm,
 } from "@/common/redux/features/paymentPhases";
-import { PlanType } from "@/types/interface";
+import { Auth, PlanType } from "@/types/interface";
 import Image from "next/image";
 import paymentStep1 from "public/images/payment/paymentStep1.svg";
 import { FC } from "react";
