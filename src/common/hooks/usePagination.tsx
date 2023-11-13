@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { FC, useState, Dispatch, SetStateAction } from "react";
 
 interface JSXPaginationProps {
@@ -5,6 +7,15 @@ interface JSXPaginationProps {
   setShowPage: Dispatch<SetStateAction<Record<string, number>>>;
   prevPage: number;
   nextPage: number;
+  url: string;
+}
+
+interface UsePaginationProps {
+  pagination: {
+    Current_page: number;
+    Total_pages: number;
+  };
+  url: string;
 }
 
 const JSXPagination: FC<JSXPaginationProps> = ({
@@ -12,11 +23,13 @@ const JSXPagination: FC<JSXPaginationProps> = ({
   setShowPage,
   prevPage,
   nextPage,
+  url,
 }) => {
   const pageNumbers = [];
   for (let i = 1; i <= showPage.Total_pages; i++) {
     pageNumbers.push(i);
   }
+  const router = useRouter();
 
   return (
     <nav className="mx-auto mt-[36px]">
@@ -31,10 +44,11 @@ const JSXPagination: FC<JSXPaginationProps> = ({
           <button
             type="button"
             onClick={() => {
-              prevPage > 0 &&
+              if (prevPage > 0) {
                 setShowPage({ ...showPage, Current_page: prevPage });
+                router.push(`${url}${prevPage}`, undefined, { shallow: false });
+              }
             }}
-            className=""
           >
             {"<"}
           </button>
@@ -48,12 +62,16 @@ const JSXPagination: FC<JSXPaginationProps> = ({
                 : "border-primary-500 text-black-300 bg-white"
             }`}
           >
-            <button
-              type="button"
-              onClick={() => setShowPage({ ...showPage, Current_page: number })}
-            >
-              {number}
-            </button>
+            <Link href={`${url}${number}`}>
+              <button
+                type="button"
+                onClick={() =>
+                  setShowPage({ ...showPage, Current_page: number })
+                }
+              >
+                {number}
+              </button>
+            </Link>
           </li>
         ))}
         <li
@@ -71,6 +89,9 @@ const JSXPagination: FC<JSXPaginationProps> = ({
                 nextPage < showPage.Total_pages
               ) {
                 setShowPage({ ...showPage, Current_page: nextPage });
+                router.push(`${url}${nextPage}`, undefined, {
+                  shallow: false,
+                });
               }
             }}
           >
@@ -82,25 +103,26 @@ const JSXPagination: FC<JSXPaginationProps> = ({
   );
 };
 
-const usePagination = () => {
+const usePagination = ({ pagination, url }: UsePaginationProps) => {
   const [showPage, setShowPage] = useState<Record<string, number>>({
-    Current_page: 1,
-    Total_pages: 5,
+    Current_page: pagination.Current_page,
+    Total_pages: pagination.Total_pages,
   });
 
   const prevPage = showPage.Current_page - 1;
   const nextPage = showPage.Current_page + 1;
 
-  const renderData = (
+  const renderPaginationData = (
     <JSXPagination
       showPage={showPage}
       setShowPage={setShowPage}
       prevPage={prevPage}
       nextPage={nextPage}
+      url={url}
     />
   );
 
-  return { showPage, setShowPage, renderData };
+  return { showPage, setShowPage, renderPaginationData };
 };
 
 export default usePagination;

@@ -22,17 +22,17 @@ const textCenter = {
 };
 
 interface BodyFatCompletionRateProps {
-  BodyFatCompletionRate: string;
+  BodyFatCompletionRate: number;
 }
 
 const BMIGoalChart: FC<BodyFatCompletionRateProps> = ({
   BodyFatCompletionRate,
 }) => {
-  const UnAchievement = 100 - Number(BodyFatCompletionRate);
+  const UnAchievement = 100 - BodyFatCompletionRate;
 
-  const data = [BodyFatCompletionRate, String(UnAchievement)];
-  const AchievementColor = data[0] === "100" ? "#E9A197" : "#3690A4";
-  const borderRadius = data[0] === "100" ? 0 : 50;
+  const data = [BodyFatCompletionRate, UnAchievement];
+  const AchievementColor = data[0] === 100 ? "#E9A197" : "#3690A4";
+  const borderRadius = data[0] === 100 ? 0 : 50;
 
   return (
     <Doughnut
