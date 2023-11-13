@@ -1,9 +1,35 @@
 import Image from "next/image";
 import { ComponentType } from "@/types/interface";
 import cities from "@/common/lib/dashboard/cities";
-import Input from "@/common/components/Input";
-import Select from "@/common/components/Select";
-import Textarea from "@/common/components/Textarea";
+import { getCookie } from "cookies-next";
+import {
+  commonErrMsgClass,
+  commonRequiredErrMsg,
+} from "@/common/lib/dashboard/errMsg/commonErrMsg";
+import useEditForm from "@/common/hooks/useEditForm";
+import {
+  useIntroGetApiQuery,
+  useIntroPutApiMutation,
+} from "@/common/redux/service/intro";
+import { FC } from "react";
+
+interface NutritionistIntroFormProps {
+  Token: string;
+  renderData: {
+    IsPublic: boolean;
+    PortraitImage: string;
+    Title: string;
+    City: string;
+    Expertise: string[];
+    Education: string;
+    Experience: string;
+    AboutMe: string;
+    CourseIntro: string;
+    Option1: string;
+    Option2: string;
+    Option3: string;
+  };
+}
 
 const cityOption = cities.map((data) => {
   return { option: data.name, value: data.name };
@@ -11,85 +37,65 @@ const cityOption = cities.map((data) => {
 
 const nutritionistIntroFormData: ComponentType[] = [
   {
-    component: "input",
+    component: "inputSwitch",
+    name: "IsPublic",
+    type: "checkbox",
+    required: false,
+    hMsg: "公開您的介紹",
+    pMsg: "在設定為公開狀態後，您才能開始接案。但即使處於未公開狀態，您仍然可為正在進行中的學員提供飲食建議。",
+    inputClass: "hidden",
+    id: "IsPublic",
+  },
+  {
+    component: "inputImage",
+    chName: "形象照",
     name: "PortraitImage",
     type: "file",
-    required: true,
     hMsg: "形象照*",
     pMsg: "圖片需小於 3mb",
     inputClass: "w-[294px] hidden",
     id: "PortraitImage",
     accept: "image/png, image/jpeg, image/jpg",
-    children: (
-      <Image
-        src="/images/uploadPhoto.svg"
-        width={220}
-        height={275}
-        alt="photo"
-        className="mt-12"
-      />
-    ),
+    Token: getCookie("Token"),
+    initFileSrc: { PortraitImage: { fetch: "", file: "" } },
+    errMsg: commonRequiredErrMsg,
+    errClass: commonErrMsgClass,
   },
   {
     component: "input",
     name: "Title",
     type: "text",
-    required: true,
     hMsg: "顯示名稱*",
     pMsg: "您可使用真實姓名或希望學員如何稱呼您的名字",
     inputClass: "w-[270px] lg:w-[294px]",
+    errMsg: commonRequiredErrMsg,
+    errClass: commonErrMsgClass,
   },
   {
     component: "select",
     name: "City",
-    required: true,
     hMsg: "所在縣市*",
     pMsg: "您所在的位置",
     selectClass: "w-[96px] z-10 relative bg-transparent",
     disabledOption: "請選擇",
     options: cityOption,
     imageClass: "bottom-12 left-[64px]",
+    errMsg: commonRequiredErrMsg,
+    errClass: commonErrMsgClass,
   },
   {
-    component: "input",
+    component: "inputButtonGroup",
     name: "Expertise",
-    type: "hidden",
-    required: true,
+    type: "button",
     hMsg: "專長主題*",
     pMsg: "您擅長的飲食建議主題（可複選）",
-    children: (
-      <ul className="flex flex-wrap gap-12 mt-12 text-14 font-bold">
-        <li className="w-[45%] lg:w-auto">
-          <input
-            type="button"
-            value="體重控制"
-            className="btn-cusWritePrimary !p-10 w-full"
-          />
-        </li>
-        <li className="w-[45%] lg:w-auto">
-          <input
-            type="button"
-            value="上班族營養"
-            className="btn-cusWritePrimary !p-10 w-full"
-          />
-        </li>
-        <li className="w-[45%] lg:w-auto">
-          <input
-            type="button"
-            value="孕期營養"
-            className="btn-cusWritePrimary !p-10 w-full"
-          />
-        </li>
-
-        <li className="w-[45%] lg:w-auto">
-          <input
-            type="button"
-            value="樂齡營養與保健"
-            className="btn-cusWritePrimary !p-10 w-full"
-          />
-        </li>
-      </ul>
-    ),
+    errMsg: commonRequiredErrMsg,
+    errClass: commonErrMsgClass,
+    ulClass: "flex flex-wrap gap-12 mt-12 text-14 font-bold",
+    liClass: "w-[45%] lg:w-auto",
+    selectButtonClass: "btn-cusWriteSecondary !p-10 w-[136px]",
+    unSelectButtonClass: "btn-cusWritePrimary !p-10 w-[136px]",
+    buttonOptions: ["體重控制", "上班族營養", "孕期營養", "樂齡營養與保健"],
   },
   {
     component: "input",
@@ -117,112 +123,80 @@ const nutritionistIntroFormData: ComponentType[] = [
   {
     component: "textarea",
     name: "CourseIntro",
-    required: true,
     hMsg: "課程介紹*",
     pMsg: "更多詳細的課程說明",
     textareaClass: "w-full h-[137px]",
+    errMsg: commonRequiredErrMsg,
+    errClass: commonErrMsgClass,
   },
   {
     component: "input",
-    name: "Contact",
-    type: "hidden",
-    required: true,
+    name: "Option1",
+    type: "email",
     hMsg: "聯絡方式*",
     pMsg: "與學員聯絡的方式（不會公開在營養師個人介紹頁面，僅提供給購買課程之學員）",
-    children: (
-      <ul className="flex flex-wrap gap-12 mt-12">
-        <li className="w-full relative">
-          <input type="text" name="Email" className="w-full pl-[62px]" />
-          <p className="absolute top-12 left-12">Email</p>
-        </li>
-        <li className="w-full relative">
-          <input type="number" name="Phone" className="w-full pl-[62px]" />
-          <p className="absolute top-12 left-12">手機</p>
-        </li>
-        <li className="w-full relative">
-          <input type="text" name="Line" className="w-full pl-[62px]" />
-          <p className="absolute top-12 left-12">LINE</p>
-        </li>
-      </ul>
-    ),
+    labelClass: "relative",
+    inputClass: "w-full pl-[62px]",
+    children: <p className="absolute bottom-8 left-12">Email</p>,
+    errMsg: commonRequiredErrMsg,
+    errClass: commonErrMsgClass,
+  },
+  {
+    component: "input",
+    name: "Option2",
+    type: "number",
+    labelClass: "!mt-0 relative",
+    inputClass: "w-full pl-[62px]",
+    children: <p className="absolute bottom-8 left-12">手機</p>,
+    errMsg: commonRequiredErrMsg,
+    errClass: commonErrMsgClass,
+  },
+  {
+    component: "input",
+    name: "Option3",
+    type: "text",
+    labelClass: "!mt-0 relative",
+    inputClass: "w-full pl-[62px]",
+    children: <p className="absolute bottom-8 left-12">LINE</p>,
+    errMsg: commonRequiredErrMsg,
+    errClass: commonErrMsgClass,
   },
 ];
 
-const NutritionistIntroForm = () => {
+const NutritionistIntroForm: FC<NutritionistIntroFormProps> = ({
+  Token,
+  renderData,
+}) => {
+  const [introPutApi] = useIntroPutApiMutation();
+
+  const initialState = {
+    IsPublic: renderData.IsPublic,
+    PortraitImage: renderData.PortraitImage,
+    Title: renderData.Title,
+    City: renderData.City,
+    Expertise: renderData.Expertise,
+    Education: renderData.Education,
+    Experience: renderData.Experience,
+    AboutMe: renderData.AboutMe,
+    CourseIntro: renderData.CourseIntro,
+    Option1: renderData.Option1,
+    Option2: renderData.Option2,
+    Option3: renderData.Option3,
+  };
+
+  const putApiData = { Token };
+
+  const { renderEditForm } = useEditForm({
+    initialState,
+    formData: nutritionistIntroFormData,
+    putApi: introPutApi,
+    putApiData,
+  });
+
   return (
-    <form className="text-left flex flex-col cusDashboardInnerContainer mt-32 p-20">
-      <ul>
-        <li>
-          <h4 className="formHead">公開您的介紹</h4>
-          <p className="formContent">
-            在設定為公開狀態後，您才能開始接案。但即使處於未公開狀態，您仍然可為正在進行中的學員提供飲食建議。
-          </p>
-          <div className="flex relative mt-12">
-            <label
-              htmlFor="IsPublic"
-              className="block border border-primary-500 rounded-l-50 rounded-r-50 w-[41px] h-[22px] cusSwitch relative"
-            />
-            <input type="checkbox" id="IsPublic" className="hidden" />
-            <span className="ms-4">公開</span>
-          </div>
-        </li>
-        {nutritionistIntroFormData.map((data, index) => (
-          <li key={index}>
-            {data.component === "input" && (
-              <Input
-                name={data.name}
-                type={data.type || "text"}
-                labelClass={data.labelClass}
-                inputClass={data.inputClass}
-                required={data.required}
-                hMsg={data.hMsg}
-                pMsg={data.pMsg}
-                id={data.id}
-                accept={data.accept}
-              >
-                {data.children}
-              </Input>
-            )}
-            {data.component === "select" && (
-              <Select
-                name={data.name}
-                required={data.required}
-                hMsg={data.hMsg}
-                pMsg={data.pMsg as string}
-                selectClass={data.selectClass}
-                disabledOption={data.disabledOption || "請選擇"}
-                options={data.options || []}
-                imageClass={data.imageClass}
-              />
-            )}
-            {data.component === "textarea" && (
-              <Textarea
-                name={data.name}
-                labelClass={data.labelClass}
-                textareaClass={data.textareaClass}
-                required={data.required}
-                hMsg={data.hMsg}
-                pMsg={data.pMsg}
-              />
-            )}
-          </li>
-        ))}
-      </ul>
-      <div className="text-center mt-[60px] flex flex-col gap-10 justify-center items-center lg:flex-row">
-        <button
-          type="button"
-          className="btn-cusWritePrimary !py-8 w-full lg:w-[278px] order-2 lg:order-1"
-        >
-          放棄變更
-        </button>
-        <button
-          type="submit"
-          className="btn-cusWriteSecondary !py-8 w-full lg:w-[278px] order-1 lg:order-2"
-        >
-          儲存
-        </button>
-      </div>
-    </form>
+    <div className="text-left flex flex-col cusDashboardInnerContainer mt-32 p-20">
+      <ul>{renderEditForm}</ul>
+    </div>
   );
 };
 

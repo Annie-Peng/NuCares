@@ -1,14 +1,13 @@
 import Image from "next/image";
-import { FC, ReactEventHandler, ReactNode, FocusEventHandler } from "react";
+import { FC, ReactEventHandler, ReactNode } from "react";
 
 interface SelectProps {
   name: string;
-  hMsg: string;
+  hMsg?: string;
   pMsg?: string;
   disabledOption: string;
   options: Array<{ option: string; value: string }>;
   children?: ReactNode;
-  id?: string;
   required?: boolean;
   onChange?: ReactEventHandler;
   labelClass?: string;
@@ -16,9 +15,7 @@ interface SelectProps {
   errClass?: string;
   errMsg?: string;
   imageClass?: string;
-  onBlur?: FocusEventHandler;
   error?: boolean;
-  value?: string | number;
 }
 
 const Select: FC<SelectProps> = ({
@@ -35,9 +32,7 @@ const Select: FC<SelectProps> = ({
   disabledOption,
   options,
   imageClass,
-  onBlur,
   error,
-  value,
 }) => {
   return (
     <>
@@ -52,8 +47,6 @@ const Select: FC<SelectProps> = ({
           name={name}
           onChange={onChange}
           required={required}
-          onBlur={onBlur}
-          value={value}
         >
           <option value="" disabled selected>
             {disabledOption}

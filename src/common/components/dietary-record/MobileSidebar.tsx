@@ -8,7 +8,7 @@ interface MobileSidebarProps {
 
 const MobileSidebar = ({ showTab, setShowTab }: MobileSidebarProps) => {
   return (
-    <div className="bg-primary-400 fixed bottom-0 left-0 right-0 ">
+    <div className="bg-primary-400 fixed bottom-0 left-0 right-0 flex z-10 ">
       <ul className="h-[65px] flex justify-between items-center px-[25px] bg-primary-400 container lg:hidden">
         {dietaryRecordTabs.map((tab, index) => {
           return showTab === index + 1 ? (

@@ -41,5 +41,5 @@
 }
 
 .cusModal {
-  @apply absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-white bg-opacity-80  p-50 rounded-10 w-[820px] z-10 cusShareBg;
+  @apply absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-white bg-opacity-80 p-32 rounded-10 z-10 lg:p-50 cusShareBg;
 }

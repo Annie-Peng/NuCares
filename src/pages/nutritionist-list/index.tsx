@@ -1,8 +1,44 @@
 import usePagination from "@/common/hooks/usePagination";
 import NutritionistCard from "@/modules/NutritionistCard";
+import axios from "axios";
+import { GetServerSideProps } from "next";
+import { FC } from "react";
 
-const NutritionistListPage = () => {
-  const { showPage, setShowPage, renderData } = usePagination();
+export interface PlanType {
+  Rank: number;
+  CourseName: string;
+  CourseWeek: number;
+  CoursePrice: number;
+  Tag: string;
+}
+
+export interface NutritionistsRenderDataType {
+  Id: string;
+  Title: string;
+  PortraitImage: string;
+  Expertise: string[];
+  AboutMe: string;
+  Favorite: boolean;
+  Plan: PlanType[];
+}
+
+interface NutritionistListPageProps {
+  nutritionistsRenderData: NutritionistsRenderDataType[];
+  pagination: {
+    Current_page: number;
+    Total_pages: number;
+  };
+}
+
+const NutritionistListPage: FC<NutritionistListPageProps> = ({
+  nutritionistsRenderData,
+  pagination,
+}) => {
+  const url = "/nutritionist-list?page=";
+  const { showPage, setShowPage, renderPaginationData } = usePagination({
+    pagination,
+    url,
+  });
 
   return (
     <div className="container grid cusGrid my-24">
@@ -39,14 +75,47 @@ const NutritionistListPage = () => {
           </ul>
         </div>
         <ul>
-          <li className="bg-white rounded-20 mt-16 p-40 flex flex-wrap gap-20 lg:flex-nowrap">
-            <NutritionistCard />
-          </li>
+          {nutritionistsRenderData.map((nutritionistData) => {
+            return (
+              <li
+                key={nutritionistData.Id}
+                className="bg-white rounded-20 mt-16 p-40 flex flex-wrap gap-20 lg:flex-nowrap"
+              >
+                <NutritionistCard nutritionistData={nutritionistData} />
+              </li>
+            );
+          })}
         </ul>
-        {renderData}
+        {renderPaginationData}
       </div>
     </div>
   );
 };
 
 export default NutritionistListPage;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  try {
+    const { query } = context;
+    const { page } = query;
+
+    const queryString = page ? `page=${page}` : "";
+    const result = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/nutritionists?${queryString}`
+    );
+
+    const data = result.data;
+
+    return {
+      props: {
+        nutritionistsRenderData: data.Data,
+        pagination: data.Pagination,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      props: {},
+    };
+  }
+};

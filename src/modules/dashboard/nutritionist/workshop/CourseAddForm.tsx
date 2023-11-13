@@ -1,4 +1,4 @@
-import Input, { InputType } from "@/common/components/Input";
+import Input from "@/common/components/Input";
 import Select from "@/common/components/Select";
 import Textarea from "@/common/components/Textarea";
 import { FC, Fragment, ReactNode } from "react";

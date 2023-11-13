@@ -1,27 +1,55 @@
 import Image from "next/image";
 import CourseMiniCard from "./CourseMiniCard";
+import { FC } from "react";
+import Link from "next/link";
+import { NutritionistsRenderDataType } from "@/pages/nutritionist-list";
 
-const NutritionistCard = () => {
+interface NutritionistCardProps {
+  nutritionistData: NutritionistsRenderDataType;
+}
+
+const NutritionistCard: FC<NutritionistCardProps> = ({ nutritionistData }) => {
   return (
     <>
-      <div className="w-full h-[283px] bg-secondary-200 rounded-20 lg:w-[227px]"></div>
+      <Link
+        href={`/nutritionist-list/${nutritionistData.Id}`}
+        className="relative w-full h-[283px] lg:w-[227px]"
+      >
+        <Image
+          src={
+            nutritionistData.PortraitImage
+              ? nutritionistData.PortraitImage
+              : "/images/uploadphoto-no-word.svg"
+          }
+          fill
+          alt="PortraitImage"
+          objectFit="cover"
+          className="rounded-20"
+        />
+      </Link>
       <div className="content w-full relative max-w-[454px] flex flex-col">
-        <h3 className="text-24 font-normal">陳瘦瘦 營養師</h3>
+        <Link href={`/nutritionist-list/${nutritionistData.Id}`}>
+          <h3 className="text-24 font-normal">
+            {nutritionistData.Title} 營養師
+          </h3>
+        </Link>
         <ul className="text-12 w-fit flex gap-8 mt-8 lg:text-14">
-          <li className="border-primary-500 text-primary-500 px-12 rounded-l-35 rounded-r-35 border">
-            體重控制
-          </li>
-          <li className="border-primary-500 text-primary-500 px-12 rounded-l-35 rounded-r-35 border">
-            上班族營養
-          </li>
-          <li className="border-primary-500 text-primary-500 px-12 rounded-l-35 rounded-r-35 border">
-            運動營養
-          </li>
+          {nutritionistData.Expertise.map((tag, index) => (
+            <li
+              key={index}
+              className="border-primary-500 text-primary-500 px-12 rounded-l-35 rounded-r-35 border"
+            >
+              {tag}
+            </li>
+          ))}
         </ul>
-        <p className="mt-24 grow">
-          致力於提供個人化的營養指導。憑藉多年的經驗，我幫助人們實現健康目標，提供專業的飲食建議和支持。讓我們一起走上健康之路，共同追求最佳的身體狀態！
-        </p>
-        <button className="ms-auto">了解更多課程{">>"}</button>
+        <p className="mt-24 grow">{nutritionistData.AboutMe}</p>
+        <Link
+          href={`/nutritionist-list/${nutritionistData.Id}`}
+          className="ms-auto"
+        >
+          了解更多課程{">>"}
+        </Link>
         <button type="button">
           <Image
             src="/images/icons/favorite.svg"
@@ -33,12 +61,19 @@ const NutritionistCard = () => {
         </button>
       </div>
       <ul className="min-w-[260px] flex flex-col gap-16">
-        <li>
-          <CourseMiniCard />
-        </li>
-        <li>
-          <CourseMiniCard />
-        </li>
+        {nutritionistData.Plan.length > 0 ? (
+          nutritionistData.Plan.map((plan, index) => (
+            <li key={index}>
+              <CourseMiniCard plan={plan} />
+            </li>
+          ))
+        ) : (
+          <div className="border border-primary-200 p-20 rounded-15 flex flex-col gap-12 relative">
+            <p className="leading-[96px] font-bold text-black-300 mx-auto">
+              營養師尚未建立課程
+            </p>
+          </div>
+        )}
       </ul>
     </>
   );
