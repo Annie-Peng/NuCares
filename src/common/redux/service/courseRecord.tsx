@@ -49,6 +49,29 @@ export const courseRecord = createApi({
       }),
       invalidatesTags: ["DailyDietary"],
     }),
+    dailyDietaryGetMenuApi: builder.query({
+      query: ({ Token, CourseId, DailyCourseMenuId }) => ({
+        url: `/course/${CourseId}/menu/${DailyCourseMenuId}`,
+        method: "GET",
+        headers: {
+          Authorization: `${Token}`,
+          "Content-Type": "application/json",
+        },
+      }),
+      providesTags: ["DailyDietary"],
+    }),
+    dailyDietaryPutMenuApi: builder.mutation({
+      query: ({ Token, CourseId, DailyCourseMenuId, body }) => ({
+        url: `/course/${CourseId}/menu/${DailyCourseMenuId}`,
+        method: "PUT",
+        headers: {
+          Authorization: `${Token}`,
+          "Content-Type": "application/json",
+        },
+        body,
+      }),
+      invalidatesTags: ["DailyDietary"],
+    }),
     bodyInfoGetApi: builder.query({
       query: ({ Token, CourseId }) => ({
         url: `/course/${CourseId}/bodyInfo`,
@@ -114,6 +137,8 @@ export const {
   useDailyDietaryGetApiQuery,
   useDailyDietaryMealTimePutApiMutation,
   useDailyDietaryOtherPutApiMutation,
+  useDailyDietaryGetMenuApiQuery,
+  useDailyDietaryPutMenuApiMutation,
   useBodyInfoGetApiQuery,
   useBodyInfoPostApiMutation,
   useGoalGetApiQuery,
