@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FC, useState, Dispatch, SetStateAction } from "react";
+import { FC, useState, Dispatch, SetStateAction, useEffect } from "react";
 
 interface JSXPaginationProps {
   showPage: Record<string, number>;
@@ -8,6 +8,8 @@ interface JSXPaginationProps {
   prevPage: number;
   nextPage: number;
   url: string;
+  filter?: string;
+  sort?: string;
 }
 
 interface UsePaginationProps {
@@ -16,6 +18,8 @@ interface UsePaginationProps {
     Total_pages: number;
   };
   url: string;
+  filter?: string;
+  sort?: string;
 }
 
 const JSXPagination: FC<JSXPaginationProps> = ({
@@ -24,6 +28,8 @@ const JSXPagination: FC<JSXPaginationProps> = ({
   prevPage,
   nextPage,
   url,
+  filter,
+  sort,
 }) => {
   const pageNumbers = [];
   for (let i = 1; i <= showPage.Total_pages; i++) {
@@ -46,7 +52,15 @@ const JSXPagination: FC<JSXPaginationProps> = ({
             onClick={() => {
               if (prevPage > 0) {
                 setShowPage({ ...showPage, Current_page: prevPage });
-                router.push(`${url}${prevPage}`, undefined, { shallow: false });
+                router.push(
+                  `${url}${prevPage}${filter && `&filter=${filter}`}${
+                    sort && `&sort=${sort}`
+                  }`,
+                  undefined,
+                  {
+                    shallow: false,
+                  }
+                );
               }
             }}
           >
@@ -89,9 +103,15 @@ const JSXPagination: FC<JSXPaginationProps> = ({
                 nextPage < showPage.Total_pages
               ) {
                 setShowPage({ ...showPage, Current_page: nextPage });
-                router.push(`${url}${nextPage}`, undefined, {
-                  shallow: false,
-                });
+                router.push(
+                  `${url}${nextPage}${filter && `&filter=${filter}`}${
+                    sort && `&sort=${sort}`
+                  }`,
+                  undefined,
+                  {
+                    shallow: false,
+                  }
+                );
               }
             }}
           >
@@ -103,11 +123,23 @@ const JSXPagination: FC<JSXPaginationProps> = ({
   );
 };
 
-const usePagination = ({ pagination, url }: UsePaginationProps) => {
+const usePagination = ({
+  pagination,
+  url,
+  filter,
+  sort,
+}: UsePaginationProps) => {
   const [showPage, setShowPage] = useState<Record<string, number>>({
     Current_page: pagination.Current_page,
     Total_pages: pagination.Total_pages,
   });
+
+  useEffect(() => {
+    setShowPage({
+      Current_page: pagination.Current_page,
+      Total_pages: pagination.Total_pages,
+    });
+  }, [pagination]);
 
   const prevPage = showPage.Current_page - 1;
   const nextPage = showPage.Current_page + 1;
@@ -119,6 +151,8 @@ const usePagination = ({ pagination, url }: UsePaginationProps) => {
       prevPage={prevPage}
       nextPage={nextPage}
       url={url}
+      filter={filter}
+      sort={sort}
     />
   );
 
