@@ -8,6 +8,7 @@ const layoutBgClass = {
   "reset-password": "bg-primaryGradient",
   "nutritionist-list": "bg-[#ECF5F5]",
   payment: "bg-[#ECF5F5]",
+  apply: "bg-[#D6EBEE]",
 };
 
 const Layout = ({ children, router }: LayoutProps) => {
