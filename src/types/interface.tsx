@@ -6,9 +6,11 @@ import { GoalType } from "@/common/redux/features/dietary-record/goal";
 import { PaymentDataType } from "@/common/redux/features/paymentPhases";
 import { ShowModalType } from "@/common/redux/features/showModal";
 import { ReactNode } from "react";
+import { NextRouter } from "next/router";
 
 export interface LayoutProps {
   children: ReactNode;
+  router: NextRouter;
 }
 
 export interface DashboardLayoutProps {

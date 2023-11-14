@@ -30,7 +30,7 @@ export default function App({
           )}
         </DashboardLayout>
       ) : (
-        <Layout>
+        <Layout router={router}>
           <Component {...pageProps} />
         </Layout>
       )}
