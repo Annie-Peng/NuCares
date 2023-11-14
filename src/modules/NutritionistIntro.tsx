@@ -91,7 +91,9 @@ const NutritionistIntro: FC<NutritionistIntroProps> = ({
       </div>
       <div className="comment rounded-20 p-20 bg-white">
         <div className="flex gap-8">
-          <h3 className="font-bold text-18 text-primary-500">評價(10)</h3>
+          <h3 className="font-bold text-18 text-primary-500">
+            評價({nutritionistData.Comment.length})
+          </h3>
           <ul className="flex gap-4 ml-4 items-center">
             {starsNum.map((star, index) => {
               if (index + 1 <= nutritionistData.RateAVG) {
