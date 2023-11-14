@@ -15,9 +15,9 @@ const PaymentFormForthPhase = () => {
           alt="paymentStep2"
         />
       </div>
-      <form className=" bg-white text-center mt-16 p-20 rounded-20 text-24 font-normal lg:p-40">
-        <p>訂購完成</p>
-        <p className="mt-24">
+      <form className=" bg-white text-center mt-16 p-20 rounded-20 font-normal lg:p-40">
+        <p className="text-20 lg:text-24">訂購完成</p>
+        <p className="mt-24 text-14 lg:text-24">
           您可至後台管理
           <Link
             href="/dashboard/student/course-list"
