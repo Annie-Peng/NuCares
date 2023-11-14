@@ -66,7 +66,7 @@ const InputImage: FC<InputImageProps> = ({
 
   return (
     <>
-      <label htmlFor={name} className={`${labelClass} mt-20 block`}>
+      <label htmlFor={name} className={`${labelClass} w-fit mt-20 block`}>
         <h4 className="formHead">{hMsg}</h4>
         <p className="formContent">{pMsg}</p>
         {children}

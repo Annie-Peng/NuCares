@@ -44,8 +44,8 @@ const Header = () => {
                 成為NuCares營養師
               </Link>
             </li>
-            <li className="ms-auto text-14 font-thin">
-              <Link href="#">申請成為營養師</Link>
+            <li className="ms-auto text-14">
+              <Link href="/apply">申請成為營養師</Link>
             </li>
           </ul>
         </nav>

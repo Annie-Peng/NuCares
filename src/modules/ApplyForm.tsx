@@ -7,6 +7,8 @@ import {
 } from "@/common/lib/dashboard/errMsg/commonErrMsg";
 import { getCookie } from "cookies-next";
 import { FC } from "react";
+import { useDispatch } from "react-redux";
+import { showModal } from "@/common/redux/features/showModal";
 
 interface ApplyFormProps {
   Token: string;
@@ -53,10 +55,31 @@ const ApplyFormData: ComponentType[] = [
     errMsg: commonRequiredErrMsg,
     errClass: commonErrMsgClass,
   },
+  {
+    component: "input",
+    name: "UserRule",
+    type: "checkbox",
+    labelClass: "flex items-center justify-center mt-[60px]",
+    inputClass:
+      "order-1 !mt-0 w-20 h-20 form-checkbox bg-transparent text-black-500 focus:ring-offset-0 focus:ring-0",
+    children: <span className="order-2 ml-8">使用者條款</span>,
+    errMsg: "*請勾選",
+    errClass: `${commonErrMsgClass} text-center`,
+  },
 ];
+
+const buttonJSX = (
+  <button
+    type="submit"
+    className="btn-cusWriteSecondary !py-8 w-full mt-12 lg:w-[300px"
+  >
+    確認送出申請
+  </button>
+);
 
 const ApplyForm: FC<ApplyFormProps> = ({ Token }) => {
   const putApiData = { Token };
+  const dispatch = useDispatch();
 
   const [applyPostApi] = useApplyPostApiMutation();
 
@@ -66,12 +89,19 @@ const ApplyForm: FC<ApplyFormProps> = ({ Token }) => {
     CertificateImage: "",
   };
 
-  const { renderEditForm } = useEditForm({
+  const { renderEditForm, apiReq } = useEditForm({
     initialState,
     formData: ApplyFormData,
     putApi: applyPostApi,
     putApiData,
+    buttonJSX,
   });
+
+  if (apiReq) {
+    console.log(apiReq);
+    const message = apiReq.Message || apiReq.data.Message;
+    dispatch(showModal(["showMessageModal", message]));
+  }
 
   return (
     <div className="text-left flex flex-col max-w-[856px] mx-auto p-24 rounded-20 cusBackgroundBackdrop !relative">
