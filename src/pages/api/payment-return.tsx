@@ -2,17 +2,17 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { Status } = req.query;
-
-  // 检查支付状态
-  if (Status === "SUCCESS") {
-    // 处理支付成功的逻辑
-    // 例如，更新数据库，记录交易信息等
-
-    // 重定向到成功页面
-    res.redirect("https://nu-cares.vercel.app/");
+  if (req.method === "POST") {
+    const status = req.body.Status;
+    if (status === "SUCCESS") {
+      res.redirect(302, "/");
+      console.log("成功");
+    } else {
+      res.redirect(302, "/nutritionist-list");
+      console.log("失敗");
+    }
   } else {
-    // 处理支付失败的逻辑
-    res.redirect("https://nu-cares.vercel.app/nutritionist-list");
+    // 不處理get請求
+    res.status(405).end();
   }
 }
