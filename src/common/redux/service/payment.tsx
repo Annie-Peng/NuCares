@@ -16,7 +16,18 @@ export const payment = createApi({
         },
       }),
     }),
+    paymentPostApi: builder.mutation({
+      query: ({ Token, planId, body }) => ({
+        url: `/order/${planId}`,
+        method: "POST",
+        headers: {
+          Authorization: `${Token}`,
+          "Content-Type": "application/json",
+        },
+        body,
+      }),
+    }),
   }),
 });
 
-export const { usePaymentGetApiQuery } = payment;
+export const { usePaymentGetApiQuery, usePaymentPostApiMutation } = payment;

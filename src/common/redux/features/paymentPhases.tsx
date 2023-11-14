@@ -9,6 +9,9 @@ export interface PaymentDataType {
   ContactTime: string;
   Invoice: string;
   PaymentMethod: string;
+  TradeInfo: string;
+  TradeSha: string;
+  MerchantID: string;
 }
 
 const paymentData: PaymentDataType = {
@@ -19,6 +22,9 @@ const paymentData: PaymentDataType = {
   ContactTime: "",
   Invoice: "",
   PaymentMethod: "",
+  TradeInfo: "",
+  TradeSha: "",
+  MerchantID: "",
 };
 
 export const paymentSlice = createSlice({
