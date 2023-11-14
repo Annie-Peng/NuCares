@@ -68,8 +68,12 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async ({ req, res }) => {
       const auth = getCookies({ req, res });
       if (!auth.Token) {
-        res.writeHead(400, { Location: "/login" });
-        res.end();
+        return {
+          redirect: {
+            destination: "/login",
+            permanent: false,
+          },
+        };
       }
       return {
         props: {
