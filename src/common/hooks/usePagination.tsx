@@ -76,7 +76,11 @@ const JSXPagination: FC<JSXPaginationProps> = ({
                 : "border-primary-500 text-black-300 bg-white"
             }`}
           >
-            <Link href={`${url}${number}`}>
+            <Link
+              href={`${url}${number}${filter && `&filter=${filter}`}${
+                sort && `&sort=${sort}`
+              }`}
+            >
               <button
                 type="button"
                 onClick={() =>
