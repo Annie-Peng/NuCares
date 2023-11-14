@@ -28,7 +28,7 @@ const PaymentFormSecondPhase: FC<PaymentFormSecondPhase> = ({
           alt="paymentStep2"
         />
       </div>
-      <form className=" bg-white flex flex-wrap justify-center text-left p-20 rounded-20 mt-16 lg:p-40">
+      <div className=" bg-white flex flex-wrap justify-center text-left p-20 rounded-20 mt-16 lg:p-40">
         <div className="w-full lg:w-[79%]">
           <div className="flex flex-col gap-20">
             <div className="p-20 border border-black-300 rounded-15">
@@ -72,23 +72,55 @@ const PaymentFormSecondPhase: FC<PaymentFormSecondPhase> = ({
               <p className="mt-12">{paymentData.Invoice}</p>
             </div>
           </div>
-          <div className="w-full mt-[60px] text-center">
-            <button
-              type="button"
-              className="btn-cusWritePrimary w-full !py-8 lg:w-[278px]"
-              onClick={() => setCurrentPhase(1)}
-            >
-              上一步
-            </button>
-            <button
-              type="submit"
-              className="mt-10 btn-cusSecondary w-full py-8 lg:ml-10 lg:w-[278px]"
-            >
-              下一步
-            </button>
-          </div>
+          {/* <!-- 用表單送給藍新 --> */}
+          <form
+            name="Newebpay"
+            method="post"
+            action="https://ccore.newebpay.com/MPG/mpg_gateway"
+          >
+            {/* <!-- 設定 hidden 可以隱藏不用給使用者看的資訊 --> */}
+            {/* <!-- 藍新金流商店代號 --> */}
+            <input
+              type="hidden"
+              id="MerchantID"
+              name="MerchantID"
+              value={paymentData.MerchantID}
+            />
+            {/* <!-- 交易資料透過 Key 及 IV 進行 AES 加密 --> */}
+            <input
+              type="hidden"
+              id="TradeInfo"
+              name="TradeInfo"
+              value={paymentData.TradeInfo}
+            />
+            {/* <!-- 經過上述 AES 加密過的字串，透過商店 Key 及 IV 進行 SHA256 加密 --> */}
+            <input
+              type="hidden"
+              id="TradeSha"
+              name="TradeSha"
+              value={paymentData.TradeSha}
+            />
+            {/* <!-- 串接程式版本 --> */}
+            <input type="hidden" id="Version" name="Version" value="2.0" />
+            {/* <!-- 直接執行送出 --> */}
+            <div className="w-full mt-[60px] text-center">
+              <button
+                type="button"
+                className="btn-cusWritePrimary w-full !py-8 lg:w-[278px]"
+                onClick={() => setCurrentPhase(1)}
+              >
+                上一步
+              </button>
+              <button
+                type="submit"
+                className="mt-10 btn-cusSecondary w-full py-8 lg:ml-10 lg:w-[278px]"
+              >
+                下一步
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </>
   );
 };

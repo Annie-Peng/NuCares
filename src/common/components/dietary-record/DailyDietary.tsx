@@ -131,7 +131,16 @@ const DailyDietary: FC<DailyDietaryProps> = ({
     event.preventDefault();
 
     if (UserCurrentStatus === "nu") {
-      dispatch(showModal(["showMenuEditModal", 0]));
+      dispatch(
+        showModal([
+          "showMenuEditModal",
+          {
+            Token,
+            CourseId: dailyDietaryData.CourseId,
+            DailyCourseMenuId: dailyDietaryData.DailyCourseMenuId,
+          },
+        ])
+      );
       return;
     }
 
