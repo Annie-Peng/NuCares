@@ -42,7 +42,7 @@ const Header = () => {
               </Link>
             </li>
             <li className="ms-auto text-14">
-              <Link href="#">申請成為營養師</Link>
+              <Link href="/apply">申請成為營養師</Link>
             </li>
           </ul>
         </nav>
