@@ -16,6 +16,7 @@
   backdrop-filter: blur(10px);
 }
 
+//DashboardContainerLayout
 .cusBackgroundBackdrop {
   content: "";
   position: absolute;
@@ -23,7 +24,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  border: 2px solid rgb(255, 255, 255, 0.3);
+  border: 1px solid rgb(255, 255, 255, 0.3);
   background-color: rgb(255, 255, 255, 0.3);
   box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
