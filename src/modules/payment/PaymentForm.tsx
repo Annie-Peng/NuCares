@@ -3,6 +3,7 @@ import {
   selectPayment,
   storePaymentForm,
 } from "@/common/redux/features/paymentPhases";
+import { usePaymentPostApiMutation } from "@/common/redux/service/payment";
 import { Auth, PlanType } from "@/types/interface";
 import Image from "next/image";
 import paymentStep1 from "public/images/payment/paymentStep1.svg";
@@ -14,15 +15,18 @@ interface PaymentFormProps {
   auth: Auth;
   renderData: PlanType;
   setCurrentPhase: (currentPhase: number) => void;
+  planId: string;
 }
 
 const PaymentForm: FC<PaymentFormProps> = ({
   auth,
   renderData,
   setCurrentPhase,
+  planId,
 }) => {
   const dispatch = useDispatch();
   const paymentData = useSelector(selectPayment);
+  const [paymentPostApi] = usePaymentPostApiMutation();
 
   const {
     register,
@@ -40,9 +44,23 @@ const PaymentForm: FC<PaymentFormProps> = ({
     },
   });
 
-  const onSubmit: SubmitHandler<PaymentDataType> = (formData) => {
-    dispatch(storePaymentForm(formData));
-    setCurrentPhase(2);
+  const onSubmit: SubmitHandler<PaymentDataType> = async (formData) => {
+    try {
+      const result = await paymentPostApi({
+        Token: auth.Token,
+        planId,
+        body: formData,
+      }).unwrap();
+
+      const { TradeInfo, TradeSha, MerchantID } = result.Data;
+      formData.TradeInfo = TradeInfo;
+      formData.TradeSha = TradeSha;
+      formData.MerchantID = MerchantID;
+      dispatch(storePaymentForm(formData));
+      setCurrentPhase(2);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
