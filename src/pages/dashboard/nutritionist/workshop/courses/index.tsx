@@ -73,7 +73,7 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
           {courseForms.map((form, index) => (
             <li
               key={index}
-              className="mt-20 px-20 pt-20 pb-40 bg-white rounded-10 border border-black-200 text-left"
+              className="mt-20 px-20 pt-20 pb-40 bg-white rounded-10 border border-secondary-400 text-left"
             >
               {form}
             </li>
@@ -104,7 +104,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async ({ req, res }) => {
       const auth = getCookies({ req, res });
       if (!auth.Token) {
-        res.writeHead(400, { Location: "/login" });
+        res.writeHead(302, { Location: "/login" });
         res.end();
       }
       return {

@@ -4,7 +4,6 @@ import registerReducer from "./features/registerPhases";
 import paymentReducer from "./features/paymentPhases";
 import authReducer from "./features/auth";
 import showModalReducer from "./features/showModal";
-import changeIDReducer from "./features/changeID";
 import bodyRateReducer from "./features/dietary-record/bodyRate";
 import dailyDietaryReducer from "./features/dietary-record/dailyDietary";
 import goalReducer from "./features/dietary-record/goal";
@@ -24,7 +23,6 @@ const store = configureStore({
     auth: authReducer,
     registerPhases: registerReducer,
     showModal: showModalReducer,
-    // changeID: changeIDReducer,
     dailyDietary: dailyDietaryReducer,
     bodyRate: bodyRateReducer,
     goal: goalReducer,

@@ -7,10 +7,7 @@ import {
   commonRequiredErrMsg,
 } from "@/common/lib/dashboard/errMsg/commonErrMsg";
 import useEditForm from "@/common/hooks/useEditForm";
-import {
-  useIntroGetApiQuery,
-  useIntroPutApiMutation,
-} from "@/common/redux/service/intro";
+import { useIntroPutApiMutation } from "@/common/redux/service/intro";
 import { FC } from "react";
 
 interface NutritionistIntroFormProps {
@@ -163,6 +160,15 @@ const nutritionistIntroFormData: ComponentType[] = [
   },
 ];
 
+const buttonJSX = (
+  <button
+    type="submit"
+    className="btn-cusWriteSecondary block mx-auto !py-8 w-full mt-[60px] lg:w-[278px] order-1 lg:order-2"
+  >
+    儲存
+  </button>
+);
+
 const NutritionistIntroForm: FC<NutritionistIntroFormProps> = ({
   Token,
   renderData,
@@ -191,6 +197,7 @@ const NutritionistIntroForm: FC<NutritionistIntroFormProps> = ({
     formData: nutritionistIntroFormData,
     putApi: introPutApi,
     putApiData,
+    buttonJSX,
   });
 
   return (

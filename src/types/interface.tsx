@@ -1,14 +1,15 @@
 import { InitFileSrcFoodType } from "@/common/hooks/useUploadFile";
-import { changeIDType } from "@/common/redux/features/changeID";
 import { BodyRateType } from "@/common/redux/features/dietary-record/bodyRate";
 import { DailyDietaryType } from "@/common/redux/features/dietary-record/dailyDietary";
 import { GoalType } from "@/common/redux/features/dietary-record/goal";
 import { PaymentDataType } from "@/common/redux/features/paymentPhases";
 import { ShowModalType } from "@/common/redux/features/showModal";
 import { ReactNode } from "react";
+import { NextRouter } from "next/router";
 
 export interface LayoutProps {
   children: ReactNode;
+  router: NextRouter;
 }
 
 export interface DashboardLayoutProps {
@@ -37,7 +38,6 @@ export interface RootState {
   paymentPhases: PaymentDataType;
   auth: Auth;
   showModal: ShowModalType;
-  changeID: changeIDType;
   bodyRate: BodyRateType;
   dailyDietary: DailyDietaryType;
   goal: GoalType;

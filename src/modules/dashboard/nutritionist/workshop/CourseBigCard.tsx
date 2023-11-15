@@ -36,17 +36,36 @@ const CourseBigCard: FC<CourseBigCardProps> = ({ Token, planData }) => {
     Detail: planData.Detail,
   };
 
+  const buttonJSX = (
+    <div className="text-center mt-[60px] flex flex-col gap-10 justify-center items-center lg:flex-row">
+      <button
+        type="button"
+        className="btn-cusWritePrimary !py-8 w-full lg:w-[278px] order-2 lg:order-1"
+        onClick={() => setEdit(false)}
+      >
+        放棄變更
+      </button>
+      <button
+        type="submit"
+        className="btn-cusWriteSecondary !py-8 w-full lg:w-[278px] order-1 lg:order-2"
+      >
+        儲存
+      </button>
+    </div>
+  );
+
   const { edit, setEdit, renderEditForm } = useEditForm({
     initialState,
     formData: courseAddFormData,
     putApi: planPutApi,
     putApiData,
+    buttonJSX,
   });
 
   return (
     <>
       {edit ? (
-        <div className="px-20 pt-20 pb-40 bg-white rounded-10 border border-black-200 text-left">
+        <div className="px-20 pt-20 pb-40 bg-white rounded-10 border border-secondary-400 text-left">
           {renderEditForm}
         </div>
       ) : (
