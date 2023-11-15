@@ -1,14 +1,14 @@
 import { setCookie } from "cookies-next";
 import Image from "next/image";
 import Link from "next/link";
-import paymentStep4 from "public/images/payment/paymentStep4.svg";
+import paymentSuccess from "public/images/payment/paymentSuccess.svg";
 
-const PaymentFormForthPhase = () => {
+const PaymentFormSuccessPhase = () => {
   return (
     <>
       <div className="hidden mt-16 px-[140px] lg:block">
         <Image
-          src={paymentStep4}
+          src={paymentSuccess}
           width="783"
           height="45"
           layout="responsive"
@@ -33,4 +33,4 @@ const PaymentFormForthPhase = () => {
   );
 };
 
-export default PaymentFormForthPhase;
+export default PaymentFormSuccessPhase;
