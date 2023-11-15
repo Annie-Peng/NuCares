@@ -1,5 +1,4 @@
 import { InitFileSrcFoodType } from "@/common/hooks/useUploadFile";
-import { changeIDType } from "@/common/redux/features/changeID";
 import { BodyRateType } from "@/common/redux/features/dietary-record/bodyRate";
 import { DailyDietaryType } from "@/common/redux/features/dietary-record/dailyDietary";
 import { GoalType } from "@/common/redux/features/dietary-record/goal";
@@ -39,7 +38,6 @@ export interface RootState {
   paymentPhases: PaymentDataType;
   auth: Auth;
   showModal: ShowModalType;
-  changeID: changeIDType;
   bodyRate: BodyRateType;
   dailyDietary: DailyDietaryType;
   goal: GoalType;
