@@ -3,12 +3,29 @@ import CourseMiniCard from "./CourseMiniCard";
 import { FC } from "react";
 import Link from "next/link";
 import { NutritionistsRenderDataType } from "@/pages/nutritionist-list";
+import { useFavoritePostApiMutation } from "@/common/redux/service/favorite";
+import { getCookie } from "cookies-next";
 
 interface NutritionistCardProps {
   nutritionistData: NutritionistsRenderDataType;
 }
 
 const NutritionistCard: FC<NutritionistCardProps> = ({ nutritionistData }) => {
+  const [favoritePostApi] = useFavoritePostApiMutation();
+
+  const handleFavoriteClick = async () => {
+    try {
+      const Token = getCookie("Token");
+      const result = await favoritePostApi({
+        Token,
+        NutritionistId: nutritionistData.Id,
+      });
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <Link
@@ -50,7 +67,7 @@ const NutritionistCard: FC<NutritionistCardProps> = ({ nutritionistData }) => {
         >
           了解更多課程{">>"}
         </Link>
-        <button type="button">
+        <button type="button" onClick={handleFavoriteClick}>
           <Image
             src="/images/icons/favorite.svg"
             width={30}
