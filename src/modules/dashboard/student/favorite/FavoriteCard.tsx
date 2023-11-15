@@ -25,8 +25,8 @@ const FavoriteCard: FC<FavoriteCardProps> = ({ Token, nutritionistData }) => {
   };
 
   return (
-    <div className="p-16 rounded-20 flex flex-wrap gap-12 bg-white relative">
-      <div className="relative w-full h-[200px] lg:w-[38%]">
+    <div className="border border-primary-400 p-16 rounded-5 flex flex-wrap gap-12 bg-white relative lg:rounded-20 lg:border-none">
+      <div className="w-[89px] h-[111px] relative lg:h-[200px] lg:w-[38%]">
         <Image
           src={
             // nutritionistData.PortraitImage
@@ -40,8 +40,10 @@ const FavoriteCard: FC<FavoriteCardProps> = ({ Token, nutritionistData }) => {
           className="rounded-5"
         />
       </div>
-      <div className="text-left content w-full flex flex-col lg:w-[59%]">
-        <h3 className="text-20 font-normal">{nutritionistData.Title} 營養師</h3>
+      <div className="text-left content flex flex-col lg:w-[59%]">
+        <h3 className="font-normal lg:text-20">
+          {nutritionistData.Title} 營養師
+        </h3>
         <ul className="text-12 w-fit flex gap-8 mt-8">
           {/* {nutritionistData.Expertise.map((tag, index) => (
             <li
@@ -52,7 +54,9 @@ const FavoriteCard: FC<FavoriteCardProps> = ({ Token, nutritionistData }) => {
             </li>
           ))} */}
         </ul>
-        <p className="mt-16 aboutMe">{nutritionistData.AboutMe}</p>
+        <p className="hidden aboutMe lg:mt-16 lg:block">
+          {nutritionistData.AboutMe}
+        </p>
         <button
           type="button"
           onClick={handleFavoriteClick}
@@ -66,9 +70,12 @@ const FavoriteCard: FC<FavoriteCardProps> = ({ Token, nutritionistData }) => {
           />
         </button>
       </div>
+      <p className="text-14 mt-12 aboutMe lg:hidden">
+        {nutritionistData.AboutMe}
+      </p>
       <Link
         href={`/nutritionist-list/${nutritionistData.Id}`}
-        className="mt-4 w-full btn-cusBigSecondary"
+        className="text-center mt-20 w-full btn-cusBigSecondary lg:mt-4"
       >
         預約課程
       </Link>
