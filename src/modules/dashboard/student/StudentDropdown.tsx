@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { FC } from "react";
 
 interface StudentDropdownProps {
-  IsNutritionist: string;
+  IsNutritionist?: string;
 }
 
 const StudentDropdown: FC<StudentDropdownProps> = ({ IsNutritionist }) => {
