@@ -24,7 +24,7 @@ const NutritionistCard: FC<NutritionistCardProps> = ({ nutritionistData }) => {
           fill
           alt="PortraitImage"
           objectFit="cover"
-          className="rounded-20"
+          className="rounded-5"
         />
       </Link>
       <div className="content w-full relative max-w-[454px] flex flex-col">
@@ -43,10 +43,10 @@ const NutritionistCard: FC<NutritionistCardProps> = ({ nutritionistData }) => {
             </li>
           ))}
         </ul>
-        <p className="mt-24 grow">{nutritionistData.AboutMe}</p>
+        <p className="text-14 mt-24 aboutMe">{nutritionistData.AboutMe}</p>
         <Link
           href={`/nutritionist-list/${nutritionistData.Id}`}
-          className="ms-auto"
+          className="mt-20 ms-auto lg:mt-auto"
         >
           了解更多課程{">>"}
         </Link>

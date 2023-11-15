@@ -15,7 +15,7 @@ const NutritionistIntro: FC<NutritionistIntroProps> = ({
   return (
     <>
       <div className="profile rounded-20 flex flex-wrap p-20 gap-10 bg-white lg:flex-nowrap">
-        <div className="w-full h-[200px] relative lg:w-[65%] lg:h-auto">
+        <div className="w-full h-[283px] relative lg:w-[65%] lg:h-auto">
           <Image
             src={
               nutritionistData.PortraitImage
@@ -25,7 +25,7 @@ const NutritionistIntro: FC<NutritionistIntroProps> = ({
             fill
             alt="PortraitImage"
             objectFit="cover"
-            className="rounded-15"
+            className="rounded-5"
           />
         </div>
         <div className="flex flex-col gap-20 w-full relative">
