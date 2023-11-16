@@ -65,7 +65,7 @@ const OrderForm: FC<OrderFormProps> = ({ auth }) => {
           <tbody>
             {renderData.map((order) => {
               return (
-                <tr>
+                <tr key={order.OrderNumber}>
                   <td>{order.Date}</td>
                   <td>{order.OrderNumber}</td>
                   <td className="max-w-[200px]">
