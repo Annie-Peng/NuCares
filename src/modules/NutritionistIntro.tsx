@@ -1,7 +1,10 @@
 import Image from "next/image";
 import NutritionistComment from "./NutritionistComment";
 import { NutritionistDataType } from "@/pages/nutritionist-list/[nutritionistId]";
-import { FC } from "react";
+import { FC, useState } from "react";
+import { useFavoritePostApiMutation } from "@/common/redux/service/favorite";
+import { useRouter } from "next/router";
+import { getCookie } from "cookies-next";
 
 interface NutritionistIntroProps {
   nutritionistData: NutritionistDataType;
@@ -12,10 +15,34 @@ const NutritionistIntro: FC<NutritionistIntroProps> = ({
 }) => {
   const starsNum = Array(5).fill(null);
 
+  const [favoritePostApi] = useFavoritePostApiMutation();
+  const [favorite, setFavorite] = useState(nutritionistData.Favorite);
+
+  const router = useRouter();
+
+  const { nutritionistId } = router.query;
+
+  const handleFavoriteClick = async () => {
+    try {
+      const Token = getCookie("Token");
+
+      if (!Token) router.push("/login");
+
+      const result = await favoritePostApi({
+        Token,
+        NutritionistId: nutritionistId,
+      });
+      console.log(result);
+      setFavorite(!favorite);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div className="profile rounded-20 flex flex-wrap p-20 gap-10 bg-white lg:flex-nowrap">
-        <div className="w-full h-[200px] relative lg:w-[65%] lg:h-auto">
+        <div className="w-full h-[283px] relative lg:w-[65%] lg:h-auto">
           <Image
             src={
               nutritionistData.PortraitImage
@@ -25,7 +52,7 @@ const NutritionistIntro: FC<NutritionistIntroProps> = ({
             fill
             alt="PortraitImage"
             objectFit="cover"
-            className="rounded-15"
+            className="rounded-5"
           />
         </div>
         <div className="flex flex-col gap-20 w-full relative">
@@ -70,9 +97,13 @@ const NutritionistIntro: FC<NutritionistIntroProps> = ({
               <p>{nutritionistData.Experience}</p>
             </li>
           </ul>
-          <button type="button">
+          <button type="button" onClick={handleFavoriteClick}>
             <Image
-              src="/images/icons/favorite.svg"
+              src={
+                favorite
+                  ? "/images/icons/favorite-fill.svg"
+                  : "/images/icons/favorite.svg"
+              }
               width={30}
               height={30}
               alt="favorite"
@@ -91,7 +122,9 @@ const NutritionistIntro: FC<NutritionistIntroProps> = ({
       </div>
       <div className="comment rounded-20 p-20 bg-white">
         <div className="flex gap-8">
-          <h3 className="font-bold text-18 text-primary-500">評價(10)</h3>
+          <h3 className="font-bold text-18 text-primary-500">
+            評價({nutritionistData.Comment.length})
+          </h3>
           <ul className="flex gap-4 ml-4 items-center">
             {starsNum.map((star, index) => {
               if (index + 1 <= nutritionistData.RateAVG) {

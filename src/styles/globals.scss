@@ -132,6 +132,15 @@
   .cusDashboardInnerContainer {
     @apply bg-white rounded-15 p-20 mt-24;
   }
+
+  //超出字數...
+  .aboutMe {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 @layer utilities {
@@ -146,5 +155,13 @@
       -ms-overflow-style: none; /* IE and Edge */
       scrollbar-width: none; /* Firefox */
     }
+  }
+
+  .hideText-5 {
+    -webkit-line-clamp: 5;
+  }
+
+  .hideText-3 {
+    -webkit-line-clamp: 3;
   }
 }

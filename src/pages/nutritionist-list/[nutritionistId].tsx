@@ -1,7 +1,8 @@
+import wrapper from "@/common/redux/store";
 import CourseNormalCard from "@/modules/CourseNormalCard";
 import NutritionistIntro from "@/modules/NutritionistIntro";
 import axios from "axios";
-import { GetServerSideProps } from "next";
+import { getCookies } from "cookies-next";
 import { useRouter } from "next/router";
 import { FC } from "react";
 
@@ -82,46 +83,30 @@ const NutritionistIdPage: FC<NutritionistIdPageProps> = ({
 
 export default NutritionistIdPage;
 
-export const getStaticPaths = async () => {
-  const result = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/nutritionistsid`
-  );
-  const nutritionists = result.data.Data;
+export const getServerSideProps = wrapper.getServerSideProps(
+  () => async (context) => {
+    try {
+      const nutritionistId = context.params?.nutritionistId as string;
+      const { req, res } = context;
+      const auth = getCookies({ req, res });
+      const result = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/nutritionist/${nutritionistId}`,
+        {
+          headers: {
+            Authorization: auth.Token,
+          },
+        }
+      );
+      const data = result.data;
 
-  const paths = nutritionists.map((nutritionist: NutritionistType) => {
-    return {
-      params: { nutritionistId: nutritionist.Id.toString() },
-    };
-  });
-
-  return {
-    paths,
-    fallback: true,
-  };
-};
-
-export const getStaticProps: GetServerSideProps = async (context) => {
-  try {
-    const nutritionistId = context.params?.nutritionistId as string;
-
-    const result = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/nutritionist/${nutritionistId}`
-    );
-    const data = result.data;
-
-    if (data.Data.length === 0) {
+      return {
+        props: {
+          nutritionistData: data.Data,
+        },
+      };
+    } catch (error) {
+      console.log(error);
       return { notFound: true };
     }
-
-    return {
-      props: {
-        nutritionistData: data.Data,
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      props: {},
-    };
   }
-};
+);

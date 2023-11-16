@@ -1,14 +1,39 @@
 import Image from "next/image";
 import CourseMiniCard from "./CourseMiniCard";
-import { FC } from "react";
+import { FC, useState } from "react";
 import Link from "next/link";
 import { NutritionistsRenderDataType } from "@/pages/nutritionist-list";
+import { useFavoritePostApiMutation } from "@/common/redux/service/favorite";
+import { getCookie } from "cookies-next";
+import { useRouter } from "next/router";
 
 interface NutritionistCardProps {
   nutritionistData: NutritionistsRenderDataType;
 }
 
 const NutritionistCard: FC<NutritionistCardProps> = ({ nutritionistData }) => {
+  const [favoritePostApi] = useFavoritePostApiMutation();
+  const [favorite, setFavorite] = useState(nutritionistData.Favorite);
+
+  const router = useRouter();
+
+  const handleFavoriteClick = async () => {
+    try {
+      const Token = getCookie("Token");
+
+      if (!Token) router.push("/login");
+
+      const result = await favoritePostApi({
+        Token,
+        NutritionistId: nutritionistData.Id,
+      });
+      console.log(result);
+      setFavorite(!favorite);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <Link
@@ -24,7 +49,7 @@ const NutritionistCard: FC<NutritionistCardProps> = ({ nutritionistData }) => {
           fill
           alt="PortraitImage"
           objectFit="cover"
-          className="rounded-20"
+          className="rounded-5"
         />
       </Link>
       <div className="content w-full relative max-w-[454px] flex flex-col">
@@ -43,16 +68,20 @@ const NutritionistCard: FC<NutritionistCardProps> = ({ nutritionistData }) => {
             </li>
           ))}
         </ul>
-        <p className="mt-24 grow">{nutritionistData.AboutMe}</p>
+        <p className="text-14 mt-24 aboutMe">{nutritionistData.AboutMe}</p>
         <Link
           href={`/nutritionist-list/${nutritionistData.Id}`}
-          className="ms-auto"
+          className="mt-20 ms-auto lg:mt-auto"
         >
           了解更多課程{">>"}
         </Link>
-        <button type="button">
+        <button type="button" onClick={handleFavoriteClick}>
           <Image
-            src="/images/icons/favorite.svg"
+            src={
+              favorite
+                ? "/images/icons/favorite-fill.svg"
+                : "/images/icons/favorite.svg"
+            }
             width={30}
             height={30}
             alt="favorite"
