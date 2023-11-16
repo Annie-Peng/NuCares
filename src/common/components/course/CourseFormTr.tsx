@@ -26,22 +26,22 @@ const CourseFormTr: FC<CourseFormTrProps> = ({
   return (
     <>
       <td className={`text-14 ${notStartTextClass}`}>{course.OrderNumber}</td>
-      <td
-        className={`max-w-[200px] overflow-hidden whitespace-nowrap text-ellipsis`}
-      >
-        {course.CourseState === "開始" ? (
-          <span className="text-black-300">
-            {course.UserName ? course.UserName : course.Title}/
-            {course.CourseName}
-          </span>
-        ) : (
-          <span className="border-b border-black-950">
-            <Link href={`${routeListPage}/${course.Id}`}>
+      <td className="max-w-[200px]">
+        <h3 className="overflow-hidden whitespace-nowrap text-ellipsis">
+          {course.CourseState === "開始" ? (
+            <span className="text-black-300">
               {course.UserName ? course.UserName : course.Title}/
               {course.CourseName}
-            </Link>
-          </span>
-        )}
+            </span>
+          ) : (
+            <span className="border-b border-black-950">
+              <Link href={`${routeListPage}/${course.Id}`}>
+                {course.UserName ? course.UserName : course.Title}/
+                {course.CourseName}
+              </Link>
+            </span>
+          )}
+        </h3>
       </td>
       <td className={`${notStartTextClass}`}>
         {course.CourseStartDate}-{course.CourseEndDate}

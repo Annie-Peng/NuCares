@@ -225,21 +225,21 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
                   </span>
                 </div>
               )}
-              <div className="w-full overflow-hidden whitespace-nowrap text-ellipsis">
+              <h3 className="w-full overflow-hidden whitespace-nowrap text-ellipsis">
                 {course.CourseState === "開始" ? (
-                  <h3 className="text-18 text-black-300 w-fit font-bold lg:text-16">
+                  <span className="text-18 text-black-300 w-fit font-bold lg:text-16">
                     {course.UserName ? course.UserName : course.Title}/
                     {course.CourseName}
-                  </h3>
+                  </span>
                 ) : (
-                  <h3 className="text-18 border-b w-fit border-black-950 font-bold lg:text-16">
+                  <span className="text-18 border-b w-fit border-black-950 font-bold lg:text-16">
                     <Link href={`${routeListPage}/${course.Id}`}>
                       {course.UserName ? course.UserName : course.Title}/
                       {course.CourseName}
                     </Link>
-                  </h3>
+                  </span>
                 )}
-              </div>
+              </h3>
               <p className={`text-14 ${notStartTextClass}`}>
                 訂單編號：{course.OrderNumber}
               </p>
