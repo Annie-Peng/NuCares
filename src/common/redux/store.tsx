@@ -17,6 +17,7 @@ import { intro } from "./service/intro";
 import { apply } from "./service/apply";
 import { nutritionistList } from "./service/nutritionistList";
 import { payment } from "./service/payment";
+import { order } from "./service/order";
 import { favorite } from "./service/favorite";
 
 const store = configureStore({
@@ -38,6 +39,7 @@ const store = configureStore({
     [apply.reducerPath]: apply.reducer,
     [nutritionistList.reducerPath]: nutritionistList.reducer,
     [payment.reducerPath]: payment.reducer,
+    [order.reducerPath]: order.reducer,
     [favorite.reducerPath]: favorite.reducer,
   },
   middleware: (getDefaultMiddleware) =>
@@ -51,6 +53,7 @@ const store = configureStore({
       .concat(intro.middleware)
       .concat(nutritionistList.middleware)
       .concat(payment.middleware)
+      .concat(order.middleware)
       .concat(favorite.middleware),
 });
 
