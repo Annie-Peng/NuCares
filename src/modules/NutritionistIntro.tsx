@@ -1,7 +1,10 @@
 import Image from "next/image";
 import NutritionistComment from "./NutritionistComment";
 import { NutritionistDataType } from "@/pages/nutritionist-list/[nutritionistId]";
-import { FC } from "react";
+import { FC, useState } from "react";
+import { useFavoritePostApiMutation } from "@/common/redux/service/favorite";
+import { useRouter } from "next/router";
+import { getCookie } from "cookies-next";
 
 interface NutritionistIntroProps {
   nutritionistData: NutritionistDataType;
@@ -11,6 +14,30 @@ const NutritionistIntro: FC<NutritionistIntroProps> = ({
   nutritionistData,
 }) => {
   const starsNum = Array(5).fill(null);
+
+  const [favoritePostApi] = useFavoritePostApiMutation();
+  const [favorite, setFavorite] = useState(nutritionistData.Favorite);
+
+  const router = useRouter();
+
+  const { nutritionistId } = router.query;
+
+  const handleFavoriteClick = async () => {
+    try {
+      const Token = getCookie("Token");
+
+      if (!Token) router.push("/login");
+
+      const result = await favoritePostApi({
+        Token,
+        NutritionistId: nutritionistId,
+      });
+      console.log(result);
+      setFavorite(!favorite);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -70,9 +97,13 @@ const NutritionistIntro: FC<NutritionistIntroProps> = ({
               <p>{nutritionistData.Experience}</p>
             </li>
           </ul>
-          <button type="button">
+          <button type="button" onClick={handleFavoriteClick}>
             <Image
-              src="/images/icons/favorite.svg"
+              src={
+                favorite
+                  ? "/images/icons/favorite-fill.svg"
+                  : "/images/icons/favorite.svg"
+              }
               width={30}
               height={30}
               alt="favorite"

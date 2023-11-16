@@ -29,10 +29,9 @@ const FavoriteCard: FC<FavoriteCardProps> = ({ Token, nutritionistData }) => {
       <div className="w-[89px] h-[111px] relative lg:h-[200px] lg:w-[38%]">
         <Image
           src={
-            // nutritionistData.PortraitImage
-            //   ? nutritionistData.PortraitImage
-            //   : "/images/uploadphoto-no-word.svg"
-            "/images/uploadphoto-no-word.svg"
+            nutritionistData.PortraitImage
+              ? nutritionistData.PortraitImage
+              : "/images/uploadphoto-no-word.svg"
           }
           fill
           alt="PortraitImage"
@@ -45,17 +44,17 @@ const FavoriteCard: FC<FavoriteCardProps> = ({ Token, nutritionistData }) => {
           {nutritionistData.Title} 營養師
         </h3>
         <ul className="text-12 w-fit flex gap-8 mt-8">
-          {/* {nutritionistData.Expertise.map((tag, index) => (
+          {nutritionistData.Expertise.map((tag, index) => (
             <li
               key={index}
               className="border-primary-500 text-primary-500 px-12 rounded-l-35 rounded-r-35 border"
             >
               {tag}
             </li>
-          ))} */}
+          ))}
         </ul>
-        <p className="hidden aboutMe lg:mt-16 lg:block">
-          {nutritionistData.AboutMe}
+        <p className="hidden h-[120px] lg:mt-16 lg:block">
+          <span className="aboutMe hideText-5">{nutritionistData.AboutMe}</span>
         </p>
         <button
           type="button"
@@ -70,8 +69,8 @@ const FavoriteCard: FC<FavoriteCardProps> = ({ Token, nutritionistData }) => {
           />
         </button>
       </div>
-      <p className="text-14 mt-12 aboutMe lg:hidden">
-        {nutritionistData.AboutMe}
+      <p className="text-14 mt-12 lg:h-[120px] lg:hidden">
+        <span className="aboutMe hideText-5">{nutritionistData.AboutMe}</span>
       </p>
       <Link
         href={`/nutritionist-list/${nutritionistData.Id}`}
