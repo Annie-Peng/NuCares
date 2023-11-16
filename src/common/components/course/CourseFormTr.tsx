@@ -36,17 +36,42 @@ const CourseFormTr: FC<CourseFormTrProps> = ({
         {course.CourseStartDate}-{course.CourseEndDate}
       </td>
       <td>
-        <span
-          className={`cusCourseStatus ${
-            course.CourseState === "未開始"
-              ? "before:bg-black-300"
-              : course.CourseState === "進行中"
-              ? "before:bg-primary-300"
-              : "before:bg-black-700"
-          }`}
-        >
-          {course.CourseState}
-        </span>
+        {ID === "user" ? (
+          <span
+            className={`cusCourseStatus ${
+              course.CourseState === "開始"
+                ? "before:bg-black-300"
+                : course.CourseState === "進行中"
+                ? "before:bg-primary-300"
+                : "before:bg-black-700"
+            }`}
+          >
+            {course.CourseState}
+          </span>
+        ) : (
+          <button
+            className={
+              course.CourseState === "開始"
+                ? buttonClass[ID].IsCourseStart?.false.class
+                : course.CourseState === "進行中"
+                ? buttonClass[ID].IsCourseStart?.true.courseProcess.class
+                : buttonClass[ID].IsCourseStart?.true.courseOver.class
+            }
+            onClick={() =>
+              course.CourseState === "開始" &&
+              dispatch(showModal(["showCourseStartModal", { Token, course }]))
+            }
+            disabled={
+              course.CourseState === "開始"
+                ? buttonClass[ID].IsCourseStart?.false.disable
+                : course.CourseState === "進行中"
+                ? buttonClass[ID].IsCourseStart?.true.courseProcess.disable
+                : buttonClass[ID].IsCourseStart?.true.courseOver.disable
+            }
+          >
+            {course.CourseState}
+          </button>
+        )}
       </td>
       <td>
         {course.IsQuest ? (
@@ -65,24 +90,7 @@ const CourseFormTr: FC<CourseFormTrProps> = ({
           </button>
         )}
       </td>
-      <td>
-        {comment ? (
-          comment
-        ) : course.CourseState === "未開始" && course.IsQuest ? (
-          <button
-            className="btn-cusWriteSecondary"
-            onClick={() =>
-              dispatch(showModal(["showCourseStartModal", { Token, course }]))
-            }
-          >
-            開始
-          </button>
-        ) : (
-          <button disabled className="btn-cusDisableWriteBlack">
-            開始
-          </button>
-        )}
-      </td>
+      <td>{comment && comment}</td>
     </>
   );
 };
