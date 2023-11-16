@@ -137,7 +137,6 @@
   .aboutMe {
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -163,5 +162,9 @@
 
   .hideText-3 {
     -webkit-line-clamp: 3;
+  }
+
+  .hideText-4 {
+    -webkit-line-clamp: 4;
   }
 }
