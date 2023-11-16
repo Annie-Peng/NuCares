@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { showModal } from "@/common/redux/features/showModal";
 import { FC, useEffect, useState } from "react";
 import Link from "next/link";
+import { Dispatch } from "@reduxjs/toolkit";
 
 export interface Course {
   Id: string;
@@ -95,7 +96,9 @@ const buttonClass: ButtonClass = {
 const checkCommentClass = (
   course: Course,
   ID: string,
-  buttonClass: ButtonClass
+  buttonClass: ButtonClass,
+  dispatch: Dispatch,
+  Token: string
 ) => {
   let comment = null;
 
@@ -114,6 +117,14 @@ const checkCommentClass = (
         <button
           disabled={buttonClass[ID].IsComment?.false.courseOver!.disable}
           className={buttonClass[ID].IsComment?.false.courseOver!.class}
+          onClick={() =>
+            dispatch(
+              showModal([
+                "showCommentAddModal",
+                { Token: Token, Course: course },
+              ])
+            )
+          }
         >
           未評價
         </button>
@@ -189,7 +200,13 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
                     key={course.OrderNumber}
                     ID={ID}
                     buttonClass={buttonClass}
-                    comment={checkCommentClass(course, ID, buttonClass)}
+                    comment={checkCommentClass(
+                      course,
+                      ID,
+                      buttonClass,
+                      dispatch,
+                      Token
+                    )}
                     Token={Token}
                   />
                 </tr>
@@ -202,7 +219,13 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
       {/* 手機版 */}
       <ul className="px-20 container flex flex-col gap-32 mt-32 lg:hidden">
         {renderData.map((course: Course, index: number) => {
-          const comment = checkCommentClass(course, ID, buttonClass);
+          const comment = checkCommentClass(
+            course,
+            ID,
+            buttonClass,
+            dispatch,
+            Token
+          );
           const notStartTextClass =
             course.CourseState === "開始" ? "text-black-300" : "text-black-950";
           return (

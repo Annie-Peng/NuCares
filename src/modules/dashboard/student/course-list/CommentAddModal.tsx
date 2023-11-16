@@ -1,16 +1,27 @@
 import TitleModal from "@/common/components/TitleModal";
+import { Course } from "@/common/components/course/CourseForm";
 import { closeModal } from "@/common/redux/features/showModal";
+import { useCoursePostCommentApiMutation } from "@/common/redux/service/course";
 import Image from "next/image";
 import { FC, FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 
 interface CommentAddModalProps {
-  data: any;
+  data: {
+    Token: string;
+    Course: Course;
+  };
 }
 
 const CommentAddModal: FC<CommentAddModalProps> = ({ data }) => {
-  const [starsFillNum, setStarsFillNum] = useState(0);
+  const [starsFillNum, setStarsFillNum] = useState(1);
   const dispatch = useDispatch();
+
+  const { Token, Course } = data;
+
+  const [coursePostCommentApi] = useCoursePostCommentApiMutation();
+
+  console.log(data);
 
   const starsNum = Array(5).fill(null);
 
@@ -18,7 +29,18 @@ const CommentAddModal: FC<CommentAddModalProps> = ({ data }) => {
     try {
       e.preventDefault();
       const formData = new FormData(e.currentTarget);
-      console.log(formData.get("Content"));
+      const Content = formData.get("Content") || "(未留言)";
+      const body = {
+        Content,
+        Rate: starsFillNum,
+      };
+      console.log(body);
+      const result = await coursePostCommentApi({
+        Token,
+        CourseId: Course.Id,
+        body,
+      });
+      console.log(result);
       dispatch(closeModal("showCommentAddModal"));
     } catch (error) {
       console.log(error);
@@ -30,7 +52,8 @@ const CommentAddModal: FC<CommentAddModalProps> = ({ data }) => {
       <form onSubmit={handleSubmit} className="max-w-[578px] mx-auto mt-[36px]">
         <label>
           <p>
-            <span className="font-bold">課程：</span>1週飲食建議
+            <span className="font-bold">課程：</span>
+            {Course.CourseName}
           </p>
           <p className="text-14 text-opacity-80 text-[#7a7a7a]">
             請對此次課程進行評分
@@ -76,7 +99,9 @@ const CommentAddModal: FC<CommentAddModalProps> = ({ data }) => {
           <p className="text-14 text-opacity-80 text-[#7a7a7a]">
             請說明您對此次課程的感受，限50字。
           </p>
-          <textarea name="Content" className="h-[137px] p-10 mt-12" />
+          <div className="mx-[2px] lg:mx-0">
+            <textarea name="Content" className="h-[137px] p-10 mt-12" />
+          </div>
         </label>
         <button
           type="submit"
