@@ -58,7 +58,7 @@ const NutritionistCard: FC<NutritionistCardProps> = ({ nutritionistData }) => {
             {nutritionistData.Title} 營養師
           </h3>
         </Link>
-        <ul className="text-12 w-fit flex flex-wrap gap-8 mt-8 lg:flex-nowrap lg:text-14">
+        <ul className="text-12 w-fit flex flex-wrap gap-8 mt-8 lg:text-14">
           {nutritionistData.Expertise.map((tag, index) => (
             <li
               key={index}
