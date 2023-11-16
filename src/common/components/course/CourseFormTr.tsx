@@ -21,18 +21,29 @@ const CourseFormTr: FC<CourseFormTrProps> = ({
 }) => {
   const dispatch = useDispatch();
   const routeListPage = ID === "user" ? "course-list" : "student-list";
+  const notStartTextClass =
+    course.CourseState === "開始" ? "text-black-300" : "text-black-950";
   return (
     <>
-      <td className="text-14">{course.OrderNumber}</td>
-      <td>
-        <span className="border-b border-black-950 overflow-hidden whitespace-nowrap text-ellipsis">
-          <Link href={`${routeListPage}/${course.Id}`}>
+      <td className={`text-14 ${notStartTextClass}`}>{course.OrderNumber}</td>
+      <td
+        className={`max-w-[200px] overflow-hidden whitespace-nowrap text-ellipsis`}
+      >
+        {course.CourseState === "開始" ? (
+          <span className="text-black-300">
             {course.UserName ? course.UserName : course.Title}/
             {course.CourseName}
-          </Link>
-        </span>
+          </span>
+        ) : (
+          <span className="border-b border-black-950">
+            <Link href={`${routeListPage}/${course.Id}`}>
+              {course.UserName ? course.UserName : course.Title}/
+              {course.CourseName}
+            </Link>
+          </span>
+        )}
       </td>
-      <td>
+      <td className={`${notStartTextClass}`}>
         {course.CourseStartDate}-{course.CourseEndDate}
       </td>
       <td>

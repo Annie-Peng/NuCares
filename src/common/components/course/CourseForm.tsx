@@ -167,7 +167,7 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
   console.log(renderData);
 
   return (
-    <div className="cusMContainer flex flex-col justify-between h-full">
+    <div className="py-20 container lg:py-0 flex flex-col justify-between h-full">
       <h2 className="cusPrimaryTitle">{IDTabs.listName}</h2>
 
       {/* 電腦版 */}
@@ -200,10 +200,11 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
       </div>
 
       {/* 手機版 */}
-      <ul className="lg:hidden container flex flex-col gap-32 mt-32">
+      <ul className="px-20 container flex flex-col gap-32 mt-32 lg:hidden">
         {renderData.map((course: Course, index: number) => {
           const comment = checkCommentClass(course, ID, buttonClass);
-
+          const notStartTextClass =
+            course.CourseState === "開始" ? "text-black-300" : "text-black-950";
           return (
             <li
               key={index}
@@ -224,15 +225,25 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
                   </span>
                 </div>
               )}
-
-              <h3 className="text-18 border-b w-fit border-black-950 font-bold lg:text-16">
-                <Link href={`${routeListPage}/${course.Id}`}>
-                  {course.UserName ? course.UserName : course.Title}/
-                  {course.CourseName}
-                </Link>
-              </h3>
-              <p className="text-14">訂單編號：{course.OrderNumber}</p>
-              <p className="text-14">
+              <div className="w-full overflow-hidden whitespace-nowrap text-ellipsis">
+                {course.CourseState === "開始" ? (
+                  <h3 className="text-18 text-black-300 w-fit font-bold lg:text-16">
+                    {course.UserName ? course.UserName : course.Title}/
+                    {course.CourseName}
+                  </h3>
+                ) : (
+                  <h3 className="text-18 border-b w-fit border-black-950 font-bold lg:text-16">
+                    <Link href={`${routeListPage}/${course.Id}`}>
+                      {course.UserName ? course.UserName : course.Title}/
+                      {course.CourseName}
+                    </Link>
+                  </h3>
+                )}
+              </div>
+              <p className={`text-14 ${notStartTextClass}`}>
+                訂單編號：{course.OrderNumber}
+              </p>
+              <p className={`text-14 ${notStartTextClass}`}>
                 課程時間：{course.CourseStartDate}-{course.CourseEndDate}
               </p>
               <hr className="border-primary-400" />
