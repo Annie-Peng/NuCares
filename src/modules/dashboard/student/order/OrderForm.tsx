@@ -68,10 +68,12 @@ const OrderForm: FC<OrderFormProps> = ({ auth }) => {
                 <tr>
                   <td>{order.Date}</td>
                   <td>{order.OrderNumber}</td>
-                  <td className="max-w-[200px] overflow-hidden whitespace-nowrap text-ellipsis">
-                    <span className="border-b border-black-950">
-                      {order.Title}/{order.CourseName}
-                    </span>
+                  <td className="max-w-[200px]">
+                    <h3 className="overflow-hidden whitespace-nowrap text-ellipsis">
+                      <span className="border-b border-black-950">
+                        {order.Title}/{order.CourseName}
+                      </span>
+                    </h3>
                   </td>
                   <td>NT$ {order.CoursePrice}</td>
                   <td>{order.PaymentMethod}</td>
@@ -90,11 +92,11 @@ const OrderForm: FC<OrderFormProps> = ({ auth }) => {
               key={order.OrderNumber}
               className="flex flex-col border border-primary-400 p-20 gap-8 rounded-5 text-14"
             >
-              <div className="w-full overflow-hidden whitespace-nowrap text-ellipsis">
+              <h3 className="w-full overflow-hidden whitespace-nowrap text-ellipsis">
                 <span className="font-bold text-16 border-b border-black-950 w-fit">
                   {order.Title}/{order.CourseName}
                 </span>
-              </div>
+              </h3>
               <p className="mt-4">訂單編號：{order.OrderNumber}</p>
               <p>成立時間：{order.Date}</p>
               <p>金額：NT$ {order.CoursePrice}</p>
