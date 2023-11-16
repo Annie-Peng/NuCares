@@ -1,11 +1,21 @@
 import { FC, useEffect, useState } from "react";
 import Link from "next/link";
 import { Auth } from "@/types/interface";
+import { useOrderGetApiQuery } from "@/common/redux/service/order";
 
 const Tabs = ["時間", "訂單編號", "營養師/課程名稱", "金額", "付款方案"];
 
 interface OrderFormProps {
   auth: Auth;
+}
+
+interface OrderType {
+  Title: string;
+  CourseName: string;
+  CoursePrice: number;
+  OrderNumber: string;
+  Date: string;
+  PaymentMethod: string;
 }
 
 const OrderForm: FC<OrderFormProps> = ({ auth }) => {
@@ -18,8 +28,29 @@ const OrderForm: FC<OrderFormProps> = ({ auth }) => {
   const prevPage = showPage.Current_page - 1;
   const nextPage = showPage.Current_page + 1;
 
+  const [renderData, setRenderData] = useState<OrderType[] | null>(null);
+
+  const { data, isLoading, error } = useOrderGetApiQuery({
+    Token,
+    PageId: showPage.Current_page,
+  });
+
+  useEffect(() => {
+    if (data) {
+      setRenderData(data.Data);
+      setShowPage(data.Pagination);
+    }
+    if (error) {
+      console.log(error);
+    }
+  }, [data]);
+
+  if (!renderData) return null;
+
+  console.log(renderData);
+
   return (
-    <div className="cusMContainer flex flex-col justify-between h-full">
+    <div className="py-20 container lg:py-0 flex flex-col justify-between h-full">
       <h2 className="cusPrimaryTitle">訂單紀錄</h2>
       {/* 電腦版 */}
       <div className="hidden lg:block grow">
@@ -32,94 +63,46 @@ const OrderForm: FC<OrderFormProps> = ({ auth }) => {
             </tr>
           </thead>
           <tbody>
-            <td>2023/03/18</td>
-            <td>20231001001</td>
-            <td>
-              <span className="border-b border-black-950 overflow-hidden whitespace-nowrap text-ellipsis">
-                陳瘦瘦/進階 - 8週飲食建議
-              </span>
-            </td>
-            <td>NT$ 7,000</td>
-            <td>信用卡</td>
+            {renderData.map((order) => {
+              return (
+                <tr>
+                  <td>{order.Date}</td>
+                  <td>{order.OrderNumber}</td>
+                  <td className="max-w-[200px] overflow-hidden whitespace-nowrap text-ellipsis">
+                    <span className="border-b border-black-950">
+                      {order.Title}/{order.CourseName}
+                    </span>
+                  </td>
+                  <td>NT$ {order.CoursePrice}</td>
+                  <td>{order.PaymentMethod}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
 
-      {/* 手機版
-      <ul className="lg:hidden container flex flex-col gap-32 mt-32">
-        {renderData.map((course: Course, index: number) => {
-          const comment = checkCommentClass(course, ID, buttonClass);
-
+      {/* 手機版 */}
+      <ul className="px-20 container flex flex-col gap-32 mt-32 lg:hidden">
+        {renderData.map((order) => {
           return (
             <li
-              key={index}
-              className="flex flex-col border border-primary-400 p-20 gap-12 rounded-5"
+              key={order.OrderNumber}
+              className="flex flex-col border border-primary-400 p-20 gap-8 rounded-5 text-14"
             >
-              <div className="flex justify-between items-center">
-                <span
-                  className={`cusCourseStatus ${
-                    course.CourseState === "未開始"
-                      ? "before:bg-black-300"
-                      : course.CourseState === "進行中"
-                      ? "before:bg-primary-300"
-                      : "before:bg-black-700"
-                  }`}
-                >
-                  {course.CourseState}
+              <div className="w-full overflow-hidden whitespace-nowrap text-ellipsis">
+                <span className="font-bold text-16 border-b border-black-950 w-fit">
+                  {order.Title}/{order.CourseName}
                 </span>
-                {comment ? (
-                  comment
-                ) : course.CourseState === "未開始" && course.IsQuest ? (
-                  <button
-                    className="btn-cusWriteSecondary"
-                    onClick={() =>
-                      dispatch(
-                        showModal(["showCourseStartModal", { Token, course }])
-                      )
-                    }
-                  >
-                    開始
-                  </button>
-                ) : (
-                  <button disabled className="btn-cusDisableWriteBlack">
-                    開始
-                  </button>
-                )}
               </div>
-
-              <h3 className="border-b w-fit border-black-950 font-bold">
-                <Link href={`${routeListPage}/${course.Id}`}>
-                  {course.UserName ? course.UserName : course.Title}/
-                  {course.CourseName}
-                </Link>
-              </h3>
-              <p className="text-14">訂單編號：{course.OrderNumber}</p>
-              <p className="text-14">
-                課程時間：{course.CourseStartDate}-{course.CourseEndDate}
-              </p>
-              <hr className="border-primary-400" />
-              <div className="text-14">
-                飲食生活問券：
-                {course.IsQuest ? (
-                  <button
-                    disabled={buttonClass[ID].IsQuest.true.disable}
-                    className={buttonClass[ID].IsQuest.true.class}
-                  >
-                    已填寫
-                  </button>
-                ) : (
-                  <button
-                    disabled={buttonClass[ID].IsQuest.false.disable}
-                    className={buttonClass[ID].IsQuest.false.class}
-                  >
-                    未填寫
-                  </button>
-                )}
-              </div>
+              <p className="mt-4">訂單編號：{order.OrderNumber}</p>
+              <p>成立時間：{order.Date}</p>
+              <p>金額：NT$ {order.CoursePrice}</p>
+              <p>付款方式：{order.PaymentMethod}</p>
             </li>
           );
         })}
-      </ul> */}
+      </ul>
       <nav className="mx-auto mt-20">
         <ul className="flex gap-8">
           <li className="py-6 px-16 rounded-[2px] border border-black-300 text-black-300 bg-white">
