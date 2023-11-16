@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from "react";
-import Link from "next/link";
 import { Auth } from "@/types/interface";
 import { useOrderGetApiQuery } from "@/common/redux/service/order";
 
@@ -43,7 +42,7 @@ const OrderForm: FC<OrderFormProps> = ({ auth }) => {
     if (error) {
       console.log(error);
     }
-  }, [data]);
+  }, [data, error]);
 
   if (!renderData) return null;
 
