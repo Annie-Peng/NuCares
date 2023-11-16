@@ -7,11 +7,11 @@ export const apply = createApi({
   }),
   endpoints: (builder) => ({
     applyPostApi: builder.mutation({
-      query: ({ Token, body }) => ({
+      query: ({ putApiData, body }) => ({
         url: "/user/applyNutritionist",
         method: "POST",
         headers: {
-          Authorization: `${Token}`,
+          Authorization: `${putApiData.Token}`,
           "Content-Type": "application/json",
         },
         body,

@@ -1,4 +1,11 @@
-import { FC, Fragment, useState, Dispatch, SetStateAction } from "react";
+import {
+  FC,
+  Fragment,
+  useState,
+  Dispatch,
+  SetStateAction,
+  ReactNode,
+} from "react";
 import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import { ComponentType } from "@/types/interface";
 import Input from "../components/Input";
@@ -17,6 +24,7 @@ interface useEditFormProps {
   formData: ComponentType[];
   putApi: any;
   putApiData: string | Record<string, string | number> | string;
+  buttonJSX: ReactNode;
 }
 
 interface JSXEditFormProps {
@@ -25,6 +33,8 @@ interface JSXEditFormProps {
   putApi: any;
   putApiData: string | Record<string, string | number>;
   setEdit: Dispatch<SetStateAction<boolean>>;
+  setApiReq: Dispatch<SetStateAction<any>>;
+  buttonJSX: ReactNode;
 }
 
 const JSXEditForm: FC<JSXEditFormProps> = ({
@@ -33,6 +43,8 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
   putApi,
   putApiData,
   formData,
+  setApiReq,
+  buttonJSX,
 }) => {
   const { control, handleSubmit, setValue, getValues } = useForm({
     defaultValues: initialState,
@@ -48,9 +60,11 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
       // console.log(formData);
       const result = await putApi(formData).unwrap();
       console.log(result);
+      setApiReq(result);
       setEdit(false);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
+      setApiReq(error);
     }
   };
 
@@ -135,6 +149,9 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     initFileSrc={data.initFileSrc}
                     setValue={setValue}
                     value={field.value as string}
+                    error={invalid}
+                    errMsg={data.errMsg}
+                    errClass={data.errClass}
                   >
                     {data.children}
                   </InputImage>
@@ -188,21 +205,7 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
           />
         </Fragment>
       ))}
-      <div className="text-center mt-[60px] flex flex-col gap-10 justify-center items-center lg:flex-row">
-        <button
-          type="button"
-          className="btn-cusWritePrimary !py-8 w-full lg:w-[278px] order-2 lg:order-1"
-          onClick={() => setEdit(false)}
-        >
-          放棄變更
-        </button>
-        <button
-          type="submit"
-          className="btn-cusWriteSecondary !py-8 w-full lg:w-[278px] order-1 lg:order-2"
-        >
-          儲存
-        </button>
-      </div>
+      {buttonJSX}
     </form>
   );
 };
@@ -212,8 +215,10 @@ const useEditForm = ({
   formData,
   putApi,
   putApiData,
+  buttonJSX,
 }: useEditFormProps) => {
   const [edit, setEdit] = useState<boolean>(false);
+  const [apiReq, setApiReq] = useState<any>();
 
   const renderEditForm = (
     <JSXEditForm
@@ -222,10 +227,12 @@ const useEditForm = ({
       putApi={putApi}
       putApiData={putApiData}
       formData={formData}
+      setApiReq={setApiReq}
+      buttonJSX={buttonJSX}
     />
   );
 
-  return { edit, setEdit, renderEditForm };
+  return { edit, setEdit, renderEditForm, apiReq };
 };
 
 export default useEditForm;

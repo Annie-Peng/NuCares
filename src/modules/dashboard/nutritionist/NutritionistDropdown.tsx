@@ -4,17 +4,13 @@ import changeIdentity from "@/common/lib/dashboard/changeIdentity";
 import nutritionistTabs from "@/common/lib/dashboard/nutritionistTabs";
 import logoutTab from "@/common/lib/dashboard/logoutTab";
 import { setCookie } from "cookies-next";
-import { useDispatch } from "react-redux";
-import { updateChangeID } from "@/common/redux/features/changeID";
 import { useRouter } from "next/router";
 
 const NutritionistDropdown = () => {
-  const dispatch = useDispatch();
   const router = useRouter();
 
   function handleChangeID() {
     setCookie("UserCurrentStatus", "user");
-    dispatch(updateChangeID("user"));
     router.push("/dashboard/student/course-list");
   }
 
@@ -56,13 +52,13 @@ const NutritionistDropdown = () => {
                 </div>
                 <span className="align-middle">{nutritionistTab.tab}</span>
                 {showSubTabs && (
-                  <ul className="ml-28 mt-16 flex flex-col gap-16 text-black-500">
+                  <ul className="mt-16 flex flex-col gap-16 text-black-500">
                     <li>
                       <Link
                         href={
                           (nutritionistTab.tabURL as { intro: string }).intro
                         }
-                        className="block"
+                        className="block pl-28"
                       >
                         關於我
                       </Link>
@@ -73,7 +69,7 @@ const NutritionistDropdown = () => {
                           (nutritionistTab.tabURL as { courses: string })
                             .courses
                         }
-                        className="block"
+                        className="block pl-28"
                       >
                         課程方案
                       </Link>

@@ -5,7 +5,6 @@ import { getCookies } from "cookies-next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FC, useState } from "react";
-import PaymentFormForthPhase from "@/modules/payment/PaymentFormForthPhase";
 import { usePaymentGetApiQuery } from "@/common/redux/service/payment";
 import { Auth } from "@/types/interface";
 
@@ -16,7 +15,7 @@ interface PaymentPageProps {
 const PaymentPage: FC<PaymentPageProps> = ({ auth }) => {
   const router = useRouter();
   const { nutritionist, plan } = router.query;
-  const [currentPhase, setCurrentPhase] = useState<number>(4);
+  const [currentPhase, setCurrentPhase] = useState<number>(1);
 
   const {
     data: renderData,
@@ -45,6 +44,7 @@ const PaymentPage: FC<PaymentPageProps> = ({ auth }) => {
             auth={auth}
             renderData={renderData.Data}
             setCurrentPhase={setCurrentPhase}
+            planId={plan as string}
           />
         )}
         {currentPhase === 2 && (
@@ -54,7 +54,6 @@ const PaymentPage: FC<PaymentPageProps> = ({ auth }) => {
             renderData={renderData.Data}
           />
         )}
-        {currentPhase === 4 && <PaymentFormForthPhase />}
       </div>
     </div>
   );
@@ -67,8 +66,12 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async ({ req, res }) => {
       const auth = getCookies({ req, res });
       if (!auth.Token) {
-        res.writeHead(400, { Location: "/login" });
-        res.end();
+        return {
+          redirect: {
+            destination: "/login",
+            permanent: false,
+          },
+        };
       }
       return {
         props: {

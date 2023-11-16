@@ -1,33 +1,35 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const payment = createApi({
-  reducerPath: "payment",
+export const favorite = createApi({
+  reducerPath: "favorite",
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_URL,
   }),
+  tagTypes: ["favorite"],
   endpoints: (builder) => ({
-    paymentGetApi: builder.query({
-      query: ({ Token, planId }) => ({
-        url: `/plan/${planId}`,
+    favoriteGetApi: builder.query({
+      query: ({ Token }) => ({
+        url: "/user/follow",
         method: "GET",
         headers: {
           Authorization: `${Token}`,
           "Content-Type": "application/json",
         },
       }),
+      providesTags: ["favorite"],
     }),
-    paymentPostApi: builder.mutation({
-      query: ({ Token, planId, body }) => ({
-        url: `/order/${planId}`,
+    favoritePostApi: builder.mutation({
+      query: ({ Token, NutritionistId }) => ({
+        url: `/user/follow/${NutritionistId}`,
         method: "POST",
         headers: {
           Authorization: `${Token}`,
           "Content-Type": "application/json",
         },
-        body,
       }),
+      invalidatesTags: ["favorite"],
     }),
   }),
 });
 
-export const { usePaymentGetApiQuery, usePaymentPostApiMutation } = payment;
+export const { useFavoriteGetApiQuery, useFavoritePostApiMutation } = favorite;

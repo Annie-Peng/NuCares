@@ -1,4 +1,10 @@
-import { FC, ReactEventHandler, ReactNode, FocusEventHandler } from "react";
+import {
+  FC,
+  ReactEventHandler,
+  ReactNode,
+  FocusEventHandler,
+  useState,
+} from "react";
 import useUploadFile, { InitFileSrcFoodType } from "../hooks/useUploadFile";
 import Image from "next/image";
 import { UseFormSetValue } from "react-hook-form";
@@ -59,14 +65,25 @@ const InputImage: FC<InputImageProps> = ({
     initFileSrc,
   });
 
+  const [apiPhoto, setApiPhoto] = useState(value);
+
   const PutPhoto = fileSrc[name as keyof InitFileSrcFoodType]?.fetch;
   if (fileSrc[name as keyof InitFileSrcFoodType]?.fetch) {
     setValue(name, PutPhoto || "");
   }
 
+  const updateApiPhoto = apiPhoto?.replace(
+    "https://nucares.top/upload/images/",
+    ""
+  );
+
+  if (apiPhoto?.startsWith("http")) {
+    setValue(name, updateApiPhoto as string);
+  }
+
   return (
     <>
-      <label htmlFor={name} className={`${labelClass} mt-20 block`}>
+      <label htmlFor={name} className={`${labelClass} w-fit mt-20 block`}>
         <h4 className="formHead">{hMsg}</h4>
         <p className="formContent">{pMsg}</p>
         {children}
@@ -74,7 +91,7 @@ const InputImage: FC<InputImageProps> = ({
           <Image
             src={
               fileSrc[name as keyof InitFileSrcFoodType]?.file ||
-              (value as string) ||
+              (apiPhoto as string) ||
               "/images/uploadPhoto.svg"
             }
             fill

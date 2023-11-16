@@ -4,7 +4,6 @@ import registerReducer from "./features/registerPhases";
 import paymentReducer from "./features/paymentPhases";
 import authReducer from "./features/auth";
 import showModalReducer from "./features/showModal";
-import changeIDReducer from "./features/changeID";
 import bodyRateReducer from "./features/dietary-record/bodyRate";
 import dailyDietaryReducer from "./features/dietary-record/dailyDietary";
 import goalReducer from "./features/dietary-record/goal";
@@ -18,13 +17,13 @@ import { intro } from "./service/intro";
 import { apply } from "./service/apply";
 import { nutritionistList } from "./service/nutritionistList";
 import { payment } from "./service/payment";
+import { favorite } from "./service/favorite";
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     registerPhases: registerReducer,
     showModal: showModalReducer,
-    // changeID: changeIDReducer,
     dailyDietary: dailyDietaryReducer,
     bodyRate: bodyRateReducer,
     goal: goalReducer,
@@ -39,6 +38,7 @@ const store = configureStore({
     [apply.reducerPath]: apply.reducer,
     [nutritionistList.reducerPath]: nutritionistList.reducer,
     [payment.reducerPath]: payment.reducer,
+    [favorite.reducerPath]: favorite.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -50,7 +50,8 @@ const store = configureStore({
       .concat(apply.middleware)
       .concat(intro.middleware)
       .concat(nutritionistList.middleware)
-      .concat(payment.middleware),
+      .concat(payment.middleware)
+      .concat(favorite.middleware),
 });
 
 const wrapper = createWrapper(() => store, { debug: false });

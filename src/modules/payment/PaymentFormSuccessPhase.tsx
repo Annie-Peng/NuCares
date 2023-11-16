@@ -1,23 +1,23 @@
 import { setCookie } from "cookies-next";
 import Image from "next/image";
 import Link from "next/link";
-import paymentStep4 from "public/images/payment/paymentStep4.svg";
+import paymentSuccess from "public/images/payment/paymentSuccess.svg";
 
-const PaymentFormForthPhase = () => {
+const PaymentFormSuccessPhase = () => {
   return (
     <>
       <div className="hidden mt-16 px-[140px] lg:block">
         <Image
-          src={paymentStep4}
+          src={paymentSuccess}
           width="783"
           height="45"
           layout="responsive"
           alt="paymentStep2"
         />
       </div>
-      <form className=" bg-white text-center mt-16 p-20 rounded-20 text-24 font-normal lg:p-40">
-        <p>訂購完成</p>
-        <p className="mt-24">
+      <form className=" bg-white text-center mt-16 p-20 rounded-20 font-normal lg:p-40">
+        <p className="text-20 lg:text-24">訂購完成</p>
+        <p className="mt-24 text-14 lg:text-24">
           您可至後台管理
           <Link
             href="/dashboard/student/course-list"
@@ -33,4 +33,4 @@ const PaymentFormForthPhase = () => {
   );
 };
 
-export default PaymentFormForthPhase;
+export default PaymentFormSuccessPhase;
