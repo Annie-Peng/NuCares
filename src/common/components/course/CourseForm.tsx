@@ -160,7 +160,7 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
     if (error) {
       console.log(error);
     }
-  }, [data]);
+  }, [data, error]);
 
   if (!renderData) return null;
 

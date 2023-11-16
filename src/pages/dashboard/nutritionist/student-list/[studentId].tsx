@@ -91,7 +91,14 @@ const StudentIdPage: FC<StudentIdProps> = ({ auth }) => {
     if (GoalError) {
       console.log(GoalError);
     }
-  }, [BodyInfo, Goal, DailyDietary]);
+  }, [
+    BodyInfo,
+    Goal,
+    DailyDietary,
+    BodyInfoError,
+    GoalError,
+    DailyDietaryError,
+  ]);
 
   return (
     <>

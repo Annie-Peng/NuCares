@@ -67,7 +67,7 @@ const CourseIdPage: FC<CourseIdProps> = ({ auth }) => {
     if (GoalError) {
       console.log(GoalError);
     }
-  }, [BodyInfo, Goal]);
+  }, [BodyInfo, Goal, BodyInfoError, GoalError]);
 
   return (
     <>
