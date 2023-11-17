@@ -48,7 +48,7 @@ const CommentAddModal: FC<CommentAddModalProps> = ({ data }) => {
   };
 
   return (
-    <TitleModal title="評價" width="820px" modal="showCommentAddModal">
+    <TitleModal title="評價" modal="showCommentAddModal">
       <form onSubmit={handleSubmit} className="max-w-[578px] mx-auto mt-[36px]">
         <label>
           <p>
