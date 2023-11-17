@@ -43,6 +43,21 @@ export const course = createApi({
       },
       invalidatesTags: ["Course"],
     }),
+    coursePostCommentApi: builder.mutation({
+      query: ({ Token, CourseId, body }) => {
+        console.log(Token, CourseId, body);
+        return {
+          url: `/course/${CourseId}/comment`,
+          method: "POST",
+          headers: {
+            Authorization: `${Token}`,
+            "Content-Type": "application/json",
+          },
+          body,
+        };
+      },
+      invalidatesTags: ["Course"],
+    }),
   }),
 });
 
@@ -50,4 +65,5 @@ export const {
   useCourseListGetApiQuery,
   useCourseGetTimeApiQuery,
   useCoursePutStartApiMutation,
+  useCoursePostCommentApiMutation,
 } = course;

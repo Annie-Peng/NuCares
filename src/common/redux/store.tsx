@@ -17,6 +17,9 @@ import { intro } from "./service/intro";
 import { apply } from "./service/apply";
 import { nutritionistList } from "./service/nutritionistList";
 import { payment } from "./service/payment";
+import { profile } from "./service/profile";
+import { order } from "./service/order";
+import { favorite } from "./service/favorite";
 
 const store = configureStore({
   reducer: {
@@ -37,6 +40,9 @@ const store = configureStore({
     [apply.reducerPath]: apply.reducer,
     [nutritionistList.reducerPath]: nutritionistList.reducer,
     [payment.reducerPath]: payment.reducer,
+    [profile.reducerPath]: profile.reducer,
+    [order.reducerPath]: order.reducer,
+    [favorite.reducerPath]: favorite.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -48,7 +54,10 @@ const store = configureStore({
       .concat(apply.middleware)
       .concat(intro.middleware)
       .concat(nutritionistList.middleware)
-      .concat(payment.middleware),
+      .concat(payment.middleware)
+      .concat(profile.middleware)
+      .concat(order.middleware)
+      .concat(favorite.middleware),
 });
 
 const wrapper = createWrapper(() => store, { debug: false });

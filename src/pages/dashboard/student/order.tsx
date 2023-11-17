@@ -1,7 +1,35 @@
-import DashboardLayout from "@/common/components/DashboardLayout";
+import wrapper from "@/common/redux/store";
+import OrderForm from "@/modules/dashboard/student/order/OrderForm";
+import { Auth } from "@/types/interface";
+import { getCookies } from "cookies-next";
+import { FC } from "react";
 
-const OrderPage = () => {
-  return <DashboardLayout>OrderPage</DashboardLayout>;
+interface OrderPageProps {
+  auth: Auth;
+}
+
+const OrderPage: FC<OrderPageProps> = ({ auth }) => {
+  return (
+    <>
+      <OrderForm auth={auth} />
+    </>
+  );
 };
 
 export default OrderPage;
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  () =>
+    async ({ req, res }) => {
+      const auth = getCookies({ req, res });
+      if (!auth.Token) {
+        res.writeHead(302, { Location: "/login" });
+        res.end();
+      }
+      return {
+        props: {
+          auth,
+        },
+      };
+    }
+);
