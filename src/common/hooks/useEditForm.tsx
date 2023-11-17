@@ -15,6 +15,9 @@ import InputImage from "../components/InputImage";
 import InputSwitch from "../components/InputSwitch";
 import InputButtonGroup from "../components/InputButtonGroup";
 import InputDate from "../components/InputDate";
+import { setCookie } from "cookies-next";
+import { useDispatch, useSelector } from "react-redux";
+import { selectAuth, updateAuthImgUrl } from "../redux/features/auth";
 
 export interface InitialStateType {
   [key: string]: string | string[] | boolean | number;
@@ -52,6 +55,9 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
     criteriaMode: "all",
   });
 
+  const dispatch = useDispatch();
+  const auth = useSelector(selectAuth);
+
   const onSubmit: SubmitHandler<InitialStateType> = async (body) => {
     try {
       const formData = {
@@ -61,6 +67,10 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
       // console.log(formData);
       const result = await putApi(formData).unwrap();
       console.log(result);
+      if (body.UserName && body.ImgUrl) {
+        dispatch(updateAuthImgUrl(result.Data.ImgUrl));
+        setCookie("ImgUrl", result.Data.ImgUrl);
+      }
       setApiReq(result);
       setEdit(false);
     } catch (error: any) {
