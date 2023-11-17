@@ -9,18 +9,11 @@ export interface CourseTabs {
 
 const courseTabs: CourseTabs = {
   nu: {
-    listName: "我的學員列表",
-    tabs: [
-      "訂單編號",
-      "學員/課程名稱",
-      "課程期間",
-      "狀態",
-      "飲食生活問券",
-      "課程開始",
-    ],
+    listName: "學員列表",
+    tabs: ["訂單編號", "學員/課程名稱", "課程期間", "課程狀態", "飲食生活問券"],
   },
   user: {
-    listName: "我的課程列表",
+    listName: "課程列表",
     tabs: [
       "訂單編號",
       "營養師/課程名稱",
