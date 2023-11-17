@@ -23,9 +23,12 @@ export const authSlice = createSlice({
       state.IsNutritionist = IsNutritionist;
       state.UserCurrentStatus = UserCurrentStatus;
     },
+    updateAuthImgUrl: (state, action) => {
+      state.ImgUrl = action.payload;
+    },
   },
 });
 
-export const { storeAuth } = authSlice.actions;
+export const { storeAuth, updateAuthImgUrl } = authSlice.actions;
 export const selectAuth = (state: RootState) => state.auth;
 export default authSlice.reducer;

@@ -67,18 +67,18 @@ const InputImage: FC<InputImageProps> = ({
 
   const [apiPhoto, setApiPhoto] = useState(value);
 
-  const PutPhoto = fileSrc[name as keyof InitFileSrcFoodType]?.fetch;
-  if (fileSrc[name as keyof InitFileSrcFoodType]?.fetch) {
-    setValue(name, PutPhoto || "");
-  }
-
-  const updateApiPhoto = apiPhoto?.replace(
+  const updateApiPhoto = apiPhoto?.replaceAll(
     "https://nucares.top/upload/images/",
     ""
   );
 
   if (apiPhoto?.startsWith("http")) {
     setValue(name, updateApiPhoto as string);
+  }
+
+  const PutPhoto = fileSrc[name as keyof InitFileSrcFoodType]?.fetch;
+  if (fileSrc[name as keyof InitFileSrcFoodType]?.fetch) {
+    setValue(name, PutPhoto || "");
   }
 
   return (
