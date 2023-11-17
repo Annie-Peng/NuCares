@@ -9,6 +9,7 @@ import CourseStartModal from "@/modules/dashboard/nutritionist/workshop/CourseSt
 import BodyRateAddModal from "@/modules/dashboard/student/courses/BodyRateAddModal";
 import CourseDeleteModal from "@/modules/dashboard/nutritionist/workshop/CourseDeleteModal";
 import CourseSaveModal from "@/modules/dashboard/nutritionist/workshop/CourseSaveModal";
+import CommentAddModal from "@/modules/dashboard/student/course-list/CommentAddModal";
 
 const DashboardLayout: FC<DashboardLayoutProps> = ({ value, children }) => {
   const showModal = useSelector(selectShowModal);
@@ -18,6 +19,7 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({ value, children }) => {
     showBodyRateAddModal,
     showCourseDeleteModal,
     showCourseSaveModal,
+    showCommentAddModal,
   } = useSelector(selectShowModal);
 
   return (
@@ -36,6 +38,9 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({ value, children }) => {
       )}
       {showCourseSaveModal.showModal && (
         <CourseSaveModal data={showCourseSaveModal.data} />
+      )}
+      {showCommentAddModal.showModal && (
+        <CommentAddModal data={showCommentAddModal.data} />
       )}
       <div className="flex flex-col min-h-screen">
         <Header />
