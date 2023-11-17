@@ -60,7 +60,7 @@ const foodMenu = {
 };
 export default foodMenu;
 
-interface FoodIcon {
+export interface FoodIcon {
   PC: string;
   completed: string;
   mobile: string;

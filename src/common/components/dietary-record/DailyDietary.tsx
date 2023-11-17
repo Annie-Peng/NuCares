@@ -211,7 +211,7 @@ const DailyDietary: FC<DailyDietaryProps> = ({
           src="/images/dashboard/dietary-record/edit.svg"
           width="28"
           height="28"
-          alt="arrow"
+          alt="edit"
           className="absolute top-12 right-16"
         />
       </button>
@@ -220,8 +220,11 @@ const DailyDietary: FC<DailyDietaryProps> = ({
           src="/images/dashboard/dietary-record/hint.svg"
           width="28"
           height="28"
-          alt="arrow"
+          alt="hint"
           className="absolute top-12 left-16 hidden lg:block"
+          onClick={() =>
+            dispatch(showModal(["showFoodDetailModal", foodIcons]))
+          }
         />
       </button>
       <FullCalendar
