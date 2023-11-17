@@ -83,7 +83,7 @@ const CourseStartModal: FC<CourseStartModalProps> = ({ data }) => {
   console.log(Time);
   return (
     <MiniModal modal="showCourseStartModal">
-      <div className="flex flex-col justify-between mx-auto max-w-[300px] h-[236px] text-20 font-bold">
+      <div className="flex flex-col justify-between mx-auto max-w-[300px] text-18 lg:text-20 font-bold text-center">
         <div className="flex flex-col gap-8">
           <p className="border-black-950 border-b-2 w-fit mx-auto">
             {UserName}/{CourseName}
@@ -95,7 +95,7 @@ const CourseStartModal: FC<CourseStartModalProps> = ({ data }) => {
           <p className="grow">確定開始課程？</p>
         </div>
         <button
-          className=" btn-cusSecondary p-6"
+          className=" btn-cusSecondary p-8 text-16 mt-24 lg:mt-[36px]"
           onClick={() => handleClick(Token, Id, Time)}
         >
           確定

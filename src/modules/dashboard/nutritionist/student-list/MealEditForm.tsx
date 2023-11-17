@@ -70,9 +70,9 @@ const MealEditForm: FC<MealEditFormProps> = ({ title, food, renderData }) => {
   console.log(qty);
 
   return (
-    <div className="breakfastQuantity w-full lg:w-[36%]">
+    <div className="breakfastQuantity w-full lg:w-[42%]">
       <h5 className="text-white bg-primary-400 rounded-35">{title}</h5>
-      <ul className="flex justify-center gap-24 mt-12">
+      <ul className="flex justify-center gap-[34px] mt-12 mx-[2px] lg:mx-0">
         {food.map((item, index) => {
           return (
             <li key={index}>

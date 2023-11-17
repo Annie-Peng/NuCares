@@ -36,7 +36,7 @@ const CourseDeleteModal: FC<CourseDeleteModalProps> = ({ data }) => {
       <p className="text-center text-20 font-bold">確定刪除此方案？</p>
       <button
         type="button"
-        className="btn-cusSecondary block mx-auto mt-[36px] py-8 w-[250px]"
+        className="w-full btn-cusSecondary block mx-auto mt-[36px] py-8 lg:w-[250px]"
         onClick={(e) => handleDeleteClick(e, data)}
       >
         確定
