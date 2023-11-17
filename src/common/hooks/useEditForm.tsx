@@ -116,7 +116,7 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     errClass={data.errClass}
                     errMsg={data.errMsg}
                     onChange={field.onChange}
-                    value={field.value as string[]}
+                    value={field.value as string | string[]}
                   >
                     {data.children}
                   </Select>

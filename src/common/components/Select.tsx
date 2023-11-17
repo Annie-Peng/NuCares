@@ -16,7 +16,7 @@ interface SelectProps {
   errMsg?: string;
   imageClass?: string;
   error?: boolean;
-  value?: string[];
+  value?: string[] | string;
 }
 
 const Select: FC<SelectProps> = ({
