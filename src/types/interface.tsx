@@ -73,7 +73,8 @@ export interface ComponentType {
     | "textarea"
     | "inputImage"
     | "inputSwitch"
-    | "inputButtonGroup";
+    | "inputButtonGroup"
+    | "inputDate";
   Token?: string;
   initFileSrc?: InitFileSrcFoodType;
   chName?: string;
