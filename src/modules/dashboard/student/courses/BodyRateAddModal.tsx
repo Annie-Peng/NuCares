@@ -10,7 +10,6 @@ interface BodyRateAddModalProps {
   data: {
     Token: string;
     CourseId: string;
-    [key: string]: string;
   };
 }
 
@@ -22,7 +21,6 @@ export interface FormInput {
   SMM: string;
   Bmi: string;
   Bmr: string;
-  [key: string]: string;
 }
 
 const BodyRateAddModal: FC<BodyRateAddModalProps> = ({ data }) => {
@@ -50,19 +48,11 @@ const BodyRateAddModal: FC<BodyRateAddModalProps> = ({ data }) => {
   };
 
   return (
-    <TitleModal
-      title="今天身體數值"
-      width="820px"
-      mobileWidth="342px"
-      modal="showBodyRateAddModal"
-    >
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="max-w-[342px] lg:max-w-[820px]"
-      >
-        <ul className="flex flex-wrap gap-32 my-32 text-center lg:flex-nowrap">
+    <TitleModal title="今天身體數值" modal="showBodyRateAddModal">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <ul className="mx-auto flex flex-wrap gap-32 my-32 text-center max-w-[212px] justify-center lg:max-w-none lg:flex-nowrap lg:my-[36px]">
           {bodyRateAdd.map((item, index) => (
-            <li key={index} className="w-[90px] mx-auto lg:w-full">
+            <li key={index} className="w-[90px]">
               <label className="relative">
                 <p className="bg-primary-400 text-white rounded-35">
                   {item.name}
@@ -70,21 +60,23 @@ const BodyRateAddModal: FC<BodyRateAddModalProps> = ({ data }) => {
                 <input
                   type="number"
                   className="w-full mt-8 pr-[48px]"
-                  {...register(`${item.enName}`, { required: "*必填" })}
+                  {...register(`${item.enName as keyof FormInput}`, {
+                    required: "*必填",
+                  })}
                 />
                 <p className="absolute right-12 top-[43px] whitespace-nowrap text-black-400">
                   {item.unit}
                 </p>
               </label>
               <p className="text-left text-secondary-600 mt-4">
-                {errors[item.enName]?.message}
+                {errors[item.enName as keyof FormInput]?.message}
               </p>
             </li>
           ))}
         </ul>
         <button
           type="submit"
-          className="btn-cusSecondary p-8 w-[270px] block mx-auto lg:p-6"
+          className="btn-cusSecondary p-8 w-[240px] block mx-auto lg:w-[270px]"
         >
           新增
         </button>
