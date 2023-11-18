@@ -16,6 +16,7 @@ interface SelectProps {
   errMsg?: string;
   imageClass?: string;
   error?: boolean;
+  value?: string[] | string;
 }
 
 const Select: FC<SelectProps> = ({
@@ -33,6 +34,7 @@ const Select: FC<SelectProps> = ({
   options,
   imageClass,
   error,
+  value,
 }) => {
   return (
     <>
@@ -47,6 +49,7 @@ const Select: FC<SelectProps> = ({
           name={name}
           onChange={onChange}
           required={required}
+          value={value}
         >
           <option value="" disabled selected>
             {disabledOption}

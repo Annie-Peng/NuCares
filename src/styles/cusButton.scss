@@ -4,38 +4,43 @@ button {
 
 //其他：自訂
 .btn-cusSecondary {
-  @apply rounded-5 text-white bg-secondary-400;
+  @apply rounded-5 text-white bg-secondary-500;
   &:hover {
-    @apply bg-secondary-450;
+    @apply bg-secondary-600;
   }
 }
 
 //登入,註冊, 忘記密碼
 .btn-cusBigSecondary {
-  @apply rounded-5 text-white bg-secondary-400 font-bold py-10 px-12 lg:p-12 lg:text-20;
+  @apply rounded-5 text-white bg-secondary-500 font-bold py-10 px-12 lg:p-12 lg:text-20;
   &:hover {
-    @apply bg-secondary-450;
+    @apply bg-secondary-600;
   }
 }
 
 // 課程
 .btn-cusWriteSecondary {
-  @apply rounded-5 text-white bg-secondary-400 py-4 px-10;
+  @apply rounded-5 text-white bg-secondary-500 py-4 px-10;
 }
 
 // 課程
-.btn-cusWriteBlack {
-  @apply rounded-5 border border-black-200 text-black-400 py-4 px-10;
+.btn-cusWriteWhite {
+  @apply rounded-5 text-white bg-[#B0B0B080] bg-opacity-50 py-4 px-10;
 }
 
 // 課程
 .btn-cusDisableWriteBlack {
-  @apply rounded-5 text-black-400 bg-black-200 py-4 px-10;
+  @apply rounded-5 text-black-500 bg-[#B0B0B080] bg-opacity-50 py-4 px-10;
 }
 
 // 課程
 .btn-cusWritePrimary {
   @apply rounded-5 border border-primary-400 text-primary-400 py-4 px-10;
+}
+
+// 課程
+.btn-cusWriteBgPrimary {
+  @apply rounded-5 bg-[#3690A4] bg-opacity-40 text-white py-4 px-10;
 }
 
 //編輯筆

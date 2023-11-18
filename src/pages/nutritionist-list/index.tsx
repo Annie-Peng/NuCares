@@ -1,6 +1,7 @@
 import usePagination from "@/common/hooks/usePagination";
 import NutritionistCard from "@/modules/NutritionistCard";
 import axios from "axios";
+import { getCookies } from "cookies-next";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { FC } from "react";
@@ -167,17 +168,23 @@ export default NutritionistListPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
-    const { query } = context;
+    const { query, req, res } = context;
     const page = query.page || "";
     const filter = query.filter || "";
     const sort = query.sort || "";
+    const auth = getCookies({ req, res });
 
     const queryStringPage = page ? `&page=${page}` : "";
     const queryStringFilter = filter ? `filter=${filter}` : "";
     const queryStringSort = sort ? `&sort=${sort}` : "";
 
     const result = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/nutritionist/search?${queryStringFilter}${queryStringSort}${queryStringPage}`
+      `${process.env.NEXT_PUBLIC_API_URL}/nutritionist/search?${queryStringFilter}${queryStringSort}${queryStringPage}`,
+      {
+        headers: {
+          Authorization: auth.Token,
+        },
+      }
     );
 
     const data = result.data;

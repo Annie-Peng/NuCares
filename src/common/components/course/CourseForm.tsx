@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { showModal } from "@/common/redux/features/showModal";
 import { FC, useEffect, useState } from "react";
 import Link from "next/link";
+import { Dispatch } from "@reduxjs/toolkit";
 
 export interface Course {
   Id: string;
@@ -36,6 +37,13 @@ export interface ButtonClass {
         courseOver?: { class: string; disable: boolean };
       };
     };
+    IsCourseStart?: {
+      true: {
+        courseProcess: { class: string; disable: boolean };
+        courseOver: { class: string; disable: boolean };
+      };
+      false: { class: string; disable: boolean };
+    };
   };
 }
 
@@ -50,20 +58,36 @@ interface CourseFormProps {
 const buttonClass: ButtonClass = {
   nu: {
     IsQuest: {
-      true: { class: "btn-cusWritePrimary", disable: false },
-      false: { class: "btn-cusWriteBlack", disable: true },
+      true: { class: "w-[90px] btn-cusWritePrimary", disable: false },
+      false: { class: "w-[90px] btn-cusWriteWhite", disable: true },
+    },
+    IsCourseStart: {
+      true: {
+        courseProcess: {
+          class: "w-[90px] btn-cusWriteBgPrimary",
+          disable: true,
+        },
+        courseOver: {
+          class: "w-[90px] btn-cusDisableWriteBlack",
+          disable: true,
+        },
+      },
+      false: { class: "w-[90px] btn-cusWriteSecondary", disable: false },
     },
   },
   user: {
     IsQuest: {
-      true: { class: "btn-cusDisableWriteBlack", disable: true },
-      false: { class: "btn-cusWriteSecondary", disable: false },
+      true: { class: "w-[90px] btn-cusDisableWriteBlack", disable: true },
+      false: { class: "w-[90px] btn-cusWriteSecondary", disable: false },
     },
     IsComment: {
-      true: { class: "btn-cusDisableWriteBlack", disable: true },
+      true: { class: "w-[90px] btn-cusDisableWriteBlack", disable: true },
       false: {
-        courseProcess: { class: "btn-cusDisableWriteBlack", disable: true },
-        courseOver: { class: "btn-cusWriteSecondary", disable: false },
+        courseProcess: {
+          class: "w-[90px] btn-cusWriteWhite",
+          disable: true,
+        },
+        courseOver: { class: "w-[90px] btn-cusWriteSecondary", disable: false },
       },
     },
   },
@@ -72,7 +96,9 @@ const buttonClass: ButtonClass = {
 const checkCommentClass = (
   course: Course,
   ID: string,
-  buttonClass: ButtonClass
+  buttonClass: ButtonClass,
+  dispatch: Dispatch,
+  Token: string
 ) => {
   let comment = null;
 
@@ -87,17 +113,25 @@ const checkCommentClass = (
     );
   } else if (course.IsComment !== undefined) {
     comment =
-      course.CourseState === "進行中" ? (
+      course.CourseState === "結束" ? (
         <button
-          disabled={buttonClass[ID].IsComment?.false.courseProcess!.disable}
-          className={buttonClass[ID].IsComment?.false.courseProcess!.class}
+          disabled={buttonClass[ID].IsComment?.false.courseOver!.disable}
+          className={buttonClass[ID].IsComment?.false.courseOver!.class}
+          onClick={() =>
+            dispatch(
+              showModal([
+                "showCommentAddModal",
+                { Token: Token, Course: course },
+              ])
+            )
+          }
         >
           未評價
         </button>
       ) : (
         <button
-          disabled={buttonClass[ID].IsComment?.false.courseOver!.disable}
-          className={buttonClass[ID].IsComment?.false.courseOver!.class}
+          disabled={buttonClass[ID].IsComment?.false.courseProcess!.disable}
+          className={buttonClass[ID].IsComment?.false.courseProcess!.class}
         >
           未評價
         </button>
@@ -137,14 +171,14 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
     if (error) {
       console.log(error);
     }
-  }, [data]);
+  }, [data, error]);
 
   if (!renderData) return null;
-  
+
   console.log(renderData);
 
   return (
-    <div className="cusMContainer flex flex-col justify-between h-full">
+    <div className="py-20 container lg:py-0 flex flex-col justify-between h-full">
       <h2 className="cusPrimaryTitle">{IDTabs.listName}</h2>
 
       {/* 電腦版 */}
@@ -166,7 +200,13 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
                     key={course.OrderNumber}
                     ID={ID}
                     buttonClass={buttonClass}
-                    comment={checkCommentClass(course, ID, buttonClass)}
+                    comment={checkCommentClass(
+                      course,
+                      ID,
+                      buttonClass,
+                      dispatch,
+                      Token
+                    )}
                     Token={Token}
                   />
                 </tr>
@@ -177,55 +217,56 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
       </div>
 
       {/* 手機版 */}
-      <ul className="lg:hidden container flex flex-col gap-32 mt-32">
+      <ul className="px-20 container flex flex-col gap-32 mt-32 lg:hidden">
         {renderData.map((course: Course, index: number) => {
-          const comment = checkCommentClass(course, ID, buttonClass);
-
+          const comment = checkCommentClass(
+            course,
+            ID,
+            buttonClass,
+            dispatch,
+            Token
+          );
+          const notStartTextClass =
+            course.CourseState === "開始" ? "text-black-300" : "text-black-950";
           return (
             <li
               key={index}
               className="flex flex-col border border-primary-400 p-20 gap-12 rounded-5"
             >
-              <div className="flex justify-between items-center">
-                <span
-                  className={`cusCourseStatus ${
-                    course.CourseState === "未開始"
-                      ? "before:bg-black-300"
-                      : course.CourseState === "進行中"
-                      ? "before:bg-primary-300"
-                      : "before:bg-black-700"
-                  }`}
-                >
-                  {course.CourseState}
-                </span>
-                {comment ? (
-                  comment
-                ) : course.CourseState === "未開始" && course.IsQuest ? (
-                  <button
-                    className="btn-cusWriteSecondary"
-                    onClick={() =>
-                      dispatch(
-                        showModal(["showCourseStartModal", { Token, course }])
-                      )
-                    }
+              {ID === "user" && (
+                <div className="flex justify-between items-center">
+                  <span
+                    className={`cusCourseStatus ${
+                      course.CourseState === "開始"
+                        ? "before:bg-black-300"
+                        : course.CourseState === "進行中"
+                        ? "before:bg-primary-300"
+                        : "before:bg-black-700"
+                    }`}
                   >
-                    開始
-                  </button>
+                    {course.CourseState}
+                  </span>
+                </div>
+              )}
+              <h3 className="w-full overflow-hidden whitespace-nowrap text-ellipsis">
+                {course.CourseState === "開始" ? (
+                  <span className="text-18 text-black-300 w-fit font-bold lg:text-16">
+                    {course.UserName ? course.UserName : course.Title}/
+                    {course.CourseName}
+                  </span>
                 ) : (
-                  <button disabled className="btn-cusDisableWriteBlack">
-                    開始
-                  </button>
+                  <span className="text-18 border-b w-fit border-black-950 font-bold lg:text-16">
+                    <Link href={`${routeListPage}/${course.Id}`}>
+                      {course.UserName ? course.UserName : course.Title}/
+                      {course.CourseName}
+                    </Link>
+                  </span>
                 )}
-              </div>
-
-              <h3 className="border-b w-fit border-black-950 font-bold">
-                <Link href={`${routeListPage}/${course.Id}`}>
-                  {course.UserName ? course.UserName : course.Title}/
-                  {course.CourseName}
-                </Link>
               </h3>
-              <p className="text-14">訂單編號：{course.OrderNumber}</p>
-              <p className="text-14">
+              <p className={`text-14 ${notStartTextClass}`}>
+                訂單編號：{course.OrderNumber}
+              </p>
+              <p className={`text-14 ${notStartTextClass}`}>
                 課程時間：{course.CourseStartDate}-{course.CourseEndDate}
               </p>
               <hr className="border-primary-400" />
@@ -244,6 +285,39 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
                     className={buttonClass[ID].IsQuest.false.class}
                   >
                     未填寫
+                  </button>
+                )}
+              </div>
+              <div className="text-14">
+                {ID === "user" ? "評價" : "課程狀態"}：
+                {comment ? (
+                  comment
+                ) : (
+                  <button
+                    className={
+                      course.CourseState === "開始"
+                        ? buttonClass[ID].IsCourseStart?.false.class
+                        : course.CourseState === "進行中"
+                        ? buttonClass[ID].IsCourseStart?.true.courseProcess
+                            .class
+                        : buttonClass[ID].IsCourseStart?.true.courseOver.class
+                    }
+                    onClick={() =>
+                      course.CourseState === "開始" &&
+                      dispatch(
+                        showModal(["showCourseStartModal", { Token, course }])
+                      )
+                    }
+                    disabled={
+                      course.CourseState === "開始"
+                        ? buttonClass[ID].IsCourseStart?.false.disable
+                        : course.CourseState === "進行中"
+                        ? buttonClass[ID].IsCourseStart?.true.courseProcess
+                            .disable
+                        : buttonClass[ID].IsCourseStart?.true.courseOver.disable
+                    }
+                  >
+                    {course.CourseState}
                   </button>
                 )}
               </div>

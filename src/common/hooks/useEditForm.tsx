@@ -14,6 +14,10 @@ import Textarea from "../components/Textarea";
 import InputImage from "../components/InputImage";
 import InputSwitch from "../components/InputSwitch";
 import InputButtonGroup from "../components/InputButtonGroup";
+import InputDate from "../components/InputDate";
+import { setCookie } from "cookies-next";
+import { useDispatch, useSelector } from "react-redux";
+import { selectAuth, updateAuthImgUrl } from "../redux/features/auth";
 
 export interface InitialStateType {
   [key: string]: string | string[] | boolean | number;
@@ -51,6 +55,9 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
     criteriaMode: "all",
   });
 
+  const dispatch = useDispatch();
+  const auth = useSelector(selectAuth);
+
   const onSubmit: SubmitHandler<InitialStateType> = async (body) => {
     try {
       const formData = {
@@ -60,6 +67,10 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
       // console.log(formData);
       const result = await putApi(formData).unwrap();
       console.log(result);
+      if (body.UserName && body.ImgUrl) {
+        dispatch(updateAuthImgUrl(result.Data.ImgUrl));
+        setCookie("ImgUrl", result.Data.ImgUrl);
+      }
       setApiReq(result);
       setEdit(false);
     } catch (error: any) {
@@ -94,6 +105,7 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     errClass={data.errClass}
                     errMsg={data.errMsg}
                     onChange={field.onChange}
+                    disabled={data.disabled}
                   >
                     {data.children}
                   </Input>
@@ -114,6 +126,7 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     errClass={data.errClass}
                     errMsg={data.errMsg}
                     onChange={field.onChange}
+                    value={field.value as string | string[]}
                   >
                     {data.children}
                   </Select>
@@ -199,6 +212,27 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                   >
                     {data.children}
                   </InputButtonGroup>
+                )}
+                {data.component === "inputDate" && (
+                  <InputDate
+                    {...field}
+                    name={data.name}
+                    type="text"
+                    labelClass={data.labelClass}
+                    inputClass={data.inputClass}
+                    required={data.required}
+                    hMsg={data.hMsg}
+                    pMsg={data.pMsg}
+                    error={invalid}
+                    errClass={data.errClass}
+                    errMsg={data.errMsg}
+                    onChange={field.onChange}
+                    disabled={data.disabled}
+                    value={field.value as string}
+                    setValue={setValue}
+                  >
+                    {data.children}
+                  </InputDate>
                 )}
               </>
             )}

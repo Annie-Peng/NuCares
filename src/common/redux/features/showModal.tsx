@@ -8,6 +8,8 @@ export interface ShowModalType {
   showMenuEditModal: { showModal: boolean; data: any };
   showBodyRateAddModal: { showModal: boolean; data: any };
   showMessageModal: { showModal: boolean; data: any };
+  showFoodDetailModal: { showModal: boolean; data: any };
+  showCommentAddModal: { showModal: boolean; data: any };
 }
 
 export const showModalSlice = createSlice({
@@ -19,6 +21,8 @@ export const showModalSlice = createSlice({
     showMenuEditModal: { showModal: false, data: "" },
     showBodyRateAddModal: { showModal: false, data: "" },
     showMessageModal: { showModal: false, data: "" },
+    showFoodDetailModal: { showModal: false, data: "" },
+    showCommentAddModal: { showModal: false, data: "" },
   },
   reducers: {
     showModal: (state, action) => {

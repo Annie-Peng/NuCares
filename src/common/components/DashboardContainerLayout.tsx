@@ -2,11 +2,6 @@ import NutritionistSidebar from "@/modules/dashboard/nutritionist/NutritionistSi
 import StudentSidebar from "@/modules/dashboard/student/StudentSidebar";
 import { DashboardLayoutProps } from "@/types/interface";
 import Image from "next/image";
-import MenuEditModal from "@/modules/dashboard/nutritionist/student-list/MenuEditModal";
-import { useSelector } from "react-redux";
-import { selectShowModal } from "../redux/features/showModal";
-import CourseStartModal from "@/modules/dashboard/nutritionist/workshop/CourseStartModal";
-import BodyRateAddModal from "@/modules/dashboard/student/courses/BodyRateAddModal";
 import { getCookie } from "cookies-next";
 import { useEffect, useState } from "react";
 
@@ -22,8 +17,8 @@ const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
 
   return (
     <>
-      <div className="container p-20 flex rounded-50 max-w-[1210px] relative cusBackgroundBackdrop min-h-[777px]">
-        <div className="w-[20%]">
+      <div className="mx-auto p-20 flex rounded-50 max-w-[1212px] relative cusBackgroundBackdrop min-h-[777px]">
+        <div className="w-[204px]">
           <div className="profile flex flex-col items-center">
             <Image
               src="/"
@@ -51,7 +46,7 @@ const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
             <NutritionistSidebar />
           )}
         </div>
-        <div className="bg-white bg-opacity-50 w-[80%] rounded-35 text-center p-20">
+        <div className="bg-white bg-opacity-50 w-[965px] rounded-35 text-center p-20">
           {children}
         </div>
       </div>

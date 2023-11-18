@@ -75,8 +75,8 @@ const MenuEditModal: FC<MenuEditModalProps> = ({ data }) => {
   console.log(foodMenu);
 
   return (
-    <TitleModal title="學員攝取份量" width="820px" modal="showMenuEditModal">
-      <form className="mt-32" onSubmit={handleSubmit}>
+    <TitleModal title="學員攝取份量" modal="showMenuEditModal">
+      <form className="mt-[36px]" onSubmit={handleSubmit}>
         <div className="text-center flex flex-wrap justify-center gap-y-[36px] lg:gap-y-32 lg:gap-x-[100px]">
           <MealEditForm
             title="早餐"
@@ -100,7 +100,7 @@ const MenuEditModal: FC<MenuEditModalProps> = ({ data }) => {
           />
           <button
             type="submit"
-            className="btn-cusSecondary p-6 w-[300px] mx-auto mt-4"
+            className="btn-cusSecondary p-8 w-[300px] mx-auto lg:mt-2"
           >
             儲存
           </button>
