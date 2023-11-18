@@ -16,7 +16,7 @@ const TitleModal: React.FC<TitleModalProps> = ({ title, children, modal }) => {
   return (
     <div className="cusModalBg z-20">
       <div className="cusModal">
-        <div className="w-[278px] max-h-[320px] overflow-y-scroll lg:max-h-[850px] lg:w-[720px]">
+        <div className="w-[278px] max-h-[320px] overflow-y-scroll lg:max-h-[550px] lg:w-[720px]">
           <h4 className="cusPrimaryTitle">{title}</h4>
           {children}
           <button
