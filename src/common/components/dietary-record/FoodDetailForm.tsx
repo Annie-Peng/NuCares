@@ -11,19 +11,19 @@ const FoodDetailForm: FC<FoodDetailFormProps> = ({ data }) => {
     <div className="flex flex-col items-center text-black-600">
       <div className="flex justify-center items-center gap-14 text-20 font-bold lg:gap-[36px] lg:text-[36px]">
         <div>
-          <div className="relative w-[84px] h-[84px] lg:w-[140px] lg:h-[140px]">
+          <div className="relative w-[84px] h-[84px] mx-auto lg:w-[140px] lg:h-[140px]">
             <Image src={data.Photo} fill alt="starchQty" />
           </div>
-          <p className="text-14 text-center">{data.photoName}</p>
+          <p className="text-14 text-center mt-8">{data.photoName}</p>
         </div>
         {data.equalContent && (
           <>
-            <p>=</p>
-            <p>{data.equalContent}</p>
+            <p className="w-8">=</p>
+            <p className="whitespace-nowrap">{data.equalContent}</p>
           </>
         )}
-        <p>=</p>
-        <p>{data.equalQty}</p>
+        <p className="w-8">=</p>
+        <p className="whitespace-nowrap">{data.equalQty}</p>
       </div>
       <p className="text-[#000000] mt-[36px] text-14 lg:text-16">
         {data.Detail}
