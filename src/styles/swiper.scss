@@ -1,0 +1,35 @@
+// 取消arrow依據swiper定位
+.swiper {
+  @apply static #{!important};
+}
+
+//第一頁&最後一頁arrow狀態
+.swiper-button-disabled {
+  @apply opacity-100 cursor-auto pointer-events-auto #{!important};
+}
+
+//左arrow定位
+.swiper-button-prev {
+  @apply top-[122px] -left-[25px] #{!important};
+}
+
+//右arrow定位
+.swiper-button-next {
+  @apply top-[122px] -right-[25px] #{!important};
+}
+
+//兩邊arrow大小
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  @apply text-20 #{!important};
+}
+
+//兩邊arrow樣式
+.swiper-button-prev,
+.swiper-button-next {
+  @apply text-primary-500 p-8 border-2 border-primary-500 rounded-50 bg-white w-[50px] h-[50px] #{!important};
+}
+
+.swiper-wrapper {
+  @apply items-stretch #{!important};
+}
