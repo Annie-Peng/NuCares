@@ -27,7 +27,7 @@
 //兩邊arrow樣式
 .swiper-button-prev,
 .swiper-button-next {
-  @apply text-primary-500 p-8 border-2 border-primary-500 rounded-50 bg-white w-[50px] h-[50px] #{!important};
+  @apply text-primary-500 p-8 border-2 border-primary-500 rounded-50 bg-white w-[50px] h-[50px] shadow-[1px_1px_2px_0px_rgba(0,0,0,0.10)] #{!important};
 }
 
 .swiper-wrapper {
