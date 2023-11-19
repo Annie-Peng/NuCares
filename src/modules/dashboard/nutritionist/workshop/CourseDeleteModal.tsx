@@ -1,4 +1,4 @@
-import MiniModal from "@/common/components/MiniModal";
+import MiniModal from "@/common/components/modals/MiniModal";
 import { closeModal, selectShowModal } from "@/common/redux/features/showModal";
 import { usePlanDeleteApiMutation } from "@/common/redux/service/plan";
 import { FC, MouseEvent } from "react";

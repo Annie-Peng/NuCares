@@ -4,3 +4,7 @@ export const commonEmailPattern =
   /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
 export const commonPhonePattern = /^09\d{8}$/;
 export const commonPasswordPattern = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,12}$/;
+export const commonMinGreaterThanZero = {
+  value: 0,
+  message: "不得為負",
+};

@@ -1,4 +1,4 @@
-import TitleModal from "@/common/components/TitleModal";
+import TitleModal from "@/common/components/modals/TitleModal";
 import { Course } from "@/common/components/course/CourseForm";
 import { closeModal } from "@/common/redux/features/showModal";
 import { useCoursePostCommentApiMutation } from "@/common/redux/service/course";

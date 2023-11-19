@@ -4,10 +4,11 @@ import {
   ReactNode,
   FocusEventHandler,
   useState,
+  useEffect,
 } from "react";
 import useUploadFile, { InitFileSrcFoodType } from "../hooks/useUploadFile";
 import Image from "next/image";
-import { UseFormSetValue } from "react-hook-form";
+import { FieldError, UseFormSetError, UseFormSetValue } from "react-hook-form";
 import { InitialStateType } from "../hooks/useEditForm";
 
 export interface InputImageProps {
@@ -27,12 +28,12 @@ export interface InputImageProps {
   labelClass?: string;
   inputClass?: string;
   errClass?: string;
-  errMsg?: string;
   onBlur?: FocusEventHandler;
-  error?: boolean;
+  error?: FieldError;
   Token: string;
   initFileSrc?: InitFileSrcFoodType;
   setValue: UseFormSetValue<InitialStateType>;
+  setError: UseFormSetError<InitialStateType>;
 }
 
 const InputImage: FC<InputImageProps> = ({
@@ -52,14 +53,14 @@ const InputImage: FC<InputImageProps> = ({
   pMsg,
   onChange,
   errClass,
-  errMsg,
   onBlur,
   error,
   Token,
   initFileSrc,
   setValue,
+  setError,
 }) => {
-  const [fileSrc, setFileSrc, handleUploadFile] = useUploadFile({
+  const [fileSrc, setFileSrc, handleUploadFile, imageSize] = useUploadFile({
     data: { name: chName, enName: name },
     Token,
     initFileSrc,
@@ -80,6 +81,12 @@ const InputImage: FC<InputImageProps> = ({
   if (fileSrc[name as keyof InitFileSrcFoodType]?.fetch) {
     setValue(name, PutPhoto || "");
   }
+
+  useEffect(() => {
+    if (imageSize > 5000000) {
+      setError(name, { message: "超過5mb無法上傳" });
+    }
+  });
 
   return (
     <>
@@ -121,7 +128,7 @@ const InputImage: FC<InputImageProps> = ({
           id={id}
         />
       </label>
-      {error && <p className={errClass}>{errMsg}</p>}
+      {error && <p className={errClass}>{error.message}</p>}
     </>
   );
 };

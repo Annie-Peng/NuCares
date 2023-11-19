@@ -1,8 +1,9 @@
 import { FC, ReactEventHandler, ReactNode, FocusEventHandler } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { UseFormSetValue } from "react-hook-form";
+import { FieldError, UseFormSetValue } from "react-hook-form";
 import { InitialStateType } from "../hooks/useEditForm";
+import turnDateFormat from "../helpers/turnDateFormat";
 
 export interface InputDateProps {
   name: string;
@@ -18,9 +19,8 @@ export interface InputDateProps {
   labelClass?: string;
   inputClass?: string;
   errClass?: string;
-  errMsg?: string;
   onBlur?: FocusEventHandler;
-  error?: boolean;
+  error?: FieldError;
   setValue: UseFormSetValue<InitialStateType>;
 }
 
@@ -38,7 +38,6 @@ const InputDate: FC<InputDateProps> = ({
   pMsg,
   onChange,
   errClass,
-  errMsg,
   onBlur,
   error,
   setValue,
@@ -59,15 +58,8 @@ const InputDate: FC<InputDateProps> = ({
             onChange={(date: Date) => {
               console.log(date);
               if (date instanceof Date) {
-                const formattedDate = `${date.getFullYear()}/${(
-                  date.getMonth() + 1
-                )
-                  .toString()
-                  .padStart(2, "0")}/${date
-                  .getDate()
-                  .toString()
-                  .padStart(2, "0")}`;
-                setValue(name, formattedDate);
+                const newDate = turnDateFormat(date);
+                setValue(name, newDate);
               } else {
                 setValue(name, date);
               }
@@ -80,7 +72,7 @@ const InputDate: FC<InputDateProps> = ({
           <div className="cusShowRightIcon left-[246px] bg-calendarIcon" />
         </div>
       </label>
-      {error && <p className={errClass}>{errMsg}</p>}
+      {error && <p className={errClass}>{error.message}</p>}
     </>
   );
 };

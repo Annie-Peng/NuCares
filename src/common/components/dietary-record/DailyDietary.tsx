@@ -23,6 +23,9 @@ import {
   useDailyDietaryMealTimePutApiMutation,
   useDailyDietaryOtherPutApiMutation,
 } from "@/common/redux/service/courseRecord";
+import turnDateFormat, {
+  turnDateFormatOneMoreDay,
+} from "@/common/helpers/turnDateFormat";
 
 interface DailyDietaryProps {
   isMobile: boolean;
@@ -259,11 +262,13 @@ const DailyDietary: FC<DailyDietaryProps> = ({
         }
         validRange={{
           start: dailyDietaryData.CourseStartDate.replaceAll("/", "-"),
-          end: addOneDay(dailyDietaryData.CourseEndDate.replaceAll("/", "-")),
+          end: turnDateFormatOneMoreDay(
+            dailyDietaryData.CourseEndDate.replaceAll("/", "-")
+          ),
         }}
         datesSet={(dateInfo) => {
           const today = new Date(dateInfo.start);
-          const todayString = toYMD(today);
+          const todayString = turnDateFormat(today);
           setCurrentDate(todayString);
         }}
         headerToolbar={{
@@ -490,20 +495,4 @@ function renderEventContent(
       </div>
     </>
   );
-}
-
-function toYMD(date: Date) {
-  const year = date.getFullYear();
-  // 由于getMonth()返回0-11，表示1-12月，所以需要+1
-  // 然后用`String.prototype.padStart()`确保月和日都是两位数字
-  const month = (date.getMonth() + 1).toString().padStart(2, "0");
-  const day = date.getDate().toString().padStart(2, "0");
-
-  return `${year}/${month}/${day}`;
-}
-
-function addOneDay(dateStr: string) {
-  const date = new Date(dateStr);
-  date.setDate(date.getDate() + 1); // 在当前日期上加一天
-  return date.toISOString().split("T")[0]; // 返回格式化的日期字符串 'YYYY-MM-DD'
 }

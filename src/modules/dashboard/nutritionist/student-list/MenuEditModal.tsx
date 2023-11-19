@@ -1,6 +1,6 @@
 import foodMenu from "@/common/lib/dashboard/dietary-record/foodMenu";
 import MealEditForm from "./MealEditForm";
-import TitleModal from "@/common/components/TitleModal";
+import TitleModal from "@/common/components/modals/TitleModal";
 import { FC, FormEvent } from "react";
 import {
   useDailyDietaryGetMenuApiQuery,
