@@ -125,7 +125,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
           })}
         </ul>
       </section>
-      <section className="features  py-50 lg:py-[70px] relative bg-[#D6EBEE]">
+      <section className="features  py-50 lg:py-[70px] relative bg-[#D6EBEE] font-GenSenRounded-700">
         <h2 className="text-primary-600 text-center">
           <div className="relative w-[570px] h-[49px] mx-auto">
             <Image
@@ -139,10 +139,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
         <ul className="flex flex-wrap gap-80 justify-center mt-[68px] container">
           {featuresData.map((feature, index) => {
             return (
-              <li
-                key={index}
-                className="flex items-center gap-20 max-w-[390px]"
-              >
+              <li key={index} className="flex items-center gap-20 w-[390px]">
                 <div className="relative min-w-[185px] min-h-[185px]">
                   <Image
                     src={`/images/home/features/${feature.photoName}.svg`}
@@ -151,7 +148,12 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                     alt={feature.photoName}
                   />
                 </div>
-                <p className="text-18 font-bold">{feature.content}</p>
+                <p
+                  className="text-18 font-bold"
+                  dangerouslySetInnerHTML={{ __html: feature.content }}
+                >
+                  {/* {feature.content} */}
+                </p>
               </li>
             );
           })}
@@ -207,8 +209,10 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
           })}
         </ul>
       </section>
-      <section className="webProcess py-50 lg:py-[70px] text-secondary-500 bg-secondary-100">
-        <h2 className="text-[32px] text-center font-[900px]">網站使用流程</h2>
+      <section className="webProcess py-50 lg:py-[70px] text-secondary-500 bg-secondary-100 font-GenSenRounded-700">
+        <h2 className="text-[32px] text-center font-GenSenRounded-900">
+          網站使用流程
+        </h2>
         <ul className="flex justify-center content-center gap-32 mt-[60px] flex-wrap lg:flex-nowrap lg:gap-[92px]">
           {webProcessData.map((step, index) => {
             return (
@@ -221,14 +225,17 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                     alt={step.photoName}
                   />
                 </div>
-                <h3 className="mt-12 text-center text-20 font-600">
-                  {step.title}
+                <h3
+                  className="mt-12 text-center text-20"
+                  dangerouslySetInnerHTML={{ __html: step.title }}
+                >
+                  {/* {step.title} */}
                 </h3>
               </li>
             );
           })}
         </ul>
-        <ul className="justify-center gap-[216px] -mt-[64px] hidden lg:flex">
+        <ul className="justify-center gap-[216px] -mt-80 hidden lg:flex">
           {arrowNum.map((arrow, index) => {
             return (
               <li key={index}>

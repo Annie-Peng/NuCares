@@ -36,11 +36,11 @@ export const featuresData = [
   },
   {
     photoName: "achievement",
-    content: "使用平台記錄飲食，有無達成一覽便知",
+    content: "使用平台記錄飲食，<br/>有無達成一覽便知",
   },
   {
     photoName: "mobile-record",
-    content: "手機版紀錄更方便，即刻更新",
+    content: "手機版紀錄更方便，<br/>即刻更新",
   },
 ];
 
@@ -68,18 +68,18 @@ export const successCasesData = [
 export const webProcessData = [
   {
     photoName: "step1",
-    title: "選擇營養師及購買課程",
+    title: "選擇營養師<br/>及購買課程",
   },
   {
     photoName: "step2",
-    title: "營養師與您聯繫給予建議及飲食調整",
+    title: "營養師與您聯繫<br/>給予建議及飲食<br/>調整",
   },
   {
     photoName: "step3",
-    title: "使用網站紀錄日常飲食",
+    title: "使用網站紀錄<br/>日常飲食",
   },
   {
     photoName: "step4",
-    title: "得到一個健康的自己",
+    title: "得到一個健康<br/>的自己",
   },
 ];
