@@ -1,19 +1,25 @@
 import NutritionistSidebar from "@/modules/dashboard/nutritionist/NutritionistSidebar";
 import StudentSidebar from "@/modules/dashboard/student/StudentSidebar";
 import { DashboardLayoutProps } from "@/types/interface";
+import login from "public/images/login.svg";
 import Image from "next/image";
-import { getCookie } from "cookies-next";
+import { getCookies } from "cookies-next";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectAuth } from "../redux/features/auth";
 
 const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
 
-  const UserCurrentStatus = getCookie("UserCurrentStatus");
-  const UserName = getCookie("UserName");
+  const auth = useSelector(selectAuth);
+
+  const { ImgUrl, UserCurrentStatus, UserName } = getCookies();
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  const newImageUrl = decodeURIComponent(ImgUrl as string);
 
   return (
     <>
@@ -21,11 +27,11 @@ const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
         <div className="w-[204px]">
           <div className="profile flex flex-col items-center">
             <Image
-              src="/"
+              src={`${auth.ImgUrl}` || `${newImageUrl}` || login}
               width="100"
               height="100"
               alt="profile-photo"
-              className="rounded-50 bg-black-200 border border-white"
+              className="rounded-50 border border-white"
             />
             {isMounted && UserCurrentStatus === "user" ? (
               <p className="px-10 bg-primary-500 text-white w-fit rounded-10 mt-16 text-12 font-bold">
@@ -37,7 +43,7 @@ const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
               </p>
             )}
             {isMounted && (
-              <p className="mt-4 text-24 font-normal relative">{UserName}</p>
+              <p className="mt-4 text-20 font-normal relative">{UserName}</p>
             )}
           </div>
           {isMounted && UserCurrentStatus === "user" ? (
