@@ -9,6 +9,8 @@ import {
 import useEditForm from "@/common/hooks/useEditForm";
 import { useIntroPutApiMutation } from "@/common/redux/service/intro";
 import { FC } from "react";
+import { useDispatch } from "react-redux";
+import { showModal } from "@/common/redux/features/showModal";
 
 interface NutritionistIntroFormProps {
   Token: string;
@@ -173,6 +175,7 @@ const NutritionistIntroForm: FC<NutritionistIntroFormProps> = ({
   Token,
   renderData,
 }) => {
+  const dispatch = useDispatch();
   const [introPutApi] = useIntroPutApiMutation();
 
   const initialState = {
@@ -192,13 +195,19 @@ const NutritionistIntroForm: FC<NutritionistIntroFormProps> = ({
 
   const putApiData = { Token };
 
-  const { renderEditForm } = useEditForm({
+  const { renderEditForm, apiReq } = useEditForm({
     initialState,
     formData: nutritionistIntroFormData,
     putApi: introPutApi,
     putApiData,
     buttonJSX,
   });
+
+  if (apiReq) {
+    console.log(apiReq);
+    const message = apiReq.Message || apiReq.data.Message;
+    dispatch(showModal(["showTimerModal", { message, timer: 3000 }]));
+  }
 
   return (
     <div className="text-left flex flex-col cusDashboardInnerContainer mt-32 p-20">
