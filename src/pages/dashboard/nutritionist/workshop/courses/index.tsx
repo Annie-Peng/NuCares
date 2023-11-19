@@ -70,9 +70,9 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
           ))}
         </ul>
         <ul>
-          {courseForms.map((form, index) => (
+          {courseForms.map((form) => (
             <li
-              key={index}
+              key={form.key}
               className="mt-20 px-20 pt-20 pb-40 bg-white rounded-10 border border-secondary-400 text-left"
             >
               {form}
