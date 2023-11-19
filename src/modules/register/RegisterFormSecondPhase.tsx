@@ -13,6 +13,7 @@ import registerStep2 from "public/images/register/registerStep2.svg";
 import { RegisterFormProps } from "@/pages/register";
 import registerApiErrMsg from "@/common/lib/dashboard/errMsg/registerApiErrMsg";
 import errInput from "@/common/helpers/errInput";
+import { commonPhonePattern } from "@/common/lib/dashboard/errMsg/commonErrMsg";
 
 interface Data {
   [key: string]: string | File | number;
@@ -183,7 +184,7 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
             {...register("Phone", {
               required: "*必填",
               pattern: {
-                value: /^09\d{8}$/,
+                value: commonPhonePattern,
                 message: "手機號碼格式有誤",
               },
             })}

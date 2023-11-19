@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { storeRegisterForm } from "@/common/redux/features/registerPhases";
 import { useUserRegisterEmailPostApiMutation } from "@/common/redux/service/register";
 import "react-datepicker/dist/react-datepicker.css";
@@ -11,6 +11,10 @@ import registerStep1 from "public/images/register/registerStep1.svg";
 import registerApiErrMsg from "@/common/lib/dashboard/errMsg/registerApiErrMsg";
 import errInput from "@/common/helpers/errInput";
 import { RegisterFormProps } from "@/pages/register";
+import {
+  commonEmailPattern,
+  commonPasswordPattern,
+} from "@/common/lib/dashboard/errMsg/commonErrMsg";
 
 export interface FormInput {
   [key: string]: string;
@@ -80,8 +84,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
             {...register("Email", {
               required: "*必填",
               pattern: {
-                value:
-                  /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/,
+                value: commonEmailPattern,
                 message: "Email格式有誤",
               },
             })}
@@ -102,7 +105,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
             {...register("Password", {
               required: "*必填",
               pattern: {
-                value: /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,12}$/,
+                value: commonPasswordPattern,
                 message: "密碼格式有誤",
               },
             })}
