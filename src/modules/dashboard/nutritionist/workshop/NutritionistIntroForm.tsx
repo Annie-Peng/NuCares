@@ -1,9 +1,10 @@
-import Image from "next/image";
 import { ComponentType } from "@/types/interface";
 import cities from "@/common/lib/dashboard/cities";
 import { getCookie } from "cookies-next";
 import {
+  commonEmailPattern,
   commonErrMsgClass,
+  commonPhonePattern,
   commonRequiredErrMsg,
 } from "@/common/lib/dashboard/errMsg/commonErrMsg";
 import useEditForm from "@/common/hooks/useEditForm";
@@ -49,13 +50,13 @@ const nutritionistIntroFormData: ComponentType[] = [
     name: "PortraitImage",
     type: "file",
     hMsg: "形象照*",
-    pMsg: "圖片需小於 3mb",
+    pMsg: "圖片需小於 5mb",
     inputClass: "w-[294px] hidden",
     id: "PortraitImage",
     accept: "image/png, image/jpeg, image/jpg",
     Token: getCookie("Token"),
     initFileSrc: { PortraitImage: { fetch: "", file: "" } },
-    errMsg: commonRequiredErrMsg,
+    errMsg: { required: commonRequiredErrMsg },
     errClass: commonErrMsgClass,
   },
   {
@@ -65,7 +66,7 @@ const nutritionistIntroFormData: ComponentType[] = [
     hMsg: "顯示名稱*",
     pMsg: "您可使用真實姓名或希望學員如何稱呼您的名字",
     inputClass: "w-[270px] lg:w-[294px]",
-    errMsg: commonRequiredErrMsg,
+    errMsg: { required: commonRequiredErrMsg },
     errClass: commonErrMsgClass,
   },
   {
@@ -77,7 +78,7 @@ const nutritionistIntroFormData: ComponentType[] = [
     disabledOption: "請選擇",
     options: cityOption,
     imageClass: "bottom-12 left-[64px]",
-    errMsg: commonRequiredErrMsg,
+    errMsg: { required: commonRequiredErrMsg },
     errClass: commonErrMsgClass,
   },
   {
@@ -86,7 +87,7 @@ const nutritionistIntroFormData: ComponentType[] = [
     type: "button",
     hMsg: "專長主題*",
     pMsg: "您擅長的飲食建議主題（可複選）",
-    errMsg: commonRequiredErrMsg,
+    errMsg: { required: commonRequiredErrMsg },
     errClass: commonErrMsgClass,
     ulClass: "flex flex-wrap gap-12 mt-12 text-14 font-bold",
     liClass: "w-[45%] lg:w-auto",
@@ -123,7 +124,7 @@ const nutritionistIntroFormData: ComponentType[] = [
     hMsg: "課程介紹*",
     pMsg: "更多詳細的課程說明",
     textareaClass: "w-full h-[137px]",
-    errMsg: commonRequiredErrMsg,
+    errMsg: { required: commonRequiredErrMsg },
     errClass: commonErrMsgClass,
   },
   {
@@ -135,7 +136,13 @@ const nutritionistIntroFormData: ComponentType[] = [
     labelClass: "relative",
     inputClass: "w-full pl-[62px]",
     children: <p className="absolute bottom-8 left-12">Email</p>,
-    errMsg: commonRequiredErrMsg,
+    errMsg: {
+      required: commonRequiredErrMsg,
+      pattern: {
+        value: commonEmailPattern,
+        message: "Email格式有誤",
+      },
+    },
     errClass: commonErrMsgClass,
   },
   {
@@ -145,7 +152,13 @@ const nutritionistIntroFormData: ComponentType[] = [
     labelClass: "!mt-0 relative",
     inputClass: "w-full pl-[62px]",
     children: <p className="absolute bottom-8 left-12">手機</p>,
-    errMsg: commonRequiredErrMsg,
+    errMsg: {
+      required: commonRequiredErrMsg,
+      pattern: {
+        value: commonPhonePattern,
+        message: "手機號碼格式有誤",
+      },
+    },
     errClass: commonErrMsgClass,
   },
   {
@@ -155,7 +168,7 @@ const nutritionistIntroFormData: ComponentType[] = [
     labelClass: "!mt-0 relative",
     inputClass: "w-full pl-[62px]",
     children: <p className="absolute bottom-8 left-12">LINE</p>,
-    errMsg: commonRequiredErrMsg,
+    errMsg: { required: commonRequiredErrMsg },
     errClass: commonErrMsgClass,
   },
 ];
