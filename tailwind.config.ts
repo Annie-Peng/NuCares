@@ -120,6 +120,8 @@ const config: Config = {
       },
       backgroundImage: {
         primaryGradient: "linear-gradient(to bottom, #A8DAE2 0%,#FFDBC9 50%)",
+        whiteGradient:
+          "linear-gradient(to bottom, transparent 80%,#FFFFFF 100%)",
         emailIcon: "url(../../public/images/icons/email.svg)",
         passwordIcon: "url(../../public/images/icons/password.svg)",
         eyeCloseIcon: "url(../../public/images/icons/eyeClose.svg)",
@@ -129,6 +131,7 @@ const config: Config = {
         clipPathIcon: "url(../../public/images/icons/clipPath.svg)",
         calendarIcon: "url(../../public/images/icons/calendar.svg)",
         arrowDownIcon: "url(../../public/images/icons/arrowDown.svg)",
+        talkBg: "url(../../public/images/home/success-cases/talk.svg)",
       },
       fontFamily: {
         "GenSenRounded-900": ["GenSenRounded-900", "sans-serif"],
