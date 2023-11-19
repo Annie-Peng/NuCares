@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { UseFormSetValue } from "react-hook-form";
 import { InitialStateType } from "../hooks/useEditForm";
+import turnDateFormat from "../helpers/turnDateFormat";
 
 export interface InputDateProps {
   name: string;
@@ -59,15 +60,8 @@ const InputDate: FC<InputDateProps> = ({
             onChange={(date: Date) => {
               console.log(date);
               if (date instanceof Date) {
-                const formattedDate = `${date.getFullYear()}/${(
-                  date.getMonth() + 1
-                )
-                  .toString()
-                  .padStart(2, "0")}/${date
-                  .getDate()
-                  .toString()
-                  .padStart(2, "0")}`;
-                setValue(name, formattedDate);
+                const newDate = turnDateFormat(date);
+                setValue(name, newDate);
               } else {
                 setValue(name, date);
               }
