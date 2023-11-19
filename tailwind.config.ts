@@ -130,6 +130,10 @@ const config: Config = {
         calendarIcon: "url(../../public/images/icons/calendar.svg)",
         arrowDownIcon: "url(../../public/images/icons/arrowDown.svg)",
       },
+      fontFamily: {
+        "GenSenRounded-900": ["GenSenRounded-900", "sans-serif"],
+        "GenSenRounded-700": ["GenSenRounded-700", "sans-serif"],
+      },
     },
   },
   plugins: [

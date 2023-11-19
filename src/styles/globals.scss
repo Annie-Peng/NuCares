@@ -4,6 +4,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "GenSenRounded-900";
+  src: url("/fonts/GenSenRounded-H.ttc");
+}
+
+@font-face {
+  font-family: "GenSenRounded-700";
+  src: url("/fonts/GenSenRounded-B.ttc");
+}
+
 @import "cusInput";
 @import "cusButton";
 @import "datePicker";
