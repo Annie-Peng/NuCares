@@ -7,7 +7,7 @@ import {
 } from "react";
 import useUploadFile, { InitFileSrcFoodType } from "../hooks/useUploadFile";
 import Image from "next/image";
-import { UseFormSetValue } from "react-hook-form";
+import { FieldError, UseFormSetValue } from "react-hook-form";
 import { InitialStateType } from "../hooks/useEditForm";
 
 export interface InputImageProps {
@@ -27,9 +27,8 @@ export interface InputImageProps {
   labelClass?: string;
   inputClass?: string;
   errClass?: string;
-  errMsg?: string;
   onBlur?: FocusEventHandler;
-  error?: boolean;
+  error?: FieldError;
   Token: string;
   initFileSrc?: InitFileSrcFoodType;
   setValue: UseFormSetValue<InitialStateType>;
@@ -52,7 +51,6 @@ const InputImage: FC<InputImageProps> = ({
   pMsg,
   onChange,
   errClass,
-  errMsg,
   onBlur,
   error,
   Token,
@@ -121,7 +119,7 @@ const InputImage: FC<InputImageProps> = ({
           id={id}
         />
       </label>
-      {error && <p className={errClass}>{errMsg}</p>}
+      {error && <p className={errClass}>{error.message}</p>}
     </>
   );
 };
