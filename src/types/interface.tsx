@@ -83,7 +83,7 @@ export interface ComponentType {
   required?: boolean;
   hMsg?: string;
   pMsg?: string;
-  errMsg?: Record<string, string | Record<string, string | number>>;
+  errMsg?: Record<string, string | Record<string, string | number | RegExp>>;
   inputClass?: string;
   labelClass?: string;
   selectClass?: string;

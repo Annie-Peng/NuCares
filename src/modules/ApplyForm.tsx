@@ -22,7 +22,7 @@ const ApplyFormData: ComponentType[] = [
     hMsg: "真實姓名*",
     pMsg: "請填寫身份證上的姓名",
     inputClass: "w-full",
-    errMsg: commonRequiredErrMsg,
+    errMsg: { required: commonRequiredErrMsg },
     errClass: commonErrMsgClass,
   },
   {
@@ -37,7 +37,7 @@ const ApplyFormData: ComponentType[] = [
       { option: "女", value: "female" },
     ],
     imageClass: "bottom-12 left-[64px]",
-    errMsg: commonRequiredErrMsg,
+    errMsg: { required: commonRequiredErrMsg },
     errClass: commonErrMsgClass,
   },
   {
@@ -52,7 +52,7 @@ const ApplyFormData: ComponentType[] = [
     accept: "image/png, image/jpeg, image/jpg",
     Token: getCookie("Token"),
     initFileSrc: { CertificateImage: { fetch: "", file: "" } },
-    errMsg: commonRequiredErrMsg,
+    errMsg: { required: commonRequiredErrMsg },
     errClass: commonErrMsgClass,
   },
   {
@@ -63,7 +63,7 @@ const ApplyFormData: ComponentType[] = [
     inputClass:
       "order-1 !mt-0 w-20 h-20 form-checkbox bg-transparent text-black-500 focus:ring-offset-0 focus:ring-0",
     children: <span className="order-2 ml-8">使用者條款</span>,
-    errMsg: "*請勾選",
+    errMsg: { required: "*請勾選" },
     errClass: `${commonErrMsgClass} text-center`,
   },
 ];

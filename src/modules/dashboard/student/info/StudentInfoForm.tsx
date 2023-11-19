@@ -1,8 +1,8 @@
 import { ComponentType } from "@/types/interface";
-import Input from "@/common/components/Input";
-import Select from "@/common/components/Select";
 import {
+  commonEmailPattern,
   commonErrMsgClass,
+  commonPhonePattern,
   commonRequiredErrMsg,
 } from "@/common/lib/dashboard/errMsg/commonErrMsg";
 import { getCookie } from "cookies-next";
@@ -31,7 +31,7 @@ const studentInfoFormData: ComponentType[] = [
     type: "file",
     required: false,
     hMsg: "會員顯示圖",
-    pMsg: "圖片需小於 3mb",
+    pMsg: "圖片需小於 5mb",
     inputClass: "w-[294px] hidden",
     labelClass: "mt-0",
     id: "ImgUrl",
@@ -46,7 +46,7 @@ const studentInfoFormData: ComponentType[] = [
     hMsg: "姓名*",
     pMsg: "請輸入欲顯示的姓名或暱稱",
     inputClass: "w-[278px]",
-    errMsg: commonRequiredErrMsg,
+    errMsg: { required: commonRequiredErrMsg },
     errClass: commonErrMsgClass,
   },
   {
@@ -56,7 +56,7 @@ const studentInfoFormData: ComponentType[] = [
     hMsg: "生日*",
     pMsg: "請輸入正確的日期",
     inputClass: "w-[278px]",
-    errMsg: commonRequiredErrMsg,
+    errMsg: { required: commonRequiredErrMsg },
     errClass: commonErrMsgClass,
   },
   {
@@ -67,7 +67,13 @@ const studentInfoFormData: ComponentType[] = [
     pMsg: "此為註冊之帳號，不可更改",
     disabled: true,
     inputClass: "w-[278px] btn-cusDisableWriteBlack !py-8 !px-12",
-    errMsg: commonRequiredErrMsg,
+    errMsg: {
+      required: commonRequiredErrMsg,
+      pattern: {
+        value: commonEmailPattern,
+        message: "Email格式有誤",
+      },
+    },
     errClass: commonErrMsgClass,
   },
   {
@@ -85,7 +91,7 @@ const studentInfoFormData: ComponentType[] = [
       { option: "女", value: "女" },
     ],
     imageClass: "bottom-12 left-[64px]",
-    errMsg: commonRequiredErrMsg,
+    errMsg: { required: commonRequiredErrMsg },
     errClass: commonErrMsgClass,
   },
   {
@@ -95,7 +101,13 @@ const studentInfoFormData: ComponentType[] = [
     hMsg: "手機*",
     pMsg: "請填寫您的手機號碼",
     inputClass: "w-[278px]",
-    errMsg: commonRequiredErrMsg,
+    errMsg: {
+      required: commonRequiredErrMsg,
+      pattern: {
+        value: commonPhonePattern,
+        message: "手機號碼格式有誤",
+      },
+    },
     errClass: commonErrMsgClass,
   },
 ];
