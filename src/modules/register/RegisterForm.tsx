@@ -37,8 +37,8 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
   } = useForm<FormInput>();
 
   const onSubmit: SubmitHandler<FormInput> = async (formData) => {
-    dispatch(storeRegisterForm(formData));
     try {
+      dispatch(storeRegisterForm(formData));
       const result = await userRegisterEmailPostApi(formData).unwrap();
       console.log(result);
       setCurrentPhase(2);
