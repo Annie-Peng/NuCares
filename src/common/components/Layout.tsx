@@ -3,7 +3,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import { useSelector } from "react-redux";
 import { selectShowModal } from "../redux/features/showModal";
-import MiniModal from "./MiniModal";
+import MiniModal from "./modals/MiniModal";
 
 const layoutBgClass = {
   login: "bg-primaryGradient",

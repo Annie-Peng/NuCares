@@ -9,6 +9,8 @@ import { getCookie } from "cookies-next";
 import { useProfilePutApiMutation } from "@/common/redux/service/profile";
 import useEditForm from "@/common/hooks/useEditForm";
 import { FC } from "react";
+import { useDispatch } from "react-redux";
+import { showModal } from "@/common/redux/features/showModal";
 
 interface StudentInfoFormProps {
   Token: string;
@@ -122,6 +124,8 @@ const buttonJSX = (
 );
 
 const StudentInfoForm: FC<StudentInfoFormProps> = ({ Token, renderData }) => {
+  const dispatch = useDispatch();
+
   const [profilePutApi] = useProfilePutApiMutation();
 
   const initialState = {
@@ -135,13 +139,19 @@ const StudentInfoForm: FC<StudentInfoFormProps> = ({ Token, renderData }) => {
 
   const putApiData = { Token };
 
-  const { renderEditForm } = useEditForm({
+  const { renderEditForm, apiReq } = useEditForm({
     initialState,
     formData: studentInfoFormData,
     putApi: profilePutApi,
     putApiData,
     buttonJSX,
   });
+
+  if (apiReq) {
+    console.log(apiReq);
+    const message = apiReq.Message || apiReq.data.Message;
+    dispatch(showModal(["showTimerModal", { message, timer: 3000 }]));
+  }
 
   console.log(renderData);
 
