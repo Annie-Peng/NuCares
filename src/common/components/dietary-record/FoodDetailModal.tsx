@@ -1,7 +1,7 @@
 import foodDetail, {
   FoodDetailType,
 } from "@/common/lib/dashboard/dietary-record/foodDetail";
-import TitleModal from "../TitleModal";
+import TitleModal from "../modals/TitleModal";
 import FoodDetailForm from "./FoodDetailForm";
 import { FC, useState } from "react";
 import { FoodIcon } from "@/common/lib/dashboard/dietary-record/foodMenu";

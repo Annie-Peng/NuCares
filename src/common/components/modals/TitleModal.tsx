@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { ReactNode } from "react";
 import { useDispatch } from "react-redux";
-import { closeModal } from "../redux/features/showModal";
-import useResize from "../hooks/useResize";
+import { closeModal } from "../../redux/features/showModal";
+import useResize from "../../hooks/useResize";
 
 interface TitleModalProps {
   title: string;
