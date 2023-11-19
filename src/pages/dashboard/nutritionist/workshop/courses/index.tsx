@@ -48,7 +48,6 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
       ...prevCourseForms,
       <CourseAddForm
         key={newKey}
-        courseForms={courseForms}
         formKey={newKey}
         handleDeleteClick={handleDeleteClick}
         Token={Token}

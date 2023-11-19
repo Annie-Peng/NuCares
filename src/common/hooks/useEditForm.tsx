@@ -86,10 +86,8 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
           <Controller
             control={control}
             name={data.name}
-            rules={{
-              required: data.errMsg,
-            }}
-            render={({ field, fieldState: { invalid, error } }) => (
+            rules={data.errMsg}
+            render={({ field, fieldState: { error } }) => (
               <>
                 {data.component === "input" && (
                   <Input
@@ -101,9 +99,8 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     required={data.required}
                     hMsg={data.hMsg}
                     pMsg={data.pMsg}
-                    error={invalid}
+                    error={error}
                     errClass={data.errClass}
-                    errMsg={data.errMsg}
                     onChange={field.onChange}
                     disabled={data.disabled}
                   >
@@ -122,9 +119,8 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     disabledOption={data.disabledOption || "請選擇"}
                     options={data.options || []}
                     imageClass={data.imageClass}
-                    error={invalid}
+                    error={error}
                     errClass={data.errClass}
-                    errMsg={data.errMsg}
                     onChange={field.onChange}
                     value={field.value as string | string[]}
                   >
@@ -140,9 +136,8 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     required={data.required}
                     hMsg={data.hMsg}
                     pMsg={data.pMsg}
-                    error={invalid}
+                    error={error}
                     errClass={data.errClass}
-                    errMsg={data.errMsg}
                     onChange={field.onChange}
                   />
                 )}
@@ -162,8 +157,7 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     initFileSrc={data.initFileSrc}
                     setValue={setValue}
                     value={field.value as string}
-                    error={invalid}
-                    errMsg={data.errMsg}
+                    error={error}
                     errClass={data.errClass}
                   >
                     {data.children}
@@ -179,9 +173,8 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     required={data.required}
                     hMsg={data.hMsg}
                     pMsg={data.pMsg}
-                    error={invalid}
+                    error={error}
                     errClass={data.errClass}
-                    errMsg={data.errMsg}
                     value={field.value as string}
                     onChange={field.onChange}
                     id={data.id}
@@ -198,9 +191,8 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     labelClass={data.labelClass}
                     hMsg={data.hMsg}
                     pMsg={data.pMsg}
-                    error={invalid}
+                    error={error}
                     errClass={data.errClass}
-                    errMsg={data.errMsg}
                     value={field.value as string[]}
                     // onChange={field.onChange}
                     setValue={setValue}
@@ -223,9 +215,8 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     required={data.required}
                     hMsg={data.hMsg}
                     pMsg={data.pMsg}
-                    error={invalid}
+                    error={error}
                     errClass={data.errClass}
-                    errMsg={data.errMsg}
                     onChange={field.onChange}
                     disabled={data.disabled}
                     value={field.value as string}

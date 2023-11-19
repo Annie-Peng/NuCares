@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import { InitialStateType } from "../hooks/useEditForm";
-import { UseFormSetValue } from "react-hook-form";
+import { FieldError, UseFormSetValue } from "react-hook-form";
 
 export interface InputButtonGroupProps {
   name: string;
@@ -12,8 +12,7 @@ export interface InputButtonGroupProps {
   selectButtonClass?: string;
   unSelectButtonClass?: string;
   errClass?: string;
-  errMsg?: string;
-  error?: boolean;
+  error?: FieldError;
   buttonOptions: string[];
   ulClass: string;
   liClass: string;
@@ -31,7 +30,6 @@ const InputButtonGroup: FC<InputButtonGroupProps> = ({
   unSelectButtonClass,
   value,
   errClass,
-  errMsg,
   error,
   buttonOptions,
   ulClass,
@@ -73,7 +71,7 @@ const InputButtonGroup: FC<InputButtonGroupProps> = ({
           ))}
         </ul>
       </label>
-      {error && <p className={errClass}>{errMsg}</p>}
+      {error && <p className={errClass}>{error.message}</p>}
     </>
   );
 };

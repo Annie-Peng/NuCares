@@ -1,5 +1,6 @@
 import { FC, ReactEventHandler, ReactNode, FocusEventHandler } from "react";
 import { InputType } from "@/types/interface";
+import { FieldError } from "react-hook-form";
 
 export interface InputProps {
   name: string;
@@ -15,9 +16,8 @@ export interface InputProps {
   labelClass?: string;
   inputClass?: string;
   errClass?: string;
-  errMsg?: string;
   onBlur?: FocusEventHandler;
-  error?: boolean;
+  error?: FieldError;
 }
 
 const Input: FC<InputProps> = ({
@@ -34,10 +34,10 @@ const Input: FC<InputProps> = ({
   pMsg,
   onChange,
   errClass,
-  errMsg,
   onBlur,
   error,
 }) => {
+  console.log(error);
   return (
     <>
       <label htmlFor={name} className={`${labelClass} mt-20 block`}>
@@ -58,7 +58,7 @@ const Input: FC<InputProps> = ({
           onBlur={onBlur}
         />
       </label>
-      {error && <p className={errClass}>{errMsg}</p>}
+      {error && <p className={errClass}>{error.message}</p>}
     </>
   );
 };
