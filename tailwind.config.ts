@@ -125,6 +125,7 @@ const config: Config = {
         emailIcon: "url(../../public/images/icons/email.svg)",
         passwordIcon: "url(../../public/images/icons/password.svg)",
         eyeCloseIcon: "url(../../public/images/icons/eyeClose.svg)",
+        eyeOpenIcon: "url(../../public/images/icons/eyeOpen.svg)",
         mobileIcon: "url(../../public/images/icons/mobile.svg)",
         nameIcon: "url(../../public/images/icons/name.svg)",
         birthdayIcon: "url(../../public/images/icons/birthday.svg)",

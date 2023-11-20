@@ -6,6 +6,7 @@ import { PaymentDataType } from "@/common/redux/features/paymentPhases";
 import { ShowModalType } from "@/common/redux/features/showModal";
 import { ReactNode } from "react";
 import { NextRouter } from "next/router";
+import { Validate } from "react-hook-form";
 
 export interface LayoutProps {
   children: ReactNode;
@@ -79,11 +80,16 @@ export interface ComponentType {
   initFileSrc?: InitFileSrcFoodType;
   chName?: string;
   name: string;
-  type?: InputType;
+  type?: InputType | string;
   required?: boolean;
   hMsg?: string;
   pMsg?: string;
-  errMsg?: Record<string, string | Record<string, string | number | RegExp>>;
+  errMsg?: Record<
+    string,
+    | string
+    | Record<string, string | number | RegExp>
+    | Validate<string, Record<string, string>>
+  >;
   inputClass?: string;
   labelClass?: string;
   selectClass?: string;

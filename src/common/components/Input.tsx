@@ -4,7 +4,7 @@ import { FieldError } from "react-hook-form";
 
 export interface InputProps {
   name: string;
-  type: InputType;
+  type: InputType | string;
   hMsg?: string;
   pMsg?: string;
   children?: ReactNode;
@@ -37,7 +37,6 @@ const Input: FC<InputProps> = ({
   onBlur,
   error,
 }) => {
-  console.log(error);
   return (
     <>
       <label htmlFor={name} className={`${labelClass} mt-20 block`}>
