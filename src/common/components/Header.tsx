@@ -25,8 +25,8 @@ const Header = () => {
   const newImageUrl = decodeURIComponent(ImgUrl as string);
 
   return (
-    <header className="bg-white">
-      <div className="container py-10 items-center grid cusGrid relative lg:py-26 lg:pl-28 lg:pr-8">
+    <header className="bg-white shadow-[0_2px_5px_0_rgba(0,0,0,0.1)] z-10">
+      <div className="container py-10 items-center grid cusGrid relative lg:py-16">
         {showDropdown &&
           (UserCurrentStatus === "user" ? (
             <StudentDropdown IsNutritionist={IsNutritionist} />
@@ -34,11 +34,14 @@ const Header = () => {
             <NutritionistDropdown />
           ))}
 
-        <Link href="/" className="col-span-2">
-          <Image src={logo} width="170" height="28" alt="logo-NuCares" />
+        <Link
+          href="/"
+          className="col-span-2 relative w-[140px] h-[24px] lg:w-[170px] lg:h-[28px]"
+        >
+          <Image src={logo} fill alt="logo-NuCares" />
         </Link>
-        <nav className=" text-black-600 sm:hidden lg:block col-span-9 -ms-[calc(110px-165px)]">
-          <ul className="flex font-normal">
+        <nav className=" text-black-600 font-normal sm:hidden lg:block col-span-9 -ms-[calc(110px-165px)]">
+          <ul className="flex font-normal items-center">
             <li>
               <Link href="/nutritionist-list">搜尋營養師</Link>
             </li>
@@ -47,13 +50,13 @@ const Header = () => {
                 成為NuCares營養師
               </Link>
             </li>
-            <li className="ms-auto text-14">
+            <li className="ms-auto text-14 font-thin">
               <Link href="/apply">申請成為營養師</Link>
             </li>
           </ul>
         </nav>
         {isMounted && UserCurrentStatus && (
-          <div className="relative w-[50px] h-[50px] col-end-5 ml-auto lg:col-end-13 lg:mr-auto">
+          <div className="relative w-[38px] h-[38px] col-end-5 ml-auto lg:w-[40px] lg:h-[40px] lg:col-end-13 lg:mr-auto">
             <Image
               src={`${auth.ImgUrl}` || `${newImageUrl}` || login}
               alt="login"
@@ -68,17 +71,13 @@ const Header = () => {
           <>
             <Link
               href="#"
-              className="border border-secondary-400 text-secondary-400 font-bold rounded-10 ms-auto p-8 hidden lg:block col-end-13 col-span-1 whitespace-nowrap"
+              className="border border-secondary-500 text-secondary-500 hover:text-white hover:bg-secondary-500 font-bold rounded-5 ms-auto p-8 hidden lg:block col-end-13 col-span-1 whitespace-nowrap"
             >
               註冊/登入
             </Link>
-            <Image
-              src={logout}
-              width="50"
-              height="50"
-              alt="logout"
-              className="col-end-5 ml-auto lg:col-end-13 lg:mr-auto lg:hidden"
-            />
+            <div className="relative w-[38px] h-[48px] col-end-5 ml-auto lg:w-[40px] lg:h-[40px] lg:col-end-13 lg:mr-auto lg:hidden">
+              <Image src={logout} fill alt="logout" />
+            </div>
           </>
         )}
       </div>
