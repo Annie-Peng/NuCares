@@ -20,6 +20,7 @@ const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
   }, []);
 
   const newImageUrl = decodeURIComponent(ImgUrl as string);
+  const newUserName = decodeURIComponent(UserName as string);
 
   return (
     <>
@@ -43,7 +44,7 @@ const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
               </p>
             )}
             {isMounted && (
-              <p className="mt-4 text-20 font-normal relative">{UserName}</p>
+              <p className="mt-4 text-20 font-normal relative">{newUserName}</p>
             )}
           </div>
           {isMounted && UserCurrentStatus === "user" ? (
