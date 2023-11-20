@@ -33,6 +33,14 @@ button {
   @apply rounded-5 text-black-500 bg-[#B0B0B080] bg-opacity-50 py-4 px-10;
 }
 
+//成為NuCares營養師
+.btn-cusBigPrimary {
+  @apply rounded-5 text-white bg-primary-600 font-bold py-10 px-12 lg:p-12 lg:text-20;
+  &:hover {
+    @apply bg-primary-700;
+  }
+}
+
 // 課程
 .btn-cusWritePrimary {
   @apply rounded-5 border border-primary-400 text-primary-400 py-4 px-10;

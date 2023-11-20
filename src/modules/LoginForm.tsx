@@ -10,6 +10,10 @@ import { setCookie } from "cookies-next";
 import { useState } from "react";
 import loginApiErrMsg from "@/common/lib/dashboard/errMsg/loginApiErrMsg";
 import errInput from "@/common/helpers/errInput";
+import {
+  commonEmailPattern,
+  commonPasswordPattern,
+} from "@/common/lib/dashboard/errMsg/commonErrMsg";
 
 interface LoginType {
   [key: string]: string;
@@ -65,8 +69,11 @@ const LoginForm = () => {
           <input
             className="cusInputWithIcon"
             placeholder="帳號(Email)"
-            type="email"
-            {...register("Email", { required: "*必填" })}
+            type="text"
+            {...register("Email", {
+              required: "*必填",
+              pattern: { value: commonEmailPattern, message: "Email格式有誤" },
+            })}
           />
           <div className="cusShowLeftIcon bg-emailIcon" />
         </label>
@@ -78,7 +85,13 @@ const LoginForm = () => {
             className="cusInputWithIcon"
             placeholder="密碼"
             type={showPassword ? "text" : "password"}
-            {...register("Password", { required: "*必填" })}
+            {...register("Password", {
+              required: "*必填",
+              pattern: {
+                value: commonPasswordPattern,
+                message: "密碼格式有誤 (6-12字元英數組合)",
+              },
+            })}
           />
           <div className="cusShowLeftIcon bg-passwordIcon" />
           <div

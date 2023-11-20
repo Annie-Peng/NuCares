@@ -5,6 +5,7 @@ import { showModal } from "@/common/redux/features/showModal";
 import { useDispatch, useSelector } from "react-redux";
 import { bodyRateTabs } from "@/common/lib/dashboard/dietary-record/bodyRate";
 import { selectBodyRate } from "@/common/redux/features/dietary-record/bodyRate";
+import turnDateFormat from "@/common/helpers/turnDateFormat";
 
 interface BodyRateProps {
   Token: string;
@@ -22,15 +23,10 @@ const BodyRate: FC<BodyRateProps> = ({
 
   const BodyRate = useSelector(selectBodyRate);
 
-  //取得今天日期
-  const currentDate = new Date();
-  const year = currentDate.getFullYear();
-  const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
-  const day = currentDate.getDate().toString().padStart(2, "0");
-  const formattedDate = `${year}/${month}/${day}`;
+  const currentDate = turnDateFormat(new Date());
 
   const hasTodayBodyRate = BodyRate.filter(
-    (item) => item.CreateDate === formattedDate
+    (item) => item.CreateDate === currentDate
   );
 
   return (

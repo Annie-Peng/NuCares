@@ -1,4 +1,5 @@
 import { FC, ReactEventHandler, ReactNode, FocusEventHandler } from "react";
+import { FieldError } from "react-hook-form";
 
 interface TextareaProps {
   name: string;
@@ -15,7 +16,7 @@ interface TextareaProps {
   errClass?: string;
   errMsg?: string;
   onBlur?: FocusEventHandler;
-  error?: boolean;
+  error?: FieldError;
 }
 
 const Textarea: FC<TextareaProps> = ({
@@ -54,7 +55,7 @@ const Textarea: FC<TextareaProps> = ({
           onBlur={onBlur}
         />
       </label>
-      {error && <p className={errClass}>{errMsg}</p>}
+      {error && <p className={errClass}>{error.message}</p>}
     </>
   );
 };

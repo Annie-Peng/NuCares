@@ -1,12 +1,36 @@
+import wrapper from "@/common/redux/store";
 import UpdatePasswordForm from "@/modules/dashboard/student/update-password/UpdatePasswordForm";
+import { Auth } from "@/types/interface";
+import { getCookies } from "cookies-next";
+import { FC } from "react";
 
-const UpdatePasswordPage = () => {
+interface UpdatePasswordPageProps {
+  auth: Auth;
+}
+
+const UpdatePasswordPage: FC<UpdatePasswordPageProps> = ({ auth }) => {
   return (
     <div className="py-20 lg:py-0">
       <h2 className="cusPrimaryTitle">修改密碼</h2>
-      <UpdatePasswordForm />
+      <UpdatePasswordForm Token={auth.Token} />
     </div>
   );
 };
 
 export default UpdatePasswordPage;
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  () =>
+    async ({ req, res }) => {
+      const auth = getCookies({ req, res });
+      if (!auth.Token) {
+        res.writeHead(302, { Location: "/login" });
+        res.end();
+      }
+      return {
+        props: {
+          auth,
+        },
+      };
+    }
+);

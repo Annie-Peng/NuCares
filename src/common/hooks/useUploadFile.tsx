@@ -33,11 +33,14 @@ const useUploadFile = ({
 }: UseUploadFileProps): [
   InitFileSrcFoodType,
   (fileSrc: InitFileSrcFoodType) => void,
-  (onChange: HandleUploadFileProps) => void
+  (onChange: HandleUploadFileProps) => void,
+  imageSize: number
 ] => {
   const [fileSrc, setFileSrc] = useState<InitFileSrcFoodType>(
     initFileSrc || {}
   );
+
+  const [imageSize, setImageSize] = useState<number>(0);
 
   // console.log(data, Token, initFileSrc);
 
@@ -68,7 +71,7 @@ const useUploadFile = ({
       );
       const fetchData = result.data.Data.ImageUrl;
 
-      console.log(fetchData);
+      console.log(result);
 
       previewFile(file, fetchData);
     } catch (error) {
@@ -82,6 +85,7 @@ const useUploadFile = ({
       reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = function (event) {
+        setImageSize(event.total);
         const result = event.target?.result;
         if (result) {
           setFileSrc((prevState) => ({
@@ -92,7 +96,7 @@ const useUploadFile = ({
       };
     }
   }
-  return [fileSrc, setFileSrc, handleUploadFile];
+  return [fileSrc, setFileSrc, handleUploadFile, imageSize];
 };
 
 export default useUploadFile;

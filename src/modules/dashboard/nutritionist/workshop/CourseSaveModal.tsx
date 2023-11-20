@@ -1,4 +1,4 @@
-import MiniModal from "@/common/components/MiniModal";
+import MiniModal from "@/common/components/modals/MiniModal";
 import { FC } from "react";
 
 interface CourseSaveModalProps {

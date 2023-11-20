@@ -20,6 +20,7 @@ import { payment } from "./service/payment";
 import { profile } from "./service/profile";
 import { order } from "./service/order";
 import { favorite } from "./service/favorite";
+import { updatePassword } from "./service/updatePassword";
 
 const store = configureStore({
   reducer: {
@@ -43,6 +44,7 @@ const store = configureStore({
     [profile.reducerPath]: profile.reducer,
     [order.reducerPath]: order.reducer,
     [favorite.reducerPath]: favorite.reducer,
+    [updatePassword.reducerPath]: updatePassword.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -57,7 +59,8 @@ const store = configureStore({
       .concat(payment.middleware)
       .concat(profile.middleware)
       .concat(order.middleware)
-      .concat(favorite.middleware),
+      .concat(favorite.middleware)
+      .concat(updatePassword.middleware),
 });
 
 const wrapper = createWrapper(() => store, { debug: false });

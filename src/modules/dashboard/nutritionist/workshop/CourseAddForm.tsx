@@ -1,11 +1,12 @@
 import Input from "@/common/components/Input";
 import Select from "@/common/components/Select";
 import Textarea from "@/common/components/Textarea";
-import { FC, Fragment, ReactNode } from "react";
+import { FC, Fragment } from "react";
 import { ComponentType } from "@/types/interface";
 import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import {
   commonErrMsgClass,
+  commonMinGreaterThanZero,
   commonRequiredErrMsg,
 } from "@/common/lib/dashboard/errMsg/commonErrMsg";
 import { usePlanPostApiMutation } from "@/common/redux/service/plan";
@@ -14,12 +15,15 @@ export const courseAddFormData: ComponentType[] = [
   {
     component: "input",
     name: "Rank",
-    type: "text",
+    type: "number",
     hMsg: "排列順序*",
     pMsg: "課程方案在營養師個人介紹頁面上的排列",
     labelClass: "mt-0",
     inputClass: "w-[64px]",
-    errMsg: commonRequiredErrMsg,
+    errMsg: {
+      required: commonRequiredErrMsg,
+      min: commonMinGreaterThanZero,
+    },
     errClass: commonErrMsgClass,
   },
   {
@@ -29,7 +33,10 @@ export const courseAddFormData: ComponentType[] = [
     hMsg: "課程名稱*",
     pMsg: "限18字元，超過之字無法顯示",
     inputClass: "w-[294px]",
-    errMsg: commonRequiredErrMsg,
+    errMsg: {
+      required: commonRequiredErrMsg,
+      maxLength: { value: 18, message: "不得超過18字" },
+    },
     errClass: commonErrMsgClass,
   },
   {
@@ -39,19 +46,25 @@ export const courseAddFormData: ComponentType[] = [
     hMsg: "週數*",
     pMsg: "與學員諮詢的週數",
     inputClass: "w-[64px]",
-    errMsg: commonRequiredErrMsg,
+    errMsg: {
+      required: commonRequiredErrMsg,
+      min: commonMinGreaterThanZero,
+    },
     errClass: commonErrMsgClass,
   },
   {
     component: "input",
     name: "CoursePrice",
-    type: "text",
+    type: "number",
     hMsg: "價格*",
     pMsg: "課程總價",
     labelClass: "relative",
     inputClass: "pl-[48px]",
     children: <p className="absolute left-12 bottom-8">NT$</p>,
-    errMsg: commonRequiredErrMsg,
+    errMsg: {
+      required: commonRequiredErrMsg,
+      min: commonMinGreaterThanZero,
+    },
     errClass: commonErrMsgClass,
   },
   {
@@ -67,7 +80,7 @@ export const courseAddFormData: ComponentType[] = [
       { option: "無", value: "無" },
     ],
     imageClass: "bottom-12 left-[80px]",
-    errMsg: commonRequiredErrMsg,
+    errMsg: { required: commonRequiredErrMsg },
     errClass: commonErrMsgClass,
   },
   {
@@ -76,13 +89,15 @@ export const courseAddFormData: ComponentType[] = [
     hMsg: "課程說明*",
     pMsg: "限100字，超過之字無法顯示",
     textareaClass: "w-full h-[137px]",
-    errMsg: commonRequiredErrMsg,
+    errMsg: {
+      required: commonRequiredErrMsg,
+      maxLength: { value: 100, message: "不得超過100字" },
+    },
     errClass: commonErrMsgClass,
   },
 ];
 
 interface CourseAddFormProps {
-  courseForms: Array<ReactNode>;
   Token: string;
   formKey: string;
   handleDeleteClick: (formKey: string) => void;
@@ -98,7 +113,6 @@ export interface FormInput {
 }
 
 const CourseAddForm: FC<CourseAddFormProps> = ({
-  courseForms,
   Token,
   formKey,
   handleDeleteClick,
@@ -134,10 +148,8 @@ const CourseAddForm: FC<CourseAddFormProps> = ({
           <Controller
             control={control}
             name={data.name as keyof FormInput}
-            rules={{
-              required: data.errMsg,
-            }}
-            render={({ field, fieldState: { invalid, error } }) => (
+            rules={data.errMsg}
+            render={({ field, fieldState: { error } }) => (
               <>
                 {data.component === "input" && (
                   <Input
@@ -149,9 +161,8 @@ const CourseAddForm: FC<CourseAddFormProps> = ({
                     required={data.required}
                     hMsg={data.hMsg}
                     pMsg={data.pMsg}
-                    error={invalid}
+                    error={error}
                     errClass={data.errClass}
-                    errMsg={data.errMsg}
                   >
                     {data.children}
                   </Input>
@@ -167,9 +178,8 @@ const CourseAddForm: FC<CourseAddFormProps> = ({
                     disabledOption={data.disabledOption || "請選擇"}
                     options={data.options || []}
                     imageClass={data.imageClass}
-                    error={invalid}
+                    error={error}
                     errClass={data.errClass}
-                    errMsg={data.errMsg}
                   />
                 )}
                 {data.component === "textarea" && (
@@ -181,9 +191,8 @@ const CourseAddForm: FC<CourseAddFormProps> = ({
                     required={data.required}
                     hMsg={data.hMsg}
                     pMsg={data.pMsg}
-                    error={invalid}
+                    error={error}
                     errClass={data.errClass}
-                    errMsg={data.errMsg}
                   />
                 )}
               </>

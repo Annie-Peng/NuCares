@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { FC, ReactEventHandler, ReactNode } from "react";
+import { FieldError } from "react-hook-form";
 
 interface SelectProps {
   name: string;
@@ -15,7 +16,7 @@ interface SelectProps {
   errClass?: string;
   errMsg?: string;
   imageClass?: string;
-  error?: boolean;
+  error?: FieldError;
   value?: string[] | string;
 }
 
@@ -70,7 +71,7 @@ const Select: FC<SelectProps> = ({
           className={`${imageClass} absolute`}
         />
       </label>
-      {error && <p className={errClass}>{errMsg}</p>}
+      {error && <p className={errClass}>{error.message}</p>}
     </>
   );
 };

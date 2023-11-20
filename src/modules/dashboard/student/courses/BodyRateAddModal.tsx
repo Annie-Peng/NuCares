@@ -1,4 +1,4 @@
-import TitleModal from "@/common/components/TitleModal";
+import TitleModal from "@/common/components/modals/TitleModal";
 import bodyRateAdd from "@/common/lib/dashboard/dietary-record/bodyRate";
 import { closeModal } from "@/common/redux/features/showModal";
 import { useBodyInfoPostApiMutation } from "@/common/redux/service/courseRecord";
