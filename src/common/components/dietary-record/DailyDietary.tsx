@@ -1,7 +1,7 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import Image from "next/image";
-import { FC, useState, FormEvent, Fragment } from "react";
+import { FC, useState, FormEvent, Fragment, useRef } from "react";
 import dailyDietaryInput from "@/common/lib/dashboard/dailyDietaryInput";
 import { showModal } from "@/common/redux/features/showModal";
 import { useDispatch } from "react-redux";
@@ -54,6 +54,33 @@ interface ObjType {
   [key: string]: any;
 }
 
+// interface MealType {
+//   MealImgUrl: string;
+//   MealDescription: string;
+//   Starch: number;
+//   Protein: number;
+//   Vegetable: number;
+// }
+
+// interface FormDataRefType {
+//   Breakfast: MealType;
+//   Lunch: MealType;
+//   Dinner: MealType;
+//   Oil: number;
+//   OilDescription: string;
+//   OilImgUrl: string;
+//   Fruit: number;
+//   FruitDescription: string;
+//   FruitImgUrl: string;
+//   Water: number;
+//   WaterDescription: string;
+//   WaterImgUrl: string;
+// }
+
+interface FormDataRefType {
+  [key: string]: string | number | Record<string, string | number> | any;
+}
+
 const DailyDietary: FC<DailyDietaryProps> = ({
   isMobile,
   Token,
@@ -70,6 +97,39 @@ const DailyDietary: FC<DailyDietaryProps> = ({
     Oil: false,
     Fruit: false,
     Water: false,
+  });
+
+  const formDataRef = useRef<FormDataRefType>({
+    // Breakfast: {
+    //   MealImgUrl: "",
+    //   MealDescription: "",
+    //   Starch: 0,
+    //   Protein: 0,
+    //   Vegetable: 0,
+    // },
+    // Lunch: {
+    //   MealImgUrl: "",
+    //   MealDescription: "",
+    //   Starch: 0,
+    //   Protein: 0,
+    //   Vegetable: 0,
+    // },
+    // Dinner: {
+    //   MealImgUrl: "",
+    //   MealDescription: "",
+    //   Starch: 0,
+    //   Protein: 0,
+    //   Vegetable: 0,
+    // },
+    Oil: 0,
+    OilDescription: "",
+    OilImgUrl: "",
+    Fruit: 0,
+    FruitDescription: "",
+    FruitImgUrl: "",
+    Water: 0,
+    WaterDescription: "",
+    WaterImgUrl: "",
   });
 
   const initFileSrc = {
@@ -282,7 +342,8 @@ const DailyDietary: FC<DailyDietaryProps> = ({
             setFileSrc,
             handleUploadFile,
             dailyDietaryData,
-            isMobile
+            isMobile,
+            formDataRef
           )
         }
         validRange={{
@@ -321,7 +382,8 @@ function renderEventContent(
   setFileSrc: (fileSrc: InitFileSrcFoodType) => void,
   handleUploadFile: (onChange: HandleUploadFileProps) => void,
   dailyDietaryData: DailyDietaryType,
-  isMobile: boolean
+  isMobile: boolean,
+  formDataRef: FormDataRefType
 ) {
   function changeTab(tab: Tab) {
     setTab(tab);
@@ -373,7 +435,6 @@ function renderEventContent(
             {dailyDietaryInput[currentTab].map((item, index) => {
               const otherTabDes = `${[currentTab]}Description`;
               const otherTabImg = `${[currentTab]}ImgUrl`;
-
               return (
                 <Fragment key={index}>
                   <label
@@ -411,6 +472,10 @@ function renderEventContent(
                       name={item.description}
                       className="h-[117px] w-[270px] overflow-y-scroll lg:h-full"
                       placeholder="今天吃了什麼食物？"
+                      defaultValue={
+                        fetchData[currentTab].MealDescription ||
+                        dailyDietaryData[otherTabDes]
+                      }
                     />
                   ) : (
                     <p className="min-h-[117px] w-[270px] px-12 py-10 lg:h-full">
@@ -445,6 +510,14 @@ function renderEventContent(
               showFoodIcon = filterFoodIcon.completed;
             }
 
+            let userInputMeal = "";
+            if (fetchData[filterFoodIcon.enName]) {
+              userInputMeal = fetchData[filterFoodIcon.enName]?.split(" ");
+            } else {
+              userInputMeal =
+                fetchData[currentTab][filterFoodIcon.enName]?.split(" ");
+            }
+
             return (
               <li
                 key={index}
@@ -467,6 +540,7 @@ function renderEventContent(
                       placeholder="份數"
                       className="w-full text-center"
                       type="number"
+                      defaultValue={userInputMeal[0]}
                     />
                   ) : // 顯示 "紀錄/菜單"
                   fetchData[filterFoodIcon.enName] ? (

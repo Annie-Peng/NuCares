@@ -50,10 +50,11 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
   setApiReq,
   buttonJSX,
 }) => {
-  const { control, handleSubmit, setValue, getValues, setError } = useForm({
-    defaultValues: initialState,
-    criteriaMode: "all",
-  });
+  const { control, handleSubmit, setValue, getValues, setError, clearErrors } =
+    useForm({
+      defaultValues: initialState,
+      criteriaMode: "all",
+    });
 
   const dispatch = useDispatch();
   const auth = useSelector(selectAuth);
@@ -160,6 +161,7 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     error={error}
                     errClass={data.errClass}
                     setError={setError}
+                    clearErrors={clearErrors}
                   >
                     {data.children}
                   </InputImage>
