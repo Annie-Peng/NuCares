@@ -100,27 +100,27 @@ const DailyDietary: FC<DailyDietaryProps> = ({
   });
 
   const formDataRef = useRef<FormDataRefType>({
-    // Breakfast: {
-    //   MealImgUrl: "",
-    //   MealDescription: "",
-    //   Starch: 0,
-    //   Protein: 0,
-    //   Vegetable: 0,
-    // },
-    // Lunch: {
-    //   MealImgUrl: "",
-    //   MealDescription: "",
-    //   Starch: 0,
-    //   Protein: 0,
-    //   Vegetable: 0,
-    // },
-    // Dinner: {
-    //   MealImgUrl: "",
-    //   MealDescription: "",
-    //   Starch: 0,
-    //   Protein: 0,
-    //   Vegetable: 0,
-    // },
+    Breakfast: {
+      MealImgUrl: "",
+      MealDescription: "",
+      Starch: 0,
+      Protein: 0,
+      Vegetable: 0,
+    },
+    Lunch: {
+      MealImgUrl: "",
+      MealDescription: "",
+      Starch: 0,
+      Protein: 0,
+      Vegetable: 0,
+    },
+    Dinner: {
+      MealImgUrl: "",
+      MealDescription: "",
+      Starch: 0,
+      Protein: 0,
+      Vegetable: 0,
+    },
     Oil: 0,
     OilDescription: "",
     OilImgUrl: "",
@@ -501,13 +501,14 @@ function renderEventContent(
             const achieved = `${[filterFoodIcon.enName]}Achieved`;
             let showFoodIcon = filterFoodIcon.PC;
 
-            if (dailyDietaryData[sumAchieved]) {
-              showFoodIcon = filterFoodIcon.completed;
-            } else if (
-              dailyDietaryData[currentTab] &&
-              (dailyDietaryData[currentTab] as any)[achieved]
-            ) {
-              showFoodIcon = filterFoodIcon.completed;
+            if (currentTab !== "All") {
+              dailyDietaryData[achieved] &&
+                (showFoodIcon = filterFoodIcon.completed);
+              (dailyDietaryData[currentTab] as any)[achieved] &&
+                (showFoodIcon = filterFoodIcon.completed);
+            } else {
+              dailyDietaryData[sumAchieved] &&
+                (showFoodIcon = filterFoodIcon.completed);
             }
 
             let userInputMeal = "";
