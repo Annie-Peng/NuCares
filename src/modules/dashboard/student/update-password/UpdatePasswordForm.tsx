@@ -1,81 +1,153 @@
-import Image from "next/image";
 import { ComponentType } from "@/types/interface";
-import Input from "@/common/components/Input";
-import { useState } from "react";
+import { FC, useState } from "react";
+import {
+  commonErrMsgClass,
+  commonPasswordPattern,
+  commonRequiredErrMsg,
+} from "@/common/lib/dashboard/errMsg/commonErrMsg";
+import { useDispatch } from "react-redux";
+import { useUpdatePasswordPutApiMutation } from "@/common/redux/service/updatePassword";
+import useEditForm from "@/common/hooks/useEditForm";
+import { showModal } from "@/common/redux/features/showModal";
+
+interface UpdatePasswordFormProps {
+  Token: string;
+}
+
+interface ShowPasswordType {
+  OldPassword: boolean;
+  NewPassword: boolean;
+  RePassword: boolean;
+}
+
+const passwordCloseIconClass =
+  "bg-eyeCloseIcon bottom-0 right-12 -translate-y-[60%] block absolute content-[''] w-20 h-20 lg:right-0 lg:left-[328px]";
+
+const passwordOpenIconClass =
+  "bg-eyeOpenIcon bottom-0 right-12 -translate-y-[55%] block absolute content-[''] w-20 h-20 lg:right-0 lg:left-[328px]";
 
 const updatePasswordData: ComponentType[] = [
   {
     component: "input",
     name: "OldPassword",
     type: "password",
-    required: true,
     hMsg: "舊密碼*",
-    inputClass: "w-[360px]",
+    labelClass: "relative",
+    inputClass: "w-full lg:w-[360px]",
+    errMsg: {
+      required: commonRequiredErrMsg,
+      pattern: { value: commonPasswordPattern, message: "密碼格式有誤" },
+    },
+    errClass: commonErrMsgClass,
+    children: <div className={passwordCloseIconClass} />,
   },
   {
     component: "input",
-    name: "NewPassword",
+    name: "Password",
     type: "password",
-    required: true,
     hMsg: "新密碼*",
     pMsg: "請輸入6-12字元英數組合",
-    inputClass: "w-[360px]",
+    labelClass: "relative",
+    inputClass: "w-full lg:w-[360px]",
+    errMsg: {
+      required: commonRequiredErrMsg,
+      pattern: { value: commonPasswordPattern, message: "密碼格式有誤" },
+    },
+    errClass: commonErrMsgClass,
+    children: <div className={passwordCloseIconClass} />,
   },
   {
     component: "input",
     name: "RePassword",
     type: "password",
-    required: true,
-    hMsg: "舊密碼*",
+    hMsg: "再輸入一次新密碼*",
     pMsg: "請輸入6-12字元英數組合",
-    inputClass: "w-[360px]",
+    labelClass: "relative",
+    inputClass: "w-full lg:w-[360px]",
+    errMsg: {
+      required: commonRequiredErrMsg,
+      pattern: { value: commonPasswordPattern, message: "密碼格式有誤" },
+      validate: (value, formValues) =>
+        value === formValues.Password || "您輸入的密碼不一致",
+    },
+    errClass: commonErrMsgClass,
+    children: <div className={passwordCloseIconClass} />,
   },
 ];
 
-const UpdatePasswordForm = () => {
-  // const [showPassword, setShowPassword] = useState({
-  //   OldPassword: false,
-  //   NewPassword: false,
-  //   RePassword: false,
-  // });
+const buttonJSX = (
+  <button
+    type="submit"
+    className="btn-cusWriteSecondary block mx-auto !py-8 w-full mt-[60px] lg:w-[278px] order-1 lg:order-2"
+  >
+    儲存
+  </button>
+);
+
+const UpdatePasswordForm: FC<UpdatePasswordFormProps> = ({ Token }) => {
+  const [showPassword, setShowPassword] = useState<ShowPasswordType>({
+    OldPassword: false,
+    NewPassword: false,
+    RePassword: false,
+  });
+
+  const newUpdatePasswordData = updatePasswordData.map((data) => {
+    const showPasswordDataName = data.name as keyof ShowPasswordType;
+    const newType = showPassword[showPasswordDataName] ? "text" : "password";
+
+    const newChildren = (
+      <button
+        type="button"
+        onClick={() =>
+          setShowPassword({
+            ...showPassword,
+            [data.name]: !showPassword[showPasswordDataName],
+          })
+        }
+      >
+        {showPassword[showPasswordDataName] ? (
+          <div className={passwordOpenIconClass} />
+        ) : (
+          data.children
+        )}
+      </button>
+    );
+    return {
+      ...data,
+      type: newType,
+      children: newChildren,
+    };
+  });
+
+  console.log(newUpdatePasswordData);
+
+  const dispatch = useDispatch();
+  const [updatePasswordPutApi] = useUpdatePasswordPutApiMutation();
+
+  const initialState = {
+    OldPassword: "",
+    Password: "",
+    RePassword: "",
+  };
+
+  const { renderEditForm, apiReq } = useEditForm({
+    initialState,
+    formData: newUpdatePasswordData,
+    putApi: updatePasswordPutApi,
+    putApiData: Token,
+    buttonJSX,
+  });
+
+  if (apiReq) {
+    console.log(apiReq);
+    const message = apiReq.Message || apiReq.data.Message;
+    dispatch(showModal(["showTimerModal", { message, timer: 3000 }]));
+  }
 
   return (
-    <form className="text-left flex flex-col cusDashboardInnerContainer mt-32 px-20 pb-20 lg:mt-0 lg:p-0">
-      <ul>
-        {updatePasswordData.map((data, index) => (
-          <li key={index}>
-            {data.component === "input" && (
-              <Input
-                name={data.name}
-                type={data.type || "text"}
-                labelClass={data.labelClass}
-                inputClass={data.inputClass}
-                required={data.required}
-                hMsg={data.hMsg}
-                pMsg={data.pMsg}
-                disabled={data.disabled}
-              >
-                {data.children}
-              </Input>
-            )}
-          </li>
-        ))}
-      </ul>
-      <div className="text-center mt-[60px] flex flex-col gap-10 justify-center items-center lg:flex-row">
-        <button
-          type="button"
-          className="btn-cusWritePrimary !py-8 w-full lg:w-[278px] order-2 lg:order-1"
-        >
-          放棄變更
-        </button>
-        <button
-          type="submit"
-          className="btn-cusWriteSecondary !py-8 w-full lg:w-[278px] order-1 lg:order-2"
-        >
-          儲存
-        </button>
-      </div>
-    </form>
+    <div className="container text-left flex flex-col cusDashboardInnerContainer mt-32 p-20">
+      <ul>{renderEditForm}</ul>
+    </div>
   );
 };
 
