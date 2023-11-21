@@ -443,10 +443,10 @@ function renderEventContent(
                   >
                     <Image
                       src={
-                        fetchData[currentTab].MealImgUrl ||
-                        dailyDietaryData[otherTabImg] ||
                         fileSrc[currentTab as keyof InitFileSrcFoodType]
                           ?.file ||
+                        fetchData[currentTab].MealImgUrl ||
+                        dailyDietaryData[otherTabImg] ||
                         "/images/dashboard/dietary-record/upload-photo.svg"
                       }
                       fill
