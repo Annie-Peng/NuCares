@@ -53,7 +53,7 @@ const BodyRateAddModal: FC<BodyRateAddModalProps> = ({ data }) => {
         <ul className="mx-auto flex flex-wrap gap-32 my-32 text-center justify-center lg:max-w-none lg:flex-nowrap lg:my-[36px]">
           {bodyRateAdd.map((item, index) => (
             <li key={index} className="w-[110px]">
-              <label className="relative">
+              <label className="relative block">
                 <p className="bg-primary-400 text-white rounded-35">
                   {item.name}
                 </p>
