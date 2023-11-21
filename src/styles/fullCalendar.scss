@@ -10,7 +10,7 @@
 
 // 移除toolbar margin
 .fc .fc-toolbar.fc-header-toolbar {
-  @apply m-0 gap-20 bg-primary-100 py-12 lg:pt-20 lg:bg-transparent;
+  @apply m-0 gap-20 bg-primary-100 py-12 lg:pt-0 lg:bg-transparent;
 }
 
 // toolbar置中

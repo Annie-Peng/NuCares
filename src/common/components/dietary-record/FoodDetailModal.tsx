@@ -12,7 +12,7 @@ interface FoodDetailModalType {
 
 const FoodDetailModal: FC<FoodDetailModalType> = ({ data }) => {
   console.log(data);
-  const [tab, setTab] = useState<string>("Protein");
+  const [tab, setTab] = useState<string>("Starch");
 
   return (
     <TitleModal title="飲食份量說明" modal="showFoodDetailModal">

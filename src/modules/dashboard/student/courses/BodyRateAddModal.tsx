@@ -50,9 +50,9 @@ const BodyRateAddModal: FC<BodyRateAddModalProps> = ({ data }) => {
   return (
     <TitleModal title="今天身體數值" modal="showBodyRateAddModal">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <ul className="mx-auto flex flex-wrap gap-32 my-32 text-center max-w-[212px] justify-center lg:max-w-none lg:flex-nowrap lg:my-[36px]">
+        <ul className="mx-auto flex flex-wrap gap-32 my-32 text-center justify-center lg:max-w-none lg:flex-nowrap lg:my-[36px]">
           {bodyRateAdd.map((item, index) => (
-            <li key={index} className="w-[90px]">
+            <li key={index} className="w-[110px]">
               <label className="relative">
                 <p className="bg-primary-400 text-white rounded-35">
                   {item.name}
@@ -60,6 +60,7 @@ const BodyRateAddModal: FC<BodyRateAddModalProps> = ({ data }) => {
                 <input
                   type="number"
                   className="w-full mt-8 pr-[48px]"
+                  step="0.1"
                   {...register(`${item.enName as keyof FormInput}`, {
                     required: "*必填",
                   })}

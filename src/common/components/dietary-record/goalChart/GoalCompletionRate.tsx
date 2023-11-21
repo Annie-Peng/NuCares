@@ -54,7 +54,7 @@ const GoalCompletionRate: FC<GoalCompletionRateProps> = ({
               width="28"
               height="28"
               alt="arrow"
-              className="absolute top-12 right-16 hidden lg:block"
+              className="absolute -top-40 right-16 hidden lg:block"
             />
           </button>
         ) : (
@@ -64,7 +64,7 @@ const GoalCompletionRate: FC<GoalCompletionRateProps> = ({
               width="28"
               height="28"
               alt="arrow"
-              className="absolute top-12 right-16 hidden lg:block"
+              className="absolute -top-40 right-16 hidden lg:block"
             />
           </button>
         ))}
@@ -83,6 +83,7 @@ const GoalCompletionRate: FC<GoalCompletionRateProps> = ({
                     name="Weight"
                     ref={GoalWeightRef}
                     type="number"
+                    defaultValue={renderData.GoalWeight}
                   />
                 </label>
               ) : (
@@ -119,6 +120,7 @@ const GoalCompletionRate: FC<GoalCompletionRateProps> = ({
                     name="BodyFat"
                     ref={GoalBodyFatRef}
                     type="number"
+                    defaultValue={renderData.GoalBodyFat}
                   />
                 </label>
               ) : (
@@ -126,7 +128,7 @@ const GoalCompletionRate: FC<GoalCompletionRateProps> = ({
                   <span className="text-24 font-bold">
                     {renderData.GoalBodyFat}
                   </span>
-                  <span className="text-12">公斤</span>
+                  <span className="text-12">%</span>
                 </>
               )}
             </p>
@@ -139,7 +141,7 @@ const GoalCompletionRate: FC<GoalCompletionRateProps> = ({
               現在
               <br />
               <span className="text-24 font-bold">{renderData.BodyFat}</span>
-              <span className="text-12">公斤</span>
+              <span className="text-12">%</span>
             </p>
           </li>
         </ul>

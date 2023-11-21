@@ -11,6 +11,7 @@ import {
 } from "chart.js";
 import { FC } from "react";
 import useResize from "@/common/hooks/useResize";
+import { SingleBodyRateType } from "@/common/lib/dashboard/dietary-record/bodyRate";
 
 ChartJS.register(
   CategoryScale,
@@ -24,7 +25,7 @@ ChartJS.register(
 
 interface BodyRateChartProps {
   tab: string;
-  BodyRate: any;
+  BodyRate: SingleBodyRateType[];
   item?: string;
 }
 
@@ -35,7 +36,7 @@ const BodyRateChart: FC<BodyRateChartProps> = ({ item, tab, BodyRate }) => {
   const isMobile = useResize();
 
   let labels: string[] = [];
-  let data: string[] = [];
+  let data: number[] = [];
 
   if (isMobile && Array.isArray(BodyRate)) {
     BodyRate.map((bodyBate, index) => {
@@ -50,6 +51,8 @@ const BodyRateChart: FC<BodyRateChartProps> = ({ item, tab, BodyRate }) => {
       data.push(bodyBate[tab]);
     });
   }
+
+  const findMin = Math.min(...data);
 
   return (
     <>
@@ -73,6 +76,7 @@ const BodyRateChart: FC<BodyRateChartProps> = ({ item, tab, BodyRate }) => {
               grid: {
                 display: false,
               },
+              min: findMin - 3,
             },
             x: {
               grid: {

@@ -52,28 +52,6 @@ const BodyRate: FC<BodyRateProps> = ({
           />
         </button>
       )}
-
-      {/* {UserCurrentStatus === "user" && (
-        <button
-          type="button"
-          onClick={() =>
-            dispatch(
-              showModal([
-                "showBodyRateAddModal",
-                { Token: Token, CourseId: CourseId },
-              ])
-            )
-          }
-        >
-          <Image
-            src="/images/dashboard/dietary-record/edit.svg"
-            width="28"
-            height="28"
-            alt="arrow"
-            className="absolute top-20 right-16 lg:top-12"
-          />
-        </button>
-      )} */}
       <div className="flex-col h-full gap-16 hidden lg:flex">
         <label htmlFor="BodyRateChart" className="w-[100px] mx-auto relative">
           <select

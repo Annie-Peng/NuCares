@@ -43,8 +43,14 @@ const CourseInfo: FC<CourseInfoProps> = ({
         {infoData.Data.CourseName || infoData.Data.CourseTitle}
       </p>
       <div className="flex flex-col gap-4 items-center justify-center mt-8">
-        <div className="bg-secondary-400 p-4 rounded-50">
-          <Image src={showImgUrl} width="48" height="48" alt="member-photo" />
+        <div className="bg-secondary-400 rounded-50">
+          <Image
+            src={showImgUrl}
+            width={60}
+            height={60}
+            alt="photo"
+            className="rounded-50"
+          />
         </div>
         <p className="text-20">
           {infoData.Data.UserName || infoData.Data.Title}

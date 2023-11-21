@@ -18,6 +18,7 @@ export interface SingleBodyRateType {
   SMM: number;
   VisceralFat: number;
   Weight: number;
+  [key: string]: any;
 }
 
 const bodyRateAdd: BodyRateAddType[] = [

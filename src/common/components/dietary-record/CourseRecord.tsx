@@ -9,6 +9,7 @@ import MobileSidebar from "./MobileSidebar";
 import useResize from "@/common/hooks/useResize";
 import Link from "next/link";
 import InfoBtn from "./InfoBtn";
+import { useDispatch } from "react-redux";
 
 interface CourseRecordProps {
   Token: string;
@@ -23,6 +24,7 @@ const CourseRecord: FC<CourseRecordProps> = ({
 }) => {
   const isMobile: boolean = useResize();
   const [showTab, setShowTab] = useState<number>(isMobile ? 1 : 0);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setShowTab(isMobile ? 1 : 0);
@@ -62,10 +64,10 @@ const CourseRecord: FC<CourseRecordProps> = ({
               <Link href={routeListPage}>
                 <Image
                   src="/images/dashboard/dietary-record/back.svg"
-                  width={26}
-                  height={26}
+                  width={36}
+                  height={36}
                   alt="back.svg"
-                  className="absolute top-20 left-24"
+                  className="absolute left-30 -top-[52px] lg:hidden"
                 />
               </Link>
               <CourseInfo
@@ -77,15 +79,16 @@ const CourseRecord: FC<CourseRecordProps> = ({
           </div>
         )}
         {showDailyDietary && (
-          <div className="w-full">
+          <div className="w-full relative">
+            <div className="absolute top-[70px] h-[94px] w-full bg-primary-100 lg:hidden" />
             <DashboardContainer title="飲食日記">
               <Link href={routeListPage}>
                 <Image
                   src="/images/dashboard/dietary-record/back.svg"
-                  width={26}
-                  height={26}
+                  width={36}
+                  height={36}
                   alt="back.svg"
-                  className="absolute top-20 left-24 lg:hidden"
+                  className="absolute left-30 -top-[52px] lg:hidden"
                 />
               </Link>
               <DailyDietary
@@ -103,10 +106,10 @@ const CourseRecord: FC<CourseRecordProps> = ({
               <Link href={routeListPage}>
                 <Image
                   src="/images/dashboard/dietary-record/back.svg"
-                  width={26}
-                  height={26}
+                  width={36}
+                  height={36}
                   alt="back.svg"
-                  className="absolute top-20 left-24 lg:hidden"
+                  className="absolute left-30 -top-[52px] lg:hidden"
                 />
               </Link>
               <BodyRate
@@ -123,10 +126,10 @@ const CourseRecord: FC<CourseRecordProps> = ({
               <Link href={routeListPage}>
                 <Image
                   src="/images/dashboard/dietary-record/back.svg"
-                  width={26}
-                  height={26}
+                  width={36}
+                  height={36}
                   alt="back.svg"
-                  className="absolute top-20 left-24 lg:hidden"
+                  className="absolute left-30 -top-[52px] lg:hidden"
                 />
               </Link>
               <GoalCompletionRate
