@@ -24,7 +24,8 @@ export const authSlice = createSlice({
       state.UserCurrentStatus = UserCurrentStatus;
     },
     updateAuthImgUrl: (state, action) => {
-      state.ImgUrl = action.payload;
+      state.ImgUrl = action.payload.ImgUrl;
+      state.UserName = action.payload.UserName;
     },
   },
 });

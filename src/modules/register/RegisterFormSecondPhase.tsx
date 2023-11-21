@@ -13,6 +13,8 @@ import registerStep2 from "public/images/register/registerStep2.svg";
 import { RegisterFormProps } from "@/pages/register";
 import registerApiErrMsg from "@/common/lib/dashboard/errMsg/registerApiErrMsg";
 import errInput from "@/common/helpers/errInput";
+import { commonPhonePattern } from "@/common/lib/dashboard/errMsg/commonErrMsg";
+import turnDateFormat from "@/common/helpers/turnDateFormat";
 
 interface Data {
   [key: string]: string | File | number;
@@ -47,13 +49,12 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
   const [userRegisterPostApi] = useUserRegisterPostApiMutation();
 
   const onSubmit: SubmitHandler<SecondFormInput> = async (formData) => {
-    dispatch(storeRegisterForm(formData));
-    let newFormData = JSON.parse(JSON.stringify(registerData));
-    Object.entries(formData).forEach(([key, value]) => {
-      newFormData[key] = value;
-    });
-
     try {
+      dispatch(storeRegisterForm(formData));
+      let newFormData = JSON.parse(JSON.stringify(registerData));
+      Object.entries(formData).forEach(([key, value]) => {
+        newFormData[key] = value;
+      });
       const result = await userRegisterPostApi(newFormData).unwrap();
       console.log(result);
       setCurrentPhase(3);
@@ -127,14 +128,7 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
                 dateFormat="yyyy/MM/dd"
                 onChange={(date: Date | [Date, Date] | null) => {
                   if (date instanceof Date) {
-                    const formattedDate = `${date.getFullYear()}/${(
-                      date.getMonth() + 1
-                    )
-                      .toString()
-                      .padStart(2, "0")}/${date
-                      .getDate()
-                      .toString()
-                      .padStart(2, "0")}`;
+                    const formattedDate = turnDateFormat(date);
                     field.onChange(formattedDate);
                   } else {
                     field.onChange(date);
@@ -183,7 +177,7 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
             {...register("Phone", {
               required: "*必填",
               pattern: {
-                value: /^09\d{8}$/,
+                value: commonPhonePattern,
                 message: "手機號碼格式有誤",
               },
             })}

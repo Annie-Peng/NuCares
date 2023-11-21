@@ -1,4 +1,5 @@
 import { FC, ReactEventHandler, ReactNode, FocusEventHandler } from "react";
+import { FieldError } from "react-hook-form";
 
 export interface InputSwitchProps {
   name: string;
@@ -16,9 +17,8 @@ export interface InputSwitchProps {
   labelClass?: string;
   inputClass?: string;
   errClass?: string;
-  errMsg?: string;
   onBlur?: FocusEventHandler;
-  error?: boolean;
+  error?: FieldError;
 }
 
 const InputSwitch: FC<InputSwitchProps> = ({
@@ -36,7 +36,6 @@ const InputSwitch: FC<InputSwitchProps> = ({
   pMsg,
   onChange,
   errClass,
-  errMsg,
   onBlur,
   error,
 }) => {
@@ -71,7 +70,7 @@ const InputSwitch: FC<InputSwitchProps> = ({
           id={id}
         />
       </label>
-      {error && <p className={errClass}>{errMsg}</p>}
+      {error && <p className={errClass}>{error.message}</p>}
     </>
   );
 };

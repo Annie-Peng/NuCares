@@ -4,10 +4,16 @@ import {
   ReactNode,
   FocusEventHandler,
   useState,
+  useEffect,
 } from "react";
 import useUploadFile, { InitFileSrcFoodType } from "../hooks/useUploadFile";
 import Image from "next/image";
-import { UseFormSetValue } from "react-hook-form";
+import {
+  FieldError,
+  UseFormClearErrors,
+  UseFormSetError,
+  UseFormSetValue,
+} from "react-hook-form";
 import { InitialStateType } from "../hooks/useEditForm";
 
 export interface InputImageProps {
@@ -27,12 +33,13 @@ export interface InputImageProps {
   labelClass?: string;
   inputClass?: string;
   errClass?: string;
-  errMsg?: string;
   onBlur?: FocusEventHandler;
-  error?: boolean;
+  error?: FieldError;
   Token: string;
   initFileSrc?: InitFileSrcFoodType;
   setValue: UseFormSetValue<InitialStateType>;
+  setError: UseFormSetError<InitialStateType>;
+  clearErrors: UseFormClearErrors<InitialStateType>;
 }
 
 const InputImage: FC<InputImageProps> = ({
@@ -52,14 +59,15 @@ const InputImage: FC<InputImageProps> = ({
   pMsg,
   onChange,
   errClass,
-  errMsg,
   onBlur,
   error,
   Token,
   initFileSrc,
   setValue,
+  setError,
+  clearErrors,
 }) => {
-  const [fileSrc, setFileSrc, handleUploadFile] = useUploadFile({
+  const [fileSrc, setFileSrc, handleUploadFile, apiErr] = useUploadFile({
     data: { name: chName, enName: name },
     Token,
     initFileSrc,
@@ -80,6 +88,14 @@ const InputImage: FC<InputImageProps> = ({
   if (fileSrc[name as keyof InitFileSrcFoodType]?.fetch) {
     setValue(name, PutPhoto || "");
   }
+
+  useEffect(() => {
+    if (apiErr[name]) {
+      setError(name, { message: apiErr[name] });
+    } else {
+      clearErrors(name);
+    }
+  });
 
   return (
     <>
@@ -121,7 +137,7 @@ const InputImage: FC<InputImageProps> = ({
           id={id}
         />
       </label>
-      {error && <p className={errClass}>{errMsg}</p>}
+      {error && <p className={errClass}>{error.message}</p>}
     </>
   );
 };

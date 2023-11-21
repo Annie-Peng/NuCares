@@ -3,7 +3,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import { useSelector } from "react-redux";
 import { selectShowModal } from "../redux/features/showModal";
-import MiniModal from "./MiniModal";
+import MiniModal from "./modals/MiniModal";
 
 const layoutBgClass = {
   login: "bg-primaryGradient",
@@ -33,9 +33,13 @@ const Layout = ({ children, router }: LayoutProps) => {
       <div className="flex flex-col min-h-screen">
         <Header />
         <main
-          className={`grow py-[40px] lg:min-h-[1056px] ${showLayoutBgClass} lg:pt-[75px] lg:pb-0`}
+          className={`grow lg:min-h-[1056px] ${showLayoutBgClass} ${
+            showLayoutBgClass !== "bg-white" && "lg:pt-[75px] py-[40px]"
+          } lg:pb-0`}
         >
-          <div className="container">{children}</div>
+          <div className={`${showLayoutBgClass !== "bg-white" && "container"}`}>
+            {children}
+          </div>
         </main>
         <Footer />
       </div>

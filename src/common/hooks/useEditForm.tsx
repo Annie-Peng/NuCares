@@ -50,10 +50,11 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
   setApiReq,
   buttonJSX,
 }) => {
-  const { control, handleSubmit, setValue, getValues } = useForm({
-    defaultValues: initialState,
-    criteriaMode: "all",
-  });
+  const { control, handleSubmit, setValue, getValues, setError, clearErrors } =
+    useForm({
+      defaultValues: initialState,
+      criteriaMode: "all",
+    });
 
   const dispatch = useDispatch();
   const auth = useSelector(selectAuth);
@@ -68,8 +69,10 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
       const result = await putApi(formData).unwrap();
       console.log(result);
       if (body.UserName && body.ImgUrl) {
-        dispatch(updateAuthImgUrl(result.Data.ImgUrl));
+        const { ImgUrl, UserName } = result.Data;
+        dispatch(updateAuthImgUrl({ ImgUrl, UserName }));
         setCookie("ImgUrl", result.Data.ImgUrl);
+        setCookie("UserName", result.Data.UserName);
       }
       setApiReq(result);
       setEdit(false);
@@ -86,10 +89,8 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
           <Controller
             control={control}
             name={data.name}
-            rules={{
-              required: data.errMsg,
-            }}
-            render={({ field, fieldState: { invalid, error } }) => (
+            rules={data.errMsg}
+            render={({ field, fieldState: { error } }) => (
               <>
                 {data.component === "input" && (
                   <Input
@@ -101,9 +102,8 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     required={data.required}
                     hMsg={data.hMsg}
                     pMsg={data.pMsg}
-                    error={invalid}
+                    error={error}
                     errClass={data.errClass}
-                    errMsg={data.errMsg}
                     onChange={field.onChange}
                     disabled={data.disabled}
                   >
@@ -122,9 +122,8 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     disabledOption={data.disabledOption || "請選擇"}
                     options={data.options || []}
                     imageClass={data.imageClass}
-                    error={invalid}
+                    error={error}
                     errClass={data.errClass}
-                    errMsg={data.errMsg}
                     onChange={field.onChange}
                     value={field.value as string | string[]}
                   >
@@ -140,9 +139,8 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     required={data.required}
                     hMsg={data.hMsg}
                     pMsg={data.pMsg}
-                    error={invalid}
+                    error={error}
                     errClass={data.errClass}
-                    errMsg={data.errMsg}
                     onChange={field.onChange}
                   />
                 )}
@@ -162,9 +160,10 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     initFileSrc={data.initFileSrc}
                     setValue={setValue}
                     value={field.value as string}
-                    error={invalid}
-                    errMsg={data.errMsg}
+                    error={error}
                     errClass={data.errClass}
+                    setError={setError}
+                    clearErrors={clearErrors}
                   >
                     {data.children}
                   </InputImage>
@@ -179,9 +178,8 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     required={data.required}
                     hMsg={data.hMsg}
                     pMsg={data.pMsg}
-                    error={invalid}
+                    error={error}
                     errClass={data.errClass}
-                    errMsg={data.errMsg}
                     value={field.value as string}
                     onChange={field.onChange}
                     id={data.id}
@@ -198,9 +196,8 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     labelClass={data.labelClass}
                     hMsg={data.hMsg}
                     pMsg={data.pMsg}
-                    error={invalid}
+                    error={error}
                     errClass={data.errClass}
-                    errMsg={data.errMsg}
                     value={field.value as string[]}
                     // onChange={field.onChange}
                     setValue={setValue}
@@ -223,9 +220,8 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     required={data.required}
                     hMsg={data.hMsg}
                     pMsg={data.pMsg}
-                    error={invalid}
+                    error={error}
                     errClass={data.errClass}
-                    errMsg={data.errMsg}
                     onChange={field.onChange}
                     disabled={data.disabled}
                     value={field.value as string}

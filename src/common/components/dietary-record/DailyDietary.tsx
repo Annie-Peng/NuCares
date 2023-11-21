@@ -1,7 +1,7 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import Image from "next/image";
-import { FC, useState, FormEvent, Fragment } from "react";
+import { FC, useState, FormEvent, Fragment, useRef } from "react";
 import dailyDietaryInput from "@/common/lib/dashboard/dailyDietaryInput";
 import { showModal } from "@/common/redux/features/showModal";
 import { useDispatch } from "react-redux";
@@ -23,6 +23,10 @@ import {
   useDailyDietaryMealTimePutApiMutation,
   useDailyDietaryOtherPutApiMutation,
 } from "@/common/redux/service/courseRecord";
+import turnDateFormat, {
+  turnDateFormatOneMoreDay,
+} from "@/common/helpers/turnDateFormat";
+import { commonErrMsgClass } from "@/common/lib/dashboard/errMsg/commonErrMsg";
 
 interface DailyDietaryProps {
   isMobile: boolean;
@@ -38,6 +42,7 @@ interface EditType {
   Oil: boolean;
   Fruit: boolean;
   Water: boolean;
+  [key: string]: boolean;
 }
 
 interface HandleSubmitProps {
@@ -48,6 +53,33 @@ interface HandleSubmitProps {
 
 interface ObjType {
   [key: string]: any;
+}
+
+// interface MealType {
+//   MealImgUrl: string;
+//   MealDescription: string;
+//   Starch: number;
+//   Protein: number;
+//   Vegetable: number;
+// }
+
+// interface FormDataRefType {
+//   Breakfast: MealType;
+//   Lunch: MealType;
+//   Dinner: MealType;
+//   Oil: number;
+//   OilDescription: string;
+//   OilImgUrl: string;
+//   Fruit: number;
+//   FruitDescription: string;
+//   FruitImgUrl: string;
+//   Water: number;
+//   WaterDescription: string;
+//   WaterImgUrl: string;
+// }
+
+interface FormDataRefType {
+  [key: string]: string | number | Record<string, string | number> | any;
 }
 
 const DailyDietary: FC<DailyDietaryProps> = ({
@@ -68,6 +100,39 @@ const DailyDietary: FC<DailyDietaryProps> = ({
     Water: false,
   });
 
+  const formDataRef = useRef<FormDataRefType>({
+    Breakfast: {
+      MealImgUrl: "",
+      MealDescription: "",
+      Starch: 0,
+      Protein: 0,
+      Vegetable: 0,
+    },
+    Lunch: {
+      MealImgUrl: "",
+      MealDescription: "",
+      Starch: 0,
+      Protein: 0,
+      Vegetable: 0,
+    },
+    Dinner: {
+      MealImgUrl: "",
+      MealDescription: "",
+      Starch: 0,
+      Protein: 0,
+      Vegetable: 0,
+    },
+    Oil: 0,
+    OilDescription: "",
+    OilImgUrl: "",
+    Fruit: 0,
+    FruitDescription: "",
+    FruitImgUrl: "",
+    Water: 0,
+    WaterDescription: "",
+    WaterImgUrl: "",
+  });
+
   const initFileSrc = {
     Breakfast: { fetch: "", file: "" },
     Lunch: { fetch: "", file: "" },
@@ -77,7 +142,7 @@ const DailyDietary: FC<DailyDietaryProps> = ({
     Water: { fetch: "", file: "" },
   };
 
-  const [fileSrc, setFileSrc, handleUploadFile] = useUploadFile({
+  const [fileSrc, setFileSrc, handleUploadFile, apiErr] = useUploadFile({
     data: tab,
     Token,
     initFileSrc,
@@ -104,10 +169,12 @@ const DailyDietary: FC<DailyDietaryProps> = ({
 
   console.log(dailyDietaryData);
 
+  const currentTab = tab.enName;
+
   const events: Event[] = [
     {
       start: String(dailyDietaryData.MenuDate).replaceAll("/", "-"),
-      tab: tab.enName,
+      tab: currentTab,
       extendedProps: {
         All: turnStringFormat(dailyDietaryData, "mealSlashFormat"),
         Breakfast: turnStringFormat(
@@ -144,28 +211,28 @@ const DailyDietary: FC<DailyDietaryProps> = ({
       return;
     }
 
-    if (tab.enName === "All") {
+    if (currentTab === "All") {
       return;
     } else {
       setEdit({
         ...edit,
-        [tab.enName]: !edit[tab.enName as keyof EditType],
+        [currentTab]: !edit[currentTab as keyof EditType],
       });
 
-      if (edit[tab.enName as keyof EditType]) {
+      if (edit[currentTab as keyof EditType]) {
         try {
           const formData = new FormData(event.target as HTMLFormElement);
 
-          const body = tellMeal(tab.enName, formData);
+          const body = tellMeal(currentTab, formData);
 
-          if (["Breakfast", "Lunch", "Dinner"].includes(tab.enName)) {
+          if (["Breakfast", "Lunch", "Dinner"].includes(currentTab)) {
             const result = await dailyDietaryMealTimePutApi({
               Token,
               CourseId,
-              DailyLogId: events[0].extendedProps[tab.enName].DailyLogId,
+              DailyLogId: events[0].extendedProps[currentTab].DailyLogId,
               MealTime: events[0].tab,
               DailyMealTimeId:
-                events[0].extendedProps[tab.enName].DailyMealTimeId,
+                events[0].extendedProps[currentTab].DailyMealTimeId,
               body,
             }).unwrap();
 
@@ -200,31 +267,52 @@ const DailyDietary: FC<DailyDietaryProps> = ({
     return obj;
   };
 
+  console.log(edit[currentTab]);
+
   return (
     <form onSubmit={(e) => handleSubmit({ event: e, tab, UserCurrentStatus })}>
-      <button
-        type="submit"
-        // onClick={(e) => handleEditClick({ event: e, tab, UserCurrentStatus })}
-        className="hidden lg:block"
-      >
-        <Image
-          src="/images/dashboard/dietary-record/edit.svg"
-          width="28"
-          height="28"
-          alt="edit"
-          className="absolute top-12 right-16"
-        />
+      <button type="submit" className="hidden lg:block">
+        {edit[currentTab] ? (
+          <Image
+            src="/images/dashboard/dietary-record/save.svg"
+            width={28}
+            height={28}
+            alt="save"
+            className="absolute -top-[40px] right-16"
+          />
+        ) : (
+          <Image
+            src="/images/dashboard/dietary-record/edit.svg"
+            width={28}
+            height={28}
+            alt="edit"
+            className="absolute -top-[40px] right-16"
+          />
+        )}
       </button>
       <button type="button" className="hidden lg:block">
         <Image
           src="/images/dashboard/dietary-record/hint.svg"
-          width="28"
-          height="28"
+          width={28}
+          height={28}
           alt="hint"
-          className="absolute top-12 left-16 hidden lg:block"
+          className="absolute -top-[40px] left-16"
           onClick={() =>
             dispatch(showModal(["showFoodDetailModal", foodIcons]))
           }
+        />
+      </button>
+      <button
+        type="button"
+        onClick={() => dispatch(showModal(["showFoodDetailModal", foodIcons]))}
+        className="block lg:hidden"
+      >
+        <Image
+          src="/images/dashboard/dietary-record/hint-primary.svg"
+          width={36}
+          height={36}
+          alt="hint-primary.svg"
+          className="absolute right-30 -top-[52px]"
         />
       </button>
       <FullCalendar
@@ -247,6 +335,7 @@ const DailyDietary: FC<DailyDietaryProps> = ({
             events[0],
             tab,
             setTab,
+            currentTab,
             UserCurrentStatus,
             Token,
             edit,
@@ -254,16 +343,20 @@ const DailyDietary: FC<DailyDietaryProps> = ({
             setFileSrc,
             handleUploadFile,
             dailyDietaryData,
-            isMobile
+            isMobile,
+            formDataRef,
+            apiErr
           )
         }
         validRange={{
           start: dailyDietaryData.CourseStartDate.replaceAll("/", "-"),
-          end: addOneDay(dailyDietaryData.CourseEndDate.replaceAll("/", "-")),
+          end: turnDateFormatOneMoreDay(
+            dailyDietaryData.CourseEndDate.replaceAll("/", "-")
+          ),
         }}
         datesSet={(dateInfo) => {
           const today = new Date(dateInfo.start);
-          const todayString = toYMD(today);
+          const todayString = turnDateFormat(today);
           setCurrentDate(todayString);
         }}
         headerToolbar={{
@@ -283,6 +376,7 @@ function renderEventContent(
   event: Event,
   tab: Tab,
   setTab: (tab: Tab) => void,
+  currentTab: string,
   UserCurrentStatus: string,
   Token: string,
   edit: EditType,
@@ -290,19 +384,21 @@ function renderEventContent(
   setFileSrc: (fileSrc: InitFileSrcFoodType) => void,
   handleUploadFile: (onChange: HandleUploadFileProps) => void,
   dailyDietaryData: DailyDietaryType,
-  isMobile: boolean
+  isMobile: boolean,
+  formDataRef: FormDataRefType,
+  apiErr: Record<string, string>
 ) {
   function changeTab(tab: Tab) {
     setTab(tab);
   }
 
   const filterFoodIcons = foodIcons.filter((foodIcon) =>
-    foodIcon.showTab.includes(tab.enName)
+    foodIcon.showTab.includes(currentTab)
   );
 
   const fetchData = event.extendedProps;
 
-  const newEdit = edit[tab.enName as keyof EditType];
+  const newEdit = edit[currentTab as keyof EditType];
 
   return (
     <>
@@ -328,20 +424,21 @@ function renderEventContent(
 
       <div
         className={`mb-[100px] flex flex-col min-h-[154px] mt-28 mx-20 p-20 items-center lg:flex-row lg:border-none lg:p-0 lg:mb-8 ${
-          tab.enName !== "All" && "border border-primary-400 rounded-15"
+          currentTab !== "All" && "border border-primary-400 rounded-15"
         }`}
       >
-        {tab.enName !== "All" && (
+        {currentTab !== "All" && (
           <div
             className={`w-full self-stretch  flex flex-wrap gap-8 lg:mr-12 lg:w-[65%] lg:py-8 lg:pl-8 ${
-              edit[tab.enName as keyof EditType] &&
+              edit[currentTab as keyof EditType] &&
               !isMobile &&
               'after:content-[""] after:top-0 after:bottom-0 after:ml-12 after:block after:bg-blue-300 lg:after:w-[1px]'
             }`}
           >
-            {dailyDietaryInput[tab.enName].map((item, index) => {
-              const otherTabDes = `${[tab.enName]}Description`;
-              const otherTabImg = `${[tab.enName]}ImgUrl`;
+            {dailyDietaryInput[currentTab].map((item, index) => {
+              const otherTabDes = `${[currentTab]}Description`;
+              const otherTabImg = `${[currentTab]}ImgUrl`;
+              let showImgErrMsg = apiErr[currentTab];
 
               return (
                 <Fragment key={index}>
@@ -351,10 +448,10 @@ function renderEventContent(
                   >
                     <Image
                       src={
-                        fetchData[tab.enName].MealImgUrl ||
-                        dailyDietaryData[otherTabImg] ||
-                        fileSrc[tab.enName as keyof InitFileSrcFoodType]
+                        fileSrc[currentTab as keyof InitFileSrcFoodType]
                           ?.file ||
+                        fetchData[currentTab].MealImgUrl ||
+                        dailyDietaryData[otherTabImg] ||
                         "/images/dashboard/dietary-record/upload-photo.svg"
                       }
                       fill
@@ -370,9 +467,20 @@ function renderEventContent(
                         accept={item.accept}
                         className="hidden"
                         onChange={(e) =>
-                          handleUploadFile({ e: e, tab: tab, Token: Token })
+                          handleUploadFile({
+                            e: e,
+                            tab: currentTab,
+                            Token: Token,
+                          })
                         }
                       />
+                    )}
+                    {showImgErrMsg && (
+                      <p
+                        className={`!mt-0 absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-white bg-opacity-80 ${commonErrMsgClass}`}
+                      >
+                        {apiErr[currentTab]}
+                      </p>
                     )}
                   </label>
                   {newEdit ? (
@@ -380,10 +488,14 @@ function renderEventContent(
                       name={item.description}
                       className="h-[117px] w-[270px] overflow-y-scroll lg:h-full"
                       placeholder="今天吃了什麼食物？"
+                      defaultValue={
+                        fetchData[currentTab].MealDescription ||
+                        dailyDietaryData[otherTabDes]
+                      }
                     />
                   ) : (
                     <p className="min-h-[117px] w-[270px] px-12 py-10 lg:h-full">
-                      {fetchData[tab.enName].MealDescription ||
+                      {fetchData[currentTab].MealDescription ||
                         dailyDietaryData[otherTabDes]}
                     </p>
                   )}
@@ -394,7 +506,7 @@ function renderEventContent(
         )}
         <ul
           className={`mx-auto flex justify-center text-black-950 gap-y-20 lg:flex-nowrap ${
-            tab.enName === "All"
+            currentTab === "All"
               ? "flex-wrap lg:gap-x-[45px]"
               : "flex-nowrap gap-x-26 lg:gap-x-8"
           }`}
@@ -405,27 +517,36 @@ function renderEventContent(
             const achieved = `${[filterFoodIcon.enName]}Achieved`;
             let showFoodIcon = filterFoodIcon.PC;
 
-            if (dailyDietaryData[sumAchieved]) {
-              showFoodIcon = filterFoodIcon.completed;
-            } else if (
-              dailyDietaryData[tab.enName] &&
-              (dailyDietaryData[tab.enName] as any)[achieved]
-            ) {
-              showFoodIcon = filterFoodIcon.completed;
+            if (currentTab !== "All") {
+              dailyDietaryData[achieved] &&
+                (showFoodIcon = filterFoodIcon.completed);
+              (dailyDietaryData[currentTab] as any)[achieved] &&
+                (showFoodIcon = filterFoodIcon.completed);
+            } else {
+              dailyDietaryData[sumAchieved] &&
+                (showFoodIcon = filterFoodIcon.completed);
+            }
+
+            let userInputMeal = "";
+            if (fetchData[filterFoodIcon.enName]) {
+              userInputMeal = fetchData[filterFoodIcon.enName]?.split(" ");
+            } else {
+              userInputMeal =
+                fetchData[currentTab][filterFoodIcon.enName]?.split(" ");
             }
 
             return (
               <li
                 key={index}
                 className={`text-center ${
-                  tab.enName === "All" && "w-1/2"
+                  currentTab === "All" && "w-1/2"
                 } mt-8 lg:w-auto lg:mt-0`}
               >
                 <Image
                   src={`/images/dashboard/dietary-record/foods/${showFoodIcon}`}
                   alt={filterFoodIcon.PC}
-                  width={tab.enName === "All" ? "75" : "48"}
-                  height={tab.enName === "All" ? "75" : "48"}
+                  width={currentTab === "All" ? "75" : "48"}
+                  height={currentTab === "All" ? "75" : "48"}
                   className="mx-auto"
                 />
                 <p className="mt-6">{filterFoodIcon.name}</p>
@@ -436,21 +557,22 @@ function renderEventContent(
                       placeholder="份數"
                       className="w-full text-center"
                       type="number"
+                      defaultValue={userInputMeal[0]}
                     />
                   ) : // 顯示 "紀錄/菜單"
                   fetchData[filterFoodIcon.enName] ? (
                     fetchData[filterFoodIcon.enName]
-                  ) : fetchData[tab.enName][filterFoodIcon.enName] ? (
-                    fetchData[tab.enName][filterFoodIcon.enName]
+                  ) : fetchData[currentTab][filterFoodIcon.enName] ? (
+                    fetchData[currentTab][filterFoodIcon.enName]
                   ) : (
-                    fetchData[tab.enName][`${filterFoodIcon.enName}Sum`]
+                    fetchData[currentTab][`${filterFoodIcon.enName}Sum`]
                   )}
                 </p>
               </li>
             );
           })}
         </ul>
-        {UserCurrentStatus === "nu" && tab.enName === "All" && (
+        {UserCurrentStatus === "nu" && currentTab === "All" && (
           <button
             type="submit"
             className="btn-cusEditPrimary py-8 w-[240px] block mx-auto mt-32 lg:hidden"
@@ -465,7 +587,7 @@ function renderEventContent(
           </button>
         )}
         {UserCurrentStatus === "user" &&
-          tab.enName !== "All" &&
+          currentTab !== "All" &&
           (newEdit ? (
             <button
               type="submit"
@@ -490,20 +612,4 @@ function renderEventContent(
       </div>
     </>
   );
-}
-
-function toYMD(date: Date) {
-  const year = date.getFullYear();
-  // 由于getMonth()返回0-11，表示1-12月，所以需要+1
-  // 然后用`String.prototype.padStart()`确保月和日都是两位数字
-  const month = (date.getMonth() + 1).toString().padStart(2, "0");
-  const day = date.getDate().toString().padStart(2, "0");
-
-  return `${year}/${month}/${day}`;
-}
-
-function addOneDay(dateStr: string) {
-  const date = new Date(dateStr);
-  date.setDate(date.getDate() + 1); // 在当前日期上加一天
-  return date.toISOString().split("T")[0]; // 返回格式化的日期字符串 'YYYY-MM-DD'
 }

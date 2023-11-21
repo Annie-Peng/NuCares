@@ -1,7 +1,7 @@
 import foodDetail, {
   FoodDetailType,
 } from "@/common/lib/dashboard/dietary-record/foodDetail";
-import TitleModal from "../TitleModal";
+import TitleModal from "../modals/TitleModal";
 import FoodDetailForm from "./FoodDetailForm";
 import { FC, useState } from "react";
 import { FoodIcon } from "@/common/lib/dashboard/dietary-record/foodMenu";
@@ -12,7 +12,7 @@ interface FoodDetailModalType {
 
 const FoodDetailModal: FC<FoodDetailModalType> = ({ data }) => {
   console.log(data);
-  const [tab, setTab] = useState<string>("Protein");
+  const [tab, setTab] = useState<string>("Starch");
 
   return (
     <TitleModal title="飲食份量說明" modal="showFoodDetailModal">
