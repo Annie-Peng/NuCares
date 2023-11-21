@@ -40,6 +40,7 @@ const studentInfoFormData: ComponentType[] = [
     accept: "image/png, image/jpeg, image/jpg",
     Token: getCookie("Token"),
     initFileSrc: { ImgUrl: { fetch: "", file: "" } },
+    errClass: commonErrMsgClass,
   },
   {
     component: "input",
