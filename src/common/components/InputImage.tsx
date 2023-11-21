@@ -8,7 +8,12 @@ import {
 } from "react";
 import useUploadFile, { InitFileSrcFoodType } from "../hooks/useUploadFile";
 import Image from "next/image";
-import { FieldError, UseFormSetError, UseFormSetValue } from "react-hook-form";
+import {
+  FieldError,
+  UseFormClearErrors,
+  UseFormSetError,
+  UseFormSetValue,
+} from "react-hook-form";
 import { InitialStateType } from "../hooks/useEditForm";
 
 export interface InputImageProps {
@@ -34,6 +39,7 @@ export interface InputImageProps {
   initFileSrc?: InitFileSrcFoodType;
   setValue: UseFormSetValue<InitialStateType>;
   setError: UseFormSetError<InitialStateType>;
+  clearErrors: UseFormClearErrors<InitialStateType>;
 }
 
 const InputImage: FC<InputImageProps> = ({
@@ -59,8 +65,9 @@ const InputImage: FC<InputImageProps> = ({
   initFileSrc,
   setValue,
   setError,
+  clearErrors,
 }) => {
-  const [fileSrc, setFileSrc, handleUploadFile, imageSize] = useUploadFile({
+  const [fileSrc, setFileSrc, handleUploadFile, apiErr] = useUploadFile({
     data: { name: chName, enName: name },
     Token,
     initFileSrc,
@@ -83,8 +90,10 @@ const InputImage: FC<InputImageProps> = ({
   }
 
   useEffect(() => {
-    if (imageSize > 5000000) {
-      setError(name, { message: "超過5mb無法上傳" });
+    if (apiErr[name]) {
+      setError(name, { message: apiErr[name] });
+    } else {
+      clearErrors(name);
     }
   });
 

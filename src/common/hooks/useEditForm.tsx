@@ -163,6 +163,7 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     error={error}
                     errClass={data.errClass}
                     setError={setError}
+                    clearErrors={clearErrors}
                   >
                     {data.children}
                   </InputImage>
