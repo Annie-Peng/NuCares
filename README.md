@@ -1,40 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# NuCares ｜ Who cares? NuCares!!
+[專案網址](https://nu-cares.vercel.app) ｜ [前端 Github Repo](https://github.com/Annie-Peng/NuCares) ｜ [Swagger](https://nucares.top/swagger/index.html?url=/swagger/v1/swagger.json) ｜
 
-## Getting Started
+## 功能介紹
+成為會員之後能夠進一步根據使用的服務分為「學員」及「營養師」角色
 
-First, run the development server:
+>  ### <img src="https://nucares.top/readme/us.png" width="3%"> 學員
+- 註冊/登入
+- 搜尋營養師
+- 查看營養師專頁、課程方案
+- 購買課程方案
+- 查看課程列表
+- 查看營養師每日菜單
+- 編輯每日飲食
+- 新增每日身體紀錄
+- 查看營養師設定目標
+- 查看訂單紀錄
+- 收藏營養師
+- 修改會員資料
+- 修改密碼
+- 申請成為營養師
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+>  ### <img src="https://nucares.top/readme/nu.png" width="3%"> 營養師
+- 登入
+- 編輯營養師專頁-關於我
+- 編輯課程方案
+- 查看學員列表
+- 查看學員每日飲食
+- 查看學員每日身體紀錄
+- 編輯學員目標
+- 編輯每日菜單
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 網站體驗流程
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### > 學員
+1. 搜尋營養師 查看營養師專頁與課程方案
+2. 購買課程
+   選信用卡 -> 填寫卡號 ```4000-2211-1111-1111``` -> 有效年月填大於今天 -> 驗證碼可隨意填寫
+3. 查看課程列表
+4. 查看營養師提供之菜單份量
+5. 編輯每日三餐份量、身體指數
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### > 營養師
+- 填寫營養師專頁-關於我 （選公開會在 搜尋營養師 介面出現)
+- 課程方案設定課程，讓學員可以依照需求購買需要的課程
+- 查看學員列表，並開始課程
+- 依學員需求設定目標、學員每日三餐份量
+- 查看學員每日飲食狀況、身體紀錄
