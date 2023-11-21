@@ -68,8 +68,10 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
       const result = await putApi(formData).unwrap();
       console.log(result);
       if (body.UserName && body.ImgUrl) {
-        dispatch(updateAuthImgUrl(result.Data.ImgUrl));
+        const { ImgUrl, UserName } = result.Data;
+        dispatch(updateAuthImgUrl({ ImgUrl, UserName }));
         setCookie("ImgUrl", result.Data.ImgUrl);
+        setCookie("UserName", result.Data.UserName);
       }
       setApiReq(result);
       setEdit(false);

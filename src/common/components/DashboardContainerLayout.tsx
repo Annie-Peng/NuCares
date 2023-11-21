@@ -27,13 +27,15 @@ const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
       <div className="mx-auto p-20 flex rounded-50 max-w-[1212px] relative cusBackgroundBackdrop min-h-[777px]">
         <div className="w-[204px]">
           <div className="profile flex flex-col items-center">
-            <Image
-              src={`${auth.ImgUrl}` || `${newImageUrl}` || login}
-              width="100"
-              height="100"
-              alt="profile-photo"
-              className="rounded-50 border border-white"
-            />
+            {isMounted && (
+              <Image
+                src={`${auth.ImgUrl}` || `${newImageUrl}` || login}
+                width="100"
+                height="100"
+                alt="profile-photo"
+                className="rounded-50 border border-white"
+              />
+            )}
             {isMounted && UserCurrentStatus === "user" ? (
               <p className="px-10 bg-primary-500 text-white w-fit rounded-10 mt-16 text-12 font-bold">
                 一般會員
