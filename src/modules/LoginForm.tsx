@@ -46,7 +46,7 @@ const LoginForm = () => {
       });
       setCookie("Token", `Bearer ${result.Token}`);
 
-      router.push("/");
+      router.push("/dashboard/student/course-list");
     } catch (error: unknown) {
       console.log(error);
       const e = error as { data?: { Message: unknown }; status?: unknown };
