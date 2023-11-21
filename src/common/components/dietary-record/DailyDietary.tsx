@@ -26,6 +26,7 @@ import {
 import turnDateFormat, {
   turnDateFormatOneMoreDay,
 } from "@/common/helpers/turnDateFormat";
+import { commonErrMsgClass } from "@/common/lib/dashboard/errMsg/commonErrMsg";
 
 interface DailyDietaryProps {
   isMobile: boolean;
@@ -141,7 +142,7 @@ const DailyDietary: FC<DailyDietaryProps> = ({
     Water: { fetch: "", file: "" },
   };
 
-  const [fileSrc, setFileSrc, handleUploadFile] = useUploadFile({
+  const [fileSrc, setFileSrc, handleUploadFile, apiErr] = useUploadFile({
     data: tab,
     Token,
     initFileSrc,
@@ -343,7 +344,8 @@ const DailyDietary: FC<DailyDietaryProps> = ({
             handleUploadFile,
             dailyDietaryData,
             isMobile,
-            formDataRef
+            formDataRef,
+            apiErr
           )
         }
         validRange={{
@@ -383,7 +385,8 @@ function renderEventContent(
   handleUploadFile: (onChange: HandleUploadFileProps) => void,
   dailyDietaryData: DailyDietaryType,
   isMobile: boolean,
-  formDataRef: FormDataRefType
+  formDataRef: FormDataRefType,
+  apiErr: Record<string, string>
 ) {
   function changeTab(tab: Tab) {
     setTab(tab);
@@ -435,6 +438,8 @@ function renderEventContent(
             {dailyDietaryInput[currentTab].map((item, index) => {
               const otherTabDes = `${[currentTab]}Description`;
               const otherTabImg = `${[currentTab]}ImgUrl`;
+              let showImgErrMsg = apiErr[currentTab];
+
               return (
                 <Fragment key={index}>
                   <label
@@ -462,9 +467,20 @@ function renderEventContent(
                         accept={item.accept}
                         className="hidden"
                         onChange={(e) =>
-                          handleUploadFile({ e: e, tab: tab, Token: Token })
+                          handleUploadFile({
+                            e: e,
+                            tab: currentTab,
+                            Token: Token,
+                          })
                         }
                       />
+                    )}
+                    {showImgErrMsg && (
+                      <p
+                        className={`!mt-0 absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-white bg-opacity-80 ${commonErrMsgClass}`}
+                      >
+                        {apiErr[currentTab]}
+                      </p>
                     )}
                   </label>
                   {newEdit ? (
