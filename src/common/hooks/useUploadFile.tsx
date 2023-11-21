@@ -34,13 +34,13 @@ const useUploadFile = ({
   InitFileSrcFoodType,
   (fileSrc: InitFileSrcFoodType) => void,
   (onChange: HandleUploadFileProps) => void,
-  imageSize: number
+  apiErr: Record<string, string>
 ] => {
   const [fileSrc, setFileSrc] = useState<InitFileSrcFoodType>(
     initFileSrc || {}
   );
 
-  const [imageSize, setImageSize] = useState<number>(0);
+  const [apiErr, setApiErr] = useState<Record<string, string>>({});
 
   // console.log(data, Token, initFileSrc);
 
@@ -59,6 +59,13 @@ const useUploadFile = ({
       const formData = new FormData();
       formData.append("upFile", file, file.name);
 
+      console.log(tab);
+
+      if (file.size > 5246976) {
+        setApiErr({ [data.enName]: "上傳圖片不得超過5mb" });
+        return;
+      }
+
       const result = await axios(
         `${process.env.NEXT_PUBLIC_API_URL}/upload/image`,
         {
@@ -73,8 +80,10 @@ const useUploadFile = ({
 
       console.log(result);
 
+      setApiErr({});
+
       previewFile(file, fetchData);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
     }
   };
@@ -85,7 +94,6 @@ const useUploadFile = ({
       reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = function (event) {
-        setImageSize(event.total);
         const result = event.target?.result;
         if (result) {
           setFileSrc((prevState) => ({
@@ -96,7 +104,7 @@ const useUploadFile = ({
       };
     }
   }
-  return [fileSrc, setFileSrc, handleUploadFile, imageSize];
+  return [fileSrc, setFileSrc, handleUploadFile, apiErr];
 };
 
 export default useUploadFile;
