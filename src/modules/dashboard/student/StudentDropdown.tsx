@@ -6,6 +6,7 @@ import changeIdentity from "@/common/lib/dashboard/changeIdentity";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { FC } from "react";
+import useResize from "@/common/hooks/useResize";
 
 interface StudentDropdownProps {
   IsNutritionist?: string;
@@ -18,6 +19,15 @@ const StudentDropdown: FC<StudentDropdownProps> = ({ IsNutritionist }) => {
     setCookie("UserCurrentStatus", "nu");
     router.push("/dashboard/nutritionist/student-list");
   }
+
+  const isMobile = useResize();
+
+  const newStudentTabs = studentTabs.map((studentTab, index) => {
+    if (studentTab.tab === "收藏營養師" && isMobile) return;
+    return studentTab;
+  });
+
+  console.log(newStudentTabs);
 
   return (
     <div className="cusDropdown">
@@ -37,7 +47,8 @@ const StudentDropdown: FC<StudentDropdownProps> = ({ IsNutritionist }) => {
         )}
       </div>
       <ul className="flex flex-col my-8 gap-16">
-        {studentTabs.map((studentTab, index) => {
+        {newStudentTabs.map((studentTab, index) => {
+          if (!studentTab) return;
           return (
             <li key={index}>
               <Link href={studentTab.tabURL} className="block py-8">
