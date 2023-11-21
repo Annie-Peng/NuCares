@@ -9,10 +9,12 @@ import { useEffect, useState } from "react";
 import { getCookies } from "cookies-next";
 import { useSelector } from "react-redux";
 import { selectAuth } from "../redux/features/auth";
+import useResize from "../hooks/useResize";
 
 const Header = () => {
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const [isMounted, setIsMounted] = useState<boolean>(false);
+  const isMobile = useResize();
 
   const auth = useSelector(selectAuth);
 
@@ -35,7 +37,7 @@ const Header = () => {
           ))}
 
         <Link
-          href="/"
+          href={isMobile ? "#" : "/"}
           className="col-span-2 relative w-[140px] h-[24px] lg:w-[170px] lg:h-[28px]"
         >
           <Image src={logo} fill alt="logo-NuCares" />
@@ -70,14 +72,17 @@ const Header = () => {
         {isMounted && !UserCurrentStatus && (
           <>
             <Link
-              href="#"
+              href="/login"
               className="border border-secondary-500 text-secondary-500 hover:text-white hover:bg-secondary-500 font-bold rounded-5 ms-auto p-8 hidden lg:block col-end-13 col-span-1 whitespace-nowrap"
             >
               註冊/登入
             </Link>
-            <div className="relative w-[38px] h-[48px] col-end-5 ml-auto lg:w-[40px] lg:h-[40px] lg:col-end-13 lg:mr-auto lg:hidden">
+            <Link
+              href="/login"
+              className="relative w-[38px] h-[48px] col-end-5 ml-auto lg:w-[40px] lg:h-[40px] lg:col-end-13 lg:mr-auto lg:hidden"
+            >
               <Image src={logout} fill alt="logout" />
-            </div>
+            </Link>
           </>
         )}
       </div>
