@@ -142,10 +142,11 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
               <li key={index} className="flex items-center gap-20 w-[390px]">
                 <div className="relative min-w-[185px] min-h-[185px]">
                   <Image
-                    src={`/images/home/features/${feature.photoName}.svg`}
+                    src={`/images/home/features/${feature.photoName}.jpg`}
                     fill
                     sizes="100vw"
                     alt={feature.photoName}
+                    className="rounded-full"
                   />
                 </div>
                 <p
