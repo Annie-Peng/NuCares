@@ -3,14 +3,20 @@ import { Course } from "@/common/components/course/CourseForm";
 import { closeModal } from "@/common/redux/features/showModal";
 import { useCoursePostCommentApiMutation } from "@/common/redux/service/course";
 import Image from "next/image";
-import { FC, FormEvent, useState } from "react";
+import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { commonErrMsgClass } from "@/common/lib/dashboard/errMsg/commonErrMsg";
 
 interface CommentAddModalProps {
   data: {
     Token: string;
     Course: Course;
   };
+}
+
+interface InputDataType {
+  Content: string;
 }
 
 const CommentAddModal: FC<CommentAddModalProps> = ({ data }) => {
@@ -21,15 +27,19 @@ const CommentAddModal: FC<CommentAddModalProps> = ({ data }) => {
 
   const [coursePostCommentApi] = useCoursePostCommentApiMutation();
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<InputDataType>();
+
   console.log(data);
 
   const starsNum = Array(5).fill(null);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit: SubmitHandler<InputDataType> = async (formData) => {
     try {
-      e.preventDefault();
-      const formData = new FormData(e.currentTarget);
-      const Content = formData.get("Content") || "(未留言)";
+      const Content = formData.Content || "(未留言)";
       const body = {
         Content,
         Rate: starsFillNum,
@@ -49,7 +59,10 @@ const CommentAddModal: FC<CommentAddModalProps> = ({ data }) => {
 
   return (
     <TitleModal title="評價" modal="showCommentAddModal">
-      <form onSubmit={handleSubmit} className="max-w-[578px] mx-auto mt-[36px]">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="max-w-[578px] mx-auto mt-[36px]"
+      >
         <label>
           <p>
             <span className="font-bold">課程：</span>
@@ -100,8 +113,16 @@ const CommentAddModal: FC<CommentAddModalProps> = ({ data }) => {
             請說明您對此次課程的感受，限50字。
           </p>
           <div className="mx-[2px] lg:mx-0">
-            <textarea name="Content" className="h-[137px] p-10 mt-12" />
+            <textarea
+              className="h-[137px] p-10 mt-12"
+              {...register("Content", {
+                maxLength: { value: 50, message: "不得超過50字" },
+              })}
+            />
           </div>
+          {errors?.Content && (
+            <p className={commonErrMsgClass}>{errors.Content.message}</p>
+          )}
         </label>
         <button
           type="submit"
