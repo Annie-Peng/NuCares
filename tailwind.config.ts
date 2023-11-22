@@ -14,7 +14,6 @@ const config: Config = {
     extend: {
       dropShadow: {
         textShadow: "1px 1px 5px rgba(0, 0, 0, 0.35)",
-        textErrShadow: "-3px -3px 4px rgba(0,0,0,0.35)",
       },
       spacing: {
         4: "4px",
