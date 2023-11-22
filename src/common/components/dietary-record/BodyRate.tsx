@@ -45,10 +45,17 @@ const BodyRate: FC<BodyRateProps> = ({
         >
           <Image
             src="/images/dashboard/dietary-record/edit.svg"
-            width="28"
-            height="28"
-            alt="arrow"
-            className="absolute top-20 right-16 lg:top-12"
+            width={28}
+            height={28}
+            alt="edit"
+            className="hidden absolute right-16 lg:-top-[40px] lg:block"
+          />
+          <Image
+            src="/images/dashboard/dietary-record/edit-primary.svg"
+            width={36}
+            height={36}
+            alt="edit"
+            className="absolute -top-[52px] right-30 lg:hidden"
           />
         </button>
       )}

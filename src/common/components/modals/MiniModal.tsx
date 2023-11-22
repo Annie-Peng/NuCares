@@ -16,7 +16,7 @@ const MiniModal: React.FC<MiniModalProps> = ({ children, modal }) => {
   return (
     <div className="cusModalBg z-20">
       <div className="cusModal p-32">
-        <div className="w-[278px] max-h-[320px] overflow-y-scroll lg:w-[756px]">
+        <div className="w-[278px] max-h-[320px] overflow-y-scroll lg:w-[756px]no-scrollbar">
           {children}
           <button
             className="absolute -top-[15px] -right-[15px] lg:-top-[25px] lg:-right-[25px]"

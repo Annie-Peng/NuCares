@@ -3,7 +3,7 @@ import Image from "next/image";
 import changeIdentity from "@/common/lib/dashboard/changeIdentity";
 import nutritionistTabs from "@/common/lib/dashboard/nutritionistTabs";
 import logoutTab from "@/common/lib/dashboard/logoutTab";
-import { setCookie } from "cookies-next";
+import { deleteCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/router";
 
 const NutritionistDropdown = () => {
@@ -12,6 +12,16 @@ const NutritionistDropdown = () => {
   function handleChangeID() {
     setCookie("UserCurrentStatus", "user");
     router.push("/dashboard/student/course-list");
+  }
+
+  function handleLogoutClick() {
+    deleteCookie("Token");
+    deleteCookie("UserName");
+    deleteCookie("Email");
+    deleteCookie("ImgUrl");
+    deleteCookie("IsNutritionist");
+    deleteCookie("UserCurrentStatus");
+    router.push("/");
   }
 
   return (
@@ -84,6 +94,7 @@ const NutritionistDropdown = () => {
       <button
         type="button"
         className="pt-16 border-t w-full flex justify-center gap-6"
+        onClick={handleLogoutClick}
       >
         <Image
           src={`${logoutTab.iconURL}.svg`}
