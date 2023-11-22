@@ -1,9 +1,7 @@
 import { LayoutProps } from "@/types/interface";
 import Footer from "./Footer";
 import Header from "./Header";
-import { useSelector } from "react-redux";
-import { selectShowModal } from "../redux/features/showModal";
-import MiniModal from "./modals/MiniModal";
+import useShowModal from "../hooks/useShowModal";
 
 const layoutBgClass = {
   login: "bg-primaryGradient",
@@ -16,7 +14,7 @@ const layoutBgClass = {
 
 const Layout = ({ children, router }: LayoutProps) => {
   const currentPath = router.pathname;
-  const { showMessageModal } = useSelector(selectShowModal);
+  const renderModal = useShowModal();
 
   let showLayoutBgClass = "bg-white";
   Object.entries(layoutBgClass).map(([key, value]) => {
@@ -27,13 +25,11 @@ const Layout = ({ children, router }: LayoutProps) => {
 
   return (
     <>
-      {showMessageModal.showModal && (
-        <MiniModal modal="showMessageModal">{showMessageModal.data}</MiniModal>
-      )}
+      {renderModal}
       <div className="flex flex-col min-h-screen">
         <Header />
         <main
-          className={`grow lg:min-h-[1056px] ${showLayoutBgClass} ${
+          className={`grow lg:min-h-[1086px] ${showLayoutBgClass} ${
             showLayoutBgClass !== "bg-white" && "lg:pt-[75px] py-[40px]"
           } lg:pb-0`}
         >
