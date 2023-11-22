@@ -12,6 +12,8 @@ import CourseSaveModal from "@/modules/dashboard/nutritionist/workshop/CourseSav
 import FoodDetailModal from "./dietary-record/FoodDetailModal";
 import CommentAddModal from "@/modules/dashboard/student/course-list/CommentAddModal";
 import TimerModal from "./modals/TimerModal";
+import Loading from "./Loading";
+import { selectLoading } from "../redux/features/loading";
 
 const DashboardLayout: FC<DashboardLayoutProps> = ({ value, children }) => {
   const showModal = useSelector(selectShowModal);
@@ -25,6 +27,8 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({ value, children }) => {
     showCommentAddModal,
     showTimerModal,
   } = useSelector(selectShowModal);
+
+  const { loading } = useSelector(selectLoading);
 
   return (
     <>
@@ -52,6 +56,7 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({ value, children }) => {
       {showTimerModal.showModal && (
         <TimerModal data={showTimerModal.data} modal="showTimerModal" />
       )}
+      {loading && <Loading />}
       <div className="flex flex-col min-h-screen">
         <Header />
         <main className="grow lg:py-[75px]">{children}</main>

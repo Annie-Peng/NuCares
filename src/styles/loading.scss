@@ -1,0 +1,59 @@
+.loading {
+  width: 120px;
+  height: 200px;
+  border: 8px solid #3690a4;
+  border-radius: 10px;
+  line-height: 200px;
+  text-align: center;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  margin-top: 45px;
+}
+
+//水
+.loading:before {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: #a8dae2;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 40%;
+  animation: fill 9s ease-out infinite;
+  z-index: -1;
+  border: 3px solid #d6ebee;
+}
+
+@keyframes fill {
+  from {
+    top: -50px;
+    transform: translateX(-50%) rotate(0deg);
+  }
+  to {
+    top: 200px;
+    transform: translateX(-50%) rotate(360deg);
+  }
+}
+
+//吸管
+.extra-rectangle {
+  position: absolute;
+  width: 20px;
+  height: 280px;
+  border-radius: 5px;
+  background: #51acbf;
+  left: 50%;
+  transform: translateX(-50%) skewX(-5deg) translateY(-16%);
+}
+
+// <div className="cusModalBg z-10">
+// <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+//   <div className="extra-rectangle"></div>
+//   <div className="loading">Loading</div>
+// </div>
+// </div>
