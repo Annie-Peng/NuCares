@@ -39,7 +39,7 @@ const filterTabs = [
   { name: "體重控制", enName: "Weight" },
   { name: "上班族營養", enName: "Colleague" },
   { name: "孕期營養", enName: "Pregnant" },
-  { name: "樂玲營養與保健", enName: "Health" },
+  { name: "樂齡營養與保健", enName: "Health" },
 ];
 
 const sortTabs = [
@@ -109,7 +109,7 @@ const NutritionistListPage: FC<NutritionistListPageProps> = ({
           {filterTabs.map((tab, index) => {
             const tabClass =
               tab.enName === filter
-                ? "border border-secondary-600 bg-secondary-500 text-white"
+                ? "border-[3px] border-primary-500 text-primary-500 bg-white outline-none	focus:ring-0"
                 : "btn-cusWritePrimary bg-white hover:bg-primary-50";
             return (
               <li key={index} className="w-[48%] lg:w-full">
@@ -130,7 +130,7 @@ const NutritionistListPage: FC<NutritionistListPageProps> = ({
             {sortTabs.map((tab, index) => {
               const tabClass =
                 tab.enName === sort
-                  ? "text-white bg-primary-500"
+                  ? "text-white bg-primary-500 focus:ring-0"
                   : "border-black-950 hover:border-primary-500 hover:text-primary-500";
               return (
                 <li key={index}>

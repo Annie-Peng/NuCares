@@ -7,20 +7,20 @@ export const serviceData = [
   },
   {
     photoName: "colleague",
-    title: "體重控制",
-    content: "減重、增重、突破停滯、體態維持",
+    title: "上班族營養",
+    content: "外食攻略、自己烹飪",
     href: "Colleague",
   },
   {
     photoName: "health",
-    title: "體重控制",
-    content: "減重、增重、突破停滯、體態維持",
+    title: "樂齡營養與保健",
+    content: "保健指南、更年期飲食、逆齡抗衰營養",
     href: "Health",
   },
   {
     photoName: "pregnant",
-    title: "體重控制",
-    content: "減重、增重、突破停滯、體態維持",
+    title: "孕期營養",
+    content: "備孕飲食、孕期體態、產後恢復",
     href: "Pregnant",
   },
 ];

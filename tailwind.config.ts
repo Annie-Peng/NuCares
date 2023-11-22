@@ -14,6 +14,7 @@ const config: Config = {
     extend: {
       dropShadow: {
         textShadow: "1px 1px 5px rgba(0, 0, 0, 0.35)",
+        textErrShadow: "-3px -3px 4px rgba(0,0,0,0.35)",
       },
       spacing: {
         4: "4px",
@@ -137,6 +138,12 @@ const config: Config = {
       fontFamily: {
         "GenSenRounded-900": ["GenSenRounded-900", "sans-serif"],
         "GenSenRounded-700": ["GenSenRounded-700", "sans-serif"],
+      },
+      boxShadow: {
+        goBackOuter: "3px 3px 4px 0px rgba(0, 0, 0, 0.35) inset",
+        goBack:
+          "-6px -5px 10px 0px rgba(0, 0, 0, 0.15) inset, 3px 3px 7px 0px rgba(255, 255, 255, 0.50) inset, 6px 6px 6.6px 0px rgba(0, 0, 0, 0.50)",
+        goBackActive: "0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset",
       },
     },
   },
