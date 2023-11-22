@@ -1,8 +1,10 @@
+import { showLoading } from "@/common/redux/features/loading";
 import { useIntroGetApiQuery } from "@/common/redux/service/intro";
 import wrapper from "@/common/redux/store";
 import NutritionistIntroForm from "@/modules/dashboard/nutritionist/workshop/NutritionistIntroForm";
 import { getCookies } from "cookies-next";
 import { FC } from "react";
+import { useDispatch } from "react-redux";
 
 interface StudentListPageProps {
   [key: string]: any;
@@ -12,12 +14,19 @@ const NutritionistIntroPage: FC<StudentListPageProps> = ({ auth }) => {
   const Token = auth.Token;
   const { data, isLoading, error } = useIntroGetApiQuery({ Token });
 
-  if (isLoading || !data) {
-    return <p>Intro is Loading</p>;
+  const dispatch = useDispatch();
+
+  if (isLoading) {
+    dispatch(showLoading(true));
+    return;
   }
 
   if (error) {
     console.log(error);
+  }
+
+  if (data) {
+    dispatch(showLoading(false));
   }
 
   return (
