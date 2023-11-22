@@ -152,6 +152,12 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  .testShadow {
+    background-color: rgba(0, 0, 0, 0.35);
+    color: transparent;
+    text-shadow: 2px 2px 3px rgba(255, 255, 255);
+  }
 }
 
 @layer utilities {
