@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import logoutTab from "@/common/lib/dashboard/logoutTab";
 import changeIdentity from "@/common/lib/dashboard/changeIdentity";
-import { setCookie } from "cookies-next";
+import { deleteCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { FC } from "react";
 import useResize from "@/common/hooks/useResize";
@@ -28,6 +28,16 @@ const StudentDropdown: FC<StudentDropdownProps> = ({ IsNutritionist }) => {
   });
 
   console.log(newStudentTabs);
+
+  const handleLogoutClick = () => {
+    deleteCookie("Token");
+    deleteCookie("UserName");
+    deleteCookie("Email");
+    deleteCookie("ImgUrl");
+    deleteCookie("IsNutritionist");
+    deleteCookie("UserCurrentStatus");
+    router.push("/");
+  };
 
   return (
     <div className="cusDropdown">
@@ -69,6 +79,7 @@ const StudentDropdown: FC<StudentDropdownProps> = ({ IsNutritionist }) => {
       <button
         type="button"
         className="pt-16 border-t w-full flex justify-center gap-6"
+        onClick={handleLogoutClick}
       >
         <Image
           src={`${logoutTab.iconURL}.svg`}

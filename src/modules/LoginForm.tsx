@@ -42,9 +42,9 @@ const LoginForm = () => {
       dispatch(storeAuth(result));
 
       Object.entries(result.Data).forEach(([key, value]) => {
-        setCookie(key, value);
+        setCookie(key, value, { maxAge: 60 * 60 * 24 });
       });
-      setCookie("Token", `Bearer ${result.Token}`);
+      setCookie("Token", `Bearer ${result.Token}`, { maxAge: 60 * 60 * 24 });
 
       router.push("/dashboard/student/course-list");
     } catch (error: unknown) {
