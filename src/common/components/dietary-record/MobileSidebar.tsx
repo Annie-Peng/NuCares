@@ -31,7 +31,7 @@ const MobileSidebar = ({ showTab, setShowTab }: MobileSidebarProps) => {
             <li key={index}>
               <button
                 type="button"
-                className="text-center flex flex-col justify-center items-center"
+                className="text-center flex flex-col justify-center items-center w-[70px] h-[70px]"
                 onClick={() => setShowTab(index + 1)}
               >
                 <Image

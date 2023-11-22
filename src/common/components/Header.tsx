@@ -24,7 +24,21 @@ const Header = () => {
     setIsMounted(true);
   }, []);
 
+  useEffect(() => {
+    if (showDropdown) {
+      document.addEventListener("click", handleShowDropdownClick);
+      return () => {
+        document.removeEventListener("click", handleShowDropdownClick);
+      };
+    }
+  }, [showDropdown]);
+
   const newImageUrl = decodeURIComponent(ImgUrl as string);
+
+  const handleShowDropdownClick = (e: any) => {
+    e.stopPropagation();
+    setShowDropdown(!showDropdown);
+  };
 
   return (
     <header className="bg-white shadow-[0_2px_5px_0_rgba(0,0,0,0.1)] z-10">
@@ -65,7 +79,7 @@ const Header = () => {
               objectFit="cover"
               fill
               className={`${newImageUrl && "rounded-50"}`}
-              onClick={() => setShowDropdown(!showDropdown)}
+              onClick={handleShowDropdownClick}
             />
           </div>
         )}
