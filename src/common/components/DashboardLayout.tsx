@@ -12,6 +12,7 @@ import CourseSaveModal from "@/modules/dashboard/nutritionist/workshop/CourseSav
 import FoodDetailModal from "./dietary-record/FoodDetailModal";
 import CommentAddModal from "@/modules/dashboard/student/course-list/CommentAddModal";
 import TimerModal from "./modals/TimerModal";
+import MiniModal from "./modals/MiniModal";
 
 const DashboardLayout: FC<DashboardLayoutProps> = ({ value, children }) => {
   const showModal = useSelector(selectShowModal);
@@ -24,6 +25,7 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({ value, children }) => {
     showFoodDetailModal,
     showCommentAddModal,
     showTimerModal,
+    showMessageModal,
   } = useSelector(selectShowModal);
 
   return (
@@ -51,6 +53,9 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({ value, children }) => {
       )}
       {showTimerModal.showModal && (
         <TimerModal data={showTimerModal.data} modal="showTimerModal" />
+      )}
+      {showMessageModal.showModal && (
+        <MiniModal modal="showMessageModal">{showMessageModal.data}</MiniModal>
       )}
       <div className="flex flex-col min-h-screen">
         <Header />
