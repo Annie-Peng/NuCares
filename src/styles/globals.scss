@@ -24,7 +24,7 @@
   :root {
     font-family: "Helvetica Neue", "Noto Sans TC";
     line-height: 1.5;
-    @apply font-thin text-black-950 text-16 bg-white lg:bg-[#D6EBEE];
+    @apply font-thin text-black-950 text-16 bg-white lg:bg-primary-100;
   }
 
   th,

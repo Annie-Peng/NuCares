@@ -77,8 +77,8 @@ const config: Config = {
         },
         primary: {
           //Powder Blue - blue
-          50: "#f0fafb",
-          100: "#daf0f3",
+          50: "#EDF5F5",
+          100: "#D6EBEE",
           200: "#a8dae2",
           300: "#89cbd7",
           400: "#51acbf",
