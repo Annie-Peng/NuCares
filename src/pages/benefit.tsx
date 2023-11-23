@@ -58,7 +58,7 @@ const BenefitPage = () => {
           })}
         </ul>
       </section>
-      <section className="webProcess py-50 lg:py-[70px] text-primary-600 bg-[#D6EBEE] font-GenSenRounded-700">
+      <section className="webProcess py-50 lg:py-[70px] text-primary-600 bg-primary-100 font-GenSenRounded-700">
         <h2 className="text-[32px] text-center font-[900px] font-GenSenRounded-900">
           只要五步驟，就能開始接單
         </h2>
