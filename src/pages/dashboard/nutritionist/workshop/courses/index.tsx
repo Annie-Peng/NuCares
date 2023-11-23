@@ -1,3 +1,4 @@
+import { showLoading } from "@/common/redux/features/loading";
 import { usePlanGetApiQuery } from "@/common/redux/service/plan";
 import wrapper from "@/common/redux/store";
 import CourseAddForm from "@/modules/dashboard/nutritionist/workshop/CourseAddForm";
@@ -5,6 +6,7 @@ import CourseBigCard from "@/modules/dashboard/nutritionist/workshop/CourseBigCa
 import { getCookies } from "cookies-next";
 import Image from "next/image";
 import { FC, ReactElement, useState } from "react";
+import { useDispatch } from "react-redux";
 
 interface NutritionistCoursePageProps {
   [key: string]: any;
@@ -23,15 +25,21 @@ interface RenderDataType {
 const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
   const Token = auth.Token;
   const [courseForms, setCourseForms] = useState<ReactElement[]>([]);
+  const dispatch = useDispatch();
 
   const { data: renderData, isLoading, error } = usePlanGetApiQuery({ Token });
 
-  if (isLoading || !renderData) {
-    return <p>Plan is Loading</p>;
+  if (isLoading) {
+    dispatch(showLoading(true));
+    return;
   }
 
   if (error) {
     console.log(error);
+  }
+
+  if (renderData) {
+    dispatch(showLoading(false));
   }
 
   console.log(renderData);

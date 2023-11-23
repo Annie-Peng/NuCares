@@ -6,6 +6,7 @@ import { showModal } from "@/common/redux/features/showModal";
 import { FC, useEffect, useState } from "react";
 import Link from "next/link";
 import { Dispatch } from "@reduxjs/toolkit";
+import { showLoading } from "@/common/redux/features/loading";
 
 export interface Course {
   Id: string;
@@ -137,7 +138,6 @@ const checkCommentClass = (
         </button>
       );
   }
-
   return comment;
 };
 
@@ -149,7 +149,7 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
   });
   const [renderData, setRenderData] = useState<Course[] | null>(null);
   const dispatch = useDispatch();
-  const { data, error } = useCourseListGetApiQuery({
+  const { data, error, isLoading } = useCourseListGetApiQuery({
     Token: Token,
     UserCurrentStatus: UserCurrentStatus,
     PageId: showPage.Current_page,
@@ -164,14 +164,19 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
   const nextPage = showPage.Current_page + 1;
 
   useEffect(() => {
+    if (isLoading) {
+      dispatch(showLoading(true));
+      return;
+    }
     if (data) {
+      dispatch(showLoading(false));
       setRenderData(data.Data);
       setShowPage(data.Pagination);
     }
     if (error) {
       console.log(error);
     }
-  }, [data, error]);
+  }, [data, error, isLoading, dispatch]);
 
   if (!renderData) return null;
 

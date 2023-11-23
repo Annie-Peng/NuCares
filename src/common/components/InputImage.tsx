@@ -90,8 +90,8 @@ const InputImage: FC<InputImageProps> = ({
   }
 
   useEffect(() => {
-    if (apiErr.ImgUrl) {
-      setError(name, { message: apiErr.ImgUrl });
+    if (apiErr[name]) {
+      setError(name, { message: apiErr[name] });
     } else {
       clearErrors(name);
     }
