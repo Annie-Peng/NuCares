@@ -14,3 +14,11 @@ const turnDateFormatOneMoreDay = (date: string) => {
   return formattedDate;
 };
 export { turnDateFormatOneMoreDay };
+
+const turnDateDashFormat = (date: Date) => {
+  const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`; // 格式 YYYY-MM-DD
+  return formattedDate;
+};
+export { turnDateDashFormat };

@@ -24,6 +24,7 @@ import {
   useDailyDietaryOtherPutApiMutation,
 } from "@/common/redux/service/courseRecord";
 import turnDateFormat, {
+  turnDateDashFormat,
   turnDateFormatOneMoreDay,
 } from "@/common/helpers/turnDateFormat";
 import { commonErrMsgClass } from "@/common/lib/dashboard/errMsg/commonErrMsg";
@@ -88,8 +89,10 @@ const DailyDietary: FC<DailyDietaryProps> = ({
   CourseId,
   UserCurrentStatus,
 }) => {
+  const today = turnDateDashFormat(new Date());
+
   const dispatch = useDispatch();
-  const [currentDate, setCurrentDate] = useState("");
+  const [currentDate, setCurrentDate] = useState(today);
   const [tab, setTab] = useState<Tab>(tabs[0]);
   const [edit, setEdit] = useState<EditType>({
     Breakfast: false,
