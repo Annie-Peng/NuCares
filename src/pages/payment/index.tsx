@@ -28,7 +28,7 @@ const PaymentPage: FC<PaymentPageProps> = ({ auth }) => {
   }
 
   return (
-    <div className="container text-center grid cusGrid">
+    <div className="container text-center grid cusGrid py-40 lg:py-[64px]">
       <div className=" col-span-4 lg:col-start-2 lg:col-span-10 ">
         <Link
           href={`/nutritionist-list/${nutritionist}`}
