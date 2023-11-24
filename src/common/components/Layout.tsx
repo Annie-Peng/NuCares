@@ -28,14 +28,8 @@ const Layout = ({ children, router }: LayoutProps) => {
       {renderModal}
       <div className="flex flex-col min-h-screen">
         <Header />
-        <main
-          className={`grow lg:min-h-[1086px] ${showLayoutBgClass} ${
-            showLayoutBgClass !== "bg-white" && "lg:pt-[75px] py-[40px]"
-          } lg:pb-0`}
-        >
-          <div className={`${showLayoutBgClass !== "bg-white" && "container"}`}>
-            {children}
-          </div>
+        <main className={`grow lg:min-h-[1086px] ${showLayoutBgClass}`}>
+          <div>{children}</div>
         </main>
         <Footer />
       </div>

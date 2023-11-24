@@ -106,7 +106,7 @@ const LoginForm = () => {
       <button type="submit" className="btn-cusBigSecondary w-full">
         登入
       </button>
-      <Link href="/reset-password" className="mt-20 text-14 lg:mt-0">
+      <Link href="#" className="mt-20 text-14 lg:mt-0">
         忘記密碼
       </Link>
       <span className="mt-6 text-14 lg:mt-0">

@@ -10,7 +10,7 @@ const RegisterPage = () => {
   const [currentPhase, setCurrentPhase] = useState<number>(1);
 
   return (
-    <div className="container text-center cusGrid">
+    <div className="container text-center cusGrid py-40 lg:py-[105px]">
       {currentPhase === 1 && <RegisterForm setCurrentPhase={setCurrentPhase} />}
       {currentPhase === 2 && (
         <RegisterFormSecondPhase setCurrentPhase={setCurrentPhase} />
