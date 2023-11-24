@@ -37,6 +37,10 @@ const Input: FC<InputProps> = ({
   onBlur,
   error,
 }) => {
+  const valueFormat =
+    type === "number" && typeof value === "string" && value.includes(",")
+      ? (value = Number(value.replace(/,/g, "")))
+      : (value as string);
   return (
     <>
       <label htmlFor={name} className={`${labelClass} mt-20 block`}>
@@ -49,7 +53,7 @@ const Input: FC<InputProps> = ({
           className={`${inputClass} mt-12 py-8 ${
             error && "focus:ring-secondary-500"
           }`}
-          value={value as string}
+          value={valueFormat}
           placeholder={placeholder}
           onChange={onChange}
           required={required}
