@@ -34,10 +34,8 @@ const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit: SubmitHandler<LoginType> = async (formData) => {
-    console.log(formData);
     try {
       const result = await userLoginPostApi(formData).unwrap();
-      console.log(result);
 
       dispatch(storeAuth(result));
 

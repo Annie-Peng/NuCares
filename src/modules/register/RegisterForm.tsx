@@ -31,8 +31,6 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
     RePassword: false,
   });
 
-  console.log(showPassword);
-
   const {
     handleSubmit,
     register,
@@ -44,7 +42,6 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
     try {
       dispatch(storeRegisterForm(formData));
       const result = await userRegisterEmailPostApi(formData).unwrap();
-      console.log(result);
       setCurrentPhase(2);
     } catch (error: unknown) {
       console.log(error);

@@ -139,7 +139,6 @@ const UpdatePasswordForm: FC<UpdatePasswordFormProps> = ({ Token }) => {
   });
 
   if (apiReq) {
-    console.log(apiReq);
     const message = apiReq.Message || apiReq.data.Message;
     dispatch(showModal(["showTimerModal", { message, timer: 3000 }]));
   }

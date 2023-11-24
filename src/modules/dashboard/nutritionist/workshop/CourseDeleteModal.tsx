@@ -21,7 +21,6 @@ const CourseDeleteModal: FC<CourseDeleteModalProps> = ({ data }) => {
   ) => {
     try {
       const result = await planDeleteApi({ Token, PlanId }).unwrap();
-      console.log(result);
       dispatch(closeModal("showCourseDeleteModal"));
     } catch (error) {
       console.log(error);
@@ -29,7 +28,6 @@ const CourseDeleteModal: FC<CourseDeleteModalProps> = ({ data }) => {
   };
 
   const showModalData = useSelector(selectShowModal);
-  console.log(showModalData);
 
   return (
     <MiniModal modal="showCourseDeleteModal">

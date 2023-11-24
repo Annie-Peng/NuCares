@@ -56,7 +56,6 @@ const InputDate: FC<InputDateProps> = ({
             value={value}
             dateFormat="yyyy/MM/dd"
             onChange={(date: Date) => {
-              console.log(date);
               if (date instanceof Date) {
                 const newDate = turnDateFormat(date);
                 setValue(name, newDate);

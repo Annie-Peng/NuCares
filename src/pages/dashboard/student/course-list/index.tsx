@@ -10,7 +10,6 @@ interface CourseListPageProps {
 }
 
 const CourseListPage: FC<CourseListPageProps> = ({ auth }) => {
-  console.log(auth);
   return (
     <>
       <CourseForm auth={auth} />

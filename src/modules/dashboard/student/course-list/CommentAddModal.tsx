@@ -33,8 +33,6 @@ const CommentAddModal: FC<CommentAddModalProps> = ({ data }) => {
     formState: { errors },
   } = useForm<InputDataType>();
 
-  console.log(data);
-
   const starsNum = Array(5).fill(null);
 
   const onSubmit: SubmitHandler<InputDataType> = async (formData) => {
@@ -44,13 +42,11 @@ const CommentAddModal: FC<CommentAddModalProps> = ({ data }) => {
         Content,
         Rate: starsFillNum,
       };
-      console.log(body);
       const result = await coursePostCommentApi({
         Token,
         CourseId: Course.Id,
         body,
       });
-      console.log(result);
       dispatch(closeModal("showCommentAddModal"));
     } catch (error) {
       console.log(error);

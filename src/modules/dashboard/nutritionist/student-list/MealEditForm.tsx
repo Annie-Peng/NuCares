@@ -67,8 +67,6 @@ const MealEditForm: FC<MealEditFormProps> = ({ title, food, renderData }) => {
     }
   }
 
-  console.log(qty);
-
   return (
     <div className="breakfastQuantity w-full lg:w-[42%]">
       <h5 className="text-white bg-primary-400 rounded-35">{title}</h5>

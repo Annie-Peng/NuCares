@@ -167,8 +167,6 @@ const DailyDietary: FC<DailyDietaryProps> = ({
 
   const dailyDietaryData = data.Data;
 
-  console.log(dailyDietaryData);
-
   const currentTab = tab.enName;
 
   const events: Event[] = [
@@ -235,8 +233,6 @@ const DailyDietary: FC<DailyDietaryProps> = ({
                 events[0].extendedProps[currentTab].DailyMealTimeId,
               body,
             }).unwrap();
-
-            console.log(result);
           } else {
             const result = await dailyDietaryOtherPutApi({
               Token,
@@ -244,8 +240,6 @@ const DailyDietary: FC<DailyDietaryProps> = ({
               DailyLogId: dailyDietaryData.DailyLogId,
               body,
             }).unwrap();
-
-            console.log(result);
           }
         } catch (error) {
           console.log(error);
@@ -266,8 +260,6 @@ const DailyDietary: FC<DailyDietaryProps> = ({
     });
     return obj;
   };
-
-  console.log(edit[currentTab]);
 
   return (
     <form onSubmit={(e) => handleSubmit({ event: e, tab, UserCurrentStatus })}>
