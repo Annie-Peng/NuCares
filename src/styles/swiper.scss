@@ -10,12 +10,12 @@
 
 //左arrow定位
 .swiper-button-prev {
-  @apply top-[122px] -left-[25px] #{!important};
+  @apply left-0 lg:top-[122px] lg:-left-[25px] #{!important};
 }
 
 //右arrow定位
 .swiper-button-next {
-  @apply top-[122px] -right-[25px] #{!important};
+  @apply right-0 lg:top-[122px] lg:-right-[25px] #{!important};
 }
 
 //兩邊arrow大小

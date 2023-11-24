@@ -4,7 +4,7 @@ import {
   successCasesData,
   webProcessData,
 } from "@/common/lib/dashboard/homeData";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import axios from "axios";
 import { Navigation } from "swiper/modules";
@@ -33,7 +33,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
       <section className="banner relative w-full h-[600px]">
         <Image
           src="/images/home/banner.svg"
-          fill
+          layout="fill"
           alt="banner"
           className="object-cover"
           priority={true}
@@ -71,8 +71,8 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                         alt="photo"
                         className="rounded-5"
                         layout="responsive"
-                        width={100}
-                        height={100}
+                        width={196}
+                        height={245}
                       />
                       <div className="absolute top-0 right-0 bottom-0 left-0 bg-whiteGradient" />
                     </div>
@@ -106,15 +106,13 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
               <li key={index} className="rounded-15 group">
                 <Link
                   href={`/nutritionist-list?page=1&filter=${service.href}`}
-                  className="relative w-[525px] h-[300px] block"
+                  className="relative w-[525px] h-[300px] block container"
                 >
                   <Image
                     src={`/images/home/service/${service.photoName}.png`}
                     alt={service.photoName}
-                    className="rounded-15"
-                    fill
-                    sizes="100vw, 100vw"
-                    priority={true}
+                    className="rounded-15 object-cover"
+                    layout="fill"
                   />
                   <div className="absolute top-0 right-0 bottom-0 left-0 bg-white opacity-30 group-hover:opacity-80" />
                   <h3 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-10 rounded-5 bg-white bg-opacity-80 text-primary-500 text-24 backdrop-blur-[2px] group-hover:text-white group-hover:bg-primary-500">
@@ -135,8 +133,8 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
             <Image
               src="/images/home/features/slogan.svg"
               layout="responsive"
-              width={100}
-              height={100}
+              width={570}
+              height={49}
               alt="來NuCares，我們Cares"
               priority={true}
             />
@@ -149,8 +147,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                 <div className="relative min-w-[185px] min-h-[185px]">
                   <Image
                     src={`/images/home/features/${feature.photoName}.jpg`}
-                    fill
-                    sizes="100vw, 100vw"
+                    layout="fill"
                     alt={feature.photoName}
                     className="rounded-full"
                   />
@@ -174,21 +171,24 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                 key={index}
                 className="flex flex-wrap gap-40 mx-auto items-center lg:flex-nowrap"
               >
-                <div className={`relative  ${isEven ? "order-1" : "order-2"}`}>
+                <div
+                  className={`relative w-full h-[245px] lg:w-[526px] lg:h-[331px] ${
+                    isEven ? "order-1" : "order-2"
+                  }`}
+                >
                   <Image
                     src={`/images/home/success-cases/${successCase.photoName}.svg`}
-                    layout="responsive"
-                    width={100}
-                    height={100}
+                    layout="fill"
+                    priority={true}
                     alt={successCase.photoName}
                   />
-                  <div className="absolute bottom-0 left-0 right-[195px] lg:right-[267px] text-center py-10 bg-black-200 bg-opacity-70 font-bold rounded-bl-10">
+                  <div className="absolute bottom-0 left-0 right-[195px] lg:right-[267px] text-center py-10 bg-black-200 bg-opacity-70 font-bold rounded-bl-[8px]">
                     諮詢前
                   </div>
-                  <div className="absolute bottom-0 left-[200px] right-6 text-center text-white py-10 bg-primary-400 bg-opacity-70 font-bold lg:left-[264px]">
+                  <div className="absolute bottom-0 left-[196px] lg:left-[263px] right-6 text-center text-white py-10 bg-primary-400 bg-opacity-70 font-bold">
                     諮詢後
                   </div>
-                  <div className="absolute -top-[6px] -bottom-[6px] left-[195px] right-0 border-[6px] border-primary-500 rounded-10 lg:left-[258px]" />
+                  <div className="absolute -top-[5px] -bottom-[5px] left-[193px] lg:left-[258px] right-0 border-[6px] border-primary-500 rounded-10" />
                 </div>
                 <div
                   className={`flex flex-col gap-24 ${
@@ -200,17 +200,14 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                     className="text-20 max-w-[312px]"
                     dangerouslySetInnerHTML={{ __html: successCase.content }}
                   ></p>
-                  <div className="mt-8 relative">
+                  <div className="relative min-h-[103px] max-w-[453px] mt-8">
                     <Image
                       src={`/images/home/success-cases/talk.svg`}
-                      layout="responsive"
-                      width={100}
-                      height={100}
-                      alt={successCase.talk}
+                      layout="fill"
+                      priority={true}
+                      alt={successCase.photoName}
                     />
-                    <p className="p-12 h-full flex items-center absolute top-0 lg:p-26">
-                      {successCase.talk}
-                    </p>
+                    <p className="p-26">{successCase.talk}</p>
                   </div>
                 </div>
               </li>
@@ -229,8 +226,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                 <div className="relative min-w-[40px] h-[58px]">
                   <Image
                     src={`/images/home/web-process/${step.photoName}.svg`}
-                    fill
-                    sizes="100vw"
+                    layout="fill"
                     alt={step.photoName}
                   />
                 </div>
@@ -249,8 +245,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                 <div className="relative min-w-[36px] h-[32px]">
                   <Image
                     src={`/images/home/web-process/arrow.svg`}
-                    fill
-                    sizes="100vw"
+                    layout="fill"
                     alt="arrow"
                   />
                 </div>
