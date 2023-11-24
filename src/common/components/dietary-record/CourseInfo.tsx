@@ -43,15 +43,13 @@ const CourseInfo: FC<CourseInfoProps> = ({
         {infoData.Data.CourseName || infoData.Data.CourseTitle}
       </p>
       <div className="flex flex-col gap-4 items-center justify-center mt-8">
-        <div className="bg-secondary-400 rounded-50 w-[60px] h-[60px]">
+        <div className="rounded-50">
           <Image
-            src={showImgUrl}
-            layout="fixed"
+            src={showImgUrl || "/images/dashboard/dietary-record/portrait.svg"}
             width={60}
             height={60}
-            alt="photo"
+            alt="portrait"
             className="rounded-50 object-cover"
-            priority={true}
           />
         </div>
         <p className="text-20">
@@ -61,10 +59,9 @@ const CourseInfo: FC<CourseInfoProps> = ({
         {infoData.Data.Age && <p>{infoData.Data.Age}歲</p>}
       </div>
       <ul className="flex flex-col gap-8 text-left mt-24">
-        <li className="flex items-center">
+        <li>
           <Image
             src="/images/dashboard/dietary-record/courseInfo/email.svg"
-            layout="fixed"
             width="15"
             height="15"
             alt="email"
@@ -72,10 +69,9 @@ const CourseInfo: FC<CourseInfoProps> = ({
           />
           {infoData.Data.Email}
         </li>
-        <li className="flex items-center">
+        <li>
           <Image
             src="/images/dashboard/dietary-record/courseInfo/phone.svg"
-            layout="fixed"
             width="15"
             height="15"
             alt="phone"
@@ -83,10 +79,9 @@ const CourseInfo: FC<CourseInfoProps> = ({
           />
           {infoData.Data.Phone || infoData.Data.Tel}
         </li>
-        <li className="flex items-center">
+        <li>
           <Image
             src="/images/dashboard/dietary-record/courseInfo/LINE.svg"
-            layout="fixed"
             width="15"
             height="15"
             alt="LINE"
