@@ -10,9 +10,11 @@ interface UpdatePasswordPageProps {
 
 const UpdatePasswordPage: FC<UpdatePasswordPageProps> = ({ auth }) => {
   return (
-    <div className="py-20 lg:py-0">
+    <div className="container py-20 lg:py-0">
       <h2 className="cusPrimaryTitle">修改密碼</h2>
-      <UpdatePasswordForm Token={auth.Token} />
+      <div className="px-20 lg:px-0">
+        <UpdatePasswordForm Token={auth.Token} />
+      </div>
     </div>
   );
 };

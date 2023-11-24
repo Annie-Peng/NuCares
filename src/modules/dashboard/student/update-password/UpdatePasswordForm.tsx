@@ -32,7 +32,7 @@ const updatePasswordData: ComponentType[] = [
     name: "OldPassword",
     type: "password",
     hMsg: "舊密碼*",
-    labelClass: "relative",
+    labelClass: "relative !mt-0 lg:!mt-20",
     inputClass: "w-full lg:w-[360px]",
     errMsg: {
       required: commonRequiredErrMsg,

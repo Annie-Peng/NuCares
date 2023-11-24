@@ -28,7 +28,9 @@ const Layout = ({ children, router }: LayoutProps) => {
       {renderModal}
       <div className="flex flex-col min-h-screen">
         <Header />
-        <main className={`grow lg:min-h-[1086px] ${showLayoutBgClass}`}>
+        <main
+          className={`grow mt-[56px] lg:mt-[60px] lg:min-h-[1086px] ${showLayoutBgClass}`}
+        >
           <div>{children}</div>
         </main>
         <Footer />
