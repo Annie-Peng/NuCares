@@ -19,7 +19,7 @@ export const authSlice = createSlice({
       state.Token = Token;
       state.UserName = UserName;
       state.Email = Email;
-      state.ImgUrl = ImgUrl;
+      state.ImgUrl = ImgUrl === null ? "" : ImgUrl;
       state.IsNutritionist = IsNutritionist;
       state.UserCurrentStatus = UserCurrentStatus;
     },

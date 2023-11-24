@@ -40,7 +40,7 @@ const LoginForm = () => {
       dispatch(storeAuth(result));
 
       Object.entries(result.Data).forEach(([key, value]) => {
-        setCookie(key, value, { maxAge: 60 * 60 * 24 });
+        setCookie(key, value === null ? "" : value, { maxAge: 60 * 60 * 24 });
       });
       setCookie("Token", `Bearer ${result.Token}`, { maxAge: 60 * 60 * 24 });
 
