@@ -12,6 +12,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { FC } from "react";
+import useResize from "@/common/hooks/useResize";
 
 interface NutritionistsType {
   Expertise: string[];
@@ -26,15 +27,15 @@ interface HomePageProps {
 
 const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
   const arrowNum = Array(webProcessData.length - 1).fill(null);
-
+  const isMobile = useResize();
   return (
     <>
       <section className="banner relative w-full h-[600px]">
         <Image
           src="/images/home/banner.svg"
           layout="fill"
-          objectFit="cover"
           alt="banner"
+          className="object-cover"
           priority={true}
         />
         <div className="absolute left-1/2 top-2/3 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-4 items-center">
@@ -50,11 +51,11 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
       </section>
       <section className="recommendation container  py-50 lg:py-[70px]">
         <h2 className="text-24 text-center font-bold">人氣營養師推薦</h2>
-        <ul className="relative hidden lg:block">
+        <ul className="relative">
           <Swiper
             modules={[Navigation]}
             spaceBetween={24}
-            slidesPerView={6}
+            slidesPerView={isMobile ? 1 : 6}
             navigation
             className="mt-40"
           >
@@ -64,13 +65,14 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                   <Link
                     href={`/nutritionist-list/${nutritionist.NutritionistId}`}
                   >
-                    <div className="relative min-w-[196px] h-[246px]">
+                    <div className="relative">
                       <Image
                         src={nutritionist.PortraitImage}
                         alt="photo"
                         className="rounded-5"
-                        layout="fill"
-                        sizes="100vw"
+                        layout="responsive"
+                        width={196}
+                        height={245}
                       />
                       <div className="absolute top-0 right-0 bottom-0 left-0 bg-whiteGradient" />
                     </div>
@@ -101,17 +103,16 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
         <ul className="flex flex-wrap justify-center gap-26 mt-40">
           {serviceData.map((service, index) => {
             return (
-              <li
-                key={index}
-                className="relative w-[525px] h-[300px] rounded-15 group"
-              >
-                <Link href={`/nutritionist-list?page=1&filter=${service.href}`}>
+              <li key={index} className="rounded-15 group">
+                <Link
+                  href={`/nutritionist-list?page=1&filter=${service.href}`}
+                  className="relative w-[525px] h-[300px] block container"
+                >
                   <Image
                     src={`/images/home/service/${service.photoName}.png`}
                     alt={service.photoName}
-                    className="rounded-15"
+                    className="rounded-15 object-cover"
                     layout="fill"
-                    sizes="100vw"
                   />
                   <div className="absolute top-0 right-0 bottom-0 left-0 bg-white opacity-30 group-hover:opacity-80" />
                   <h3 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-10 rounded-5 bg-white bg-opacity-80 text-primary-500 text-24 backdrop-blur-[2px] group-hover:text-white group-hover:bg-primary-500">
@@ -126,14 +127,16 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
           })}
         </ul>
       </section>
-      <section className="features  py-50 lg:py-[70px] relative bg-[#D6EBEE] font-GenSenRounded-700">
+      <section className="features py-50 lg:py-[70px] relative bg-primary-100 font-GenSenRounded-700">
         <h2 className="text-primary-600 text-center">
-          <div className="relative w-[570px] h-[49px] mx-auto">
+          <div className="relative container max-w-[570px] mx-auto">
             <Image
               src="/images/home/features/slogan.svg"
-              layout="fill"
-              sizes="100vw"
+              layout="responsive"
+              width={570}
+              height={49}
               alt="來NuCares，我們Cares"
+              priority={true}
             />
           </div>
         </h2>
@@ -145,7 +148,6 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                   <Image
                     src={`/images/home/features/${feature.photoName}.jpg`}
                     layout="fill"
-                    sizes="100vw"
                     alt={feature.photoName}
                     className="rounded-full"
                   />
@@ -153,9 +155,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                 <p
                   className="text-18 font-bold"
                   dangerouslySetInnerHTML={{ __html: feature.content }}
-                >
-                  {/* {feature.content} */}
-                </p>
+                ></p>
               </li>
             );
           })}
@@ -179,7 +179,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                   <Image
                     src={`/images/home/success-cases/${successCase.photoName}.svg`}
                     layout="fill"
-                    sizes="100vw"
+                    priority={true}
                     alt={successCase.photoName}
                   />
                   <div className="absolute bottom-0 left-0 right-[267px] text-center py-10 bg-black-200 bg-opacity-70 font-bold rounded-bl-10">
@@ -199,9 +199,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                   <p
                     className="text-20 max-w-[312px]"
                     dangerouslySetInnerHTML={{ __html: successCase.content }}
-                  >
-                    {/* {successCase.content} */}
-                  </p>
+                  ></p>
                   <div className="min-h-[103px] max-w-[453px] p-26 mt-8 bg-talkBg bg-no-repeat">
                     <p>{successCase.talk}</p>
                   </div>
@@ -223,16 +221,13 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                   <Image
                     src={`/images/home/web-process/${step.photoName}.svg`}
                     layout="fill"
-                    sizes="100vw"
                     alt={step.photoName}
                   />
                 </div>
                 <h3
                   className="mt-12 text-center text-20"
                   dangerouslySetInnerHTML={{ __html: step.title }}
-                >
-                  {/* {step.title} */}
-                </h3>
+                ></h3>
               </li>
             );
           })}
@@ -245,7 +240,6 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                   <Image
                     src={`/images/home/web-process/arrow.svg`}
                     layout="fill"
-                    sizes="100vw"
                     alt="arrow"
                   />
                 </div>
