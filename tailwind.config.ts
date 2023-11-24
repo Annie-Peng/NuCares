@@ -132,6 +132,7 @@ const config: Config = {
         clipPathIcon: "url(../../public/images/icons/clipPath.svg)",
         calendarIcon: "url(../../public/images/icons/calendar.svg)",
         arrowDownIcon: "url(../../public/images/icons/arrowDown.svg)",
+        talkBg: "url(../../public/images/home/success-cases/talk.svg)",
       },
       fontFamily: {
         "GenSenRounded-900": ["GenSenRounded-900", "sans-serif"],
