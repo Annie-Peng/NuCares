@@ -119,8 +119,6 @@ const UpdatePasswordForm: FC<UpdatePasswordFormProps> = ({ Token }) => {
     };
   });
 
-  console.log(newUpdatePasswordData);
-
   const dispatch = useDispatch();
   const [updatePasswordPutApi] = useUpdatePasswordPutApiMutation();
 
