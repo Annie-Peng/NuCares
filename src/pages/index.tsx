@@ -34,8 +34,9 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
         <Image
           src="/images/home/banner.svg"
           fill
-          objectFit="cover"
           alt="banner"
+          className="object-cover"
+          priority={true}
         />
         <div className="absolute left-1/2 top-2/3 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-4 items-center">
           <p className="text-[28px] font-bold">您是否吃得健康？</p>
@@ -102,17 +103,18 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
         <ul className="flex flex-wrap justify-center gap-26 mt-40">
           {serviceData.map((service, index) => {
             return (
-              <li
-                key={index}
-                className="relative w-[525px] h-[300px] rounded-15 group"
-              >
-                <Link href={`/nutritionist-list?page=1&filter=${service.href}`}>
+              <li key={index} className="rounded-15 group">
+                <Link
+                  href={`/nutritionist-list?page=1&filter=${service.href}`}
+                  className="relative w-[525px] h-[300px] block"
+                >
                   <Image
                     src={`/images/home/service/${service.photoName}.png`}
                     alt={service.photoName}
                     className="rounded-15"
                     fill
-                    sizes="100vw"
+                    sizes="100vw, 100vw"
+                    priority={true}
                   />
                   <div className="absolute top-0 right-0 bottom-0 left-0 bg-white opacity-30 group-hover:opacity-80" />
                   <h3 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-10 rounded-5 bg-white bg-opacity-80 text-primary-500 text-24 backdrop-blur-[2px] group-hover:text-white group-hover:bg-primary-500">
@@ -136,6 +138,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
               width={100}
               height={100}
               alt="來NuCares，我們Cares"
+              priority={true}
             />
           </div>
         </h2>
@@ -147,7 +150,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                   <Image
                     src={`/images/home/features/${feature.photoName}.jpg`}
                     fill
-                    sizes="100vw"
+                    sizes="100vw, 100vw"
                     alt={feature.photoName}
                     className="rounded-full"
                   />
@@ -155,9 +158,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                 <p
                   className="text-18 font-bold"
                   dangerouslySetInnerHTML={{ __html: feature.content }}
-                >
-                  {/* {feature.content} */}
-                </p>
+                ></p>
               </li>
             );
           })}
@@ -198,9 +199,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                   <p
                     className="text-20 max-w-[312px]"
                     dangerouslySetInnerHTML={{ __html: successCase.content }}
-                  >
-                    {/* {successCase.content} */}
-                  </p>
+                  ></p>
                   <div className="mt-8 relative">
                     <Image
                       src={`/images/home/success-cases/talk.svg`}
@@ -238,9 +237,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                 <h3
                   className="mt-12 text-center text-20"
                   dangerouslySetInnerHTML={{ __html: step.title }}
-                >
-                  {/* {step.title} */}
-                </h3>
+                ></h3>
               </li>
             );
           })}
