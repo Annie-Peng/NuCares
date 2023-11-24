@@ -35,7 +35,7 @@ const studentInfoFormData: ComponentType[] = [
     hMsg: "會員顯示圖",
     pMsg: "圖片需小於 5mb",
     inputClass: "w-[294px] hidden",
-    labelClass: "mt-0",
+    labelClass: "!mt-0 lg:!mt-20",
     id: "ImgUrl",
     accept: "image/png, image/jpeg, image/jpg",
     Token: getCookie("Token"),

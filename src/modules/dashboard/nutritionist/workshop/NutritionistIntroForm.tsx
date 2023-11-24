@@ -43,6 +43,7 @@ const nutritionistIntroFormData: ComponentType[] = [
     required: false,
     hMsg: "公開您的介紹",
     pMsg: "在設定為公開狀態後，您才能開始接案。但即使處於未公開狀態，您仍然可為正在進行中的學員提供飲食建議。",
+    labelClass: "!mt-0 lg:!mt-20",
     inputClass: "hidden",
     id: "IsPublic",
   },

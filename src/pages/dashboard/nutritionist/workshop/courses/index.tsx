@@ -66,9 +66,9 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
   console.log(courseForms);
 
   return (
-    <div className="container">
+    <div className="container py-20 lg:py-0">
       <h2 className="cusPrimaryTitle">課程方案</h2>
-      <div className="p-20 bg-white mt-24 rounded-15">
+      <div className="px-20 lg:py-20 bg-white mt-32 rounded-15">
         <ul className="flex flex-col gap-20">
           {renderData.Data.map((item: RenderDataType) => (
             <li key={item.Id}>

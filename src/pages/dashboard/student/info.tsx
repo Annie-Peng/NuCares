@@ -33,7 +33,9 @@ const InfoPage: FC<InfoPageProps> = ({ auth }) => {
   return (
     <div className="py-20 container lg:py-0">
       <h2 className="cusPrimaryTitle">會員資料</h2>
-      <StudentInfoForm Token={Token} renderData={data.Data} />
+      <div className="px-20 lg:px-0">
+        <StudentInfoForm Token={Token} renderData={data.Data} />
+      </div>
     </div>
   );
 };

@@ -17,7 +17,7 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({ value, children }) => {
       {renderModal}
       <div className="flex flex-col min-h-screen">
         <Header />
-        <main className="grow lg:py-[75px]">{children}</main>
+        <main className="grow lg:py-[100px]">{children}</main>
         {value ? null : <Footer />}
       </div>
     </>
