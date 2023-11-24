@@ -25,19 +25,6 @@ const StudentIdPage: FC<StudentIdProps> = ({ auth }) => {
   const courseId = router.query.studentId;
   const dispatch = useDispatch();
 
-  console.log(auth);
-
-  const dailyDietaryResult = useDailyDietaryGetApiQuery(
-    {
-      Token: auth.Token,
-      CourseId: courseId,
-      Date: "2023/11/01",
-    },
-    {
-      skip: router.isFallback,
-    }
-  );
-
   const bodyInfoResult = useBodyInfoGetApiQuery(
     {
       Token: auth.Token,
@@ -60,12 +47,6 @@ const StudentIdPage: FC<StudentIdProps> = ({ auth }) => {
   );
 
   const {
-    isLoading: isDailyDietaryLoading,
-    error: DailyDietaryError,
-    data: DailyDietary,
-  } = dailyDietaryResult;
-
-  const {
     isLoading: isBodyInfoLoading,
     error: BodyInfoError,
     data: BodyInfo,
@@ -73,12 +54,6 @@ const StudentIdPage: FC<StudentIdProps> = ({ auth }) => {
   const { isLoading: isGoalLoading, error: GoalError, data: Goal } = goalResult;
 
   useEffect(() => {
-    if (DailyDietary) {
-      dispatch(storeDailyDietary(DailyDietary.Data));
-    }
-    if (DailyDietaryError) {
-      console.log(DailyDietaryError);
-    }
     if (BodyInfo) {
       dispatch(storeBodyRate(BodyInfo.Data));
     }
@@ -91,14 +66,7 @@ const StudentIdPage: FC<StudentIdProps> = ({ auth }) => {
     if (GoalError) {
       console.log(GoalError);
     }
-  }, [
-    BodyInfo,
-    Goal,
-    DailyDietary,
-    BodyInfoError,
-    GoalError,
-    DailyDietaryError,
-  ]);
+  }, [BodyInfo, Goal, BodyInfoError, GoalError]);
 
   return (
     <>
