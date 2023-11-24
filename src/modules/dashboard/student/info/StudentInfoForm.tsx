@@ -93,7 +93,7 @@ const studentInfoFormData: ComponentType[] = [
       { option: "男", value: "男" },
       { option: "女", value: "女" },
     ],
-    imageClass: "bottom-4 left-[64px]",
+    imageClass: "bottom-12 left-[64px]",
     errMsg: { required: commonRequiredErrMsg },
     errClass: commonErrMsgClass,
   },
