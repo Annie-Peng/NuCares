@@ -41,8 +41,8 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow-[0_2px_5px_0_rgba(0,0,0,0.1)] z-10">
-      <div className="container py-10 items-center grid cusGrid relative lg:py-16">
+    <header className="bg-white shadow-[0_2px_5px_0_rgba(0,0,0,0.1)] z-10 fixed w-full">
+      <div className="container py-10 items-center grid cusGrid relative lg:py-10">
         {showDropdown &&
           (UserCurrentStatus === "user" ? (
             <StudentDropdown IsNutritionist={IsNutritionist} />
@@ -72,7 +72,7 @@ const Header = () => {
           </ul>
         </nav>
         {isMounted && UserCurrentStatus && (
-          <div className="relative w-[38px] h-[38px] col-end-5 ml-auto lg:w-[40px] lg:h-[40px] lg:col-end-13 lg:mr-auto">
+          <div className="relative w-[36px] h-[36px] col-end-5 ml-auto lg:w-[40px] lg:h-[40px] lg:col-end-13 lg:mr-auto">
             <Image
               src={`${auth.ImgUrl}` || `${newImageUrl}` || login}
               alt="login"
@@ -93,7 +93,7 @@ const Header = () => {
             </Link>
             <Link
               href="/login"
-              className="relative w-[38px] h-[48px] col-end-5 ml-auto lg:w-[40px] lg:h-[40px] lg:col-end-13 lg:mr-auto lg:hidden"
+              className="relative w-[36px] h-[48px] col-end-5 ml-auto lg:w-[40px] lg:h-[40px] lg:col-end-13 lg:mr-auto lg:hidden"
             >
               <Image src={logout} fill alt="logout" />
             </Link>
