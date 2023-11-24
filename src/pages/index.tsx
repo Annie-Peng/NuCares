@@ -172,7 +172,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                 className="flex flex-wrap gap-40 mx-auto items-center lg:flex-nowrap"
               >
                 <div
-                  className={`relative min-w-[526px] h-[331px] ${
+                  className={`relative w-full h-[245px] lg:w-[526px] lg:h-[331px] ${
                     isEven ? "order-1" : "order-2"
                   }`}
                 >
@@ -182,13 +182,13 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                     priority={true}
                     alt={successCase.photoName}
                   />
-                  <div className="absolute bottom-0 left-0 right-[267px] text-center py-10 bg-black-200 bg-opacity-70 font-bold rounded-bl-10">
+                  <div className="absolute bottom-0 left-0 right-[195px] lg:right-[267px] text-center py-10 bg-black-200 bg-opacity-70 font-bold rounded-bl-[8px]">
                     諮詢前
                   </div>
-                  <div className="absolute -top-[6px] -bottom-[6px] left-[258px] right-0 border-[6px] border-primary-500 rounded-10" />
-                  <div className="absolute bottom-0 left-[264px] right-6 text-center text-white py-10 bg-primary-400 bg-opacity-70 font-bold">
+                  <div className="absolute bottom-0 left-[196px] lg:left-[263px] right-6 text-center text-white py-10 bg-primary-400 bg-opacity-70 font-bold">
                     諮詢後
                   </div>
+                  <div className="absolute -top-[5px] -bottom-[5px] left-[193px] lg:left-[258px] right-0 border-[6px] border-primary-500 rounded-10" />
                 </div>
                 <div
                   className={`flex flex-col gap-24 ${
@@ -200,8 +200,14 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                     className="text-20 max-w-[312px]"
                     dangerouslySetInnerHTML={{ __html: successCase.content }}
                   ></p>
-                  <div className="min-h-[103px] max-w-[453px] p-26 mt-8 bg-talkBg bg-no-repeat">
-                    <p>{successCase.talk}</p>
+                  <div className="relative min-h-[103px] max-w-[453px] mt-8">
+                    <Image
+                      src={`/images/home/success-cases/talk.svg`}
+                      layout="fill"
+                      priority={true}
+                      alt={successCase.photoName}
+                    />
+                    <p className="p-26">{successCase.talk}</p>
                   </div>
                 </div>
               </li>
