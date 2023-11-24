@@ -63,7 +63,7 @@ const Select: FC<SelectProps> = ({
             );
           })}
         </select>
-        <div className={`${imageClass} absolute`}>
+        <div className={`${imageClass} absolute w-[20px] h-[20px]`}>
           <Image
             src="/images/dashboard/nutritionist/course/dropdown.svg"
             layout="fixed"
