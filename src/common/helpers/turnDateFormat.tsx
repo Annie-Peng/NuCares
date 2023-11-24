@@ -11,7 +11,6 @@ const turnDateFormatOneMoreDay = (date: string) => {
   const newDate = new Date(date);
   newDate.setDate(newDate.getDate() + 1);
   const formattedDate = newDate.toISOString().split("T")[0]; // 格式 YYYY-MM-DD (用於FullCalendar)
-  console.log(formattedDate);
   return formattedDate;
 };
 export { turnDateFormatOneMoreDay };

@@ -35,8 +35,6 @@ const FavoritePage: FC<FavoritePageProps> = ({ auth }) => {
     dispatch(showLoading(false));
   }
 
-  console.log(data);
-
   return (
     <div className="py-20 container lg:py-0">
       <h2 className="cusPrimaryTitle">收藏營養師</h2>

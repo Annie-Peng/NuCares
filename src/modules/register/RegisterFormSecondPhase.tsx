@@ -56,7 +56,6 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
         newFormData[key] = value;
       });
       const result = await userRegisterPostApi(newFormData).unwrap();
-      console.log(result);
       setCurrentPhase(3);
     } catch (error: unknown) {
       console.log(error);

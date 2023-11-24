@@ -25,8 +25,6 @@ const StudentIdPage: FC<StudentIdProps> = ({ auth }) => {
   const courseId = router.query.studentId;
   const dispatch = useDispatch();
 
-  console.log(auth);
-
   const dailyDietaryResult = useDailyDietaryGetApiQuery(
     {
       Token: auth.Token,

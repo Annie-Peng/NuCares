@@ -32,7 +32,6 @@ const NutritionistIntro: FC<NutritionistIntroProps> = ({
         Token,
         NutritionistId: nutritionistId,
       });
-      console.log(result);
       setFavorite(!favorite);
     } catch (error) {
       console.log(error);

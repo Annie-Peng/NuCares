@@ -27,8 +27,6 @@ const PaymentPage: FC<PaymentPageProps> = ({ auth }) => {
     return <p>Payment is Loading</p>;
   }
 
-  console.log(renderData);
-
   return (
     <div className="container text-center grid cusGrid">
       <div className=" col-span-4 lg:col-start-2 lg:col-span-10 ">

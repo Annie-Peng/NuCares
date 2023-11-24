@@ -28,8 +28,6 @@ const InfoPage: FC<InfoPageProps> = ({ auth }) => {
     dispatch(showLoading(false));
   }
 
-  console.log(data);
-
   return (
     <div className="py-20 container lg:py-0">
       <h2 className="cusPrimaryTitle">會員資料</h2>

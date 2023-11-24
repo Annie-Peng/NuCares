@@ -27,7 +27,6 @@ const NutritionistCard: FC<NutritionistCardProps> = ({ nutritionistData }) => {
         Token,
         NutritionistId: nutritionistData.Id,
       });
-      console.log(result);
       setFavorite(!favorite);
     } catch (error) {
       console.log(error);

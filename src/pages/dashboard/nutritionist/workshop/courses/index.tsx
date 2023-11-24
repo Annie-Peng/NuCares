@@ -42,8 +42,6 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
     dispatch(showLoading(false));
   }
 
-  console.log(renderData);
-
   const handleDeleteClick = (formKey: string) => {
     setCourseForms((prevCourseForms) =>
       prevCourseForms.filter((form) => form.key !== formKey)
@@ -62,8 +60,6 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
       />,
     ]);
   };
-
-  console.log(courseForms);
 
   return (
     <div className="container">

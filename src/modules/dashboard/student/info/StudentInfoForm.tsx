@@ -149,12 +149,9 @@ const StudentInfoForm: FC<StudentInfoFormProps> = ({ Token, renderData }) => {
   });
 
   if (apiReq) {
-    console.log(apiReq);
     const message = apiReq.Message || apiReq.data.Message;
     dispatch(showModal(["showTimerModal", { message, timer: 3000 }]));
   }
-
-  console.log(renderData);
 
   return (
     <div className="text-left flex flex-col cusDashboardInnerContainer mt-32">

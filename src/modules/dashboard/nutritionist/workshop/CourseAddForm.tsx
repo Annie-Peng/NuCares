@@ -134,7 +134,6 @@ const CourseAddForm: FC<CourseAddFormProps> = ({
   const onSubmit: SubmitHandler<FormInput> = async (body) => {
     try {
       const result = await planPostApi({ Token, body }).unwrap();
-      console.log(result);
       handleDeleteClick(formKey);
     } catch (error) {
       console.log(error);

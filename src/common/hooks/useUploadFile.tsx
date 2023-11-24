@@ -49,8 +49,6 @@ const useUploadFile = ({
     tab,
     Token,
   }: HandleUploadFileProps): Promise<void> => {
-    console.log(e, tab, Token);
-
     try {
       let reader;
       const file = e.target.files ? e.target.files[0] : null;
@@ -58,8 +56,6 @@ const useUploadFile = ({
 
       const formData = new FormData();
       formData.append("upFile", file, file.name);
-
-      console.log(tab);
 
       if (file.size > 5246976) {
         setApiErr({ [data.enName]: "上傳圖片不得超過5mb" });
@@ -77,8 +73,6 @@ const useUploadFile = ({
         }
       );
       const fetchData = result.data.Data.ImageUrl;
-
-      console.log(result);
 
       setApiErr({});
 

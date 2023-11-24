@@ -58,8 +58,6 @@ const NutritionistListPage: FC<NutritionistListPageProps> = ({
 
   const router = useRouter();
 
-  console.log(nutritionistsRenderData, pagination, filter, page, sort);
-
   const { showPage, setShowPage, renderPaginationData } = usePagination({
     pagination,
     url,

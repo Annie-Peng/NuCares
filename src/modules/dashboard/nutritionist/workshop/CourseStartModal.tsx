@@ -74,13 +74,11 @@ const CourseStartModal: FC<CourseStartModalProps> = ({ data }) => {
         body: TimeBody,
       });
       dispatch(showModal(["showCourseStartModal", 0]));
-      console.log(result);
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log(Time);
   return (
     <MiniModal modal="showCourseStartModal">
       <div className="flex flex-col justify-between mx-auto max-w-[300px] text-18 lg:text-20 font-bold text-center">

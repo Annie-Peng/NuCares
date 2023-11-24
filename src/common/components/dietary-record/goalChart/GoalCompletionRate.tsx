@@ -36,7 +36,6 @@ const GoalCompletionRate: FC<GoalCompletionRateProps> = ({
         GoalBodyFat: GoalBodyFatRef.current?.value,
       };
       const result = await GoalPutApi({ Token, CourseId, body });
-      console.log(result);
 
       setEditGoal(false);
     } catch (error) {

@@ -23,8 +23,6 @@ const CourseIdPage: FC<CourseIdProps> = ({ auth }) => {
   const courseId = router.query.courseId;
   const dispatch = useDispatch();
 
-  console.log(auth);
-
   const bodyInfoResult = useBodyInfoGetApiQuery(
     {
       Token: auth.Token,
