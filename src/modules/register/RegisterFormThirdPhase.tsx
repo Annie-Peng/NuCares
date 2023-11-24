@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import logoPrimary from "public/images/logo-primary-300.svg";
 import registerStep3 from "public/images/register/registerStep3.svg";
 import { useRouter } from "next/router";
@@ -19,13 +19,19 @@ const RegisterFormThirdPhase = () => {
   return (
     <form className="cusForm max-w-[464px] mx-auto relative text-black-500">
       <div>
-        <Image src={logoPrimary} width="147" height="27" alt="NuCares-logo" />
+        <Image
+          layout="fixed"
+          src={logoPrimary}
+          width={147}
+          height={27}
+          alt="NuCares-logo"
+        />
         <h2 className="text-20 text-primary-400 font-normal mt-12">會員註冊</h2>
       </div>
       <Image
         src={registerStep3}
-        width="290"
-        height="20"
+        width={290}
+        height={20}
         alt="registerStep2"
         layout="responsive"
       />

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import CourseMiniCard from "./CourseMiniCard";
 import { FC, useState } from "react";
 import Link from "next/link";
@@ -38,7 +38,7 @@ const NutritionistCard: FC<NutritionistCardProps> = ({ nutritionistData }) => {
     <>
       <Link
         href={`/nutritionist-list/${nutritionistData.Id}`}
-        className="relative w-full h-[283px] lg:w-[227px]"
+        className="relative w-full h-[283px] lg:w-[200px]"
       >
         <Image
           src={
@@ -46,10 +46,10 @@ const NutritionistCard: FC<NutritionistCardProps> = ({ nutritionistData }) => {
               ? nutritionistData.PortraitImage
               : "/images/uploadphoto-no-word.svg"
           }
-          fill
+          layout="fill"
           alt="PortraitImage"
-          objectFit="cover"
-          className="rounded-5"
+          className="rounded-5 object-cover"
+          priority={true}
         />
       </Link>
       <div className="content w-full relative max-w-[454px] flex flex-col">
@@ -75,7 +75,11 @@ const NutritionistCard: FC<NutritionistCardProps> = ({ nutritionistData }) => {
         >
           了解更多課程{">>"}
         </Link>
-        <button type="button" onClick={handleFavoriteClick}>
+        <button
+          type="button"
+          className="absolute top-[3px] right-0"
+          onClick={handleFavoriteClick}
+        >
           <Image
             src={
               favorite
@@ -85,7 +89,6 @@ const NutritionistCard: FC<NutritionistCardProps> = ({ nutritionistData }) => {
             width={30}
             height={30}
             alt="favorite"
-            className="absolute top-0 right-0"
           />
         </button>
       </div>

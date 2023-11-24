@@ -2,7 +2,7 @@ import TitleModal from "@/common/components/modals/TitleModal";
 import { Course } from "@/common/components/course/CourseForm";
 import { closeModal } from "@/common/redux/features/showModal";
 import { useCoursePostCommentApiMutation } from "@/common/redux/service/course";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -82,8 +82,8 @@ const CommentAddModal: FC<CommentAddModalProps> = ({ data }) => {
                     >
                       <Image
                         src="/images/icons/full-star.svg"
-                        fill
-                        alt="star"
+                        layout="fill"
+                        alt="full-star"
                       />
                     </button>
                   </li>
@@ -97,8 +97,8 @@ const CommentAddModal: FC<CommentAddModalProps> = ({ data }) => {
                     >
                       <Image
                         src="/images/icons/empty-star.svg"
-                        fill
-                        alt="star"
+                        layout="fill"
+                        alt="empty-star"
                       />
                     </button>
                   </li>

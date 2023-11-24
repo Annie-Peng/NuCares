@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import changeIdentity from "@/common/lib/dashboard/changeIdentity";
 import nutritionistTabs from "@/common/lib/dashboard/nutritionistTabs";
 import logoutTab from "@/common/lib/dashboard/logoutTab";
@@ -30,9 +30,14 @@ const NutritionistDropdown = () => {
         <span className="cusNIdentity py-4 text-center w-full rounded-[45px]">
           營養師
         </span>
-        <button type="button" onClick={handleChangeID}>
+        <button
+          type="button"
+          onClick={handleChangeID}
+          className="flex items-center"
+        >
           <Image
             src={`${changeIdentity.iconURL}.svg`}
+            layout="fixed"
             width={27}
             height={27}
             alt={changeIdentity.iconName}
@@ -52,15 +57,16 @@ const NutritionistDropdown = () => {
                 }
                 className="block"
               >
-                <div className="inline-block align-middle mr-6">
+                <div className="flex relative gap-6">
                   <Image
                     src={`${nutritionistTab.iconURL}.svg`}
+                    layout="fixed"
                     width={20}
                     height={20}
                     alt={nutritionistTab.iconName}
                   />
+                  <span>{nutritionistTab.tab}</span>
                 </div>
-                <span className="align-middle">{nutritionistTab.tab}</span>
                 {showSubTabs && (
                   <ul className="mt-16 flex flex-col gap-16 text-black-500">
                     <li>
@@ -93,11 +99,12 @@ const NutritionistDropdown = () => {
       </ul>
       <button
         type="button"
-        className="pt-16 border-t w-full flex justify-center gap-6"
+        className="pt-16 border-t w-full flex items-center justify-center gap-6"
         onClick={handleLogoutClick}
       >
         <Image
           src={`${logoutTab.iconURL}.svg`}
+          layout="fixed"
           width={20}
           height={20}
           alt={logoutTab.iconName}

@@ -2,7 +2,7 @@ import {
   featuresData,
   webProcessData,
 } from "@/common/lib/dashboard/benefitData";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 
 const BenefitPage = () => {
@@ -13,7 +13,7 @@ const BenefitPage = () => {
       <section className="banner relative w-full h-[600px]">
         <Image
           src="/images/benefit/banner.svg"
-          fill
+          layout="fill"
           objectFit="cover"
           alt="banner"
         />
@@ -41,7 +41,7 @@ const BenefitPage = () => {
                 <div className="relative min-w-[314px] min-h-[248px] rounded-15">
                   <Image
                     src={`/images/benefit/features/${feature.photoName}.png`}
-                    fill
+                    layout="fill"
                     sizes="100vw"
                     alt={feature.photoName}
                     className="rounded-15"
@@ -69,7 +69,7 @@ const BenefitPage = () => {
                 <div className="relative min-w-[40px] h-[58px]">
                   <Image
                     src={`/images/benefit/web-process/${step.photoName}.svg`}
-                    fill
+                    layout="fill"
                     sizes="100vw"
                     alt={step.photoName}
                   />
@@ -91,7 +91,7 @@ const BenefitPage = () => {
                 <div className="relative min-w-[36px] h-[32px]">
                   <Image
                     src={`/images/benefit/web-process/arrow.svg`}
-                    fill
+                    layout="fill"
                     sizes="100vw"
                     alt="arrow"
                   />

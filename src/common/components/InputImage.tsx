@@ -7,7 +7,7 @@ import {
   useEffect,
 } from "react";
 import useUploadFile, { InitFileSrcFoodType } from "../hooks/useUploadFile";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import {
   FieldError,
   UseFormClearErrors,
@@ -103,17 +103,17 @@ const InputImage: FC<InputImageProps> = ({
         <h4 className="formHead">{hMsg}</h4>
         <p className="formContent">{pMsg}</p>
         {children}
-        <div className="w-[220px] h-[275px]">
+        <div className="relative w-[220px] h-[275px]">
           <Image
             src={
               fileSrc[name as keyof InitFileSrcFoodType]?.file ||
               (apiPhoto as string) ||
               "/images/uploadPhoto.svg"
             }
-            fill
-            objectFit="cover"
+            layout="fill"
             alt={name}
-            className="mt-12 rounded-5 !relative"
+            className="mt-12 rounded-5 !relative object-cover"
+            priority={true}
           />
         </div>
         <input

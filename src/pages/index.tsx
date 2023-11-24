@@ -4,7 +4,7 @@ import {
   successCasesData,
   webProcessData,
 } from "@/common/lib/dashboard/homeData";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import axios from "axios";
 import { Navigation } from "swiper/modules";
@@ -32,9 +32,10 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
       <section className="banner relative w-full h-[600px]">
         <Image
           src="/images/home/banner.svg"
-          fill
+          layout="fill"
           objectFit="cover"
           alt="banner"
+          priority={true}
         />
         <div className="absolute left-1/2 top-2/3 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-4 items-center">
           <p className="text-[28px] font-bold">您是否吃得健康？</p>
@@ -68,7 +69,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                         src={nutritionist.PortraitImage}
                         alt="photo"
                         className="rounded-5"
-                        fill
+                        layout="fill"
                         sizes="100vw"
                       />
                       <div className="absolute top-0 right-0 bottom-0 left-0 bg-whiteGradient" />
@@ -109,7 +110,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                     src={`/images/home/service/${service.photoName}.png`}
                     alt={service.photoName}
                     className="rounded-15"
-                    fill
+                    layout="fill"
                     sizes="100vw"
                   />
                   <div className="absolute top-0 right-0 bottom-0 left-0 bg-white opacity-30 group-hover:opacity-80" />
@@ -130,7 +131,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
           <div className="relative w-[570px] h-[49px] mx-auto">
             <Image
               src="/images/home/features/slogan.svg"
-              fill
+              layout="fill"
               sizes="100vw"
               alt="來NuCares，我們Cares"
             />
@@ -143,7 +144,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                 <div className="relative min-w-[185px] min-h-[185px]">
                   <Image
                     src={`/images/home/features/${feature.photoName}.jpg`}
-                    fill
+                    layout="fill"
                     sizes="100vw"
                     alt={feature.photoName}
                     className="rounded-full"
@@ -177,7 +178,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                 >
                   <Image
                     src={`/images/home/success-cases/${successCase.photoName}.svg`}
-                    fill
+                    layout="fill"
                     sizes="100vw"
                     alt={successCase.photoName}
                   />
@@ -221,7 +222,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                 <div className="relative min-w-[40px] h-[58px]">
                   <Image
                     src={`/images/home/web-process/${step.photoName}.svg`}
-                    fill
+                    layout="fill"
                     sizes="100vw"
                     alt={step.photoName}
                   />
@@ -243,7 +244,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                 <div className="relative min-w-[36px] h-[32px]">
                   <Image
                     src={`/images/home/web-process/arrow.svg`}
-                    fill
+                    layout="fill"
                     sizes="100vw"
                     alt="arrow"
                   />

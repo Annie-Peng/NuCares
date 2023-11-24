@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import NutritionistComment from "./NutritionistComment";
 import { NutritionistDataType } from "@/pages/nutritionist-list/[nutritionistId]";
 import { FC, useState } from "react";
@@ -42,17 +42,17 @@ const NutritionistIntro: FC<NutritionistIntroProps> = ({
   return (
     <>
       <div className="profile rounded-20 flex flex-wrap p-20 gap-10 bg-white lg:flex-nowrap">
-        <div className="w-full h-[283px] relative lg:w-[65%] lg:h-auto">
+        <div className="w-full lg:max-w-[200px] h-[283px] relative">
           <Image
             src={
               nutritionistData.PortraitImage
                 ? nutritionistData.PortraitImage
                 : "/images/uploadphoto-no-word.svg"
             }
-            fill
+            layout="fill"
             alt="PortraitImage"
-            objectFit="cover"
-            className="rounded-5"
+            className="rounded-5 object-cover"
+            priority={true}
           />
         </div>
         <div className="flex flex-col gap-20 w-full relative">
@@ -72,6 +72,7 @@ const NutritionistIntro: FC<NutritionistIntroProps> = ({
           <p className="flex items-center gap-8">
             <Image
               src="/images/icons/clipPath-black-950.svg"
+              layout="fixed"
               width={20}
               height={20}
               alt="gender"
@@ -81,6 +82,7 @@ const NutritionistIntro: FC<NutritionistIntroProps> = ({
           <p className="flex items-center gap-8 -mt-12">
             <Image
               src="/images/icons/location.svg"
+              layout="fixed"
               width={20}
               height={20}
               alt="location"
@@ -97,7 +99,11 @@ const NutritionistIntro: FC<NutritionistIntroProps> = ({
               <p>{nutritionistData.Experience}</p>
             </li>
           </ul>
-          <button type="button" onClick={handleFavoriteClick}>
+          <button
+            type="button"
+            onClick={handleFavoriteClick}
+            className="absolute top-[3px] right-0"
+          >
             <Image
               src={
                 favorite
@@ -107,7 +113,6 @@ const NutritionistIntro: FC<NutritionistIntroProps> = ({
               width={30}
               height={30}
               alt="favorite"
-              className="absolute top-0 right-0"
             />
           </button>
         </div>
@@ -129,23 +134,25 @@ const NutritionistIntro: FC<NutritionistIntroProps> = ({
             {starsNum.map((star, index) => {
               if (index + 1 <= nutritionistData.RateAVG) {
                 return (
-                  <li key={index}>
+                  <li key={index} className="block w-[20px] h-[20px]">
                     <Image
                       src="/images/icons/full-star.svg"
+                      layout="fixed"
                       width={20}
                       height={20}
-                      alt="star"
+                      alt="full-star"
                     />
                   </li>
                 );
               } else {
                 return (
-                  <li key={index}>
+                  <li key={index} className="block w-[20px] h-[20px]">
                     <Image
                       src="/images/icons/empty-star.svg"
+                      layout="fixed"
                       width={20}
                       height={20}
-                      alt="star"
+                      alt="empty-star"
                     />
                   </li>
                 );

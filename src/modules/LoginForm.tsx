@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import logoPrimary from "public/images/logo-primary-300.svg";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useUserLoginPostApiMutation } from "@/common/redux/service/login";
@@ -62,7 +62,13 @@ const LoginForm = () => {
       className="cusForm max-w-[464px] mx-auto relative text-black-500"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Image src={logoPrimary} width="147" height="27" alt="NuCares-logo" />
+      <Image
+        layout="fixed"
+        src={logoPrimary}
+        width="147"
+        height="27"
+        alt="NuCares-logo"
+      />
       <h2 className="text-20 text-primary-400 font-normal">會員登入</h2>
       <div className="flex flex-col w-full text-14 lg:text-16">
         <label className="relative">
@@ -95,7 +101,9 @@ const LoginForm = () => {
           />
           <div className="cusShowLeftIcon bg-passwordIcon" />
           <div
-            className="cusShowRightIcon bg-eyeCloseIcon"
+            className={`cusShowRightIcon ${
+              showPassword ? "bg-eyeOpenIcon !top-[52%]" : "bg-eyeCloseIcon"
+            }`}
             onClick={() => setShowPassword(!showPassword)}
           />
         </label>

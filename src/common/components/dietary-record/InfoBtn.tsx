@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { FC, useState } from "react";
 import CourseInfo from "./CourseInfo";
 
@@ -24,8 +24,9 @@ const InfoBtn: FC<InfoBtnProps> = ({
       >
         <Image
           src="/images/dashboard/dietary-record/menu-white.svg"
-          width="20"
-          height="20"
+          layout="fixed"
+          width={20}
+          height={20}
           alt="menu"
         />
         {infoTitle}

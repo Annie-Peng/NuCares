@@ -79,7 +79,7 @@ const nutritionistIntroFormData: ComponentType[] = [
     selectClass: "w-[96px] z-10 relative bg-transparent",
     disabledOption: "請選擇",
     options: cityOption,
-    imageClass: "bottom-12 left-[64px]",
+    imageClass: "bottom-4 left-[64px]",
     errMsg: { required: commonRequiredErrMsg },
     errClass: commonErrMsgClass,
   },

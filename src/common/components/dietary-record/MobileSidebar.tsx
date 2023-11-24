@@ -1,5 +1,5 @@
 import dietaryRecordTabs from "@/common/lib/dashboard/dietaryRecordTabs";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 interface MobileSidebarProps {
   showTab: number;
@@ -20,6 +20,7 @@ const MobileSidebar = ({ showTab, setShowTab }: MobileSidebarProps) => {
               >
                 <Image
                   src={`${tab.iconURL}-choose.svg`}
+                  layout="fixed"
                   width={30}
                   height={30}
                   alt={tab.iconName}
@@ -36,6 +37,7 @@ const MobileSidebar = ({ showTab, setShowTab }: MobileSidebarProps) => {
               >
                 <Image
                   src={`${tab.iconURL}.svg`}
+                  layout="fixed"
                   width={30}
                   height={30}
                   alt={tab.iconName}

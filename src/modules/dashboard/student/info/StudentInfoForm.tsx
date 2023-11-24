@@ -87,13 +87,13 @@ const studentInfoFormData: ComponentType[] = [
     children: (
       <p className="formContent">因營養師需依據身理性別計算身體所需營養</p>
     ),
-    selectClass: "w-[96px] relative bg-transparent",
+    selectClass: "w-[96px] z-10 relative bg-transparent",
     disabledOption: "請選擇",
     options: [
       { option: "男", value: "男" },
       { option: "女", value: "女" },
     ],
-    imageClass: "bottom-12 left-[64px]",
+    imageClass: "bottom-4 left-[64px]",
     errMsg: { required: commonRequiredErrMsg },
     errClass: commonErrMsgClass,
   },

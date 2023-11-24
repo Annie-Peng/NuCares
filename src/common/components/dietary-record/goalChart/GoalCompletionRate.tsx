@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import BMIGoalChart from "./BMIGoalChart";
 import WeightGoalChart from "./WeightGoalChart";
 import { MouseEvent, FC, useRef, useState } from "react";
@@ -48,23 +48,31 @@ const GoalCompletionRate: FC<GoalCompletionRateProps> = ({
     <>
       {UserCurrentStatus === "nu" &&
         (editGoal ? (
-          <button type="button" onClick={handleSubmit}>
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className="absolute -top-40 right-16 hidden lg:block"
+          >
             <Image
               src="/images/dashboard/dietary-record/save.svg"
-              width="28"
-              height="28"
+              layout="fixed"
+              width={28}
+              height={28}
               alt="arrow"
-              className="absolute -top-40 right-16 hidden lg:block"
             />
           </button>
         ) : (
-          <button type="button" onClick={() => setEditGoal(true)}>
+          <button
+            type="button"
+            onClick={() => setEditGoal(true)}
+            className="absolute -top-40 right-16 hidden w-[28px] h-[28px] lg:block"
+          >
             <Image
               src="/images/dashboard/dietary-record/edit.svg"
-              width="28"
-              height="28"
+              layout="fixed"
+              width={28}
+              height={28}
               alt="arrow"
-              className="absolute -top-40 right-16 hidden lg:block"
             />
           </button>
         ))}
@@ -162,8 +170,9 @@ const GoalCompletionRate: FC<GoalCompletionRateProps> = ({
             >
               <Image
                 src="/images/dashboard/dietary-record/clip.svg"
-                width="20"
-                height="20"
+                layout="fixed"
+                width={20}
+                height={20}
                 alt="edit"
                 className="mx-auto"
               />

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import logo from "public/images/logo.svg";
 import login from "public/images/login.svg";
@@ -54,7 +54,7 @@ const Header = () => {
           href={isMobile ? "#" : "/"}
           className="col-span-2 relative w-[140px] h-[24px] lg:w-[170px] lg:h-[28px]"
         >
-          <Image src={logo} fill alt="logo-NuCares" />
+          <Image src={logo} layout="fill" alt="logo-NuCares" />
         </Link>
         <nav className=" text-black-600 font-normal sm:hidden lg:block col-span-9 -ms-[calc(110px-165px)]">
           <ul className="flex font-normal items-center">
@@ -76,9 +76,9 @@ const Header = () => {
             <Image
               src={`${auth.ImgUrl}` || `${newImageUrl}` || login}
               alt="login"
-              objectFit="cover"
-              fill
-              className={`${newImageUrl && "rounded-50"}`}
+              layout="fill"
+              className={`object-cover ${newImageUrl && "rounded-50"}`}
+              priority={true}
               onClick={handleShowDropdownClick}
             />
           </div>
@@ -95,7 +95,7 @@ const Header = () => {
               href="/login"
               className="relative w-[38px] h-[48px] col-end-5 ml-auto lg:w-[40px] lg:h-[40px] lg:col-end-13 lg:mr-auto lg:hidden"
             >
-              <Image src={logout} fill alt="logout" />
+              <Image src={logout} layout="fill" alt="logout" />
             </Link>
           </>
         )}

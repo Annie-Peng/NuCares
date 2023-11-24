@@ -4,7 +4,7 @@ import wrapper from "@/common/redux/store";
 import CourseAddForm from "@/modules/dashboard/nutritionist/workshop/CourseAddForm";
 import CourseBigCard from "@/modules/dashboard/nutritionist/workshop/CourseBigCard";
 import { getCookies } from "cookies-next";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { FC, ReactElement, useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -94,6 +94,7 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
           <Image
             src="/images/dashboard/nutritionist/course/add.svg"
             alt="add"
+            layout="fixed"
             width={20}
             height={20}
           />

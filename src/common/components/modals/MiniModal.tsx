@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { ReactNode } from "react";
 import { useDispatch } from "react-redux";
 import { closeModal } from "../../redux/features/showModal";
@@ -24,6 +24,7 @@ const MiniModal: React.FC<MiniModalProps> = ({ children, modal }) => {
           >
             <Image
               src="/images/dashboard/cross-btn.svg"
+              layout="fixed"
               width={isMobile ? 30 : 50}
               height={isMobile ? 30 : 50}
               alt="close"
