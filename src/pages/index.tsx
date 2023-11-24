@@ -12,6 +12,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { FC } from "react";
+import useResize from "@/common/hooks/useResize";
 
 interface NutritionistsType {
   Expertise: string[];
@@ -26,7 +27,7 @@ interface HomePageProps {
 
 const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
   const arrowNum = Array(webProcessData.length - 1).fill(null);
-
+  const isMobile = useResize();
   return (
     <>
       <section className="banner relative w-full h-[600px]">
@@ -49,11 +50,11 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
       </section>
       <section className="recommendation container  py-50 lg:py-[70px]">
         <h2 className="text-24 text-center font-bold">人氣營養師推薦</h2>
-        <ul className="relative hidden lg:block">
+        <ul className="relative">
           <Swiper
             modules={[Navigation]}
             spaceBetween={24}
-            slidesPerView={6}
+            slidesPerView={isMobile ? 1 : 6}
             navigation
             className="mt-40"
           >
@@ -63,13 +64,14 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                   <Link
                     href={`/nutritionist-list/${nutritionist.NutritionistId}`}
                   >
-                    <div className="relative min-w-[196px] h-[246px]">
+                    <div className="relative">
                       <Image
                         src={nutritionist.PortraitImage}
                         alt="photo"
                         className="rounded-5"
-                        fill
-                        sizes="100vw"
+                        layout="responsive"
+                        width={100}
+                        height={100}
                       />
                       <div className="absolute top-0 right-0 bottom-0 left-0 bg-whiteGradient" />
                     </div>
@@ -125,13 +127,14 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
           })}
         </ul>
       </section>
-      <section className="features  py-50 lg:py-[70px] relative bg-[#D6EBEE] font-GenSenRounded-700">
+      <section className="features py-50 lg:py-[70px] relative bg-primary-100 font-GenSenRounded-700">
         <h2 className="text-primary-600 text-center">
-          <div className="relative w-[570px] h-[49px] mx-auto">
+          <div className="relative container max-w-[570px] mx-auto">
             <Image
               src="/images/home/features/slogan.svg"
-              fill
-              sizes="100vw"
+              layout="responsive"
+              width={100}
+              height={100}
               alt="來NuCares，我們Cares"
             />
           </div>
@@ -170,28 +173,25 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                 key={index}
                 className="flex flex-wrap gap-40 mx-auto items-center lg:flex-nowrap"
               >
-                <div
-                  className={`relative min-w-[526px] h-[331px] ${
-                    isEven ? "order-1" : "order-2"
-                  }`}
-                >
+                <div className={`relative  ${isEven ? "order-1" : "order-2"}`}>
                   <Image
                     src={`/images/home/success-cases/${successCase.photoName}.svg`}
-                    fill
-                    sizes="100vw"
+                    layout="responsive"
+                    width={100}
+                    height={100}
                     alt={successCase.photoName}
                   />
-                  <div className="absolute bottom-0 left-0 right-[267px] text-center py-10 bg-black-200 bg-opacity-70 font-bold rounded-bl-10">
+                  <div className="absolute bottom-0 left-0 right-[195px] lg:right-[267px] text-center py-10 bg-black-200 bg-opacity-70 font-bold rounded-bl-10">
                     諮詢前
                   </div>
-                  <div className="absolute -top-[6px] -bottom-[6px] left-[258px] right-0 border-[6px] border-primary-500 rounded-10" />
-                  <div className="absolute bottom-0 left-[264px] right-6 text-center text-white py-10 bg-primary-400 bg-opacity-70 font-bold">
+                  <div className="absolute bottom-0 left-[200px] right-6 text-center text-white py-10 bg-primary-400 bg-opacity-70 font-bold lg:left-[264px]">
                     諮詢後
                   </div>
+                  <div className="absolute -top-[6px] -bottom-[6px] left-[195px] right-0 border-[6px] border-primary-500 rounded-10 lg:left-[258px]" />
                 </div>
                 <div
                   className={`flex flex-col gap-24 ${
-                    isEven ? "order-2" : "order-1"
+                    isEven ? "lg:order-2" : "lg:order-1"
                   }`}
                 >
                   <p className="text-22 font-bold">{successCase.title}</p>
@@ -201,8 +201,17 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                   >
                     {/* {successCase.content} */}
                   </p>
-                  <div className="min-h-[103px] max-w-[453px] p-26 mt-8 bg-talkBg bg-no-repeat">
-                    <p>{successCase.talk}</p>
+                  <div className="mt-8 relative">
+                    <Image
+                      src={`/images/home/success-cases/talk.svg`}
+                      layout="responsive"
+                      width={100}
+                      height={100}
+                      alt={successCase.talk}
+                    />
+                    <p className="p-12 h-full flex items-center absolute top-0 lg:p-26">
+                      {successCase.talk}
+                    </p>
                   </div>
                 </div>
               </li>
