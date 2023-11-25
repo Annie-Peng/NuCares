@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 const useResize = () => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
-  console.log(isMobile);
-
   useEffect(() => {
     handleResize();
     window.addEventListener("resize", handleResize);

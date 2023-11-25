@@ -1,5 +1,5 @@
 import studentTabs from "@/common/lib/dashboard/studentTabs";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -18,21 +18,22 @@ const StudentSidebar = () => {
             <li key={index}>
               <Link
                 href={studentTab.tabURL}
-                className={isSelectTab ? "cusSelectTab" : "cusNoSelectTab"}
+                className={`${isSelectTab ? "cusSelectTab" : "cusNoSelectTab"}`}
               >
-                <div className="inline-block align-middle mr-8">
+                <div className="relative flex items-center gap-8">
                   <Image
                     src={
                       isSelectTab
                         ? `${studentTab.iconURL}-choose.svg`
                         : `${studentTab.iconURL}.svg`
                     }
+                    layout="fixed"
                     width={20}
                     height={20}
                     alt={studentTab.iconName}
                   />
+                  <span>{studentTab.tab}</span>
                 </div>
-                <span className="align-middle">{studentTab.tab}</span>
               </Link>
             </li>
           );

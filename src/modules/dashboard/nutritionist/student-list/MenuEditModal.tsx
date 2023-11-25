@@ -56,8 +56,6 @@ const MenuEditModal: FC<MenuEditModalProps> = ({ data }) => {
         Vegetable,
       };
 
-      console.log(body);
-
       const result = await dailyDietaryPutMenuApi({
         Token,
         CourseId,
@@ -65,14 +63,11 @@ const MenuEditModal: FC<MenuEditModalProps> = ({ data }) => {
         body,
       });
 
-      console.log(result);
       dispatch(closeModal("showMenuEditModal"));
     } catch (error) {
       console.log(error);
     }
   };
-
-  console.log(foodMenu);
 
   return (
     <TitleModal title="學員攝取份量" modal="showMenuEditModal">

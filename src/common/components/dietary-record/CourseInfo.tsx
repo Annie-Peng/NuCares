@@ -1,5 +1,5 @@
 import { useInfoGetApiQuery } from "@/common/redux/service/courseRecord";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { FC } from "react";
 
 interface CourseInfoProps {
@@ -43,13 +43,13 @@ const CourseInfo: FC<CourseInfoProps> = ({
         {infoData.Data.CourseName || infoData.Data.CourseTitle}
       </p>
       <div className="flex flex-col gap-4 items-center justify-center mt-8">
-        <div className="bg-secondary-400 rounded-50">
+        <div className="rounded-50">
           <Image
-            src={showImgUrl}
+            src={showImgUrl || "/images/dashboard/dietary-record/portrait.svg"}
             width={60}
             height={60}
-            alt="photo"
-            className="rounded-50"
+            alt="portrait"
+            className="rounded-50 object-cover"
           />
         </div>
         <p className="text-20">

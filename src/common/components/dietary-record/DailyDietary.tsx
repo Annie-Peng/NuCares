@@ -1,6 +1,6 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { FC, useState, FormEvent, Fragment, useRef } from "react";
 import dailyDietaryInput from "@/common/lib/dashboard/dailyDietaryInput";
 import { showModal } from "@/common/redux/features/showModal";
@@ -24,6 +24,7 @@ import {
   useDailyDietaryOtherPutApiMutation,
 } from "@/common/redux/service/courseRecord";
 import turnDateFormat, {
+  turnDateDashFormat,
   turnDateFormatOneMoreDay,
 } from "@/common/helpers/turnDateFormat";
 import { commonErrMsgClass } from "@/common/lib/dashboard/errMsg/commonErrMsg";
@@ -88,8 +89,10 @@ const DailyDietary: FC<DailyDietaryProps> = ({
   CourseId,
   UserCurrentStatus,
 }) => {
+  const today = turnDateDashFormat(new Date());
+
   const dispatch = useDispatch();
-  const [currentDate, setCurrentDate] = useState("");
+  const [currentDate, setCurrentDate] = useState(today);
   const [tab, setTab] = useState<Tab>(tabs[0]);
   const [edit, setEdit] = useState<EditType>({
     Breakfast: false,
@@ -167,8 +170,6 @@ const DailyDietary: FC<DailyDietaryProps> = ({
 
   const dailyDietaryData = data.Data;
 
-  console.log(dailyDietaryData);
-
   const currentTab = tab.enName;
 
   const events: Event[] = [
@@ -235,8 +236,6 @@ const DailyDietary: FC<DailyDietaryProps> = ({
                 events[0].extendedProps[currentTab].DailyMealTimeId,
               body,
             }).unwrap();
-
-            console.log(result);
           } else {
             const result = await dailyDietaryOtherPutApi({
               Token,
@@ -244,8 +243,6 @@ const DailyDietary: FC<DailyDietaryProps> = ({
               DailyLogId: dailyDietaryData.DailyLogId,
               body,
             }).unwrap();
-
-            console.log(result);
           }
         } catch (error) {
           console.log(error);
@@ -267,36 +264,40 @@ const DailyDietary: FC<DailyDietaryProps> = ({
     return obj;
   };
 
-  console.log(edit[currentTab]);
-
   return (
     <form onSubmit={(e) => handleSubmit({ event: e, tab, UserCurrentStatus })}>
-      <button type="submit" className="hidden lg:block">
+      <button
+        type="submit"
+        className="hidden lg:block absolute -top-[40px] right-16 w-[28px] h-[28px]"
+      >
         {edit[currentTab] ? (
           <Image
             src="/images/dashboard/dietary-record/save.svg"
+            layout="fixed"
             width={28}
             height={28}
             alt="save"
-            className="absolute -top-[40px] right-16"
           />
         ) : (
           <Image
             src="/images/dashboard/dietary-record/edit.svg"
+            layout="fixed"
             width={28}
             height={28}
             alt="edit"
-            className="absolute -top-[40px] right-16"
           />
         )}
       </button>
-      <button type="button" className="hidden lg:block">
+      <button
+        type="button"
+        className="hidden absolute -top-[40px] left-16 w-[28px] h-[28px] lg:block"
+      >
         <Image
           src="/images/dashboard/dietary-record/hint.svg"
+          layout="fixed"
           width={28}
           height={28}
           alt="hint"
-          className="absolute -top-[40px] left-16"
           onClick={() =>
             dispatch(showModal(["showFoodDetailModal", foodIcons]))
           }
@@ -305,14 +306,14 @@ const DailyDietary: FC<DailyDietaryProps> = ({
       <button
         type="button"
         onClick={() => dispatch(showModal(["showFoodDetailModal", foodIcons]))}
-        className="block lg:hidden"
+        className="block absolute right-30 -top-[52px] w-[36px] h-[36px] lg:hidden"
       >
         <Image
           src="/images/dashboard/dietary-record/hint-primary.svg"
+          layout="fixed"
           width={36}
           height={36}
           alt="hint-primary.svg"
-          className="absolute right-30 -top-[52px]"
         />
       </button>
       <FullCalendar
@@ -454,10 +455,9 @@ function renderEventContent(
                         dailyDietaryData[otherTabImg] ||
                         "/images/dashboard/dietary-record/upload-photo.svg"
                       }
-                      fill
-                      objectFit="cover"
+                      layout="fill"
                       alt={item.name}
-                      className="rounded-5"
+                      className="rounded-5 object-cover"
                     />
                     {newEdit && (
                       <input
@@ -545,6 +545,7 @@ function renderEventContent(
                 <Image
                   src={`/images/dashboard/dietary-record/foods/${showFoodIcon}`}
                   alt={filterFoodIcon.PC}
+                  layout="fixed"
                   width={currentTab === "All" ? "75" : "48"}
                   height={currentTab === "All" ? "75" : "48"}
                   className="mx-auto"
@@ -579,8 +580,9 @@ function renderEventContent(
           >
             <Image
               src="/images/dashboard/dietary-record/clip.svg"
-              width="20"
-              height="20"
+              layout="fixed"
+              width={20}
+              height={20}
               alt="edit"
               className="mx-auto"
             />
@@ -602,8 +604,9 @@ function renderEventContent(
             >
               <Image
                 src="/images/dashboard/dietary-record/clip.svg"
-                width="20"
-                height="20"
+                layout="fixed"
+                width={20}
+                height={20}
                 alt="edit"
                 className="mx-auto"
               />

@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useState } from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { FoodType } from "@/common/lib/dashboard/dietary-record/foodMenu";
 
 interface RenderDataType {
@@ -67,8 +67,6 @@ const MealEditForm: FC<MealEditFormProps> = ({ title, food, renderData }) => {
     }
   }
 
-  console.log(qty);
-
   return (
     <div className="breakfastQuantity w-full lg:w-[42%]">
       <h5 className="text-white bg-primary-400 rounded-35">{title}</h5>
@@ -79,6 +77,7 @@ const MealEditForm: FC<MealEditFormProps> = ({ title, food, renderData }) => {
               <label htmlFor={foodInputNameArray[index]}>
                 <Image
                   src={`/images/dashboard/dietary-record/foods/${item.foodIcon}`}
+                  layout="fixed"
                   height={48}
                   width={48}
                   alt={item.enName}

@@ -5,7 +5,7 @@ import {
 } from "@/common/redux/features/paymentPhases";
 import { usePaymentPostApiMutation } from "@/common/redux/service/payment";
 import { Auth, PlanType } from "@/types/interface";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import paymentStep1 from "public/images/payment/paymentStep1.svg";
 import { FC } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -68,8 +68,8 @@ const PaymentForm: FC<PaymentFormProps> = ({
       <div className="hidden mt-16 px-[140px] lg:block">
         <Image
           src={paymentStep1}
-          width="783"
-          height="45"
+          width={783}
+          height={45}
           layout="responsive"
           alt="paymentStep1"
         />

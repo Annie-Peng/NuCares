@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import logoPrimary from "public/images/logo-primary-300.svg";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useUserLoginPostApiMutation } from "@/common/redux/service/login";
@@ -34,19 +34,22 @@ const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit: SubmitHandler<LoginType> = async (formData) => {
-    console.log(formData);
     try {
       const result = await userLoginPostApi(formData).unwrap();
-      console.log(result);
 
       dispatch(storeAuth(result));
 
       Object.entries(result.Data).forEach(([key, value]) => {
-        setCookie(key, value, { maxAge: 60 * 60 * 24 });
+        setCookie(key, value === null ? "" : value, { maxAge: 60 * 60 * 24 });
       });
       setCookie("Token", `Bearer ${result.Token}`, { maxAge: 60 * 60 * 24 });
 
-      router.push("/dashboard/student/course-list");
+      const routeListPage =
+        result.Data.UserCurrentStatus === "user"
+          ? "student/course-list"
+          : "nutritionist/student-list";
+
+      router.push(`/dashboard/${routeListPage}`);
     } catch (error: unknown) {
       console.log(error);
       const e = error as { data?: { Message: unknown }; status?: unknown };
@@ -62,7 +65,13 @@ const LoginForm = () => {
       className="cusForm max-w-[464px] mx-auto relative text-black-500"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Image src={logoPrimary} width="147" height="27" alt="NuCares-logo" />
+      <Image
+        layout="fixed"
+        src={logoPrimary}
+        width="147"
+        height="27"
+        alt="NuCares-logo"
+      />
       <h2 className="text-20 text-primary-400 font-normal">會員登入</h2>
       <div className="flex flex-col w-full text-14 lg:text-16">
         <label className="relative">
@@ -95,7 +104,9 @@ const LoginForm = () => {
           />
           <div className="cusShowLeftIcon bg-passwordIcon" />
           <div
-            className="cusShowRightIcon bg-eyeCloseIcon"
+            className={`cusShowRightIcon ${
+              showPassword ? "bg-eyeOpenIcon !top-[52%]" : "bg-eyeCloseIcon"
+            }`}
             onClick={() => setShowPassword(!showPassword)}
           />
         </label>
@@ -106,7 +117,7 @@ const LoginForm = () => {
       <button type="submit" className="btn-cusBigSecondary w-full">
         登入
       </button>
-      <Link href="/reset-password" className="mt-20 text-14 lg:mt-0">
+      <Link href="#" className="mt-20 text-14 lg:mt-0">
         忘記密碼
       </Link>
       <span className="mt-6 text-14 lg:mt-0">

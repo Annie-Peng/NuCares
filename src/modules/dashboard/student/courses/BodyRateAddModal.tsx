@@ -41,7 +41,6 @@ const BodyRateAddModal: FC<BodyRateAddModalProps> = ({ data }) => {
         body: formData,
       }).unwrap();
       dispatch(closeModal("showBodyRateAddModal"));
-      console.log(result);
     } catch (error) {
       console.log(error);
     }

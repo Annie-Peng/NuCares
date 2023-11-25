@@ -115,7 +115,6 @@ export const dailyDietarySlice = createSlice({
   initialState: initDailyDietary,
   reducers: {
     storeDailyDietary: (state, action) => {
-      console.log(action.payload);
       return action.payload;
     },
   },

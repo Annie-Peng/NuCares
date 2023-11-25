@@ -9,7 +9,7 @@ interface ApplyPageProps {
 
 const ApplyPage: FC<ApplyPageProps> = ({ auth }) => {
   return (
-    <div className="container">
+    <div className="container py-20 lg:py-40">
       <ApplyForm Token={auth.Token} />
     </div>
   );
