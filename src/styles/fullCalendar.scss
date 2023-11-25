@@ -72,7 +72,7 @@
 
 // 事件高度
 .fc-scrollgrid-sync-table {
-  @apply h-full #{!important};
+  @apply h-full lg:h-[258px] #{!important};
 }
 
 // 事件樣式

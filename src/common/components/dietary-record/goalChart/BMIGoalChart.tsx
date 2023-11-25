@@ -41,7 +41,7 @@ const BMIGoalChart: FC<BodyFatCompletionRateProps> = ({
         datasets: [
           {
             data: data,
-            backgroundColor: [AchievementColor, "bg-primary-100"],
+            backgroundColor: [AchievementColor, "#D6EBEE"],
             borderColor: ["transparent", "transparent"],
             borderRadius: borderRadius,
           },
