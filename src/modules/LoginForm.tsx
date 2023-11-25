@@ -46,7 +46,12 @@ const LoginForm = () => {
       });
       setCookie("Token", `Bearer ${result.Token}`, { maxAge: 60 * 60 * 24 });
 
-      router.push("/dashboard/student/course-list");
+      const routeListPage =
+        result.Data.UserCurrentStatus === "user"
+          ? "student/course-list"
+          : "nutritionist/student-list";
+
+      router.push(`/dashboard/${routeListPage}`);
     } catch (error: unknown) {
       console.log(error);
       const e = error as { data?: { Message: unknown }; status?: unknown };

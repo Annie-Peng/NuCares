@@ -1,10 +1,8 @@
 import CourseRecord from "@/common/components/dietary-record/CourseRecord";
 import { storeBodyRate } from "@/common/redux/features/dietary-record/bodyRate";
-import { storeDailyDietary } from "@/common/redux/features/dietary-record/dailyDietary";
 import { storeGoal } from "@/common/redux/features/dietary-record/goal";
 import {
   useBodyInfoGetApiQuery,
-  useDailyDietaryGetApiQuery,
   useGoalGetApiQuery,
 } from "@/common/redux/service/courseRecord";
 import wrapper from "@/common/redux/store";
@@ -27,26 +25,13 @@ const StudentIdPage: FC<StudentIdProps> = ({ auth }) => {
 
   console.log(auth);
 
-  const dailyDietaryResult = useDailyDietaryGetApiQuery(
-    {
-      Token: auth.Token,
-      CourseId: courseId,
-      Date: "2023/11/01",
-    },
-    {
-      skip: router.isFallback,
-    }
-  );
-
   const bodyInfoResult = useBodyInfoGetApiQuery(
     {
       Token: auth.Token,
       CourseId: courseId,
     },
     {
-      // If the page is not yet generated, router.isFallback will be true
-      // initially until getStaticProps() finishes running
-      // skip: router.isFallback,
+      skip: router.isFallback,
     }
   );
   const goalResult = useGoalGetApiQuery(
@@ -60,12 +45,6 @@ const StudentIdPage: FC<StudentIdProps> = ({ auth }) => {
   );
 
   const {
-    isLoading: isDailyDietaryLoading,
-    error: DailyDietaryError,
-    data: DailyDietary,
-  } = dailyDietaryResult;
-
-  const {
     isLoading: isBodyInfoLoading,
     error: BodyInfoError,
     data: BodyInfo,
@@ -73,12 +52,6 @@ const StudentIdPage: FC<StudentIdProps> = ({ auth }) => {
   const { isLoading: isGoalLoading, error: GoalError, data: Goal } = goalResult;
 
   useEffect(() => {
-    if (DailyDietary) {
-      dispatch(storeDailyDietary(DailyDietary.Data));
-    }
-    if (DailyDietaryError) {
-      console.log(DailyDietaryError);
-    }
     if (BodyInfo) {
       dispatch(storeBodyRate(BodyInfo.Data));
     }
@@ -91,14 +64,7 @@ const StudentIdPage: FC<StudentIdProps> = ({ auth }) => {
     if (GoalError) {
       console.log(GoalError);
     }
-  }, [
-    BodyInfo,
-    Goal,
-    DailyDietary,
-    BodyInfoError,
-    GoalError,
-    DailyDietaryError,
-  ]);
+  }, [BodyInfo, Goal, BodyInfoError, GoalError]);
 
   return (
     <>
@@ -118,7 +84,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async ({ req, res }) => {
       const auth = getCookies({ req, res });
       if (!auth.Token) {
-        res.writeHead(400, { Location: "/login" });
+        res.writeHead(302, { Location: "/login" });
         res.end();
       }
       return {
