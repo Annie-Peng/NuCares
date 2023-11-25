@@ -96,13 +96,9 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
         />
         <h2 className="text-20 text-primary-400 font-normal mt-12">會員註冊</h2>
       </div>
-      <Image
-        src={registerStep2}
-        width={290}
-        height={20}
-        alt="registerStep2"
-        layout="responsive"
-      />
+      <div className="relative w-full">
+        <Image src={registerStep2} alt="registerStep2" layout="responsive" />
+      </div>
       <div className="flex flex-col w-full text-14 lg:text-16">
         <label className="relative">
           <input

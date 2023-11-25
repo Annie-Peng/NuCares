@@ -28,13 +28,9 @@ const RegisterFormThirdPhase = () => {
         />
         <h2 className="text-20 text-primary-400 font-normal mt-12">會員註冊</h2>
       </div>
-      <Image
-        src={registerStep3}
-        width={290}
-        height={20}
-        alt="registerStep2"
-        layout="responsive"
-      />
+      <div className="relative w-full">
+        <Image src={registerStep3} alt="registerStep2" layout="responsive" />
+      </div>
       <div className="flex flex-col w-full gap-32">
         <p>
           註冊成功
