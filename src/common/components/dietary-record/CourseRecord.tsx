@@ -79,7 +79,7 @@ const CourseRecord: FC<CourseRecordProps> = ({
           </div>
         )}
         {showDailyDietary && (
-          <div className="w-full relative">
+          <div className="w-full relative lg:h-[386px]">
             <div className="absolute top-[70px] h-[94px] w-full bg-primary-100 lg:hidden" />
             <DashboardContainer title="飲食日記">
               <Link href={routeListPage}>
