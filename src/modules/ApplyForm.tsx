@@ -98,7 +98,6 @@ const ApplyForm: FC<ApplyFormProps> = ({ Token }) => {
   });
 
   if (apiReq) {
-    console.log(apiReq);
     const message = apiReq.Message || apiReq.data.Message;
     dispatch(showModal(["showMessageModal", message]));
   }

@@ -56,7 +56,7 @@ const NutritionistIdPage: FC<NutritionistIdPageProps> = ({
   }
 
   return (
-    <div className="container cusGrid grid my-24">
+    <div className="container cusGrid grid my-24 py-40">
       <div className="col-span-4 flex flex-col gap-16 lg:col-start-2 lg:col-span-6">
         <NutritionistIntro nutritionistData={nutritionistData} />
       </div>

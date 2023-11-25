@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { FC, ReactEventHandler, ReactNode } from "react";
 import { FieldError } from "react-hook-form";
 
@@ -63,13 +63,15 @@ const Select: FC<SelectProps> = ({
             );
           })}
         </select>
-        <Image
-          src="/images/dashboard/nutritionist/course/dropdown.svg"
-          width={20}
-          height={20}
-          alt="arrow"
-          className={`${imageClass} absolute`}
-        />
+        <div className={`${imageClass} absolute w-[20px] h-[20px]`}>
+          <Image
+            src="/images/dashboard/nutritionist/course/dropdown.svg"
+            layout="fixed"
+            width={20}
+            height={20}
+            alt="arrow"
+          />
+        </div>
       </label>
       {error && <p className={errClass}>{error.message}</p>}
     </>

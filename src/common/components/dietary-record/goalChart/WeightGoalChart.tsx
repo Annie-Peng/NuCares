@@ -41,7 +41,7 @@ const WeightGoalChart: FC<WeightGoalChartProps> = ({
         datasets: [
           {
             data: data,
-            backgroundColor: [AchievementColor, "bg-primary-100"],
+            backgroundColor: [AchievementColor, "#D6EBEE"],
             borderColor: ["transparent", "transparent"],
             borderRadius: borderRadius,
           },

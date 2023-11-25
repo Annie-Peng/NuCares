@@ -2,7 +2,7 @@ import DashboardContainer from "@/common/components/DashboardContainer";
 import DailyDietary from "@/common/components/dietary-record/DailyDietary";
 import GoalCompletionRate from "@/common/components/dietary-record/goalChart/GoalCompletionRate";
 import CourseInfo from "@/common/components/dietary-record/CourseInfo";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { FC, useEffect, useState } from "react";
 import BodyRate from "./BodyRate";
 import MobileSidebar from "./MobileSidebar";
@@ -61,13 +61,16 @@ const CourseRecord: FC<CourseRecordProps> = ({
         {showInfoMobile && (
           <div className="w-full lg:hidden">
             <DashboardContainer title={infoTitle}>
-              <Link href={routeListPage}>
+              <Link
+                href={routeListPage}
+                className="absolute left-30 -top-[52px] w-[36px] h-[36px] lg:hidden"
+              >
                 <Image
                   src="/images/dashboard/dietary-record/back.svg"
+                  layout="fixed"
                   width={36}
                   height={36}
                   alt="back.svg"
-                  className="absolute left-30 -top-[52px] lg:hidden"
                 />
               </Link>
               <CourseInfo
@@ -79,16 +82,19 @@ const CourseRecord: FC<CourseRecordProps> = ({
           </div>
         )}
         {showDailyDietary && (
-          <div className="w-full relative">
+          <div className="w-full relative lg:h-[386px]">
             <div className="absolute top-[70px] h-[94px] w-full bg-primary-100 lg:hidden" />
             <DashboardContainer title="飲食日記">
-              <Link href={routeListPage}>
+              <Link
+                href={routeListPage}
+                className="absolute left-30 -top-[52px] w-[36px] h-[36px] lg:hidden"
+              >
                 <Image
                   src="/images/dashboard/dietary-record/back.svg"
+                  layout="fixed"
                   width={36}
                   height={36}
                   alt="back.svg"
-                  className="absolute left-30 -top-[52px] lg:hidden"
                 />
               </Link>
               <DailyDietary
@@ -103,13 +109,16 @@ const CourseRecord: FC<CourseRecordProps> = ({
         {showBodyRate && (
           <div className="w-full lg:w-[68%]">
             <DashboardContainer title="身體紀錄">
-              <Link href={routeListPage}>
+              <Link
+                href={routeListPage}
+                className="absolute left-30 -top-[52px] w-[36px] h-[36px] lg:hidden"
+              >
                 <Image
                   src="/images/dashboard/dietary-record/back.svg"
+                  layout="fixed"
                   width={36}
                   height={36}
                   alt="back.svg"
-                  className="absolute left-30 -top-[52px] lg:hidden"
                 />
               </Link>
               <BodyRate
@@ -123,13 +132,16 @@ const CourseRecord: FC<CourseRecordProps> = ({
         {showGoalRate && (
           <div className="w-full lg:w-[30%]">
             <DashboardContainer title="目標">
-              <Link href={routeListPage}>
+              <Link
+                href={routeListPage}
+                className="absolute left-30 -top-[52px] w-[36px] h-[36px] lg:hidden"
+              >
                 <Image
                   src="/images/dashboard/dietary-record/back.svg"
+                  layout="fixed"
                   width={36}
                   height={36}
                   alt="back.svg"
-                  className="absolute left-30 -top-[52px] lg:hidden"
                 />
               </Link>
               <GoalCompletionRate

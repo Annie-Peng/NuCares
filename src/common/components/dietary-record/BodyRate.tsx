@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import BodyRateChart from "./BodyRateChart";
 import { FC, useState } from "react";
 import { showModal } from "@/common/redux/features/showModal";
@@ -32,32 +32,46 @@ const BodyRate: FC<BodyRateProps> = ({
   return (
     <>
       {hasTodayBodyRate.length === 0 && UserCurrentStatus === "user" && (
-        <button
-          type="button"
-          onClick={() =>
-            dispatch(
-              showModal([
-                "showBodyRateAddModal",
-                { Token: Token, CourseId: CourseId },
-              ])
-            )
-          }
-        >
-          <Image
-            src="/images/dashboard/dietary-record/edit.svg"
-            width={28}
-            height={28}
-            alt="edit"
+        <>
+          <button
+            type="button"
+            onClick={() =>
+              dispatch(
+                showModal([
+                  "showBodyRateAddModal",
+                  { Token: Token, CourseId: CourseId },
+                ])
+              )
+            }
             className="hidden absolute right-16 lg:-top-[40px] lg:block"
-          />
-          <Image
-            src="/images/dashboard/dietary-record/edit-primary.svg"
-            width={36}
-            height={36}
-            alt="edit"
+          >
+            <Image
+              src="/images/dashboard/dietary-record/edit.svg"
+              width={28}
+              height={28}
+              alt="edit"
+            />
+          </button>
+          <button
+            type="button"
+            onClick={() =>
+              dispatch(
+                showModal([
+                  "showBodyRateAddModal",
+                  { Token: Token, CourseId: CourseId },
+                ])
+              )
+            }
             className="absolute -top-[52px] right-30 lg:hidden"
-          />
-        </button>
+          >
+            <Image
+              src="/images/dashboard/dietary-record/edit-primary.svg"
+              width={36}
+              height={36}
+              alt="edit"
+            />
+          </button>
+        </>
       )}
       <div className="flex-col h-full gap-16 hidden lg:flex">
         <label htmlFor="BodyRateChart" className="w-[100px] mx-auto relative">
@@ -72,13 +86,15 @@ const BodyRate: FC<BodyRateProps> = ({
               </option>
             ))}
           </select>
-          <Image
-            src="/images/dashboard/dietary-record/dropdown.svg"
-            width="20"
-            height="20"
-            alt="arrow"
-            className="absolute top-1/2 right-0 -translate-y-1/2"
-          />
+          <div className="absolute top-1/2 right-0 -translate-y-[50%] w-[20px] h-[20px]">
+            <Image
+              src="/images/dashboard/dietary-record/dropdown.svg"
+              layout="fixed"
+              width={20}
+              height={20}
+              alt="dropdown"
+            />
+          </div>
         </label>
         <div className="h-[214px]">
           <BodyRateChart tab={tab} BodyRate={BodyRate} />

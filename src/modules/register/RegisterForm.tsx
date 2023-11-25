@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { storeRegisterForm } from "@/common/redux/features/registerPhases";
@@ -31,8 +31,6 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
     RePassword: false,
   });
 
-  console.log(showPassword);
-
   const {
     handleSubmit,
     register,
@@ -44,7 +42,6 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
     try {
       dispatch(storeRegisterForm(formData));
       const result = await userRegisterEmailPostApi(formData).unwrap();
-      console.log(result);
       setCurrentPhase(2);
     } catch (error: unknown) {
       console.log(error);
@@ -66,13 +63,9 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
         <Image src={logoPrimary} width="147" height="27" alt="NuCares-logo" />
         <h2 className="text-20 text-primary-400 font-normal mt-12">會員註冊</h2>
       </div>
-      <Image
-        src={registerStep1}
-        width="290"
-        height="20"
-        layout="responsive"
-        alt="registerStep1"
-      />
+      <div className="relative w-full">
+        <Image src={registerStep1} layout="responsive" alt="registerStep1" />
+      </div>
       <div className="flex flex-col w-full text-14 lg:text-16">
         <label className="relative">
           <input
@@ -110,10 +103,13 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
               },
             })}
           />
-
           <div className="cusShowLeftIcon bg-passwordIcon" />
           <div
-            className="cusShowRightIcon bg-eyeCloseIcon"
+            className={`cusShowRightIcon ${
+              showPassword.Password
+                ? "bg-eyeOpenIcon !top-[52%]"
+                : "bg-eyeCloseIcon"
+            }`}
             onClick={() =>
               setShowPassword({
                 ...showPassword,
@@ -141,7 +137,11 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
 
           <div className="cusShowLeftIcon bg-passwordIcon" />
           <div
-            className="cusShowRightIcon bg-eyeCloseIcon"
+            className={`cusShowRightIcon ${
+              showPassword.RePassword
+                ? "bg-eyeOpenIcon !top-[52%]"
+                : "bg-eyeCloseIcon"
+            }`}
             onClick={() =>
               setShowPassword({
                 ...showPassword,

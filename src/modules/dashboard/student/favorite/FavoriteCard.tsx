@@ -1,6 +1,6 @@
 import { useFavoritePostApiMutation } from "@/common/redux/service/favorite";
 import { NutritionistDataType } from "@/pages/dashboard/student/favorite";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import { FC } from "react";
 
@@ -18,7 +18,6 @@ const FavoriteCard: FC<FavoriteCardProps> = ({ Token, nutritionistData }) => {
         Token,
         NutritionistId: nutritionistData.Id,
       });
-      console.log(result);
     } catch (error) {
       console.log(error);
     }
@@ -34,10 +33,10 @@ const FavoriteCard: FC<FavoriteCardProps> = ({ Token, nutritionistData }) => {
                 ? nutritionistData.PortraitImage
                 : "/images/uploadphoto-no-word.svg"
             }
-            fill
+            layout="fill"
             alt="PortraitImage"
-            objectFit="cover"
-            className="rounded-5"
+            className="rounded-5 object-cover"
+            priority={true}
           />
         </div>
         <div className="text-left content flex flex-col lg:w-[59%]">
@@ -66,6 +65,7 @@ const FavoriteCard: FC<FavoriteCardProps> = ({ Token, nutritionistData }) => {
           >
             <Image
               src="/images/icons/favorite-fill.svg"
+              layout="fixed"
               width={30}
               height={30}
               alt="favorite"

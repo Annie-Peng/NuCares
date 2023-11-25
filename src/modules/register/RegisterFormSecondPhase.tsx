@@ -3,7 +3,7 @@ import {
   storeRegisterForm,
 } from "@/common/redux/features/registerPhases";
 import { useUserRegisterPostApiMutation } from "@/common/redux/service/register";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { FC, ChangeEvent, useState } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -56,7 +56,6 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
         newFormData[key] = value;
       });
       const result = await userRegisterPostApi(newFormData).unwrap();
-      console.log(result);
       setCurrentPhase(3);
     } catch (error: unknown) {
       console.log(error);
@@ -87,16 +86,18 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
       onSubmit={handleSubmit(onSubmit)}
     >
       <div>
-        <Image src={logoPrimary} width="147" height="27" alt="NuCares-logo" />
+        <Image
+          layout="fixed"
+          src={logoPrimary}
+          width={147}
+          height={27}
+          alt="NuCares-logo"
+        />
         <h2 className="text-20 text-primary-400 font-normal mt-12">會員註冊</h2>
       </div>
-      <Image
-        src={registerStep2}
-        width="290"
-        height="20"
-        alt="registerStep2"
-        layout="responsive"
-      />
+      <div className="relative w-full">
+        <Image src={registerStep2} alt="registerStep2" layout="responsive" />
+      </div>
       <div className="flex flex-col w-full text-14 lg:text-16">
         <label className="relative">
           <input

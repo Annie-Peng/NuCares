@@ -67,7 +67,7 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
       };
       // console.log(formData);
       const result = await putApi(formData).unwrap();
-      console.log(result);
+
       if (body.UserName && body.ImgUrl) {
         const { ImgUrl, UserName } = result.Data;
         dispatch(updateAuthImgUrl({ ImgUrl, UserName }));

@@ -11,7 +11,6 @@ interface FoodDetailModalType {
 }
 
 const FoodDetailModal: FC<FoodDetailModalType> = ({ data }) => {
-  console.log(data);
   const [tab, setTab] = useState<string>("Starch");
 
   return (

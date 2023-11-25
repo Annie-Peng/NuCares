@@ -32,7 +32,9 @@ const NutritionistIntroPage: FC<StudentListPageProps> = ({ auth }) => {
   return (
     <div className="py-20 container lg:py-0">
       <h2 className="cusPrimaryTitle">關於我</h2>
-      <NutritionistIntroForm Token={auth.Token} renderData={data.Data} />
+      <div className="px-20 lg:px-0">
+        <NutritionistIntroForm Token={auth.Token} renderData={data.Data} />
+      </div>
     </div>
   );
 };

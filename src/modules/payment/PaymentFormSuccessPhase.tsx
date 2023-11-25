@@ -1,5 +1,5 @@
 import { setCookie } from "cookies-next";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import paymentSuccess from "public/images/payment/paymentSuccess.svg";
 
@@ -9,10 +9,10 @@ const PaymentFormSuccessPhase = () => {
       <div className="hidden mt-16 px-[140px] lg:block">
         <Image
           src={paymentSuccess}
-          width="783"
-          height="45"
+          width={783}
+          height={45}
           layout="responsive"
-          alt="paymentStep2"
+          alt="paymentSuccess"
         />
       </div>
       <form className=" bg-white text-center mt-16 p-20 rounded-20 font-normal lg:p-40">

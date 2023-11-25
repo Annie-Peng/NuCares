@@ -18,7 +18,6 @@ const errInput = <T extends ErrInputProps, U extends Record<string, string>>(
   statusCode: number,
   setError: UseFormSetError<U>
 ) => {
-  console.log(api);
   let inputs: Inputs[] = [];
   names.forEach((name) => {
     inputs.push({

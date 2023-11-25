@@ -4,7 +4,7 @@ import wrapper from "@/common/redux/store";
 import CourseAddForm from "@/modules/dashboard/nutritionist/workshop/CourseAddForm";
 import CourseBigCard from "@/modules/dashboard/nutritionist/workshop/CourseBigCard";
 import { getCookies } from "cookies-next";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { FC, ReactElement, useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -42,8 +42,6 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
     dispatch(showLoading(false));
   }
 
-  console.log(renderData);
-
   const handleDeleteClick = (formKey: string) => {
     setCourseForms((prevCourseForms) =>
       prevCourseForms.filter((form) => form.key !== formKey)
@@ -63,12 +61,10 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
     ]);
   };
 
-  console.log(courseForms);
-
   return (
-    <div className="container">
+    <div className="container py-20 lg:py-0">
       <h2 className="cusPrimaryTitle">課程方案</h2>
-      <div className="p-20 bg-white mt-24 rounded-15">
+      <div className="px-20 lg:py-20 bg-white mt-32 rounded-15">
         <ul className="flex flex-col gap-20">
           {renderData.Data.map((item: RenderDataType) => (
             <li key={item.Id}>
@@ -94,6 +90,7 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
           <Image
             src="/images/dashboard/nutritionist/course/add.svg"
             alt="add"
+            layout="fixed"
             width={20}
             height={20}
           />

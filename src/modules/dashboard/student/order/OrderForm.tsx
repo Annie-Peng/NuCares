@@ -53,8 +53,6 @@ const OrderForm: FC<OrderFormProps> = ({ auth }) => {
 
   if (!renderData) return null;
 
-  console.log(renderData);
-
   return (
     <div className="py-20 container lg:py-0 flex flex-col justify-between h-full">
       <h2 className="cusPrimaryTitle">訂單紀錄</h2>

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import logo from "public/images/logo.svg";
 import login from "public/images/login.svg";
@@ -41,8 +41,8 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow-[0_2px_5px_0_rgba(0,0,0,0.1)] z-10">
-      <div className="container py-10 items-center grid cusGrid relative lg:py-16">
+    <header className="bg-white shadow-[0_2px_5px_0_rgba(0,0,0,0.1)] z-10 fixed w-full">
+      <div className="container py-10 items-center grid cusGrid relative lg:py-10">
         {showDropdown &&
           (UserCurrentStatus === "user" ? (
             <StudentDropdown IsNutritionist={IsNutritionist} />
@@ -54,7 +54,7 @@ const Header = () => {
           href={isMobile ? "#" : "/"}
           className="col-span-2 relative w-[140px] h-[24px] lg:w-[170px] lg:h-[28px]"
         >
-          <Image src={logo} fill alt="logo-NuCares" />
+          <Image src={logo} layout="fill" alt="logo-NuCares" />
         </Link>
         <nav className=" text-black-600 font-normal sm:hidden lg:block col-span-9 -ms-[calc(110px-165px)]">
           <ul className="flex font-normal items-center">
@@ -72,13 +72,13 @@ const Header = () => {
           </ul>
         </nav>
         {isMounted && UserCurrentStatus && (
-          <div className="relative w-[38px] h-[38px] col-end-5 ml-auto lg:w-[40px] lg:h-[40px] lg:col-end-13 lg:mr-auto">
+          <div className="relative w-[36px] h-[36px] col-end-5 ml-auto lg:w-[40px] lg:h-[40px] lg:col-end-13 lg:mr-auto">
             <Image
               src={`${auth.ImgUrl}` || `${newImageUrl}` || login}
               alt="login"
-              objectFit="cover"
-              fill
-              className={`${newImageUrl && "rounded-50"}`}
+              layout="fill"
+              className={`object-cover ${newImageUrl && "rounded-50"}`}
+              priority={true}
               onClick={handleShowDropdownClick}
             />
           </div>
@@ -93,9 +93,9 @@ const Header = () => {
             </Link>
             <Link
               href="/login"
-              className="relative w-[38px] h-[48px] col-end-5 ml-auto lg:w-[40px] lg:h-[40px] lg:col-end-13 lg:mr-auto lg:hidden"
+              className="relative w-[36px] h-[48px] col-end-5 ml-auto lg:w-[40px] lg:h-[40px] lg:col-end-13 lg:mr-auto lg:hidden"
             >
-              <Image src={logout} fill alt="logout" />
+              <Image src={logout} layout="fill" alt="logout" />
             </Link>
           </>
         )}

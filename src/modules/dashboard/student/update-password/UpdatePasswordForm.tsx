@@ -32,7 +32,7 @@ const updatePasswordData: ComponentType[] = [
     name: "OldPassword",
     type: "password",
     hMsg: "舊密碼*",
-    labelClass: "relative",
+    labelClass: "relative !mt-0 lg:!mt-20",
     inputClass: "w-full lg:w-[360px]",
     errMsg: {
       required: commonRequiredErrMsg,
@@ -119,8 +119,6 @@ const UpdatePasswordForm: FC<UpdatePasswordFormProps> = ({ Token }) => {
     };
   });
 
-  console.log(newUpdatePasswordData);
-
   const dispatch = useDispatch();
   const [updatePasswordPutApi] = useUpdatePasswordPutApiMutation();
 
@@ -139,7 +137,6 @@ const UpdatePasswordForm: FC<UpdatePasswordFormProps> = ({ Token }) => {
   });
 
   if (apiReq) {
-    console.log(apiReq);
     const message = apiReq.Message || apiReq.data.Message;
     dispatch(showModal(["showTimerModal", { message, timer: 3000 }]));
   }

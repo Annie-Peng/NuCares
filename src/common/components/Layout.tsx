@@ -29,13 +29,9 @@ const Layout = ({ children, router }: LayoutProps) => {
       <div className="flex flex-col min-h-screen">
         <Header />
         <main
-          className={`grow lg:min-h-[1086px] ${showLayoutBgClass} ${
-            showLayoutBgClass !== "bg-white" && "lg:pt-[75px] py-[40px]"
-          } lg:pb-0`}
+          className={`grow mt-[56px] lg:mt-[60px] lg:min-h-[1086px] ${showLayoutBgClass}`}
         >
-          <div className={`${showLayoutBgClass !== "bg-white" && "container"}`}>
-            {children}
-          </div>
+          <div>{children}</div>
         </main>
         <Footer />
       </div>

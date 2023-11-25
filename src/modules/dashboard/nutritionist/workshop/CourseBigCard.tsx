@@ -2,7 +2,7 @@ import useEditForm from "@/common/hooks/useEditForm";
 import useResize from "@/common/hooks/useResize";
 import { showModal } from "@/common/redux/features/showModal";
 import { usePlanPutApiMutation } from "@/common/redux/service/plan";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { FC } from "react";
 import { useDispatch } from "react-redux";
 import { courseAddFormData } from "./CourseAddForm";
@@ -106,6 +106,7 @@ const CourseBigCard: FC<CourseBigCardProps> = ({ Token, planData }) => {
                     ? "/images/dashboard/nutritionist/course/clipPath-no-border.svg"
                     : "/images/dashboard/nutritionist/course/clipPath.svg"
                 }
+                layout="fixed"
                 width={isMobile ? 20 : 28}
                 height={isMobile ? 20 : 28}
                 alt="edit"
@@ -129,6 +130,7 @@ const CourseBigCard: FC<CourseBigCardProps> = ({ Token, planData }) => {
                     ? "/images/dashboard/nutritionist/course/trashcan-no-border.svg"
                     : "/images/dashboard/nutritionist/course/trashcan.svg"
                 }
+                layout="fixed"
                 width={isMobile ? 20 : 28}
                 height={isMobile ? 20 : 28}
                 alt="delete"
