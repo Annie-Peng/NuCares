@@ -21,6 +21,9 @@ const NutritionistSidebar = () => {
               ? nutritionistTab.tabURL
               : nutritionistTab.tabURL.main
           );
+          const workshopUrl = pathname.startsWith(
+            "/dashboard/nutritionist/workshop"
+          );
           return (
             <li key={index}>
               {typeof nutritionistTab.tabURL === "string" ? (
@@ -80,7 +83,7 @@ const NutritionistSidebar = () => {
                       />
                     </div>
                   </Link>
-                  {showWorkshopTab && (
+                  {(showWorkshopTab || workshopUrl) && (
                     <ul className="py-20 flex flex-col gap-12 pl-[75px]">
                       <li>
                         <Link
