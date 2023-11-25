@@ -1,3 +1,4 @@
+import MetaData from "@/common/components/MetaData";
 import { showLoading } from "@/common/redux/features/loading";
 import { useIntroGetApiQuery } from "@/common/redux/service/intro";
 import wrapper from "@/common/redux/store";
@@ -30,12 +31,15 @@ const NutritionistIntroPage: FC<StudentListPageProps> = ({ auth }) => {
   }
 
   return (
-    <div className="py-20 container lg:py-0">
-      <h2 className="cusPrimaryTitle">關於我</h2>
-      <div className="px-20 lg:px-0">
-        <NutritionistIntroForm Token={auth.Token} renderData={data.Data} />
+    <>
+      <MetaData title="關於我" />
+      <div className="py-20 container lg:py-0">
+        <h2 className="cusPrimaryTitle">關於我</h2>
+        <div className="px-20 lg:px-0">
+          <NutritionistIntroForm Token={auth.Token} renderData={data.Data} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

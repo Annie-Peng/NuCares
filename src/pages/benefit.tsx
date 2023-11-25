@@ -1,3 +1,4 @@
+import MetaData from "@/common/components/MetaData";
 import {
   featuresData,
   webProcessData,
@@ -10,6 +11,10 @@ const BenefitPage = () => {
 
   return (
     <>
+      <MetaData
+        title="成為NuCares營養師"
+        description="自由彈性、累積評價、擴展客戶群、貼心功能"
+      />
       <section className="banner relative w-full h-[600px]">
         <Image
           src="/images/benefit/banner.svg"

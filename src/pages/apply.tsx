@@ -1,3 +1,4 @@
+import MetaData from "@/common/components/MetaData";
 import wrapper from "@/common/redux/store";
 import ApplyForm from "@/modules/ApplyForm";
 import { getCookies } from "cookies-next";
@@ -9,9 +10,12 @@ interface ApplyPageProps {
 
 const ApplyPage: FC<ApplyPageProps> = ({ auth }) => {
   return (
-    <div className="container py-20 lg:py-40">
-      <ApplyForm Token={auth.Token} />
-    </div>
+    <>
+      <MetaData title="申請成為營養師" />
+      <div className="container py-20 lg:py-40">
+        <ApplyForm Token={auth.Token} />
+      </div>
+    </>
   );
 };
 

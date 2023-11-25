@@ -1,3 +1,4 @@
+import MetaData from "@/common/components/MetaData";
 import wrapper from "@/common/redux/store";
 import CourseNormalCard from "@/modules/CourseNormalCard";
 import NutritionistIntro from "@/modules/NutritionistIntro";
@@ -56,28 +57,34 @@ const NutritionistIdPage: FC<NutritionistIdPageProps> = ({
   }
 
   return (
-    <div className="container cusGrid grid my-24 py-40">
-      <div className="col-span-4 flex flex-col gap-16 lg:col-start-2 lg:col-span-6">
-        <NutritionistIntro nutritionistData={nutritionistData} />
+    <>
+      <MetaData
+        title={nutritionistData.Title}
+        description={nutritionistData.Expertise.toString()}
+      />
+      <div className="container cusGrid grid my-24 py-40">
+        <div className="col-span-4 flex flex-col gap-16 lg:col-start-2 lg:col-span-6">
+          <NutritionistIntro nutritionistData={nutritionistData} />
+        </div>
+        <div className="mt-16 col-span-4 bg-white p-20 self-start rounded-20 lg:col-end-12 lg:mt-0">
+          <ul className="flex flex-col gap-10">
+            {nutritionistData.Plan.length > 0 ? (
+              nutritionistData.Plan.map((plan, index) => (
+                <li key={index}>
+                  <CourseNormalCard plan={plan} />
+                </li>
+              ))
+            ) : (
+              <div className="border border-primary-200 p-20 rounded-15 flex flex-col gap-12 relative">
+                <p className="leading-[203px] font-bold text-black-300 mx-auto">
+                  營養師尚未建立課程
+                </p>
+              </div>
+            )}
+          </ul>
+        </div>
       </div>
-      <div className="mt-16 col-span-4 bg-white p-20 self-start rounded-20 lg:col-end-12 lg:mt-0">
-        <ul className="flex flex-col gap-10">
-          {nutritionistData.Plan.length > 0 ? (
-            nutritionistData.Plan.map((plan, index) => (
-              <li key={index}>
-                <CourseNormalCard plan={plan} />
-              </li>
-            ))
-          ) : (
-            <div className="border border-primary-200 p-20 rounded-15 flex flex-col gap-12 relative">
-              <p className="leading-[203px] font-bold text-black-300 mx-auto">
-                營養師尚未建立課程
-              </p>
-            </div>
-          )}
-        </ul>
-      </div>
-    </div>
+    </>
   );
 };
 

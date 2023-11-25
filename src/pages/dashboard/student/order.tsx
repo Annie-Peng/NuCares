@@ -1,3 +1,4 @@
+import MetaData from "@/common/components/MetaData";
 import wrapper from "@/common/redux/store";
 import OrderForm from "@/modules/dashboard/student/order/OrderForm";
 import { Auth } from "@/types/interface";
@@ -11,6 +12,7 @@ interface OrderPageProps {
 const OrderPage: FC<OrderPageProps> = ({ auth }) => {
   return (
     <>
+      <MetaData title="訂單紀錄" />
       <OrderForm auth={auth} />
     </>
   );
