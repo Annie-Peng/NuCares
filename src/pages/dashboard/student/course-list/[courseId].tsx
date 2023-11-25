@@ -29,8 +29,6 @@ const CourseIdPage: FC<CourseIdProps> = ({ auth }) => {
       CourseId: courseId,
     },
     {
-      // If the page is not yet generated, router.isFallback will be true
-      // initially until getStaticProps() finishes running
       skip: router.isFallback,
     }
   );
@@ -85,7 +83,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async ({ req, res }) => {
       const auth = getCookies({ req, res });
       if (!auth.Token) {
-        res.writeHead(400, { Location: "/login" });
+        res.writeHead(302, { Location: "/login" });
         res.end();
       }
       return {

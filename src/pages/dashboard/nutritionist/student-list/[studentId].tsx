@@ -1,10 +1,8 @@
 import CourseRecord from "@/common/components/dietary-record/CourseRecord";
 import { storeBodyRate } from "@/common/redux/features/dietary-record/bodyRate";
-import { storeDailyDietary } from "@/common/redux/features/dietary-record/dailyDietary";
 import { storeGoal } from "@/common/redux/features/dietary-record/goal";
 import {
   useBodyInfoGetApiQuery,
-  useDailyDietaryGetApiQuery,
   useGoalGetApiQuery,
 } from "@/common/redux/service/courseRecord";
 import wrapper from "@/common/redux/store";
@@ -31,9 +29,7 @@ const StudentIdPage: FC<StudentIdProps> = ({ auth }) => {
       CourseId: courseId,
     },
     {
-      // If the page is not yet generated, router.isFallback will be true
-      // initially until getStaticProps() finishes running
-      // skip: router.isFallback,
+      skip: router.isFallback,
     }
   );
   const goalResult = useGoalGetApiQuery(
@@ -86,7 +82,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async ({ req, res }) => {
       const auth = getCookies({ req, res });
       if (!auth.Token) {
-        res.writeHead(400, { Location: "/login" });
+        res.writeHead(302, { Location: "/login" });
         res.end();
       }
       return {
