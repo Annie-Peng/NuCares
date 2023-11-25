@@ -62,7 +62,9 @@ const OrderForm: FC<OrderFormProps> = ({ auth }) => {
           <thead>
             <tr>
               {Tabs.map((tab, index) => (
-                <th key={index}>{tab}</th>
+                <th key={index} className="font-normal">
+                  {tab}
+                </th>
               ))}
             </tr>
           </thead>

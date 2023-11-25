@@ -190,7 +190,9 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
           <thead>
             <tr>
               {IDTabs.tabs.map((tab, index) => (
-                <th key={index}>{tab}</th>
+                <th key={index} className="font-normal">
+                  {tab}
+                </th>
               ))}
             </tr>
           </thead>
