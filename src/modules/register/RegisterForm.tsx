@@ -60,22 +60,12 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div>
-        <Image
-          layout="fixed"
-          src={logoPrimary}
-          width={147}
-          height={27}
-          alt="NuCares-logo"
-        />
+        <Image src={logoPrimary} width="147" height="27" alt="NuCares-logo" />
         <h2 className="text-20 text-primary-400 font-normal mt-12">會員註冊</h2>
       </div>
-      <Image
-        src={registerStep1}
-        width="290"
-        height="20"
-        layout="responsive"
-        alt="registerStep1"
-      />
+      <div className="relative w-full">
+        <Image src={registerStep1} layout="responsive" alt="registerStep1" />
+      </div>
       <div className="flex flex-col w-full text-14 lg:text-16">
         <label className="relative">
           <input
