@@ -4,17 +4,22 @@ import logo from "public/images/logo.svg";
 import fb from "public/images/footer/facebook.svg";
 import yt from "public/images/footer/youtube.svg";
 import ig from "public/images/footer/instagram.svg";
+import useResize from "../hooks/useResize";
 
 const Footer = () => {
+  const isMobile = useResize();
   return (
     <footer className="bg-white">
       <div className="container grid cusGridPC grid-flow-row items-center text-primary-500 py-20 text-center justify-center gap-y-16 lg:gap-y-0 lg:text-left lg:py-50 lg:justify-between lg:pl-28 lg:pr-8">
         <div className="flex flex-wrap logo border-primary-500 lg:col-span-5 order-1 items-center lg:flex-nowrap lg:gap-24">
-          <div className="mx-auto relative w-[134px] h-[25px] lg:w-[159px] lg:h-[28px]">
+          <Link
+            href={isMobile ? "#" : "/"}
+            className="mx-auto relative w-[134px] h-[25px] lg:w-[159px] lg:h-[28px]"
+          >
             <Image src={logo} layout="fill" alt="logo-NuCares" />
-          </div>
+          </Link>
           <p className="w-full text-18 text-primary-400 mt-8 lg:mt-0 lg:font-bold lg:text-22 lg:whitespace-nowrap">
-            Who cares? NuCares !!
+            Who cares? NuCares!!
           </p>
         </div>
         <ul
