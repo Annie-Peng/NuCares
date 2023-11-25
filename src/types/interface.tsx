@@ -7,6 +7,7 @@ import { ShowModalType } from "@/common/redux/features/showModal";
 import { ReactNode } from "react";
 import { NextRouter } from "next/router";
 import { Validate } from "react-hook-form";
+import { LoadingType } from "@/common/redux/features/loading";
 
 export interface LayoutProps {
   children: ReactNode;
@@ -42,6 +43,7 @@ export interface RootState {
   bodyRate: BodyRateType;
   dailyDietary: DailyDietaryType;
   goal: GoalType;
+  loading: LoadingType;
 }
 
 export interface ErrorData {

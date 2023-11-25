@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { ReactNode } from "react";
 import { useDispatch } from "react-redux";
 import { closeModal } from "../../redux/features/showModal";
@@ -16,7 +16,7 @@ const MiniModal: React.FC<MiniModalProps> = ({ children, modal }) => {
   return (
     <div className="cusModalBg z-20">
       <div className="cusModal p-32">
-        <div className="w-[278px] max-h-[320px] overflow-y-scroll lg:w-[756px]no-scrollbar">
+        <div className="w-[278px] max-h-[320px] overflow-y-scroll lg:w-[756px] no-scrollbar text-center">
           {children}
           <button
             className="absolute -top-[15px] -right-[15px] lg:-top-[25px] lg:-right-[25px]"
@@ -24,6 +24,7 @@ const MiniModal: React.FC<MiniModalProps> = ({ children, modal }) => {
           >
             <Image
               src="/images/dashboard/cross-btn.svg"
+              layout="fixed"
               width={isMobile ? 30 : 50}
               height={isMobile ? 30 : 50}
               alt="close"

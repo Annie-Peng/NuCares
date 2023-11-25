@@ -2,7 +2,7 @@ import {
   featuresData,
   webProcessData,
 } from "@/common/lib/dashboard/benefitData";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 
 const BenefitPage = () => {
@@ -13,17 +13,17 @@ const BenefitPage = () => {
       <section className="banner relative w-full h-[600px]">
         <Image
           src="/images/benefit/banner.svg"
-          fill
+          layout="fill"
           objectFit="cover"
           alt="banner"
         />
-        <div className="absolute left-1/2 bottom-[45px] -translate-x-1/2 flex flex-col gap-32 items-center bg-white py-28 w-[992px] bg-opacity-60 rounded-10">
-          <p className="text-[32px] font-bold">
+        <div className="absolute left-1/2 bottom-[45px] -translate-x-1/2 flex flex-col gap-32 items-center bg-white py-28 w-full lg:w-[992px] bg-opacity-60 rounded-10">
+          <p className="text-[32px] font-bold text-center">
             你我一起，Cares更多人的健康人生
           </p>
           <Link
             href="/apply"
-            className="text-center btn-cusBigSecondary w-full !text-24 lg:w-[278px]"
+            className="text-center btn-cusBigSecondary !text-24 w-[278px]"
           >
             加入我們
           </Link>
@@ -38,16 +38,17 @@ const BenefitPage = () => {
                 key={index}
                 className="flex items-center gap-16 max-w-[600px]"
               >
-                <div className="relative min-w-[314px] min-h-[248px] rounded-15">
+                <div className="relative w-1/2 h-full lg:min-w-[314px] lg:min-h-[248px] rounded-15">
                   <Image
                     src={`/images/benefit/features/${feature.photoName}.png`}
-                    fill
+                    layout="fill"
                     sizes="100vw"
+                    objectFit="cover"
                     alt={feature.photoName}
-                    className="rounded-15"
+                    className="rounded-15 "
                   />
                 </div>
-                <div>
+                <div className="w-1/2">
                   <p className="text-20 text-primary-600 font-bold">
                     {feature.title}
                   </p>
@@ -58,7 +59,7 @@ const BenefitPage = () => {
           })}
         </ul>
       </section>
-      <section className="webProcess py-50 lg:py-[70px] text-primary-600 bg-[#D6EBEE] font-GenSenRounded-700">
+      <section className="webProcess py-50 lg:py-[70px] text-primary-600 bg-primary-100 font-GenSenRounded-700">
         <h2 className="text-[32px] text-center font-[900px] font-GenSenRounded-900">
           只要五步驟，就能開始接單
         </h2>
@@ -69,7 +70,7 @@ const BenefitPage = () => {
                 <div className="relative min-w-[40px] h-[58px]">
                   <Image
                     src={`/images/benefit/web-process/${step.photoName}.svg`}
-                    fill
+                    layout="fill"
                     sizes="100vw"
                     alt={step.photoName}
                   />
@@ -91,7 +92,7 @@ const BenefitPage = () => {
                 <div className="relative min-w-[36px] h-[32px]">
                   <Image
                     src={`/images/benefit/web-process/arrow.svg`}
-                    fill
+                    layout="fill"
                     sizes="100vw"
                     alt="arrow"
                   />

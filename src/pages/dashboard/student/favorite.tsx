@@ -1,8 +1,10 @@
+import { showLoading } from "@/common/redux/features/loading";
 import { useFavoriteGetApiQuery } from "@/common/redux/service/favorite";
 import wrapper from "@/common/redux/store";
 import FavoriteCard from "@/modules/dashboard/student/favorite/FavoriteCard";
 import { getCookies } from "cookies-next";
 import { FC } from "react";
+import { useDispatch } from "react-redux";
 
 interface FavoritePageProps {
   [key: string]: any;
@@ -22,11 +24,16 @@ const FavoritePage: FC<FavoritePageProps> = ({ auth }) => {
     Token: auth.Token,
   });
 
-  if (isLoading || !data) {
-    return <p>Favorite is Loading</p>;
+  const dispatch = useDispatch();
+
+  if (isLoading) {
+    dispatch(showLoading(true));
+    return;
   }
 
-  console.log(data);
+  if (data) {
+    dispatch(showLoading(false));
+  }
 
   return (
     <div className="py-20 container lg:py-0">

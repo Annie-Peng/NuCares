@@ -1,10 +1,12 @@
+import { showLoading } from "@/common/redux/features/loading";
 import { usePlanGetApiQuery } from "@/common/redux/service/plan";
 import wrapper from "@/common/redux/store";
 import CourseAddForm from "@/modules/dashboard/nutritionist/workshop/CourseAddForm";
 import CourseBigCard from "@/modules/dashboard/nutritionist/workshop/CourseBigCard";
 import { getCookies } from "cookies-next";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { FC, ReactElement, useState } from "react";
+import { useDispatch } from "react-redux";
 
 interface NutritionistCoursePageProps {
   [key: string]: any;
@@ -23,18 +25,22 @@ interface RenderDataType {
 const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
   const Token = auth.Token;
   const [courseForms, setCourseForms] = useState<ReactElement[]>([]);
+  const dispatch = useDispatch();
 
   const { data: renderData, isLoading, error } = usePlanGetApiQuery({ Token });
 
-  if (isLoading || !renderData) {
-    return <p>Plan is Loading</p>;
+  if (isLoading) {
+    dispatch(showLoading(true));
+    return;
   }
 
   if (error) {
     console.log(error);
   }
 
-  console.log(renderData);
+  if (renderData) {
+    dispatch(showLoading(false));
+  }
 
   const handleDeleteClick = (formKey: string) => {
     setCourseForms((prevCourseForms) =>
@@ -55,12 +61,10 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
     ]);
   };
 
-  console.log(courseForms);
-
   return (
-    <div className="container">
+    <div className="container py-20 lg:py-0">
       <h2 className="cusPrimaryTitle">課程方案</h2>
-      <div className="p-20 bg-white mt-24 rounded-15">
+      <div className="px-20 lg:py-20 bg-white mt-32 rounded-15">
         <ul className="flex flex-col gap-20">
           {renderData.Data.map((item: RenderDataType) => (
             <li key={item.Id}>
@@ -86,6 +90,7 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
           <Image
             src="/images/dashboard/nutritionist/course/add.svg"
             alt="add"
+            layout="fixed"
             width={20}
             height={20}
           />

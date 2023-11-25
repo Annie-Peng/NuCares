@@ -1,6 +1,8 @@
 import { FC, useEffect, useState } from "react";
 import { Auth } from "@/types/interface";
 import { useOrderGetApiQuery } from "@/common/redux/service/order";
+import { useDispatch } from "react-redux";
+import { showLoading } from "@/common/redux/features/loading";
 
 const Tabs = ["時間", "訂單編號", "營養師/課程名稱", "金額", "付款方案"];
 
@@ -23,6 +25,7 @@ const OrderForm: FC<OrderFormProps> = ({ auth }) => {
     Current_page: 1,
     Total_pages: 1,
   });
+  const dispatch = useDispatch();
 
   const prevPage = showPage.Current_page - 1;
   const nextPage = showPage.Current_page + 1;
@@ -35,7 +38,11 @@ const OrderForm: FC<OrderFormProps> = ({ auth }) => {
   });
 
   useEffect(() => {
+    if (isLoading) {
+      dispatch(showLoading(true));
+    }
     if (data) {
+      dispatch(showLoading(false));
       setRenderData(data.Data);
       setShowPage(data.Pagination);
     }
@@ -45,8 +52,6 @@ const OrderForm: FC<OrderFormProps> = ({ auth }) => {
   }, [data, error]);
 
   if (!renderData) return null;
-
-  console.log(renderData);
 
   return (
     <div className="py-20 container lg:py-0 flex flex-col justify-between h-full">

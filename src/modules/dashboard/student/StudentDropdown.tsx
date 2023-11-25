@@ -1,6 +1,6 @@
 import studentTabs from "@/common/lib/dashboard/studentTabs";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import logoutTab from "@/common/lib/dashboard/logoutTab";
 import changeIdentity from "@/common/lib/dashboard/changeIdentity";
 import { deleteCookie, setCookie } from "cookies-next";
@@ -46,9 +46,14 @@ const StudentDropdown: FC<StudentDropdownProps> = ({ IsNutritionist }) => {
           一般會員
         </span>
         {IsNutritionist === "true" && (
-          <button type="button" onClick={handleChangeID}>
+          <button
+            type="button"
+            onClick={handleChangeID}
+            className="flex items-center"
+          >
             <Image
               src={`${changeIdentity.iconURL}.svg`}
+              layout="fixed"
               width={27}
               height={27}
               alt={changeIdentity.iconName}
@@ -62,15 +67,16 @@ const StudentDropdown: FC<StudentDropdownProps> = ({ IsNutritionist }) => {
           return (
             <li key={index}>
               <Link href={studentTab.tabURL} className="block py-8">
-                <div className="inline-block align-middle mr-6">
+                <div className="flex gap-6 relative items-center">
                   <Image
                     src={`${studentTab.iconURL}.svg`}
+                    layout="fixed"
                     width={20}
                     height={20}
                     alt={studentTab.iconName}
                   />
+                  <span>{studentTab.tab}</span>
                 </div>
-                <span className="align-middle">{studentTab.tab}</span>
               </Link>
             </li>
           );
@@ -78,11 +84,12 @@ const StudentDropdown: FC<StudentDropdownProps> = ({ IsNutritionist }) => {
       </ul>
       <button
         type="button"
-        className="pt-16 border-t w-full flex justify-center gap-6"
+        className="pt-16 border-t w-full flex justify-center items-center gap-6"
         onClick={handleLogoutClick}
       >
         <Image
           src={`${logoutTab.iconURL}.svg`}
+          layout="fixed"
           width={20}
           height={20}
           alt={logoutTab.iconName}

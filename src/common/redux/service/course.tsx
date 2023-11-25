@@ -30,7 +30,6 @@ export const course = createApi({
     }),
     coursePutStartApi: builder.mutation({
       query: ({ Token, CourseId, body }) => {
-        console.log(Token, CourseId, body);
         return {
           url: `/course/${CourseId}/start`,
           method: "PUT",
@@ -45,7 +44,6 @@ export const course = createApi({
     }),
     coursePostCommentApi: builder.mutation({
       query: ({ Token, CourseId, body }) => {
-        console.log(Token, CourseId, body);
         return {
           url: `/course/${CourseId}/comment`,
           method: "POST",

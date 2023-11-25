@@ -1,6 +1,6 @@
 import { selectPayment } from "@/common/redux/features/paymentPhases";
 import { Auth, PlanType } from "@/types/interface";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import paymentStep2 from "public/images/payment/paymentStep2.svg";
 import { FC } from "react";
 import { useSelector } from "react-redux";
@@ -22,8 +22,8 @@ const PaymentFormSecondPhase: FC<PaymentFormSecondPhase> = ({
       <div className="hidden mt-16 px-[140px] lg:block">
         <Image
           src={paymentStep2}
-          width="783"
-          height="45"
+          width={783}
+          height={45}
           layout="responsive"
           alt="paymentStep2"
         />

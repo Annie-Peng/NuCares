@@ -35,7 +35,7 @@ const studentInfoFormData: ComponentType[] = [
     hMsg: "會員顯示圖",
     pMsg: "圖片需小於 5mb",
     inputClass: "w-[294px] hidden",
-    labelClass: "mt-0",
+    labelClass: "!mt-0 lg:!mt-20",
     id: "ImgUrl",
     accept: "image/png, image/jpeg, image/jpg",
     Token: getCookie("Token"),
@@ -87,7 +87,7 @@ const studentInfoFormData: ComponentType[] = [
     children: (
       <p className="formContent">因營養師需依據身理性別計算身體所需營養</p>
     ),
-    selectClass: "w-[96px] relative bg-transparent",
+    selectClass: "w-[96px] z-10 relative bg-transparent",
     disabledOption: "請選擇",
     options: [
       { option: "男", value: "男" },
@@ -149,12 +149,9 @@ const StudentInfoForm: FC<StudentInfoFormProps> = ({ Token, renderData }) => {
   });
 
   if (apiReq) {
-    console.log(apiReq);
     const message = apiReq.Message || apiReq.data.Message;
     dispatch(showModal(["showTimerModal", { message, timer: 3000 }]));
   }
-
-  console.log(renderData);
 
   return (
     <div className="text-left flex flex-col cusDashboardInnerContainer mt-32">

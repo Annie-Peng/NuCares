@@ -1,5 +1,5 @@
 import { CommentType } from "@/pages/nutritionist-list/[nutritionistId]";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { FC } from "react";
 
 interface NutritionistCommentProps {
@@ -22,9 +22,10 @@ const NutritionistComment: FC<NutritionistCommentProps> = ({ comment }) => {
                   <li key={index}>
                     <Image
                       src="/images/icons/full-star.svg"
+                      layout="fixed"
                       width={20}
                       height={20}
-                      alt="star"
+                      alt="full-star"
                     />
                   </li>
                 );
@@ -33,9 +34,10 @@ const NutritionistComment: FC<NutritionistCommentProps> = ({ comment }) => {
                   <li key={index}>
                     <Image
                       src="/images/icons/empty-star.svg"
+                      layout="fixed"
                       width={20}
                       height={20}
-                      alt="star"
+                      alt="empty-star"
                     />
                   </li>
                 );

@@ -22,7 +22,6 @@ export const goalSlice = createSlice({
   },
   reducers: {
     storeGoal: (state, action) => {
-      console.log(action.payload);
       return action.payload;
     },
   },

@@ -10,7 +10,6 @@ interface StudentListPageProps {
 }
 
 const StudentListPage: FC<StudentListPageProps> = ({ auth }) => {
-  console.log(auth);
   return (
     <>
       <CourseForm auth={auth} />
@@ -25,7 +24,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async ({ req, res }) => {
       const auth = getCookies({ req, res });
       if (!auth.Token) {
-        res.writeHead(400, { Location: "/login" });
+        res.writeHead(302, { Location: "/login" });
         res.end();
       }
       return {

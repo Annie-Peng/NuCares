@@ -58,8 +58,6 @@ const NutritionistListPage: FC<NutritionistListPageProps> = ({
 
   const router = useRouter();
 
-  console.log(nutritionistsRenderData, pagination, filter, page, sort);
-
   const { showPage, setShowPage, renderPaginationData } = usePagination({
     pagination,
     url,
@@ -100,7 +98,7 @@ const NutritionistListPage: FC<NutritionistListPageProps> = ({
   };
 
   return (
-    <div className="container grid cusGrid my-24">
+    <div className="container grid cusGrid my-24 py-40">
       <div className="col-span-4 lg:col-start-2 lg:col-span-10">
         <div className="text-center text-20 font-bold">
           為您找到合適的營養師

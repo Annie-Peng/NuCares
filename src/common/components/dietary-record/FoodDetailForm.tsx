@@ -1,5 +1,5 @@
 import { FoodDetailContentType } from "@/common/lib/dashboard/dietary-record/foodDetail";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { FC } from "react";
 
 interface FoodDetailFormProps {
@@ -12,7 +12,7 @@ const FoodDetailForm: FC<FoodDetailFormProps> = ({ data }) => {
       <div className="flex justify-center items-center gap-14 text-20 font-bold lg:gap-[36px] lg:text-[36px]">
         <div>
           <div className="relative w-[84px] h-[84px] mx-auto lg:w-[140px] lg:h-[140px]">
-            <Image src={data.Photo} fill alt="starchQty" />
+            <Image src={data.Photo} layout="fill" alt={data.photoName} />
           </div>
           <p className="text-14 text-center mt-8">{data.photoName}</p>
         </div>

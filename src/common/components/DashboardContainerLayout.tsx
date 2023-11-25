@@ -2,7 +2,7 @@ import NutritionistSidebar from "@/modules/dashboard/nutritionist/NutritionistSi
 import StudentSidebar from "@/modules/dashboard/student/StudentSidebar";
 import { DashboardLayoutProps } from "@/types/interface";
 import login from "public/images/login.svg";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { getCookies } from "cookies-next";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -28,13 +28,15 @@ const DashboardContainerLayout = ({ children }: DashboardLayoutProps) => {
         <div className="w-[204px]">
           <div className="profile flex flex-col items-center">
             {isMounted && (
-              <Image
-                src={`${auth.ImgUrl}` || `${newImageUrl}` || login}
-                width="100"
-                height="100"
-                alt="profile-photo"
-                className="rounded-50 border border-white"
-              />
+              <div className="relative rounded-50 border border-white w-[100px] h-[100px]">
+                <Image
+                  src={`${auth.ImgUrl}` || `${newImageUrl}` || login}
+                  layout="fill"
+                  alt="profile-photo"
+                  className="rounded-50 object-cover"
+                  priority={true}
+                />
+              </div>
             )}
             {isMounted && UserCurrentStatus === "user" ? (
               <p className="px-10 bg-primary-500 text-white w-fit rounded-10 mt-16 text-12 font-bold">

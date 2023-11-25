@@ -19,12 +19,13 @@
 @import "datePicker";
 @import "fullCalendar";
 @import "swiper";
+@import "loading";
 
 @layer base {
   :root {
     font-family: "Helvetica Neue", "Noto Sans TC";
     line-height: 1.5;
-    @apply font-thin text-black-950 text-16 bg-white lg:bg-[#D6EBEE];
+    @apply font-thin text-black-950 text-16 bg-white lg:bg-primary-100;
   }
 
   th,
@@ -150,6 +151,12 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .testShadow {
+    background-color: rgba(0, 0, 0, 0.35);
+    color: transparent;
+    text-shadow: 2px 2px 3px rgba(255, 255, 255);
   }
 }
 
