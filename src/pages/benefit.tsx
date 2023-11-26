@@ -5,6 +5,7 @@ import {
 } from "@/common/lib/dashboard/benefitData";
 import Image from "next/legacy/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const BenefitPage = () => {
   const arrowNum = Array(webProcessData.length - 1).fill(null);
@@ -34,7 +35,16 @@ const BenefitPage = () => {
           </Link>
         </div>
       </section>
-      <section className="features py-50 lg:py-[70px] relative">
+      <motion.section
+        initial={{ opacity: 0, y: 100 }}
+        whileInView={{
+          opacity: 1,
+          y: 0,
+          transition: { duration: 1 },
+        }}
+        viewport={{ once: true }}
+        className="features py-50 lg:py-[70px] relative"
+      >
         <h2 className="text-center text-24 font-bold">加入我們的好處</h2>
         <ul className="flex flex-wrap gap-x-[95px] gap-y-16 justify-center mt-40 container">
           {featuresData.map((feature, index) => {
@@ -63,7 +73,7 @@ const BenefitPage = () => {
             );
           })}
         </ul>
-      </section>
+      </motion.section>
       <section className="webProcess py-50 lg:py-[70px] text-primary-600 bg-primary-100 font-GenSenRounded-700">
         <h2 className="text-[32px] text-center font-[900px] font-GenSenRounded-900">
           只要五步驟，就能開始接單

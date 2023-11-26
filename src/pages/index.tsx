@@ -14,6 +14,7 @@ import "swiper/css/navigation";
 import { FC } from "react";
 import useResize from "@/common/hooks/useResize";
 import MetaData from "@/common/components/MetaData";
+import { motion } from "framer-motion";
 
 interface NutritionistsType {
   Expertise: string[];
@@ -100,7 +101,16 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
           </Swiper>
         </ul>
       </section>
-      <section className="service container py-50 lg:py-[70px]">
+      <motion.section
+        initial={{ opacity: 0, y: 100 }}
+        whileInView={{
+          opacity: 1,
+          y: 0,
+          transition: { duration: 1 },
+        }}
+        viewport={{ once: true }}
+        className="service container py-50 lg:py-[70px]"
+      >
         <h2 className="text-24 text-center font-bold">您想要的健康服務</h2>
         <ul className="flex flex-wrap justify-center gap-26 mt-40">
           {serviceData.map((service, index) => {
@@ -128,8 +138,17 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
             );
           })}
         </ul>
-      </section>
-      <section className="features py-50 lg:py-[70px] relative bg-primary-100 font-GenSenRounded-700">
+      </motion.section>
+      <motion.section
+        initial={{ opacity: 0, y: 100 }}
+        whileInView={{
+          opacity: 1,
+          y: 0,
+          transition: { duration: 1 },
+        }}
+        viewport={{ once: true }}
+        className="features py-50 lg:py-[70px] relative bg-primary-100 font-GenSenRounded-700"
+      >
         <h2 className="text-primary-600 text-center">
           <div className="relative container max-w-[570px] mx-auto">
             <Image
@@ -162,8 +181,17 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
             );
           })}
         </ul>
-      </section>
-      <section className="successCase container py-[70px]">
+      </motion.section>
+      <motion.section
+        initial={{ opacity: 0, y: 100 }}
+        whileInView={{
+          opacity: 1,
+          y: 0,
+          transition: { duration: 1 },
+        }}
+        viewport={{ once: true }}
+        className="successCase container py-[70px]"
+      >
         <h2 className="text-24 font-bold text-center">成功案例</h2>
         <ul className="flex flex-col gap-[90px] mt-40 max-w-[1076px] mx-auto">
           {successCasesData.map((successCase, index) => {
@@ -175,7 +203,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
               >
                 <div
                   className={`relative w-full h-[245px] lg:w-[526px] lg:h-[331px] ${
-                    isEven ? "order-1" : "order-2"
+                    isEven ? "lg:order-1" : "lg:order-2"
                   }`}
                 >
                   <Image
@@ -194,7 +222,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                 </div>
                 <div
                   className={`flex flex-col gap-24 ${
-                    isEven ? "order-2" : "order-1"
+                    isEven ? "lg:order-2" : "lg:order-1"
                   }`}
                 >
                   <p className="text-22 font-bold">{successCase.title}</p>
@@ -216,7 +244,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
             );
           })}
         </ul>
-      </section>
+      </motion.section>
       <section className="webProcess py-50 lg:py-[70px] text-secondary-500 bg-secondary-100 font-GenSenRounded-700">
         <h2 className="text-[32px] text-center font-GenSenRounded-900">
           網站使用流程
