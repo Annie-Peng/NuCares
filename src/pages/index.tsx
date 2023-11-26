@@ -17,13 +17,6 @@ import { NutritionistsType } from "@/types/interface";
 import MetaData from "@/common/components/MetaData";
 import { motion } from "framer-motion";
 
-interface NutritionistsType {
-  Expertise: string[];
-  NutritionistId: number;
-  PortraitImage: string;
-  Title: string;
-}
-
 interface HomePageProps {
   nutritionists: NutritionistsType[];
 }
