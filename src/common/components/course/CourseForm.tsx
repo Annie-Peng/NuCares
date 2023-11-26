@@ -190,7 +190,9 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
           <thead>
             <tr>
               {IDTabs.tabs.map((tab, index) => (
-                <th key={index}>{tab}</th>
+                <th key={index} className="font-normal">
+                  {tab}
+                </th>
               ))}
             </tr>
           </thead>
@@ -274,7 +276,7 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
               </p>
               <hr className="border-primary-400" />
               <div className="text-14">
-                飲食生活問券：
+                飲食生活問卷：
                 {course.IsQuest ? (
                   <button
                     disabled={buttonClass[ID].IsQuest.true.disable}
