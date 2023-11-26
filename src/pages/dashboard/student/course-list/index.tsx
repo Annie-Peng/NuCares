@@ -1,13 +1,12 @@
 import MetaData from "@/common/components/MetaData";
 import CourseForm from "@/common/components/course/CourseForm";
 import wrapper from "@/common/redux/store";
+import { AuthType } from "@/types/interface";
 import { getCookies } from "cookies-next";
 import { FC } from "react";
 
 interface CourseListPageProps {
-  UserCurrentStatus: string;
-  Token: string;
-  [key: string]: any;
+  auth: AuthType;
 }
 
 const CourseListPage: FC<CourseListPageProps> = ({ auth }) => {

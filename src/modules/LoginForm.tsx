@@ -14,11 +14,10 @@ import {
   commonEmailPattern,
   commonPasswordPattern,
 } from "@/common/lib/dashboard/errMsg/commonErrMsg";
+import { BasicRegisterFormInput } from "@/types/interface";
 
-interface LoginType {
-  [key: string]: string;
-  Email: string;
-  Password: string;
+interface LoginType extends BasicRegisterFormInput {
+  [key: string]: string | undefined;
 }
 const LoginForm = () => {
   const {

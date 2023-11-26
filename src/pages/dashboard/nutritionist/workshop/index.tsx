@@ -3,12 +3,13 @@ import { showLoading } from "@/common/redux/features/loading";
 import { useIntroGetApiQuery } from "@/common/redux/service/intro";
 import wrapper from "@/common/redux/store";
 import NutritionistIntroForm from "@/modules/dashboard/nutritionist/workshop/NutritionistIntroForm";
+import { AuthType } from "@/types/interface";
 import { getCookies } from "cookies-next";
 import { FC } from "react";
 import { useDispatch } from "react-redux";
 
 interface StudentListPageProps {
-  [key: string]: any;
+  auth: AuthType;
 }
 
 const NutritionistIntroPage: FC<StudentListPageProps> = ({ auth }) => {
@@ -36,7 +37,10 @@ const NutritionistIntroPage: FC<StudentListPageProps> = ({ auth }) => {
       <div className="py-20 container lg:py-0">
         <h2 className="cusPrimaryTitle">關於我</h2>
         <div className="px-20 lg:px-0">
-          <NutritionistIntroForm Token={auth.Token} renderData={data.Data} />
+          <NutritionistIntroForm
+            Token={auth.Token}
+            nutritionistIntroData={data.Data}
+          />
         </div>
       </div>
     </>

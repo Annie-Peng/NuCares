@@ -1,19 +1,19 @@
 import MetaData from "@/common/components/MetaData";
 import wrapper from "@/common/redux/store";
 import OrderForm from "@/modules/dashboard/student/order/OrderForm";
-import { Auth } from "@/types/interface";
+import { AuthType } from "@/types/interface";
 import { getCookies } from "cookies-next";
 import { FC } from "react";
 
 interface OrderPageProps {
-  auth: Auth;
+  auth: AuthType;
 }
 
 const OrderPage: FC<OrderPageProps> = ({ auth }) => {
   return (
     <>
       <MetaData title="訂單紀錄" />
-      <OrderForm auth={auth} />
+      <OrderForm Token={auth.Token} />;
     </>
   );
 };

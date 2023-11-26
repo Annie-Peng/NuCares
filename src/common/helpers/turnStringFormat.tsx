@@ -1,5 +1,4 @@
-import { Meal } from "../lib/dashboard/dietary-record/foodMenu";
-import { DailyDietaryType } from "../redux/features/dietary-record/dailyDietary";
+import { MealType, DailyDietaryType } from "@/types/interface";
 
 const slashFormatKey = [
   "Protein",
@@ -21,7 +20,7 @@ interface ObjType {
 }
 
 const turnStringFormat = (
-  data: Record<string, string> | string | Meal | DailyDietaryType,
+  data: Record<string, string> | string | MealType | DailyDietaryType,
   format: string
 ) => {
   switch (format) {

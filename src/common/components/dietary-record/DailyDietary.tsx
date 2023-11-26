@@ -16,7 +16,7 @@ import useUploadFile, {
   HandleUploadFileProps,
   InitFileSrcFoodType,
 } from "@/common/hooks/useUploadFile";
-import { DailyDietaryType } from "@/common/redux/features/dietary-record/dailyDietary";
+import { DailyDietaryType } from "@/types/interface";
 import turnStringFormat from "@/common/helpers/turnStringFormat";
 import {
   useDailyDietaryGetApiQuery,

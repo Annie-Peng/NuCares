@@ -2,46 +2,25 @@ import MetaData from "@/common/components/MetaData";
 import wrapper from "@/common/redux/store";
 import CourseNormalCard from "@/modules/CourseNormalCard";
 import NutritionistIntro from "@/modules/NutritionistIntro";
+import {
+  CommentType,
+  Favorite,
+  Gender,
+  NutritionistIntroDataType,
+  PlanType,
+  RateAVG,
+} from "@/types/interface";
 import axios from "axios";
 import { getCookies } from "cookies-next";
 import { useRouter } from "next/router";
 import { FC } from "react";
 
-interface NutritionistType {
-  Id: number;
-}
-
-export interface PlanType {
-  Id: number;
-  Rank: string;
-  CourseName: string;
-  CourseWeek: string;
-  CoursePrice: string;
-  Tag: string;
-  Detail: string;
-}
-
-export interface CommentType {
-  UserName: string;
-  Content: string;
-  Rate: number;
-  CreateDate: string;
-}
-
-export interface NutritionistDataType {
-  Title: string;
-  PortraitImage: string;
-  Expertise: string[];
-  Gender: string;
-  City: string;
-  Education: string;
-  Experience: string;
-  AboutMe: string;
-  CourseIntro: string;
+export interface NutritionistDataType extends NutritionistIntroDataType {
+  Gender: Gender;
   Plan: PlanType[];
   Comment: CommentType[];
-  RateAVG: number;
-  Favorite: boolean;
+  RateAVG: RateAVG;
+  Favorite: Favorite;
 }
 
 interface NutritionistIdPageProps {

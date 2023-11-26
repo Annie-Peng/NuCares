@@ -1,51 +1,7 @@
-import { RootState } from "@/types/interface";
+import { DailyDietaryType, RootState } from "@/types/interface";
 import { createSlice } from "@reduxjs/toolkit";
 
-interface Meal {
-  Id: string;
-  DailyLogId: string;
-  MealTime: string;
-  MealDescription: string;
-  Image: string;
-  Starch: string;
-  Protein: string;
-  Vegetable: string;
-  StarchAchieved: boolean;
-  ProteinAchieved: boolean;
-  VegetableAchieved: boolean;
-}
-
-export interface DailyDietaryType {
-  [key: string]: string | boolean | Meal;
-  Id: string;
-  InsertDate: string;
-  StarchSum: string;
-  ProteinSum: string;
-  VegetableSum: string;
-  OilSum: string;
-  FruitSum: string;
-  WaterSum: string;
-  StarchSumAchieved: boolean;
-  ProteinSumAchieved: boolean;
-  VegetableSumAchieved: boolean;
-  OilSumAchieved: boolean;
-  FruitSumAchieved: boolean;
-  WaterSumAchieved: boolean;
-  Breakfast: Meal;
-  Lunch: Meal;
-  Dinner: Meal;
-  Fruit: string;
-  FruitDescription: string;
-  FruitImgUrl: string;
-  Oil: string;
-  OilDescription: string;
-  OilImgUrl: string;
-  Water: string;
-  WaterDescription: string;
-  WaterImgUrl: string;
-}
-
-const initDailyDietary = {
+const initDailyDietary: DailyDietaryType = {
   Id: "",
   InsertDate: "",
   StarchSum: "",

@@ -1,12 +1,12 @@
 import MetaData from "@/common/components/MetaData";
 import wrapper from "@/common/redux/store";
 import UpdatePasswordForm from "@/modules/dashboard/student/update-password/UpdatePasswordForm";
-import { Auth } from "@/types/interface";
+import { AuthType } from "@/types/interface";
 import { getCookies } from "cookies-next";
 import { FC } from "react";
 
 interface UpdatePasswordPageProps {
-  auth: Auth;
+  auth: AuthType;
 }
 
 const UpdatePasswordPage: FC<UpdatePasswordPageProps> = ({ auth }) => {

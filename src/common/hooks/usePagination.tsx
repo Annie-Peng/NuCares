@@ -1,10 +1,11 @@
+import { PaginationType } from "@/types/interface";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FC, useState, Dispatch, SetStateAction, useEffect } from "react";
 
 interface JSXPaginationProps {
-  showPage: Record<string, number>;
-  setShowPage: Dispatch<SetStateAction<Record<string, number>>>;
+  showPage: PaginationType;
+  setShowPage: Dispatch<SetStateAction<PaginationType>>;
   prevPage: number;
   nextPage: number;
   url: string;
@@ -13,10 +14,7 @@ interface JSXPaginationProps {
 }
 
 interface UsePaginationProps {
-  pagination: {
-    Current_page: number;
-    Total_pages: number;
-  };
+  pagination: PaginationType;
   url: string;
   filter?: string;
   sort?: string;
@@ -133,7 +131,7 @@ const usePagination = ({
   filter,
   sort,
 }: UsePaginationProps) => {
-  const [showPage, setShowPage] = useState<Record<string, number>>({
+  const [showPage, setShowPage] = useState<PaginationType>({
     Current_page: pagination.Current_page,
     Total_pages: pagination.Total_pages,
   });

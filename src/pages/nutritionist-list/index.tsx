@@ -1,36 +1,24 @@
 import MetaData from "@/common/components/MetaData";
 import usePagination from "@/common/hooks/usePagination";
 import NutritionistCard from "@/modules/NutritionistCard";
+import {
+  PaginationType,
+  PlanType,
+  NutritionistDataType,
+} from "@/types/interface";
 import axios from "axios";
 import { getCookies } from "cookies-next";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { FC } from "react";
 
-export interface PlanType {
-  Rank: number;
-  CourseName: string;
-  CourseWeek: number;
-  CoursePrice: number;
-  Tag: string;
-}
-
-export interface NutritionistsRenderDataType {
-  Id: string;
-  Title: string;
-  PortraitImage: string;
-  Expertise: string[];
-  AboutMe: string;
-  Favorite: boolean;
+export type NutritionistsRenderDataType = NutritionistDataType & {
   Plan: PlanType[];
-}
+};
 
 interface NutritionistListPageProps {
   nutritionistsRenderData: NutritionistsRenderDataType[];
-  pagination: {
-    Current_page: number;
-    Total_pages: number;
-  };
+  pagination: PaginationType;
   filter: string;
   page: string;
   sort: string;

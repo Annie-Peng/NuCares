@@ -1,4 +1,4 @@
-import { CommentType } from "@/pages/nutritionist-list/[nutritionistId]";
+import { CommentType } from "@/types/interface";
 import Image from "next/legacy/image";
 import { FC } from "react";
 

@@ -7,16 +7,15 @@ import {
   useGoalGetApiQuery,
 } from "@/common/redux/service/courseRecord";
 import wrapper from "@/common/redux/store";
+import { AuthType } from "@/types/interface";
 import { getCookies } from "cookies-next";
 import { useRouter } from "next/router";
 import { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 interface CourseIdProps {
-  Token: string;
+  auth: AuthType;
   CourseId: string;
-  UserCurrentStatus: string;
-  [key: string]: any;
 }
 
 const CourseIdPage: FC<CourseIdProps> = ({ auth }) => {

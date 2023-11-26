@@ -1,5 +1,3 @@
-import { FC } from "react";
-
 export interface CourseTabs {
   [key: string]: {
     listName: string;

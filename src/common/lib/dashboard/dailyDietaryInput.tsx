@@ -1,5 +1,3 @@
-import { TypeInput } from "@/types/interface";
-
 interface DailyDietaryInputType {
   [key: string]: {
     name: string;

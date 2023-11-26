@@ -3,12 +3,13 @@ import { showLoading } from "@/common/redux/features/loading";
 import { useProfileGetApiQuery } from "@/common/redux/service/profile";
 import wrapper from "@/common/redux/store";
 import StudentInfoForm from "@/modules/dashboard/student/info/StudentInfoForm";
+import { AuthType } from "@/types/interface";
 import { getCookies } from "cookies-next";
 import { FC } from "react";
 import { useDispatch } from "react-redux";
 
 interface InfoPageProps {
-  [key: string]: any;
+  auth: AuthType;
 }
 
 const InfoPage: FC<InfoPageProps> = ({ auth }) => {
@@ -35,7 +36,7 @@ const InfoPage: FC<InfoPageProps> = ({ auth }) => {
       <div className="py-20 container lg:py-0">
         <h2 className="cusPrimaryTitle">會員資料</h2>
         <div className="px-20 lg:px-0">
-          <StudentInfoForm Token={Token} renderData={data.Data} />
+          <StudentInfoForm Token={Token} studentInfoData={data.Data} />
         </div>
       </div>
     </>

@@ -1,6 +1,6 @@
 import useEditForm from "@/common/hooks/useEditForm";
 import { useApplyPostApiMutation } from "@/common/redux/service/apply";
-import { ComponentType } from "@/types/interface";
+import { ComponentType, Token } from "@/types/interface";
 import {
   commonErrMsgClass,
   commonRequiredErrMsg,
@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import { showModal } from "@/common/redux/features/showModal";
 
 interface ApplyFormProps {
-  Token: string;
+  Token: Token;
 }
 
 const ApplyFormData: ComponentType[] = [
