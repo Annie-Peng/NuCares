@@ -1,3 +1,4 @@
+import MetaData from "@/common/components/MetaData";
 import wrapper from "@/common/redux/store";
 import OrderForm from "@/modules/dashboard/student/order/OrderForm";
 import { AuthType } from "@/types/interface";
@@ -9,7 +10,12 @@ interface OrderPageProps {
 }
 
 const OrderPage: FC<OrderPageProps> = ({ auth }) => {
-  return <OrderForm Token={auth.Token} />;
+  return (
+    <>
+      <MetaData title="訂單紀錄" />
+      <OrderForm Token={auth.Token} />;
+    </>
+  );
 };
 
 export default OrderPage;

@@ -1,3 +1,4 @@
+import MetaData from "@/common/components/MetaData";
 import { showLoading } from "@/common/redux/features/loading";
 import { useProfileGetApiQuery } from "@/common/redux/service/profile";
 import wrapper from "@/common/redux/store";
@@ -30,12 +31,15 @@ const InfoPage: FC<InfoPageProps> = ({ auth }) => {
   }
 
   return (
-    <div className="py-20 container lg:py-0">
-      <h2 className="cusPrimaryTitle">會員資料</h2>
-      <div className="px-20 lg:px-0">
-        <StudentInfoForm Token={Token} studentInfoData={data.Data} />
+    <>
+      <MetaData title="會員資料" />
+      <div className="py-20 container lg:py-0">
+        <h2 className="cusPrimaryTitle">會員資料</h2>
+        <div className="px-20 lg:px-0">
+          <StudentInfoForm Token={Token} studentInfoData={data.Data} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

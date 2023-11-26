@@ -1,3 +1,4 @@
+import MetaData from "@/common/components/MetaData";
 import CourseRecord from "@/common/components/dietary-record/CourseRecord";
 import { storeBodyRate } from "@/common/redux/features/dietary-record/bodyRate";
 import { storeGoal } from "@/common/redux/features/dietary-record/goal";
@@ -63,12 +64,18 @@ const StudentIdPage: FC<StudentIdProps> = ({ auth }) => {
     }
   }, [BodyInfo, Goal, BodyInfoError, GoalError]);
 
+  const title = auth.UserCurrentStatus === "user" ? "我的紀錄" : "學員紀錄";
+
   return (
-    <CourseRecord
-      Token={auth.Token}
-      UserCurrentStatus={auth.UserCurrentStatus}
-      CourseId={courseId as string}
-    />
+    <>
+      <MetaData title={title} />
+      <CourseRecord
+        Token={auth.Token}
+        UserCurrentStatus={auth.UserCurrentStatus}
+        title={title}
+        CourseId={courseId as string}
+      />
+    </>
   );
 };
 

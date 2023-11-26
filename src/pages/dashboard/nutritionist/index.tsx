@@ -1,3 +1,4 @@
+import MetaData from "@/common/components/MetaData";
 import CourseForm from "@/common/components/course/CourseForm";
 import wrapper from "@/common/redux/store";
 import { AuthType } from "@/types/interface";
@@ -9,7 +10,12 @@ interface StudentListPageProps {
 }
 
 const StudentListPage: FC<StudentListPageProps> = ({ auth }) => {
-  return <CourseForm auth={auth} />;
+  return (
+    <>
+      <MetaData title="學員列表" />
+      <CourseForm auth={auth} />
+    </>
+  );
 };
 
 export default StudentListPage;

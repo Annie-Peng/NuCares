@@ -14,12 +14,14 @@ import { useDispatch } from "react-redux";
 interface CourseRecordProps {
   Token: string;
   UserCurrentStatus: string;
+  title: string;
   CourseId: string;
 }
 
 const CourseRecord: FC<CourseRecordProps> = ({
   Token,
   UserCurrentStatus,
+  title,
   CourseId,
 }) => {
   const isMobile: boolean = useResize();
@@ -50,7 +52,7 @@ const CourseRecord: FC<CourseRecordProps> = ({
       >
         返回我的課程列表
       </Link>
-      <h2 className="cusPrimaryTitle py-4 hidden lg:block">我的紀錄</h2>
+      <h2 className="cusPrimaryTitle py-4 hidden lg:block">{title}</h2>
       <div className="flex flex-wrap gap-12 w-full justify-center relative lg:mt-12">
         <InfoBtn
           Token={Token}
