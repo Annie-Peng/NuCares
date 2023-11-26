@@ -19,7 +19,7 @@ const TimerModal: FC<TimerModalProps> = ({ data, modal }) => {
   });
 
   return (
-    <div className="cusModalBg z-20">
+    <div className="cusModalBg z-30">
       <div className="cusModal p-32">
         <div className="w-[278px] max-h-[320px] overflow-y-scroll lg:w-[756px] text-center no-scrollbar">
           {data.message}

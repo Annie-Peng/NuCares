@@ -1,4 +1,4 @@
-import { PlanType } from "@/pages/nutritionist-list/[nutritionistId]";
+import { PlanType } from "@/types/interface";
 import { getCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { FC } from "react";

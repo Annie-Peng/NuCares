@@ -1,4 +1,4 @@
-import { DailyDietaryType } from "@/common/redux/features/dietary-record/dailyDietary";
+import { DailyDietaryType } from "@/types/interface";
 
 interface FoodIconType {
   [key: string]: FoodType;
@@ -77,20 +77,6 @@ export interface Event {
   };
 }
 
-export interface Meal {
-  Id: string;
-  DailyLogId: string;
-  MealTime: string;
-  MealDescription: string;
-  Image: string;
-  Starch: string;
-  Protein: string;
-  Vegetable: string;
-  StarchAchieved: boolean;
-  ProteinAchieved: boolean;
-  VegetableAchieved: boolean;
-}
-
 export const weekDays: string[] = ["日", "一", "二", "三", "四", "五", "六"];
 
 export interface Tab {
@@ -158,69 +144,3 @@ export const foodIcons: FoodIcon[] = [
     showTab: ["All", "Water"],
   },
 ];
-
-export const dailyDietaryType: DailyDietaryType = {
-  Id: "1",
-  InsertDate: "2023-11-01",
-  StarchSum: "1, 3",
-  ProteinSum: "2, 9",
-  VegetableSum: "3, 6",
-  OilSum: "1, 1",
-  FruitSum: "2, 3",
-  WaterSum: "3700, 2000",
-  StarchSumAchieved: false,
-  ProteinSumAchieved: false,
-  VegetableSumAchieved: false,
-  OilSumAchieved: true,
-  FruitSumAchieved: true,
-  WaterSumAchieved: false,
-  Breakfast: {
-    Id: "1",
-    DailyLogId: "1",
-    MealTime: "早餐",
-    MealDescription: "吐司...",
-    Image: "/upload/images/...",
-    Starch: "BStarch,2",
-    Protein: "BProtein,2",
-    Vegetable: "BVegetable,2",
-    StarchAchieved: false,
-    ProteinAchieved: true,
-    VegetableAchieved: true,
-  },
-  Lunch: {
-    // {
-    Id: "2",
-    DailyLogId: "1",
-    MealTime: "午餐",
-    MealDescription: "吐司...",
-    Image: "/upload/images/...",
-    Starch: "LStarch,2",
-    Protein: "LProtein,2",
-    Vegetable: "LVegetable,2",
-    StarchAchieved: true,
-    ProteinAchieved: false,
-    VegetableAchieved: true,
-  },
-  Dinner: {
-    Id: "3",
-    DailyLogId: "1",
-    MealTime: "晚餐",
-    MealDescription: "吐司...",
-    Image: "/upload/images/...",
-    Starch: "DStarch,2",
-    Protein: "DProtein,2",
-    Vegetable: "Degetable,2",
-    StarchAchieved: true,
-    ProteinAchieved: true,
-    VegetableAchieved: false,
-  },
-  Fruit: "Fruit,Fruit",
-  FruitDescription: "",
-  FruitImgUrl: "/upload/images/...",
-  Oil: "Oil,Oil",
-  OilDescription: "",
-  OilImgUrl: "/upload/images/...",
-  Water: "Water,Water",
-  WaterDescription: "",
-  WaterImgUrl: "/upload/images/...",
-};

@@ -1,25 +1,17 @@
+import MetaData from "@/common/components/MetaData";
 import { showLoading } from "@/common/redux/features/loading";
 import { usePlanGetApiQuery } from "@/common/redux/service/plan";
 import wrapper from "@/common/redux/store";
 import CourseAddForm from "@/modules/dashboard/nutritionist/workshop/CourseAddForm";
 import CourseBigCard from "@/modules/dashboard/nutritionist/workshop/CourseBigCard";
+import { AuthType, PlanType } from "@/types/interface";
 import { getCookies } from "cookies-next";
 import Image from "next/legacy/image";
 import { FC, ReactElement, useState } from "react";
 import { useDispatch } from "react-redux";
 
 interface NutritionistCoursePageProps {
-  [key: string]: any;
-}
-
-interface RenderDataType {
-  Id: number;
-  Rank: number;
-  CourseName: string;
-  CourseWeek: number;
-  CoursePrice: number;
-  Tag: string;
-  Detail: string;
+  auth: AuthType;
 }
 
 const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
@@ -62,42 +54,45 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
   };
 
   return (
-    <div className="container py-20 lg:py-0">
-      <h2 className="cusPrimaryTitle">課程方案</h2>
-      <div className="px-20 lg:py-20 bg-white mt-32 rounded-15">
-        <ul className="flex flex-col gap-20">
-          {renderData.Data.map((item: RenderDataType) => (
-            <li key={item.Id}>
-              <CourseBigCard Token={Token} planData={item} />
-            </li>
-          ))}
-        </ul>
-        <ul>
-          {courseForms.map((form) => (
-            <li
-              key={form.key}
-              className="mt-20 px-20 pt-20 pb-40 bg-white rounded-10 border border-secondary-400 text-left"
-            >
-              {form}
-            </li>
-          ))}
-        </ul>
-        <button
-          type="button"
-          className="text-left mx-auto btn-cusWritePrimary !px-20 !py-8 mt-32 flex items-center gap-4 lg:mt-20 lg:mx-0"
-          onClick={handleAddCourseClick}
-        >
-          <Image
-            src="/images/dashboard/nutritionist/course/add.svg"
-            alt="add"
-            layout="fixed"
-            width={20}
-            height={20}
-          />
-          新增方案
-        </button>
+    <>
+      <MetaData title="課程方案" />
+      <div className="container py-20 lg:py-0">
+        <h2 className="cusPrimaryTitle">課程方案</h2>
+        <div className="px-20 lg:py-20 bg-white mt-32 rounded-15">
+          <ul className="flex flex-col gap-20">
+            {renderData.Data.map((planData: PlanType) => (
+              <li key={planData.Id}>
+                <CourseBigCard Token={Token} planData={planData} />
+              </li>
+            ))}
+          </ul>
+          <ul>
+            {courseForms.map((form) => (
+              <li
+                key={form.key}
+                className="mt-20 px-20 pt-20 pb-40 bg-white rounded-10 border border-secondary-400 text-left"
+              >
+                {form}
+              </li>
+            ))}
+          </ul>
+          <button
+            type="button"
+            className="text-left mx-auto btn-cusWritePrimary !px-20 !py-8 mt-32 flex items-center gap-4 lg:mt-20 lg:mx-0"
+            onClick={handleAddCourseClick}
+          >
+            <Image
+              src="/images/dashboard/nutritionist/course/add.svg"
+              alt="add"
+              layout="fixed"
+              width={20}
+              height={20}
+            />
+            新增方案
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -6,10 +6,11 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { FC, useState } from "react";
 import { usePaymentGetApiQuery } from "@/common/redux/service/payment";
-import { Auth } from "@/types/interface";
+import { AuthType } from "@/types/interface";
+import MetaData from "@/common/components/MetaData";
 
 interface PaymentPageProps {
-  auth: Auth;
+  auth: AuthType;
 }
 
 const PaymentPage: FC<PaymentPageProps> = ({ auth }) => {
@@ -28,32 +29,34 @@ const PaymentPage: FC<PaymentPageProps> = ({ auth }) => {
   }
 
   return (
-    <div className="container text-center grid cusGrid py-40 lg:py-[64px]">
-      <div className=" col-span-4 lg:col-start-2 lg:col-span-10 ">
-        <Link
-          href={`/nutritionist-list/${nutritionist}`}
-          className="text-left block border-b border-black-950 w-fit"
-        >
-          {"<"} 返回營養師專頁
-        </Link>
-        <h2 className="text-24 font-bold mt-16">結帳</h2>
-        {currentPhase === 1 && (
-          <PaymentForm
-            auth={auth}
-            renderData={renderData.Data}
-            setCurrentPhase={setCurrentPhase}
-            planId={plan as string}
-          />
-        )}
-        {currentPhase === 2 && (
-          <PaymentFormSecondPhase
-            auth={auth}
-            setCurrentPhase={setCurrentPhase}
-            renderData={renderData.Data}
-          />
-        )}
+    <>
+      <MetaData title="結帳" />
+      <div className="container text-center grid cusGrid py-40 lg:py-[64px]">
+        <div className=" col-span-4 lg:col-start-2 lg:col-span-10 ">
+          <Link
+            href={`/nutritionist-list/${nutritionist}`}
+            className="text-left block border-b border-black-950 w-fit"
+          >
+            {"<"} 返回營養師專頁
+          </Link>
+          <h2 className="text-24 font-bold mt-16">結帳</h2>
+          {currentPhase === 1 && (
+            <PaymentForm
+              auth={auth}
+              renderData={renderData.Data}
+              setCurrentPhase={setCurrentPhase}
+              planId={plan as string}
+            />
+          )}
+          {currentPhase === 2 && (
+            <PaymentFormSecondPhase
+              setCurrentPhase={setCurrentPhase}
+              renderData={renderData.Data}
+            />
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

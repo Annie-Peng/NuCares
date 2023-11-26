@@ -1,4 +1,9 @@
-import { ComponentType } from "@/types/interface";
+import {
+  ComponentType,
+  NutritionistContactType,
+  NutritionistIntroDataType,
+  Token,
+} from "@/types/interface";
 import cities from "@/common/lib/dashboard/cities";
 import { getCookie } from "cookies-next";
 import {
@@ -14,21 +19,8 @@ import { useDispatch } from "react-redux";
 import { showModal } from "@/common/redux/features/showModal";
 
 interface NutritionistIntroFormProps {
-  Token: string;
-  renderData: {
-    IsPublic: boolean;
-    PortraitImage: string;
-    Title: string;
-    City: string;
-    Expertise: string[];
-    Education: string;
-    Experience: string;
-    AboutMe: string;
-    CourseIntro: string;
-    Option1: string;
-    Option2: string;
-    Option3: string;
-  };
+  Token: Token;
+  nutritionistIntroData: NutritionistIntroDataType & NutritionistContactType;
 }
 
 const cityOption = cities.map((data) => {
@@ -187,24 +179,24 @@ const buttonJSX = (
 
 const NutritionistIntroForm: FC<NutritionistIntroFormProps> = ({
   Token,
-  renderData,
+  nutritionistIntroData,
 }) => {
   const dispatch = useDispatch();
   const [introPutApi] = useIntroPutApiMutation();
 
   const initialState = {
-    IsPublic: renderData.IsPublic,
-    PortraitImage: renderData.PortraitImage,
-    Title: renderData.Title,
-    City: renderData.City,
-    Expertise: renderData.Expertise,
-    Education: renderData.Education,
-    Experience: renderData.Experience,
-    AboutMe: renderData.AboutMe,
-    CourseIntro: renderData.CourseIntro,
-    Option1: renderData.Option1,
-    Option2: renderData.Option2,
-    Option3: renderData.Option3,
+    IsPublic: nutritionistIntroData.IsPublic || false,
+    PortraitImage: nutritionistIntroData.PortraitImage,
+    Title: nutritionistIntroData.Title,
+    City: nutritionistIntroData.City,
+    Expertise: nutritionistIntroData.Expertise,
+    Education: nutritionistIntroData.Education,
+    Experience: nutritionistIntroData.Experience,
+    AboutMe: nutritionistIntroData.AboutMe,
+    CourseIntro: nutritionistIntroData.CourseIntro,
+    Option1: nutritionistIntroData.Option1,
+    Option2: nutritionistIntroData.Option2,
+    Option3: nutritionistIntroData.Option3,
   };
 
   const putApiData = { Token };

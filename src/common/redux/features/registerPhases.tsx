@@ -1,7 +1,7 @@
-import { RootState } from "@/types/interface";
+import { RegisterData, RootState } from "@/types/interface";
 import { createSlice } from "@reduxjs/toolkit";
 
-const registerData = {
+const registerData: RegisterData = {
   Email: "",
   Password: "",
   UserName: "",

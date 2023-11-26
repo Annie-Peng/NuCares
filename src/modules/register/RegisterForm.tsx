@@ -15,12 +15,11 @@ import {
   commonEmailPattern,
   commonPasswordPattern,
 } from "@/common/lib/dashboard/errMsg/commonErrMsg";
+import { BasicRegisterFormInput } from "@/types/interface";
 
-export interface FormInput {
-  [key: string]: string;
-  Email: string;
-  Password: string;
+export interface RegisterFormInput extends BasicRegisterFormInput {
   RePassword: string;
+  [key: string]: string | undefined;
 }
 
 const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
@@ -36,9 +35,9 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
     register,
     formState: { errors },
     setError,
-  } = useForm<FormInput>();
+  } = useForm<RegisterFormInput>();
 
-  const onSubmit: SubmitHandler<FormInput> = async (formData) => {
+  const onSubmit: SubmitHandler<RegisterFormInput> = async (formData) => {
     try {
       dispatch(storeRegisterForm(formData));
       const result = await userRegisterEmailPostApi(formData).unwrap();

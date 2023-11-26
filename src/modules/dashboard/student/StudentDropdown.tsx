@@ -27,8 +27,6 @@ const StudentDropdown: FC<StudentDropdownProps> = ({ IsNutritionist }) => {
     return studentTab;
   });
 
-  console.log(newStudentTabs);
-
   const handleLogoutClick = () => {
     deleteCookie("Token");
     deleteCookie("UserName");

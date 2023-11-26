@@ -1,4 +1,4 @@
-import { ComponentType } from "@/types/interface";
+import { ComponentType, Token } from "@/types/interface";
 import { FC, useState } from "react";
 import {
   commonErrMsgClass,
@@ -11,12 +11,12 @@ import useEditForm from "@/common/hooks/useEditForm";
 import { showModal } from "@/common/redux/features/showModal";
 
 interface UpdatePasswordFormProps {
-  Token: string;
+  Token: Token;
 }
 
 interface ShowPasswordType {
   OldPassword: boolean;
-  NewPassword: boolean;
+  Password: boolean;
   RePassword: boolean;
 }
 
@@ -26,7 +26,9 @@ const passwordCloseIconClass =
 const passwordOpenIconClass =
   "bg-eyeOpenIcon bottom-0 right-12 -translate-y-[55%] block absolute content-[''] w-20 h-20 lg:right-0 lg:left-[328px]";
 
-const updatePasswordData: ComponentType[] = [
+const updatePasswordData: Array<
+  ComponentType & { name: keyof ShowPasswordType }
+> = [
   {
     component: "input",
     name: "OldPassword",
@@ -87,12 +89,12 @@ const buttonJSX = (
 const UpdatePasswordForm: FC<UpdatePasswordFormProps> = ({ Token }) => {
   const [showPassword, setShowPassword] = useState<ShowPasswordType>({
     OldPassword: false,
-    NewPassword: false,
+    Password: false,
     RePassword: false,
   });
 
   const newUpdatePasswordData = updatePasswordData.map((data) => {
-    const showPasswordDataName = data.name as keyof ShowPasswordType;
+    const showPasswordDataName = data.name;
     const newType = showPassword[showPasswordDataName] ? "text" : "password";
 
     const newChildren = (

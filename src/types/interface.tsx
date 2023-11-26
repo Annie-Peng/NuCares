@@ -1,13 +1,12 @@
 import { InitFileSrcFoodType } from "@/common/hooks/useUploadFile";
-import { BodyRateType } from "@/common/redux/features/dietary-record/bodyRate";
-import { DailyDietaryType } from "@/common/redux/features/dietary-record/dailyDietary";
-import { GoalType } from "@/common/redux/features/dietary-record/goal";
 import { PaymentDataType } from "@/common/redux/features/paymentPhases";
 import { ShowModalType } from "@/common/redux/features/showModal";
 import { ReactNode } from "react";
 import { NextRouter } from "next/router";
 import { Validate } from "react-hook-form";
 import { LoadingType } from "@/common/redux/features/loading";
+
+// Common
 
 export interface LayoutProps {
   children: ReactNode;
@@ -19,28 +18,12 @@ export interface DashboardLayoutProps {
   children: ReactNode;
 }
 
-export interface CourseProps {
-  OrderNumber: string;
-  UserName: string;
-  CourseTitle: string;
-  CourseStartDate: string;
-  CourseEndDate: string;
-  CourseState: string;
-  IsQuest: boolean;
-}
-
-export interface RegisterData {
-  Email: string;
-  Password: string;
-  RePassword: string;
-}
-
 export interface RootState {
   registerPhases?: RegisterData | undefined;
   paymentPhases: PaymentDataType;
-  auth: Auth;
+  auth: AuthType;
   showModal: ShowModalType;
-  bodyRate: BodyRateType;
+  bodyRate: BodyRateType[];
   dailyDietary: DailyDietaryType;
   goal: GoalType;
   loading: LoadingType;
@@ -78,7 +61,7 @@ export interface ComponentType {
     | "inputSwitch"
     | "inputButtonGroup"
     | "inputDate";
-  Token?: string;
+  Token?: Token;
   initFileSrc?: InitFileSrcFoodType;
   chName?: string;
   name: string;
@@ -121,18 +104,171 @@ export type InputType =
   | "hidden"
   | "button";
 
-export interface PlanType {
-  Title: string;
-  CourseName: string;
-  CourseWeek: string;
-  CoursePrice: string;
-}
-
-export interface Auth {
-  Token: string;
+export interface AuthType {
+  Token: Token;
   UserName: string;
   Email: string;
   ImgUrl: string;
   IsNutritionist: boolean;
   UserCurrentStatus: string;
 }
+
+export interface BasicRegisterFormInput {
+  Email: string;
+  Password?: string;
+}
+
+export interface RegisterData extends BasicRegisterFormInput {
+  UserName: string;
+  Birthday: string;
+  Gender: string;
+  Phone: string;
+}
+
+export interface BasicCourseType {
+  Title?: string;
+  CourseName: string;
+  OrderNumber: string;
+}
+
+export interface CourseType extends BasicCourseType {
+  Id: string;
+  UserName?: string;
+  CourseTitle: string;
+  CourseStartDate: string;
+  CourseEndDate: string;
+  CourseState: string;
+  IsQuest: boolean;
+  IsComment?: boolean;
+}
+
+export interface PaginationType {
+  Current_page: number;
+  Total_pages: number;
+}
+
+export interface GoalType {
+  GoalWeight: string;
+  GoalBodyFat: string;
+  Weight: string;
+  BodyFat: string;
+  WeightCompletionRate: number;
+  BodyFatCompletionRate: number;
+}
+
+export interface BodyRateType {
+  Bmi: number;
+  Bmr: number;
+  BodyFat: number;
+  Height: number;
+  SMM: number;
+  VisceralFat: number;
+  Weight: number;
+  CreateDate?: string;
+  [key: string]: string | number | undefined;
+}
+
+export interface MealType {
+  Id: string;
+  DailyLogId: string;
+  MealTime: string;
+  MealDescription: string;
+  Image: string;
+  Starch: string;
+  Protein: string;
+  Vegetable: string;
+  StarchAchieved: boolean;
+  ProteinAchieved: boolean;
+  VegetableAchieved: boolean;
+}
+
+export interface DailyDietaryType {
+  [key: string]: string | boolean | MealType;
+  Id: string;
+  InsertDate: string;
+  StarchSum: string;
+  ProteinSum: string;
+  VegetableSum: string;
+  OilSum: string;
+  FruitSum: string;
+  WaterSum: string;
+  StarchSumAchieved: boolean;
+  ProteinSumAchieved: boolean;
+  VegetableSumAchieved: boolean;
+  OilSumAchieved: boolean;
+  FruitSumAchieved: boolean;
+  WaterSumAchieved: boolean;
+  Breakfast: MealType;
+  Lunch: MealType;
+  Dinner: MealType;
+  Fruit: string;
+  FruitDescription: string;
+  FruitImgUrl: string;
+  Oil: string;
+  OilDescription: string;
+  OilImgUrl: string;
+  Water: string;
+  WaterDescription: string;
+  WaterImgUrl: string;
+}
+
+// Student
+
+export interface CommentType {
+  UserName: string;
+  Content: string;
+  Rate: number;
+  CreateDate: string;
+}
+
+export interface PaymentType {
+  Title?: string;
+  CourseName: string;
+  CourseWeek: number;
+  CoursePrice: number;
+}
+
+export interface PlanType extends PaymentType {
+  Id: number;
+  Rank: number;
+  Tag: string;
+  Detail?: string;
+}
+
+// Nutritionist
+
+export interface NutritionistContactType {
+  Option1: string;
+  Option2: string;
+  Option3: string;
+}
+
+export interface BasicNutritionistInfo {
+  PortraitImage: string;
+  Title: string;
+  Expertise: string[];
+}
+
+export type NutritionistIntroDataType = BasicNutritionistInfo & {
+  IsPublic?: boolean;
+  City: string;
+  Education: string;
+  Experience: string;
+  AboutMe: string;
+  CourseIntro: string;
+};
+
+export interface NutritionistsType extends BasicNutritionistInfo {
+  NutritionistId: number;
+}
+
+export interface NutritionistDataType extends BasicNutritionistInfo {
+  Id: string;
+  AboutMe: string;
+  Favorite: Favorite;
+}
+
+export type Gender = string;
+export type RateAVG = number;
+export type Favorite = boolean;
+export type Token = string;

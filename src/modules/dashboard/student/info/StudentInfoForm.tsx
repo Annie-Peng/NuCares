@@ -1,4 +1,4 @@
-import { ComponentType } from "@/types/interface";
+import { ComponentType, RegisterData, Token } from "@/types/interface";
 import {
   commonEmailPattern,
   commonErrMsgClass,
@@ -12,17 +12,15 @@ import { FC } from "react";
 import { useDispatch } from "react-redux";
 import { showModal } from "@/common/redux/features/showModal";
 
+interface StudentInfoType extends RegisterData {
+  Id: number;
+  ImgUrl: string;
+  Email: string;
+}
+
 interface StudentInfoFormProps {
-  Token: string;
-  renderData: {
-    Birthday: string;
-    Email: string;
-    Gender: string;
-    Id: number;
-    ImgUrl: string;
-    Phone: string;
-    UserName: string;
-  };
+  Token: Token;
+  studentInfoData: StudentInfoType;
 }
 
 const studentInfoFormData: ComponentType[] = [
@@ -124,18 +122,21 @@ const buttonJSX = (
   </button>
 );
 
-const StudentInfoForm: FC<StudentInfoFormProps> = ({ Token, renderData }) => {
+const StudentInfoForm: FC<StudentInfoFormProps> = ({
+  Token,
+  studentInfoData,
+}) => {
   const dispatch = useDispatch();
 
   const [profilePutApi] = useProfilePutApiMutation();
 
   const initialState = {
-    UserName: renderData.UserName,
-    Email: renderData.Email,
-    Birthday: renderData.Birthday,
-    Gender: renderData.Gender,
-    Phone: renderData.Phone,
-    ImgUrl: renderData.ImgUrl,
+    UserName: studentInfoData.UserName,
+    Email: studentInfoData.Email,
+    Birthday: studentInfoData.Birthday,
+    Gender: studentInfoData.Gender,
+    Phone: studentInfoData.Phone,
+    ImgUrl: studentInfoData.ImgUrl,
   };
 
   const putApiData = { Token };

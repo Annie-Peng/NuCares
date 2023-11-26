@@ -15,17 +15,14 @@ import registerApiErrMsg from "@/common/lib/dashboard/errMsg/registerApiErrMsg";
 import errInput from "@/common/helpers/errInput";
 import { commonPhonePattern } from "@/common/lib/dashboard/errMsg/commonErrMsg";
 import turnDateFormat from "@/common/helpers/turnDateFormat";
+import { RegisterData } from "@/types/interface";
 
 interface Data {
   [key: string]: string | File | number;
 }
 
-export interface SecondFormInput {
-  [key: string]: string;
-  UserName: string;
-  Birthday: string;
-  Gender: string;
-  Phone: string;
+export interface SecondFormInput extends RegisterData {
+  [key: string]: string | undefined;
   UserRule: string;
 }
 

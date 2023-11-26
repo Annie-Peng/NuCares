@@ -5,9 +5,10 @@ import { MouseEvent, FC, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectGoal } from "@/common/redux/features/dietary-record/goal";
 import { useGoalPutApiMutation } from "@/common/redux/service/courseRecord";
+import { Token } from "@/types/interface";
 
 interface GoalCompletionRateProps {
-  Token: string;
+  Token: Token;
   CourseId: string;
   UserCurrentStatus: string;
 }

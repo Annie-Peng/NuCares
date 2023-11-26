@@ -2,25 +2,16 @@ import TitleModal from "@/common/components/modals/TitleModal";
 import bodyRateAdd from "@/common/lib/dashboard/dietary-record/bodyRate";
 import { closeModal } from "@/common/redux/features/showModal";
 import { useBodyInfoPostApiMutation } from "@/common/redux/service/courseRecord";
+import { BodyRateType, Token } from "@/types/interface";
 import { FC } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
 interface BodyRateAddModalProps {
   data: {
-    Token: string;
+    Token: Token;
     CourseId: string;
   };
-}
-
-export interface FormInput {
-  Height: string;
-  Weight: string;
-  BodyFat: string;
-  VisceralFat: string;
-  SMM: string;
-  Bmi: string;
-  Bmr: string;
 }
 
 const BodyRateAddModal: FC<BodyRateAddModalProps> = ({ data }) => {
@@ -31,9 +22,9 @@ const BodyRateAddModal: FC<BodyRateAddModalProps> = ({ data }) => {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<FormInput>();
+  } = useForm<BodyRateType>();
 
-  const onSubmit: SubmitHandler<FormInput> = async (formData) => {
+  const onSubmit: SubmitHandler<BodyRateType> = async (formData) => {
     try {
       const result = await bodyInfoPostApi({
         Token: data.Token,
@@ -60,7 +51,7 @@ const BodyRateAddModal: FC<BodyRateAddModalProps> = ({ data }) => {
                   type="number"
                   className="w-full mt-8 pr-[48px]"
                   step="0.1"
-                  {...register(`${item.enName as keyof FormInput}`, {
+                  {...register(`${item.enName as keyof BodyRateType}`, {
                     required: "*必填",
                   })}
                 />
@@ -69,7 +60,7 @@ const BodyRateAddModal: FC<BodyRateAddModalProps> = ({ data }) => {
                 </p>
               </label>
               <p className="text-left text-secondary-600 mt-4">
-                {errors[item.enName as keyof FormInput]?.message}
+                {errors[item.enName as keyof BodyRateType]?.message}
               </p>
             </li>
           ))}

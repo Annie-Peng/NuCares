@@ -6,9 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { bodyRateTabs } from "@/common/lib/dashboard/dietary-record/bodyRate";
 import { selectBodyRate } from "@/common/redux/features/dietary-record/bodyRate";
 import turnDateFormat from "@/common/helpers/turnDateFormat";
+import { Token } from "@/types/interface";
 
 interface BodyRateProps {
-  Token: string;
+  Token: Token;
   CourseId: string;
   UserCurrentStatus: string;
 }

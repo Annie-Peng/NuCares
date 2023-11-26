@@ -1,15 +1,16 @@
 import { useDispatch } from "react-redux";
-import { ButtonClass, Course } from "./CourseForm";
+import { ButtonClass } from "./CourseForm";
 import { FC, ReactNode } from "react";
 import { showModal } from "@/common/redux/features/showModal";
 import Link from "next/link";
+import { CourseType, Token } from "@/types/interface";
 
 interface CourseFormTrProps {
-  course: Course;
+  course: CourseType;
   ID: string;
   buttonClass: ButtonClass;
   comment: ReactNode;
-  Token: string;
+  Token: Token;
 }
 
 const CourseFormTr: FC<CourseFormTrProps> = ({
