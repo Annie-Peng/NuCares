@@ -1,6 +1,8 @@
+import { showLoading } from "@/common/redux/features/loading";
 import { useInfoGetApiQuery } from "@/common/redux/service/courseRecord";
 import Image from "next/legacy/image";
-import { FC } from "react";
+import { FC, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 interface CourseInfoProps {
   Token: string;
@@ -14,6 +16,7 @@ const CourseInfo: FC<CourseInfoProps> = ({
   UserCurrentStatus,
 }) => {
   const getID = UserCurrentStatus === "user" ? "nu" : "student";
+  const dispatch = useDispatch();
 
   const {
     isLoading,
@@ -25,13 +28,20 @@ const CourseInfo: FC<CourseInfoProps> = ({
     ID: getID,
   });
 
-  if (isLoading || !infoData) {
-    return <p>Info is Loading</p>;
-  }
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(showLoading(true));
+      return;
+    }
+    if (error) {
+      console.log(error);
+    }
+    if (infoData) {
+      dispatch(showLoading(false));
+    }
+  }, [infoData, isLoading, error, dispatch]);
 
-  if (error) {
-    return <p>Something went wrong</p>;
-  }
+  if (!infoData) return;
 
   const showImgUrl = infoData.Data.ImgUrl
     ? infoData.Data.ImgUrl

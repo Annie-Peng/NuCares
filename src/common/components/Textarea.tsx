@@ -1,4 +1,9 @@
-import { FC, ReactEventHandler, ReactNode, FocusEventHandler } from "react";
+import {
+  ReactEventHandler,
+  ReactNode,
+  FocusEventHandler,
+  forwardRef,
+} from "react";
 import { FieldError } from "react-hook-form";
 
 interface TextareaProps {
@@ -19,45 +24,51 @@ interface TextareaProps {
   error?: FieldError;
 }
 
-const Textarea: FC<TextareaProps> = ({
-  name,
-  labelClass,
-  textareaClass,
-  value,
-  required,
-  disabled,
-  placeholder,
-  children,
-  hMsg,
-  pMsg,
-  onChange,
-  errClass,
-  errMsg,
-  onBlur,
-  error,
-}) => {
-  return (
-    <>
-      <label htmlFor={name} className={`${labelClass} mt-20 block`}>
-        <h4 className="formHead">{hMsg}</h4>
-        <p className="formContent">{pMsg}</p>
-        {children}
-        <textarea
-          name={name}
-          className={`${textareaClass} mt-12 py-8 ${
-            error && "focus:ring-secondary-500"
-          }`}
-          value={value as string}
-          placeholder={placeholder}
-          onChange={onChange}
-          required={required}
-          disabled={disabled}
-          onBlur={onBlur}
-        />
-      </label>
-      {error && <p className={errClass}>{error.message}</p>}
-    </>
-  );
-};
+const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
+  (
+    {
+      name,
+      labelClass,
+      textareaClass,
+      value,
+      required,
+      disabled,
+      placeholder,
+      children,
+      hMsg,
+      pMsg,
+      onChange,
+      errClass,
+      errMsg,
+      onBlur,
+      error,
+    },
+    ref
+  ) => {
+    return (
+      <>
+        <label htmlFor={name} className={`${labelClass} mt-20 block`}>
+          <h4 className="formHead">{hMsg}</h4>
+          <p className="formContent">{pMsg}</p>
+          {children}
+          <textarea
+            ref={ref}
+            name={name}
+            className={`${textareaClass} mt-12 py-8 ${
+              error && "focus:ring-secondary-500"
+            }`}
+            value={value as string}
+            placeholder={placeholder}
+            onChange={onChange}
+            required={required}
+            disabled={disabled}
+            onBlur={onBlur}
+          />
+        </label>
+        {error && <p className={errClass}>{error.message}</p>}
+      </>
+    );
+  }
+);
 
 export default Textarea;

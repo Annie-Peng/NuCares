@@ -7,7 +7,7 @@ import CourseBigCard from "@/modules/dashboard/nutritionist/workshop/CourseBigCa
 import { AuthType, PlanType } from "@/types/interface";
 import { getCookies } from "cookies-next";
 import Image from "next/legacy/image";
-import { FC, ReactElement, useState } from "react";
+import { FC, ReactElement, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 interface NutritionistCoursePageProps {
@@ -21,18 +21,19 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
 
   const { data: renderData, isLoading, error } = usePlanGetApiQuery({ Token });
 
-  if (isLoading) {
-    dispatch(showLoading(true));
-    return;
-  }
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(showLoading(true));
+      return;
+    }
+    if (error) {
+      console.log(error);
+    }
 
-  if (error) {
-    console.log(error);
-  }
-
-  if (renderData) {
-    dispatch(showLoading(false));
-  }
+    if (renderData) {
+      dispatch(showLoading(false));
+    }
+  }, [renderData, isLoading, error, dispatch]);
 
   const handleDeleteClick = (formKey: string) => {
     setCourseForms((prevCourseForms) =>
@@ -52,6 +53,8 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
       />,
     ]);
   };
+
+  if (!renderData) return;
 
   return (
     <>

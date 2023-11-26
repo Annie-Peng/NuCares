@@ -8,7 +8,7 @@ import {
 import { getCookie } from "cookies-next";
 import { useProfilePutApiMutation } from "@/common/redux/service/profile";
 import useEditForm from "@/common/hooks/useEditForm";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { showModal } from "@/common/redux/features/showModal";
 
@@ -149,10 +149,12 @@ const StudentInfoForm: FC<StudentInfoFormProps> = ({
     buttonJSX,
   });
 
-  if (apiReq) {
-    const message = apiReq.Message || apiReq.data.Message;
-    dispatch(showModal(["showTimerModal", { message, timer: 3000 }]));
-  }
+  useEffect(() => {
+    if (apiReq) {
+      const message = apiReq.Message || apiReq.data.Message;
+      dispatch(showModal(["showTimerModal", { message, timer: 3000 }]));
+    }
+  }, [apiReq, dispatch]);
 
   return (
     <div className="text-left flex flex-col cusDashboardInnerContainer mt-32">

@@ -14,7 +14,7 @@ import {
 } from "@/common/lib/dashboard/errMsg/commonErrMsg";
 import useEditForm from "@/common/hooks/useEditForm";
 import { useIntroPutApiMutation } from "@/common/redux/service/intro";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { showModal } from "@/common/redux/features/showModal";
 
@@ -209,10 +209,12 @@ const NutritionistIntroForm: FC<NutritionistIntroFormProps> = ({
     buttonJSX,
   });
 
-  if (apiReq) {
-    const message = apiReq.Message || apiReq.data.Message;
-    dispatch(showModal(["showTimerModal", { message, timer: 3000 }]));
-  }
+  useEffect(() => {
+    if (apiReq) {
+      const message = apiReq.Message || apiReq.data.Message;
+      dispatch(showModal(["showTimerModal", { message, timer: 3000 }]));
+    }
+  }, [apiReq, dispatch]);
 
   return (
     <div className="text-left flex flex-col cusDashboardInnerContainer mt-32 p-20">
