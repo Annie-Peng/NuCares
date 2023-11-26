@@ -2,25 +2,21 @@ import { showLoading } from "@/common/redux/features/loading";
 import { useFavoriteGetApiQuery } from "@/common/redux/service/favorite";
 import wrapper from "@/common/redux/store";
 import FavoriteCard from "@/modules/dashboard/student/favorite/FavoriteCard";
+import { AuthType, NutritionistDataType } from "@/types/interface";
 import { getCookies } from "cookies-next";
 import { FC } from "react";
 import { useDispatch } from "react-redux";
 
 interface FavoritePageProps {
-  [key: string]: any;
-}
-
-export interface NutritionistDataType {
-  Id: string;
-  Title: string;
-  AboutMe: string;
-  PortraitImage: string;
-  Expertise: string[];
-  favorite: boolean;
+  auth: AuthType;
 }
 
 const FavoritePage: FC<FavoritePageProps> = ({ auth }) => {
-  const { data, isLoading, error } = useFavoriteGetApiQuery({
+  const {
+    data: renderData,
+    isLoading,
+    error,
+  } = useFavoriteGetApiQuery({
     Token: auth.Token,
   });
 
@@ -31,7 +27,12 @@ const FavoritePage: FC<FavoritePageProps> = ({ auth }) => {
     return;
   }
 
-  if (data) {
+  if (error) {
+    console.log(error);
+    return;
+  }
+
+  if (renderData) {
     dispatch(showLoading(false));
   }
 
@@ -39,7 +40,7 @@ const FavoritePage: FC<FavoritePageProps> = ({ auth }) => {
     <div className="py-20 container lg:py-0">
       <h2 className="cusPrimaryTitle">收藏營養師</h2>
       <ul className="mt-32 flex flex-wrap gap-32 lg:gap-12 lg:mt-24">
-        {data.Data.map((nutritionistData: NutritionistDataType) => (
+        {renderData.Data.map((nutritionistData: NutritionistDataType) => (
           <li
             key={nutritionistData.Id}
             className="mx-24 lg:max-w-[456px] lg:mx-0"

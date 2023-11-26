@@ -1,18 +1,16 @@
 import { selectPayment } from "@/common/redux/features/paymentPhases";
-import { Auth, PlanType } from "@/types/interface";
+import { PaymentType } from "@/types/interface";
 import Image from "next/legacy/image";
 import paymentStep2 from "public/images/payment/paymentStep2.svg";
 import { FC } from "react";
 import { useSelector } from "react-redux";
 
 interface PaymentFormSecondPhase {
-  auth: Auth;
-  renderData: PlanType;
+  renderData: PaymentType;
   setCurrentPhase: (currentPhase: number) => void;
 }
 
 const PaymentFormSecondPhase: FC<PaymentFormSecondPhase> = ({
-  auth,
   renderData,
   setCurrentPhase,
 }) => {

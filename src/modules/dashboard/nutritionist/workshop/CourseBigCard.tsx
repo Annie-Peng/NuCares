@@ -6,18 +6,11 @@ import Image from "next/legacy/image";
 import { FC } from "react";
 import { useDispatch } from "react-redux";
 import { courseAddFormData } from "./CourseAddForm";
+import { PlanType, Token } from "@/types/interface";
 
 interface CourseBigCardProps {
-  planData: {
-    Id: number;
-    Rank: number;
-    CourseName: string;
-    CourseWeek: number;
-    CoursePrice: number;
-    Tag: string;
-    Detail: string;
-  };
-  Token: string;
+  planData: PlanType;
+  Token: Token;
 }
 
 const CourseBigCard: FC<CourseBigCardProps> = ({ Token, planData }) => {
@@ -33,7 +26,7 @@ const CourseBigCard: FC<CourseBigCardProps> = ({ Token, planData }) => {
     CourseWeek: planData.CourseWeek,
     CoursePrice: planData.CoursePrice,
     Tag: planData.Tag,
-    Detail: planData.Detail,
+    Detail: planData.Detail || "",
   };
 
   const buttonJSX = (

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { FC, useState, ChangeEvent } from "react";
 import { Tab } from "../lib/dashboard/dietary-record/foodMenu";
+import { Token } from "@/types/interface";
 
 export interface InitFileSrcFoodType {
   Breakfast?: { fetch: string; file: string };
@@ -16,14 +17,14 @@ export interface InitFileSrcFoodType {
 
 export interface UseUploadFileProps {
   data: Tab;
-  Token: string;
+  Token: Token;
   initFileSrc?: InitFileSrcFoodType;
 }
 
 export interface HandleUploadFileProps {
   e: ChangeEvent<HTMLInputElement>;
   tab: Tab | string;
-  Token: string;
+  Token: Token;
 }
 
 const useUploadFile = ({

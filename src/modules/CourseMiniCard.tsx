@@ -1,4 +1,4 @@
-import { PlanType } from "@/pages/nutritionist-list";
+import { PlanType } from "@/types/interface";
 import { FC } from "react";
 
 interface CourseMiniCardProps {

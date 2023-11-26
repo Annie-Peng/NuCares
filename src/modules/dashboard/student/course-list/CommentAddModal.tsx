@@ -1,5 +1,4 @@
 import TitleModal from "@/common/components/modals/TitleModal";
-import { Course } from "@/common/components/course/CourseForm";
 import { closeModal } from "@/common/redux/features/showModal";
 import { useCoursePostCommentApiMutation } from "@/common/redux/service/course";
 import Image from "next/legacy/image";
@@ -7,11 +6,12 @@ import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { commonErrMsgClass } from "@/common/lib/dashboard/errMsg/commonErrMsg";
+import { CourseType, Token } from "@/types/interface";
 
 interface CommentAddModalProps {
   data: {
-    Token: string;
-    Course: Course;
+    Token: Token;
+    Course: CourseType;
   };
 }
 

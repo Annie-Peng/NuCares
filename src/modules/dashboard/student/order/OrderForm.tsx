@@ -1,27 +1,23 @@
 import { FC, useEffect, useState } from "react";
-import { Auth } from "@/types/interface";
 import { useOrderGetApiQuery } from "@/common/redux/service/order";
 import { useDispatch } from "react-redux";
 import { showLoading } from "@/common/redux/features/loading";
+import { BasicCourseType, PaginationType, Token } from "@/types/interface";
 
-const Tabs = ["時間", "訂單編號", "營養師/課程名稱", "金額", "付款方案"];
+const orderTabs = ["時間", "訂單編號", "營養師/課程名稱", "金額", "付款方案"];
 
 interface OrderFormProps {
-  auth: Auth;
+  Token: Token;
 }
 
-interface OrderType {
-  Title: string;
-  CourseName: string;
-  CoursePrice: number;
-  OrderNumber: string;
+interface OrderType extends BasicCourseType {
   Date: string;
+  CoursePrice: number;
   PaymentMethod: string;
 }
 
-const OrderForm: FC<OrderFormProps> = ({ auth }) => {
-  const { Token } = auth;
-  const [showPage, setShowPage] = useState<Record<string, number>>({
+const OrderForm: FC<OrderFormProps> = ({ Token }) => {
+  const [showPage, setShowPage] = useState<PaginationType>({
     Current_page: 1,
     Total_pages: 1,
   });
@@ -61,7 +57,7 @@ const OrderForm: FC<OrderFormProps> = ({ auth }) => {
         <table className="w-full mt-24 py-20 px-10 bg-white rounded-15">
           <thead>
             <tr>
-              {Tabs.map((tab, index) => (
+              {orderTabs.map((tab, index) => (
                 <th key={index}>{tab}</th>
               ))}
             </tr>

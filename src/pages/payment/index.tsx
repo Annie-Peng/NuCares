@@ -6,10 +6,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { FC, useState } from "react";
 import { usePaymentGetApiQuery } from "@/common/redux/service/payment";
-import { Auth } from "@/types/interface";
+import { AuthType } from "@/types/interface";
 
 interface PaymentPageProps {
-  auth: Auth;
+  auth: AuthType;
 }
 
 const PaymentPage: FC<PaymentPageProps> = ({ auth }) => {
@@ -47,7 +47,6 @@ const PaymentPage: FC<PaymentPageProps> = ({ auth }) => {
         )}
         {currentPhase === 2 && (
           <PaymentFormSecondPhase
-            auth={auth}
             setCurrentPhase={setCurrentPhase}
             renderData={renderData.Data}
           />

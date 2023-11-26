@@ -1,15 +1,6 @@
 import { RootState } from "@/types/interface";
 import { createSlice } from "@reduxjs/toolkit";
 
-export interface GoalType {
-  GoalWeight: string;
-  GoalBodyFat: string;
-  Weight: string;
-  BodyFat: string;
-  WeightCompletionRate: number;
-  BodyFatCompletionRate: number;
-}
-
 export const goalSlice = createSlice({
   name: "goal",
   initialState: {

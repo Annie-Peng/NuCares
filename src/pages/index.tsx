@@ -13,13 +13,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { FC } from "react";
 import useResize from "@/common/hooks/useResize";
-
-interface NutritionistsType {
-  Expertise: string[];
-  NutritionistId: number;
-  PortraitImage: string;
-  Title: string;
-}
+import { NutritionistsType } from "@/types/interface";
 
 interface HomePageProps {
   nutritionists: NutritionistsType[];

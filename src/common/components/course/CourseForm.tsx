@@ -7,23 +7,10 @@ import { FC, useEffect, useState } from "react";
 import Link from "next/link";
 import { Dispatch } from "@reduxjs/toolkit";
 import { showLoading } from "@/common/redux/features/loading";
+import { AuthType, CourseType, PaginationType, Token } from "@/types/interface";
 
-export interface Course {
-  Id: string;
-  Title?: string;
-  UserName?: string;
-  CourseName: string;
-  OrderNumber: string;
-  CourseStartDate: string;
-  CourseEndDate: string;
-  CourseState: string;
-  IsQuest: boolean;
-  IsComment?: boolean;
-}
-
-interface Pagination {
-  current_page: number;
-  total_pages: number;
+interface CourseFormProps {
+  auth: AuthType;
 }
 
 export interface ButtonClass {
@@ -45,14 +32,6 @@ export interface ButtonClass {
       };
       false: { class: string; disable: boolean };
     };
-  };
-}
-
-interface CourseFormProps {
-  auth: {
-    UserCurrentStatus: string;
-    Token: string;
-    [key: string]: any;
   };
 }
 
@@ -95,11 +74,11 @@ const buttonClass: ButtonClass = {
 };
 
 const checkCommentClass = (
-  course: Course,
+  course: CourseType,
   ID: string,
   buttonClass: ButtonClass,
   dispatch: Dispatch,
-  Token: string
+  Token: Token
 ) => {
   let comment = null;
 
@@ -143,11 +122,11 @@ const checkCommentClass = (
 
 const CourseForm: FC<CourseFormProps> = ({ auth }) => {
   const { Token, UserCurrentStatus } = auth;
-  const [showPage, setShowPage] = useState<Record<string, number>>({
+  const [showPage, setShowPage] = useState<PaginationType>({
     Current_page: 1,
     Total_pages: 1,
   });
-  const [renderData, setRenderData] = useState<Course[] | null>(null);
+  const [renderData, setRenderData] = useState<CourseType[] | null>(null);
   const dispatch = useDispatch();
   const { data, error, isLoading } = useCourseListGetApiQuery({
     Token: Token,
@@ -195,7 +174,7 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
             </tr>
           </thead>
           <tbody>
-            {renderData.map((course: Course, index: number) => {
+            {renderData.map((course: CourseType, index: number) => {
               return (
                 <tr key={index}>
                   <CourseFormTr
@@ -221,7 +200,7 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
 
       {/* 手機版 */}
       <ul className="px-20 container flex flex-col gap-32 mt-32 lg:hidden">
-        {renderData.map((course: Course, index: number) => {
+        {renderData.map((course: CourseType, index: number) => {
           const comment = checkCommentClass(
             course,
             ID,

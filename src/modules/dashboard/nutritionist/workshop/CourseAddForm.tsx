@@ -2,7 +2,7 @@ import Input from "@/common/components/Input";
 import Select from "@/common/components/Select";
 import Textarea from "@/common/components/Textarea";
 import { FC, Fragment } from "react";
-import { ComponentType } from "@/types/interface";
+import { ComponentType, Token } from "@/types/interface";
 import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import {
   commonErrMsgClass,
@@ -98,12 +98,12 @@ export const courseAddFormData: ComponentType[] = [
 ];
 
 interface CourseAddFormProps {
-  Token: string;
+  Token: Token;
   formKey: string;
   handleDeleteClick: (formKey: string) => void;
 }
 
-export interface FormInput {
+export interface PlanFormInput {
   Rank: string;
   CourseName: string;
   CourseWeek: string;
@@ -117,7 +117,7 @@ const CourseAddForm: FC<CourseAddFormProps> = ({
   formKey,
   handleDeleteClick,
 }) => {
-  const { control, handleSubmit } = useForm<FormInput>({
+  const { control, handleSubmit } = useForm<PlanFormInput>({
     defaultValues: {
       Rank: "",
       CourseName: "",
@@ -131,7 +131,7 @@ const CourseAddForm: FC<CourseAddFormProps> = ({
 
   const [planPostApi] = usePlanPostApiMutation();
 
-  const onSubmit: SubmitHandler<FormInput> = async (body) => {
+  const onSubmit: SubmitHandler<PlanFormInput> = async (body) => {
     try {
       const result = await planPostApi({ Token, body }).unwrap();
       handleDeleteClick(formKey);
@@ -146,7 +146,7 @@ const CourseAddForm: FC<CourseAddFormProps> = ({
         <Fragment key={index}>
           <Controller
             control={control}
-            name={data.name as keyof FormInput}
+            name={data.name as keyof PlanFormInput}
             rules={data.errMsg}
             render={({ field, fieldState: { error } }) => (
               <>

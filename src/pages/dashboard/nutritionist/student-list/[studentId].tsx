@@ -6,16 +6,15 @@ import {
   useGoalGetApiQuery,
 } from "@/common/redux/service/courseRecord";
 import wrapper from "@/common/redux/store";
+import { AuthType } from "@/types/interface";
 import { getCookies } from "cookies-next";
 import { useRouter } from "next/router";
 import { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 interface StudentIdProps {
-  Token: string;
+  auth: AuthType;
   CourseId: string;
-  UserCurrentStatus: string;
-  [key: string]: any;
 }
 
 const StudentIdPage: FC<StudentIdProps> = ({ auth }) => {
@@ -65,13 +64,11 @@ const StudentIdPage: FC<StudentIdProps> = ({ auth }) => {
   }, [BodyInfo, Goal, BodyInfoError, GoalError]);
 
   return (
-    <>
-      <CourseRecord
-        Token={auth.Token}
-        UserCurrentStatus={auth.UserCurrentStatus}
-        CourseId={courseId as string}
-      />
-    </>
+    <CourseRecord
+      Token={auth.Token}
+      UserCurrentStatus={auth.UserCurrentStatus}
+      CourseId={courseId as string}
+    />
   );
 };
 

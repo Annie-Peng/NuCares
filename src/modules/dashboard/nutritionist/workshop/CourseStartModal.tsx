@@ -4,13 +4,14 @@ import {
   useCourseGetTimeApiQuery,
   useCoursePutStartApiMutation,
 } from "@/common/redux/service/course";
+import { Token } from "@/types/interface";
 
 import { FC } from "react";
 import { useDispatch } from "react-redux";
 
 interface CourseStartModalProps {
   data: {
-    Token: string;
+    Token: Token;
     course: {
       Id: string;
       UserName: string;

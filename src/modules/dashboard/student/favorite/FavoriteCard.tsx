@@ -1,11 +1,11 @@
 import { useFavoritePostApiMutation } from "@/common/redux/service/favorite";
-import { NutritionistDataType } from "@/pages/dashboard/student/favorite";
+import { NutritionistDataType, Token } from "@/types/interface";
 import Image from "next/legacy/image";
 import Link from "next/link";
 import { FC } from "react";
 
 interface FavoriteCardProps {
-  Token: string;
+  Token: Token;
   nutritionistData: NutritionistDataType;
 }
 

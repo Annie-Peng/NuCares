@@ -9,18 +9,6 @@ interface BodyRateTabsType {
   enName: string;
 }
 
-export interface SingleBodyRateType {
-  Bmi: number;
-  Bmr: number;
-  BodyFat: number;
-  CreateDate: string;
-  Height: number;
-  SMM: number;
-  VisceralFat: number;
-  Weight: number;
-  [key: string]: any;
-}
-
 const bodyRateAdd: BodyRateAddType[] = [
   { name: "身高", enName: "Height", unit: "公分" },
   { name: "體重", enName: "Weight", unit: "公斤" },
