@@ -13,6 +13,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { FC } from "react";
 import useResize from "@/common/hooks/useResize";
+import MetaData from "@/common/components/MetaData";
 import { motion } from "framer-motion";
 
 interface NutritionistsType {
@@ -31,6 +32,7 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
   const isMobile = useResize();
   return (
     <>
+      <MetaData description="體重控制、上班族營養、樂齡營養與保健、孕期營養" />
       <section className="banner relative w-full h-[600px]">
         <Image
           src="/images/home/banner.svg"
