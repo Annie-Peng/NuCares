@@ -1,7 +1,7 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import Image from "next/legacy/image";
-import { FC, useState, FormEvent, Fragment, useRef } from "react";
+import { FC, useState, FormEvent, Fragment, useRef, useEffect } from "react";
 import dailyDietaryInput from "@/common/lib/dashboard/dailyDietaryInput";
 import { showModal } from "@/common/redux/features/showModal";
 import { useDispatch } from "react-redux";
@@ -16,7 +16,7 @@ import useUploadFile, {
   HandleUploadFileProps,
   InitFileSrcFoodType,
 } from "@/common/hooks/useUploadFile";
-import { DailyDietaryType } from "@/types/interface";
+import { DailyDietaryType, Error } from "@/types/interface";
 import turnStringFormat from "@/common/helpers/turnStringFormat";
 import {
   useDailyDietaryGetApiQuery,
@@ -28,6 +28,7 @@ import turnDateFormat, {
   turnDateFormatOneMoreDay,
 } from "@/common/helpers/turnDateFormat";
 import { commonErrMsgClass } from "@/common/lib/dashboard/errMsg/commonErrMsg";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 interface DailyDietaryProps {
   isMobile: boolean;
@@ -160,15 +161,24 @@ const DailyDietary: FC<DailyDietaryProps> = ({
   const [dailyDietaryMealTimePutApi] = useDailyDietaryMealTimePutApiMutation();
   const [dailyDietaryOtherPutApi] = useDailyDietaryOtherPutApiMutation();
 
-  if (isLoading || !data) {
-    return <p>Data is Loading</p>;
+  useEffect(() => {
+    if (
+      error &&
+      "data" in error &&
+      (error as Error).data.Message.Course.includes("課程期間")
+    ) {
+      const endDate = (error as Error).data.Message.Course.split(" ~ ")[1];
+      setCurrentDate(endDate);
+    }
+  }, [error]);
+
+  if (isLoading) {
+    return <p>Data is Loading...</p>;
   }
 
-  if (error) {
-    return <p>Something went wrong</p>;
-  }
+  const dailyDietaryData = data?.Data;
 
-  const dailyDietaryData = data.Data;
+  if (!dailyDietaryData) return;
 
   const currentTab = tab.enName;
 
