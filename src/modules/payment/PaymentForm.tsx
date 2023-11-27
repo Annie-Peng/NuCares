@@ -145,8 +145,9 @@ const PaymentForm: FC<PaymentFormProps> = ({
             <select
               className="cusInputWithNoIcon mt-12 pr-32"
               {...register("ContactTime", { required: "*必填" })}
+              defaultValue=""
             >
-              <option value="" disabled selected>
+              <option value="" disabled>
                 請選擇
               </option>
               <option value="早上 8:00-12:00">早上 8:00-12:00</option>
