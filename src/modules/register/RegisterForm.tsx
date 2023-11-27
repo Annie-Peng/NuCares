@@ -101,6 +101,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
                 message: "密碼格式有誤",
               },
             })}
+            autoComplete="off"
           />
           <div className="cusShowLeftIcon bg-passwordIcon" />
           <div
@@ -132,6 +133,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
               validate: (value, formValues) =>
                 value === formValues.Password || "您輸入的密碼不一致",
             })}
+            autoComplete="off"
           />
 
           <div className="cusShowLeftIcon bg-passwordIcon" />

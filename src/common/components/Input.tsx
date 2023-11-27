@@ -50,6 +50,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       type === "number" && typeof value === "string" && value.includes(",")
         ? (value = Number(value.replace(/,/g, "")))
         : (value as string);
+
+    const autoComplete = type === "password" ? "off" : "on";
+
     return (
       <>
         <label htmlFor={name} className={`${labelClass} mt-20 block`}>
@@ -69,6 +72,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             required={required}
             disabled={disabled}
             onBlur={onBlur}
+            autoComplete={autoComplete}
           />
         </label>
         {error && <p className={errClass}>{error.message}</p>}
