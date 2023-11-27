@@ -39,9 +39,7 @@ const CourseInfo: FC<CourseInfoProps> = ({
 
   if (!infoData) return;
 
-  const showImgUrl = infoData.Data.ImgUrl
-    ? infoData.Data.ImgUrl
-    : "/images/dashboard/dietary-record/courseInfo/member-photo.svg";
+  const showImgUrl = infoData.Data.ImgUrl;
 
   return (
     <div className="w-[200px] mx-auto text-14 lg:text-16">
@@ -55,7 +53,9 @@ const CourseInfo: FC<CourseInfoProps> = ({
             width={60}
             height={60}
             alt="portrait"
-            className="rounded-50 object-cover"
+            className={`rounded-50 object-cover ${
+              !showImgUrl && "bg-secondary-400"
+            }`}
           />
         </div>
         <p className="text-20">
