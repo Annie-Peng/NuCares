@@ -4,10 +4,12 @@ import PaymentForm from "@/modules/payment/PaymentForm";
 import { getCookies } from "cookies-next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { usePaymentGetApiQuery } from "@/common/redux/service/payment";
 import { AuthType } from "@/types/interface";
 import MetaData from "@/common/components/MetaData";
+import { useDispatch } from "react-redux";
+import { showLoading } from "@/common/redux/features/loading";
 
 interface PaymentPageProps {
   auth: AuthType;
@@ -17,6 +19,7 @@ const PaymentPage: FC<PaymentPageProps> = ({ auth }) => {
   const router = useRouter();
   const { nutritionist, plan } = router.query;
   const [currentPhase, setCurrentPhase] = useState<number>(1);
+  const dispatch = useDispatch();
 
   const {
     data: renderData,
@@ -24,9 +27,20 @@ const PaymentPage: FC<PaymentPageProps> = ({ auth }) => {
     error,
   } = usePaymentGetApiQuery({ Token: auth.Token, planId: plan });
 
-  if (isLoading || !renderData) {
-    return <p>Payment is Loading</p>;
-  }
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(showLoading(true));
+      return;
+    }
+    if (error) {
+      console.log(error);
+    }
+    if (renderData) {
+      dispatch(showLoading(false));
+    }
+  }, [renderData, isLoading, error]);
+
+  if (!renderData) return;
 
   return (
     <>

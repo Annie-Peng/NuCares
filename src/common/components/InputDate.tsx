@@ -1,4 +1,10 @@
-import { FC, ReactEventHandler, ReactNode, FocusEventHandler } from "react";
+import {
+  ReactEventHandler,
+  ReactNode,
+  FocusEventHandler,
+  useRef,
+  forwardRef,
+} from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FieldError, UseFormSetValue } from "react-hook-form";
@@ -24,56 +30,62 @@ export interface InputDateProps {
   setValue: UseFormSetValue<InitialStateType>;
 }
 
-const InputDate: FC<InputDateProps> = ({
-  name,
-  labelClass,
-  type,
-  inputClass,
-  value,
-  required,
-  disabled,
-  placeholder,
-  children,
-  hMsg,
-  pMsg,
-  onChange,
-  errClass,
-  onBlur,
-  error,
-  setValue,
-}) => {
-  return (
-    <>
-      <label htmlFor={name} className={`${labelClass} relative mt-20 block`}>
-        <h4 className="formHead">{hMsg}</h4>
-        <p className="formContent">{pMsg}</p>
-        {children}
-        <div className="relative">
-          <DatePicker
-            className={`${inputClass} ${error && "focus:ring-secondary-500"}`}
-            name="Birthday"
-            placeholderText="生日"
-            value={value}
-            dateFormat="yyyy/MM/dd"
-            onChange={(date: Date) => {
-              if (date instanceof Date) {
-                const newDate = turnDateFormat(date);
-                setValue(name, newDate);
-              } else {
-                setValue(name, date);
-              }
-            }}
-            peekNextMonth
-            showMonthDropdown
-            showYearDropdown
-            dropdownMode="select"
-          />
-          <div className="cusShowRightIcon left-[246px] bg-calendarIcon" />
-        </div>
-      </label>
-      {error && <p className={errClass}>{error.message}</p>}
-    </>
-  );
-};
+const InputDate = forwardRef<DatePicker, InputDateProps>(
+  (
+    {
+      name,
+      labelClass,
+      type,
+      inputClass,
+      value,
+      required,
+      disabled,
+      placeholder,
+      children,
+      hMsg,
+      pMsg,
+      onChange,
+      errClass,
+      onBlur,
+      error,
+      setValue,
+    },
+    ref
+  ) => {
+    return (
+      <>
+        <label htmlFor={name} className={`${labelClass} relative mt-20 block`}>
+          <h4 className="formHead">{hMsg}</h4>
+          <p className="formContent">{pMsg}</p>
+          {children}
+          <div className="relative">
+            <DatePicker
+              ref={ref}
+              className={`${inputClass} ${error && "focus:ring-secondary-500"}`}
+              name="Birthday"
+              placeholderText="生日"
+              value={value}
+              dateFormat="yyyy/MM/dd"
+              onChange={(date: Date) => {
+                if (date instanceof Date) {
+                  const newDate = turnDateFormat(date);
+                  setValue(name, newDate);
+                } else {
+                  setValue(name, date);
+                }
+              }}
+              peekNextMonth
+              showMonthDropdown
+              showYearDropdown
+              dropdownMode="select"
+            />
+            <div className="cusShowRightIcon left-[246px] bg-calendarIcon" />
+          </div>
+        </label>
+        {error && <p className={errClass}>{error.message}</p>}
+      </>
+    );
+  }
+);
 
 export default InputDate;

@@ -5,7 +5,7 @@ import wrapper from "@/common/redux/store";
 import FavoriteCard from "@/modules/dashboard/student/favorite/FavoriteCard";
 import { AuthType, NutritionistDataType } from "@/types/interface";
 import { getCookies } from "cookies-next";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 interface FavoritePageProps {
@@ -23,19 +23,21 @@ const FavoritePage: FC<FavoritePageProps> = ({ auth }) => {
 
   const dispatch = useDispatch();
 
-  if (isLoading) {
-    dispatch(showLoading(true));
-    return;
-  }
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(showLoading(true));
+      return;
+    }
+    if (error) {
+      console.log(error);
+      return;
+    }
+    if (renderData) {
+      dispatch(showLoading(false));
+    }
+  }, [renderData, isLoading, error, dispatch]);
 
-  if (error) {
-    console.log(error);
-    return;
-  }
-
-  if (renderData) {
-    dispatch(showLoading(false));
-  }
+  if (!renderData) return;
 
   return (
     <>

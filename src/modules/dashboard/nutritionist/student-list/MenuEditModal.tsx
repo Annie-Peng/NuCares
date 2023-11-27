@@ -28,10 +28,6 @@ const MenuEditModal: FC<MenuEditModalProps> = ({ data }) => {
   const [dailyDietaryPutMenuApi] = useDailyDietaryPutMenuApiMutation();
   const dispatch = useDispatch();
 
-  if (isLoading || !renderData) {
-    return <p>Menu is Loading</p>;
-  }
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
@@ -68,6 +64,8 @@ const MenuEditModal: FC<MenuEditModalProps> = ({ data }) => {
       console.log(error);
     }
   };
+
+  if (isLoading || !renderData) return;
 
   return (
     <TitleModal title="學員攝取份量" modal="showMenuEditModal">
