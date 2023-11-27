@@ -24,7 +24,7 @@ export interface InputProps {
   errClass?: string;
   onBlur?: FocusEventHandler;
   error?: FieldError;
-  setValue: UseFormSetValue<InitialStateType>;
+  setValue?: UseFormSetValue<InitialStateType>;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -49,7 +49,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
-    if (type === "number" && typeof value === "string" && value.includes(",")) {
+    if (
+      setValue &&
+      type === "number" &&
+      typeof value === "string" &&
+      value.includes(",")
+    ) {
       const valueFormat = (value = Number(value.replace(/,/g, "")));
       setValue(name, valueFormat);
     }
