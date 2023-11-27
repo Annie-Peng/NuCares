@@ -11,12 +11,14 @@ interface GoalCompletionRateProps {
   Token: Token;
   CourseId: string;
   UserCurrentStatus: string;
+  courseOver: boolean;
 }
 
 const GoalCompletionRate: FC<GoalCompletionRateProps> = ({
   Token,
   CourseId,
   UserCurrentStatus,
+  courseOver,
 }) => {
   const [editGoal, setEditGoal] = useState(false);
   const renderData = useSelector(selectGoal);
@@ -47,6 +49,7 @@ const GoalCompletionRate: FC<GoalCompletionRateProps> = ({
   return (
     <>
       {UserCurrentStatus === "nu" &&
+        !courseOver &&
         (editGoal ? (
           <button
             type="button"

@@ -35,6 +35,8 @@ interface DailyDietaryProps {
   Token: string;
   CourseId: string;
   UserCurrentStatus: string;
+  courseOver: boolean;
+  setCourseOver: (courseOver: boolean) => void;
 }
 
 interface EditType {
@@ -89,6 +91,8 @@ const DailyDietary: FC<DailyDietaryProps> = ({
   Token,
   CourseId,
   UserCurrentStatus,
+  courseOver,
+  setCourseOver,
 }) => {
   const today = turnDateDashFormat(new Date());
 
@@ -169,6 +173,7 @@ const DailyDietary: FC<DailyDietaryProps> = ({
     ) {
       const endDate = (error as Error).data.Message.Course.split(" ~ ")[1];
       setCurrentDate(endDate);
+      setCourseOver(true);
     }
   }, [error]);
 
@@ -276,28 +281,32 @@ const DailyDietary: FC<DailyDietaryProps> = ({
 
   return (
     <form onSubmit={(e) => handleSubmit({ event: e, tab, UserCurrentStatus })}>
-      <button
-        type="submit"
-        className="hidden lg:block absolute -top-[40px] right-16 w-[28px] h-[28px]"
-      >
-        {edit[currentTab] ? (
-          <Image
-            src="/images/dashboard/dietary-record/save.svg"
-            layout="fixed"
-            width={28}
-            height={28}
-            alt="save"
-          />
-        ) : (
-          <Image
-            src="/images/dashboard/dietary-record/edit.svg"
-            layout="fixed"
-            width={28}
-            height={28}
-            alt="edit"
-          />
-        )}
-      </button>
+      {!courseOver && (
+        <>
+          <button
+            type="submit"
+            className="hidden lg:block absolute -top-[40px] right-16 w-[28px] h-[28px]"
+          >
+            {edit[currentTab] ? (
+              <Image
+                src="/images/dashboard/dietary-record/save.svg"
+                layout="fixed"
+                width={28}
+                height={28}
+                alt="save"
+              />
+            ) : (
+              <Image
+                src="/images/dashboard/dietary-record/edit.svg"
+                layout="fixed"
+                width={28}
+                height={28}
+                alt="edit"
+              />
+            )}
+          </button>
+        </>
+      )}
       <button
         type="button"
         className="hidden absolute -top-[40px] left-16 w-[28px] h-[28px] lg:block"
@@ -356,7 +365,8 @@ const DailyDietary: FC<DailyDietaryProps> = ({
             dailyDietaryData,
             isMobile,
             formDataRef,
-            apiErr
+            apiErr,
+            courseOver
           )
         }
         validRange={{
@@ -397,7 +407,8 @@ function renderEventContent(
   dailyDietaryData: DailyDietaryType,
   isMobile: boolean,
   formDataRef: FormDataRefType,
-  apiErr: Record<string, string>
+  apiErr: Record<string, string>,
+  courseOver: boolean
 ) {
   function changeTab(tab: Tab) {
     setTab(tab);
@@ -583,7 +594,7 @@ function renderEventContent(
             );
           })}
         </ul>
-        {UserCurrentStatus === "nu" && currentTab === "All" && (
+        {UserCurrentStatus === "nu" && currentTab === "All" && !courseOver && (
           <button
             type="submit"
             className="btn-cusEditPrimary py-8 w-[240px] block mx-auto mt-32 lg:hidden"
@@ -600,6 +611,7 @@ function renderEventContent(
         )}
         {UserCurrentStatus === "user" &&
           currentTab !== "All" &&
+          !courseOver &&
           (newEdit ? (
             <button
               type="submit"
