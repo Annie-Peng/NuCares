@@ -12,12 +12,14 @@ interface BodyRateProps {
   Token: Token;
   CourseId: string;
   UserCurrentStatus: string;
+  courseOver: boolean;
 }
 
 const BodyRate: FC<BodyRateProps> = ({
   Token,
   CourseId,
   UserCurrentStatus,
+  courseOver,
 }) => {
   const [tab, setTab] = useState<string>("Height");
   const dispatch = useDispatch();
@@ -32,48 +34,50 @@ const BodyRate: FC<BodyRateProps> = ({
 
   return (
     <>
-      {hasTodayBodyRate.length === 0 && UserCurrentStatus === "user" && (
-        <>
-          <button
-            type="button"
-            onClick={() =>
-              dispatch(
-                showModal([
-                  "showBodyRateAddModal",
-                  { Token: Token, CourseId: CourseId },
-                ])
-              )
-            }
-            className="hidden absolute right-16 lg:-top-[40px] lg:block"
-          >
-            <Image
-              src="/images/dashboard/dietary-record/edit.svg"
-              width={28}
-              height={28}
-              alt="edit"
-            />
-          </button>
-          <button
-            type="button"
-            onClick={() =>
-              dispatch(
-                showModal([
-                  "showBodyRateAddModal",
-                  { Token: Token, CourseId: CourseId },
-                ])
-              )
-            }
-            className="absolute -top-[52px] right-30 lg:hidden"
-          >
-            <Image
-              src="/images/dashboard/dietary-record/edit-primary.svg"
-              width={36}
-              height={36}
-              alt="edit"
-            />
-          </button>
-        </>
-      )}
+      {hasTodayBodyRate.length === 0 &&
+        UserCurrentStatus === "user" &&
+        !courseOver && (
+          <>
+            <button
+              type="button"
+              onClick={() =>
+                dispatch(
+                  showModal([
+                    "showBodyRateAddModal",
+                    { Token: Token, CourseId: CourseId },
+                  ])
+                )
+              }
+              className="hidden absolute right-16 lg:-top-[40px] lg:block"
+            >
+              <Image
+                src="/images/dashboard/dietary-record/edit.svg"
+                width={28}
+                height={28}
+                alt="edit"
+              />
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                dispatch(
+                  showModal([
+                    "showBodyRateAddModal",
+                    { Token: Token, CourseId: CourseId },
+                  ])
+                )
+              }
+              className="absolute -top-[52px] right-30 lg:hidden"
+            >
+              <Image
+                src="/images/dashboard/dietary-record/edit-primary.svg"
+                width={36}
+                height={36}
+                alt="edit"
+              />
+            </button>
+          </>
+        )}
       <div className="flex-col h-full gap-16 hidden lg:flex">
         <label htmlFor="BodyRateChart" className="w-[100px] mx-auto relative">
           <select

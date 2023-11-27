@@ -26,6 +26,7 @@ const CourseRecord: FC<CourseRecordProps> = ({
 }) => {
   const isMobile: boolean = useResize();
   const [showTab, setShowTab] = useState<number>(isMobile ? 1 : 0);
+  const [courseOver, setCourseOver] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -104,6 +105,8 @@ const CourseRecord: FC<CourseRecordProps> = ({
                 Token={Token}
                 CourseId={CourseId}
                 UserCurrentStatus={UserCurrentStatus}
+                courseOver={courseOver}
+                setCourseOver={setCourseOver}
               />
             </DashboardContainer>
           </div>
@@ -127,6 +130,7 @@ const CourseRecord: FC<CourseRecordProps> = ({
                 Token={Token}
                 CourseId={CourseId}
                 UserCurrentStatus={UserCurrentStatus}
+                courseOver={courseOver}
               />
             </DashboardContainer>
           </div>
@@ -150,6 +154,7 @@ const CourseRecord: FC<CourseRecordProps> = ({
                 Token={Token}
                 CourseId={CourseId}
                 UserCurrentStatus={UserCurrentStatus}
+                courseOver={courseOver}
               />
             </DashboardContainer>
           </div>
