@@ -30,16 +30,12 @@ const CourseInfo: FC<CourseInfoProps> = ({
 
   useEffect(() => {
     if (isLoading) {
-      dispatch(showLoading(true));
       return;
     }
     if (error) {
       console.log(error);
     }
-    if (infoData) {
-      dispatch(showLoading(false));
-    }
-  }, [infoData, isLoading, error, dispatch]);
+  }, [isLoading, error]);
 
   if (!infoData) return;
 
