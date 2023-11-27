@@ -64,14 +64,16 @@ const CourseBigCard: FC<CourseBigCardProps> = ({ Token, planData }) => {
       ) : (
         <div className="courseBigCard p-20 bg-white rounded-10 border border-black-200 flex gap-[47px] flex-wrap lg:flex-nowrap">
           <table className="flex gap-x-20 after:content-[''] after:top-0 after:bottom-0 after:block after:bg-black-200 lg:after:w-[1px] lg:w-full">
-            <tr className="flex flex-col gap-16 text-right">
-              <th className="whitespace-nowrap">排列順序</th>
-              <th>課程名稱</th>
-              <th>週數</th>
-              <th>價格</th>
-              <th>標籤</th>
-              <th>課程說明</th>
-            </tr>
+            <thead>
+              <tr className="flex flex-col gap-16 text-right">
+                <th className="whitespace-nowrap">排列順序</th>
+                <th>課程名稱</th>
+                <th>週數</th>
+                <th>價格</th>
+                <th>標籤</th>
+                <th>課程說明</th>
+              </tr>
+            </thead>
             <tbody className="w-full">
               <tr className="flex flex-col gap-16 text-left">
                 <td>{planData.Rank}</td>

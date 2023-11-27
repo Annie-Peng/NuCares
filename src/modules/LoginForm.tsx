@@ -100,6 +100,7 @@ const LoginForm = () => {
                 message: "密碼格式有誤 (6-12字元英數組合)",
               },
             })}
+            autoComplete="off"
           />
           <div className="cusShowLeftIcon bg-passwordIcon" />
           <div

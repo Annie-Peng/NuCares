@@ -6,7 +6,7 @@ import {
   commonRequiredErrMsg,
 } from "@/common/lib/dashboard/errMsg/commonErrMsg";
 import { getCookie } from "cookies-next";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { showModal } from "@/common/redux/features/showModal";
 
@@ -97,10 +97,12 @@ const ApplyForm: FC<ApplyFormProps> = ({ Token }) => {
     buttonJSX,
   });
 
-  if (apiReq) {
-    const message = apiReq.Message || apiReq.data.Message;
-    dispatch(showModal(["showMessageModal", message]));
-  }
+  useEffect(() => {
+    if (apiReq) {
+      const message = apiReq.Message || apiReq.data.Message;
+      dispatch(showModal(["showMessageModal", message]));
+    }
+  }, [apiReq, dispatch]);
 
   return (
     <div className="text-left flex flex-col max-w-[856px] mx-auto p-24 rounded-20 cusBackgroundBackdrop !relative">

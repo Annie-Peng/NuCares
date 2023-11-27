@@ -84,22 +84,21 @@ const InputImage = forwardRef<HTMLInputElement, InputImageProps>(
       ""
     );
 
-    if (apiPhoto?.startsWith("http")) {
-      setValue(name, updateApiPhoto as string);
-    }
-
     const PutPhoto = fileSrc[name as keyof InitFileSrcFoodType]?.fetch;
-    if (fileSrc[name as keyof InitFileSrcFoodType]?.fetch) {
-      setValue(name, PutPhoto || "");
-    }
 
     useEffect(() => {
+      if (apiPhoto?.startsWith("http")) {
+        setValue(name, updateApiPhoto as string);
+      }
+      if (fileSrc[name as keyof InitFileSrcFoodType]?.fetch) {
+        setValue(name, PutPhoto || "");
+      }
       if (apiErr[name]) {
         setError(name, { message: apiErr[name] });
       } else {
         clearErrors(name);
       }
-    }, [apiErr, clearErrors, name, setError]);
+    }, [apiErr, clearErrors, name, setError, PutPhoto]);
 
     return (
       <>
@@ -121,6 +120,7 @@ const InputImage = forwardRef<HTMLInputElement, InputImageProps>(
             />
           </div>
           <input
+            ref={ref}
             type={type}
             name={name}
             className={`${inputClass} mt-12 py-8 ${
