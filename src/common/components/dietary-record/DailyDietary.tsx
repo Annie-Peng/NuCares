@@ -29,6 +29,7 @@ import turnDateFormat, {
 } from "@/common/helpers/turnDateFormat";
 import { commonErrMsgClass } from "@/common/lib/dashboard/errMsg/commonErrMsg";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { useRouter } from "next/router";
 
 interface DailyDietaryProps {
   isMobile: boolean;
@@ -108,6 +109,8 @@ const DailyDietary: FC<DailyDietaryProps> = ({
     Water: false,
   });
 
+  const router = useRouter();
+
   const formDataRef = useRef<FormDataRefType>({
     Breakfast: {
       MealImgUrl: "",
@@ -166,9 +169,12 @@ const DailyDietary: FC<DailyDietaryProps> = ({
   const [dailyDietaryOtherPutApi] = useDailyDietaryOtherPutApiMutation();
 
   useEffect(() => {
+    if (error && (error as Error).status === 400) {
+      router.replace("/404");
+    }
     if (
       error &&
-      "data" in error &&
+      (error as Error).status === 401 &&
       (error as Error).data.Message.Course.includes("課程期間")
     ) {
       const endDate = (error as Error).data.Message.Course.split(" ~ ")[1];
