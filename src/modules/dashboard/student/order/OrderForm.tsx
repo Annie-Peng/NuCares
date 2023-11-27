@@ -58,7 +58,9 @@ const OrderForm: FC<OrderFormProps> = ({ Token }) => {
           <thead>
             <tr>
               {orderTabs.map((tab, index) => (
-                <th key={index}>{tab}</th>
+                <th key={index} className="font-normal">
+                  {tab}
+                </th>
               ))}
             </tr>
           </thead>
