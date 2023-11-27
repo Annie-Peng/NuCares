@@ -157,7 +157,7 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
     }
   }, [data, error, isLoading, dispatch]);
 
-  if (!renderData) return null;
+  if (!renderData) return;
 
   return (
     <div className="py-20 container lg:py-0 flex flex-col justify-between h-full">

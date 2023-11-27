@@ -5,7 +5,7 @@ import wrapper from "@/common/redux/store";
 import NutritionistIntroForm from "@/modules/dashboard/nutritionist/workshop/NutritionistIntroForm";
 import { AuthType } from "@/types/interface";
 import { getCookies } from "cookies-next";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 interface StudentListPageProps {
@@ -18,18 +18,20 @@ const NutritionistIntroPage: FC<StudentListPageProps> = ({ auth }) => {
 
   const dispatch = useDispatch();
 
-  if (isLoading) {
-    dispatch(showLoading(true));
-    return;
-  }
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(showLoading(true));
+      return;
+    }
+    if (error) {
+      console.log(error);
+    }
+    if (data) {
+      dispatch(showLoading(false));
+    }
+  }, [data, isLoading, error, dispatch]);
 
-  if (error) {
-    console.log(error);
-  }
-
-  if (data) {
-    dispatch(showLoading(false));
-  }
+  if (!data) return;
 
   return (
     <>

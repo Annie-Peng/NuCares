@@ -1,4 +1,9 @@
-import { FC, ReactEventHandler, ReactNode, FocusEventHandler } from "react";
+import {
+  ReactEventHandler,
+  ReactNode,
+  FocusEventHandler,
+  forwardRef,
+} from "react";
 import { InputType } from "@/types/interface";
 import { FieldError } from "react-hook-form";
 
@@ -20,50 +25,56 @@ export interface InputProps {
   error?: FieldError;
 }
 
-const Input: FC<InputProps> = ({
-  name,
-  labelClass,
-  type,
-  inputClass,
-  value,
-  required,
-  disabled,
-  placeholder,
-  children,
-  hMsg,
-  pMsg,
-  onChange,
-  errClass,
-  onBlur,
-  error,
-}) => {
-  const valueFormat =
-    type === "number" && typeof value === "string" && value.includes(",")
-      ? (value = Number(value.replace(/,/g, "")))
-      : (value as string);
-  return (
-    <>
-      <label htmlFor={name} className={`${labelClass} mt-20 block`}>
-        <h4 className="formHead">{hMsg}</h4>
-        <p className="formContent">{pMsg}</p>
-        {children}
-        <input
-          type={type}
-          name={name}
-          className={`${inputClass} mt-12 py-8 ${
-            error && "focus:ring-secondary-500"
-          }`}
-          value={valueFormat}
-          placeholder={placeholder}
-          onChange={onChange}
-          required={required}
-          disabled={disabled}
-          onBlur={onBlur}
-        />
-      </label>
-      {error && <p className={errClass}>{error.message}</p>}
-    </>
-  );
-};
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  (
+    {
+      name,
+      labelClass,
+      type,
+      inputClass,
+      value,
+      required,
+      disabled,
+      placeholder,
+      children,
+      hMsg,
+      pMsg,
+      onChange,
+      errClass,
+      onBlur,
+      error,
+    },
+    ref
+  ) => {
+    const valueFormat =
+      type === "number" && typeof value === "string" && value.includes(",")
+        ? (value = Number(value.replace(/,/g, "")))
+        : (value as string);
+    return (
+      <>
+        <label htmlFor={name} className={`${labelClass} mt-20 block`}>
+          <h4 className="formHead">{hMsg}</h4>
+          <p className="formContent">{pMsg}</p>
+          {children}
+          <input
+            ref={ref}
+            type={type}
+            name={name}
+            className={`${inputClass} mt-12 py-8 ${
+              error && "focus:ring-secondary-500"
+            }`}
+            value={valueFormat}
+            placeholder={placeholder}
+            onChange={onChange}
+            required={required}
+            disabled={disabled}
+            onBlur={onBlur}
+          />
+        </label>
+        {error && <p className={errClass}>{error.message}</p>}
+      </>
+    );
+  }
+);
 
 export default Input;

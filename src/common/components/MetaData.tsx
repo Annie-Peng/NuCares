@@ -16,7 +16,10 @@ const MetaData: FC<MetaDataProps> = ({ title, description }) => {
       <Head>
         <title>{title ? `${title} - ${defaultTitle}` : defaultTitle}</title>
         <meta name="description" content={description || defaultDescription} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1 maximum-scale=1, user-scalable=no"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1 className="hidden">{defaultTitle}</h1>

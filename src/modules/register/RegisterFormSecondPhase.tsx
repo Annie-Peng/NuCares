@@ -152,8 +152,9 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
             }`}
             {...register("Gender", { required: "*必填" })}
             onChange={handleChange}
+            defaultValue=""
           >
-            <option value="" disabled selected>
+            <option value="" disabled>
               生理性別
             </option>
             <option value="male">男</option>

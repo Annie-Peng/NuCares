@@ -5,7 +5,7 @@ import wrapper from "@/common/redux/store";
 import StudentInfoForm from "@/modules/dashboard/student/info/StudentInfoForm";
 import { AuthType } from "@/types/interface";
 import { getCookies } from "cookies-next";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 interface InfoPageProps {
@@ -17,18 +17,20 @@ const InfoPage: FC<InfoPageProps> = ({ auth }) => {
   const { data, isLoading, error } = useProfileGetApiQuery({ Token });
   const dispatch = useDispatch();
 
-  if (isLoading) {
-    dispatch(showLoading(true));
-    return;
-  }
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(showLoading(true));
+      return;
+    }
+    if (error) {
+      console.log(error);
+    }
+    if (data) {
+      dispatch(showLoading(false));
+    }
+  }, [data, isLoading, error, dispatch]);
 
-  if (error) {
-    console.log(error);
-  }
-
-  if (data) {
-    dispatch(showLoading(false));
-  }
+  if (!data) return;
 
   return (
     <>

@@ -1,5 +1,5 @@
 import { ComponentType, Token } from "@/types/interface";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import {
   commonErrMsgClass,
   commonPasswordPattern,
@@ -138,10 +138,12 @@ const UpdatePasswordForm: FC<UpdatePasswordFormProps> = ({ Token }) => {
     buttonJSX,
   });
 
-  if (apiReq) {
-    const message = apiReq.Message || apiReq.data.Message;
-    dispatch(showModal(["showTimerModal", { message, timer: 3000 }]));
-  }
+  useEffect(() => {
+    if (apiReq) {
+      const message = apiReq.Message || apiReq.data.Message;
+      dispatch(showModal(["showTimerModal", { message, timer: 3000 }]));
+    }
+  }, [apiReq, dispatch]);
 
   return (
     <div className="container text-left flex flex-col cusDashboardInnerContainer mt-32 p-20">
