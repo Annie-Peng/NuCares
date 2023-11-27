@@ -1,7 +1,7 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import Image from "next/legacy/image";
-import { FC, useState, FormEvent, Fragment, useRef } from "react";
+import { FC, useState, FormEvent, Fragment, useRef, useEffect } from "react";
 import dailyDietaryInput from "@/common/lib/dashboard/dailyDietaryInput";
 import { showModal } from "@/common/redux/features/showModal";
 import { useDispatch } from "react-redux";
@@ -16,7 +16,7 @@ import useUploadFile, {
   HandleUploadFileProps,
   InitFileSrcFoodType,
 } from "@/common/hooks/useUploadFile";
-import { DailyDietaryType } from "@/types/interface";
+import { DailyDietaryType, Error } from "@/types/interface";
 import turnStringFormat from "@/common/helpers/turnStringFormat";
 import {
   useDailyDietaryGetApiQuery,
@@ -28,12 +28,16 @@ import turnDateFormat, {
   turnDateFormatOneMoreDay,
 } from "@/common/helpers/turnDateFormat";
 import { commonErrMsgClass } from "@/common/lib/dashboard/errMsg/commonErrMsg";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { useRouter } from "next/router";
 
 interface DailyDietaryProps {
   isMobile: boolean;
   Token: string;
   CourseId: string;
   UserCurrentStatus: string;
+  courseOver: boolean;
+  setCourseOver: (courseOver: boolean) => void;
 }
 
 interface EditType {
@@ -88,6 +92,8 @@ const DailyDietary: FC<DailyDietaryProps> = ({
   Token,
   CourseId,
   UserCurrentStatus,
+  courseOver,
+  setCourseOver,
 }) => {
   const today = turnDateDashFormat(new Date());
 
@@ -102,6 +108,8 @@ const DailyDietary: FC<DailyDietaryProps> = ({
     Fruit: false,
     Water: false,
   });
+
+  const router = useRouter();
 
   const formDataRef = useRef<FormDataRefType>({
     Breakfast: {
@@ -160,15 +168,28 @@ const DailyDietary: FC<DailyDietaryProps> = ({
   const [dailyDietaryMealTimePutApi] = useDailyDietaryMealTimePutApiMutation();
   const [dailyDietaryOtherPutApi] = useDailyDietaryOtherPutApiMutation();
 
-  if (isLoading || !data) {
-    return <p>Data is Loading</p>;
+  useEffect(() => {
+    if (error && (error as Error).status === 400) {
+      router.replace("/404");
+    }
+    if (
+      error &&
+      (error as Error).status === 401 &&
+      (error as Error).data.Message.Course.includes("課程期間")
+    ) {
+      const endDate = (error as Error).data.Message.Course.split(" ~ ")[1];
+      setCurrentDate(endDate);
+      setCourseOver(true);
+    }
+  }, [error]);
+
+  if (isLoading) {
+    return <p>Data is Loading...</p>;
   }
 
-  if (error) {
-    return <p>Something went wrong</p>;
-  }
+  const dailyDietaryData = data?.Data;
 
-  const dailyDietaryData = data.Data;
+  if (!dailyDietaryData) return;
 
   const currentTab = tab.enName;
 
@@ -266,28 +287,32 @@ const DailyDietary: FC<DailyDietaryProps> = ({
 
   return (
     <form onSubmit={(e) => handleSubmit({ event: e, tab, UserCurrentStatus })}>
-      <button
-        type="submit"
-        className="hidden lg:block absolute -top-[40px] right-16 w-[28px] h-[28px]"
-      >
-        {edit[currentTab] ? (
-          <Image
-            src="/images/dashboard/dietary-record/save.svg"
-            layout="fixed"
-            width={28}
-            height={28}
-            alt="save"
-          />
-        ) : (
-          <Image
-            src="/images/dashboard/dietary-record/edit.svg"
-            layout="fixed"
-            width={28}
-            height={28}
-            alt="edit"
-          />
-        )}
-      </button>
+      {!courseOver && (
+        <>
+          <button
+            type="submit"
+            className="hidden lg:block absolute -top-[40px] right-16 w-[28px] h-[28px]"
+          >
+            {edit[currentTab] ? (
+              <Image
+                src="/images/dashboard/dietary-record/save.svg"
+                layout="fixed"
+                width={28}
+                height={28}
+                alt="save"
+              />
+            ) : (
+              <Image
+                src="/images/dashboard/dietary-record/edit.svg"
+                layout="fixed"
+                width={28}
+                height={28}
+                alt="edit"
+              />
+            )}
+          </button>
+        </>
+      )}
       <button
         type="button"
         className="hidden absolute -top-[40px] left-16 w-[28px] h-[28px] lg:block"
@@ -346,7 +371,8 @@ const DailyDietary: FC<DailyDietaryProps> = ({
             dailyDietaryData,
             isMobile,
             formDataRef,
-            apiErr
+            apiErr,
+            courseOver
           )
         }
         validRange={{
@@ -387,7 +413,8 @@ function renderEventContent(
   dailyDietaryData: DailyDietaryType,
   isMobile: boolean,
   formDataRef: FormDataRefType,
-  apiErr: Record<string, string>
+  apiErr: Record<string, string>,
+  courseOver: boolean
 ) {
   function changeTab(tab: Tab) {
     setTab(tab);
@@ -573,7 +600,7 @@ function renderEventContent(
             );
           })}
         </ul>
-        {UserCurrentStatus === "nu" && currentTab === "All" && (
+        {UserCurrentStatus === "nu" && currentTab === "All" && !courseOver && (
           <button
             type="submit"
             className="btn-cusEditPrimary py-8 w-[240px] block mx-auto mt-32 lg:hidden"
@@ -590,6 +617,7 @@ function renderEventContent(
         )}
         {UserCurrentStatus === "user" &&
           currentTab !== "All" &&
+          !courseOver &&
           (newEdit ? (
             <button
               type="submit"

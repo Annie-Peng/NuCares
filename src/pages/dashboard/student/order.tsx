@@ -13,7 +13,7 @@ const OrderPage: FC<OrderPageProps> = ({ auth }) => {
   return (
     <>
       <MetaData title="訂單紀錄" />
-      <OrderForm Token={auth.Token} />;
+      <OrderForm Token={auth.Token} />
     </>
   );
 };
