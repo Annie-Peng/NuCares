@@ -65,33 +65,30 @@ const CourseInfo: FC<CourseInfoProps> = ({
         {infoData.Data.Age && <p>{infoData.Data.Age}歲</p>}
       </div>
       <ul className="flex flex-col gap-8 text-left mt-24">
-        <li>
+        <li className="flex items-center gap-8">
           <Image
             src="/images/dashboard/dietary-record/courseInfo/email.svg"
             width="15"
             height="15"
             alt="email"
-            className="inline mr-8"
           />
           {infoData.Data.Email}
         </li>
-        <li>
+        <li className="flex items-center gap-8">
           <Image
             src="/images/dashboard/dietary-record/courseInfo/phone.svg"
             width="15"
             height="15"
             alt="phone"
-            className="inline mr-8"
           />
           {infoData.Data.Phone || infoData.Data.Tel}
         </li>
-        <li>
+        <li className="flex items-center gap-8">
           <Image
             src="/images/dashboard/dietary-record/courseInfo/LINE.svg"
             width="15"
             height="15"
             alt="LINE"
-            className="inline mr-8"
           />
           {infoData.Data.LineId}
         </li>
