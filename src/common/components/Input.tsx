@@ -5,7 +5,8 @@ import {
   forwardRef,
 } from "react";
 import { InputType } from "@/types/interface";
-import { FieldError } from "react-hook-form";
+import { FieldError, UseFormSetValue } from "react-hook-form";
+import { InitialStateType } from "../hooks/useEditForm";
 
 export interface InputProps {
   name: string;
@@ -23,6 +24,7 @@ export interface InputProps {
   errClass?: string;
   onBlur?: FocusEventHandler;
   error?: FieldError;
+  setValue: UseFormSetValue<InitialStateType>;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -43,13 +45,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       errClass,
       onBlur,
       error,
+      setValue,
     },
     ref
   ) => {
-    const valueFormat =
-      type === "number" && typeof value === "string" && value.includes(",")
-        ? (value = Number(value.replace(/,/g, "")))
-        : (value as string);
+    if (type === "number" && typeof value === "string" && value.includes(",")) {
+      const valueFormat = (value = Number(value.replace(/,/g, "")));
+      setValue(name, valueFormat);
+    }
 
     const autoComplete = type === "password" ? "off" : "on";
 
@@ -66,7 +69,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             className={`${inputClass} mt-12 py-8 ${
               error && "focus:ring-secondary-500"
             }`}
-            value={valueFormat}
+            value={value as string | number}
             placeholder={placeholder}
             onChange={onChange}
             required={required}

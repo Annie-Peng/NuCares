@@ -106,6 +106,7 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
                     errClass={data.errClass}
                     onChange={field.onChange}
                     disabled={data.disabled}
+                    setValue={setValue}
                   >
                     {data.children}
                   </Input>

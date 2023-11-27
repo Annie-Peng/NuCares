@@ -67,32 +67,29 @@ const NutritionistDropdown = () => {
                   />
                   <span>{nutritionistTab.tab}</span>
                 </div>
-                {showSubTabs && (
-                  <ul className="mt-16 flex flex-col gap-16 text-black-500">
-                    <li>
-                      <Link
-                        href={
-                          (nutritionistTab.tabURL as { intro: string }).intro
-                        }
-                        className="block pl-28"
-                      >
-                        關於我
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href={
-                          (nutritionistTab.tabURL as { courses: string })
-                            .courses
-                        }
-                        className="block pl-28"
-                      >
-                        課程方案
-                      </Link>
-                    </li>
-                  </ul>
-                )}
               </Link>
+              {showSubTabs && (
+                <ul className="mt-16 flex flex-col gap-16 text-black-500">
+                  <li>
+                    <Link
+                      href={(nutritionistTab.tabURL as { intro: string }).intro}
+                      className="block pl-28"
+                    >
+                      關於我
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href={
+                        (nutritionistTab.tabURL as { courses: string }).courses
+                      }
+                      className="block pl-28"
+                    >
+                      課程方案
+                    </Link>
+                  </li>
+                </ul>
+              )}
             </li>
           );
         })}
