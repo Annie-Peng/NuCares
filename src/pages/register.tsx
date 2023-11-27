@@ -1,3 +1,4 @@
+import MetaData from "@/common/components/MetaData";
 import RegisterForm from "@/modules/register/RegisterForm";
 import RegisterFormSecondPhase from "@/modules/register/RegisterFormSecondPhase";
 import RegisterFormThirdPhase from "@/modules/register/RegisterFormThirdPhase";
@@ -10,13 +11,18 @@ const RegisterPage = () => {
   const [currentPhase, setCurrentPhase] = useState<number>(1);
 
   return (
-    <div className="container text-center cusGrid py-40 lg:py-[105px]">
-      {currentPhase === 1 && <RegisterForm setCurrentPhase={setCurrentPhase} />}
-      {currentPhase === 2 && (
-        <RegisterFormSecondPhase setCurrentPhase={setCurrentPhase} />
-      )}
-      {currentPhase === 3 && <RegisterFormThirdPhase />}
-    </div>
+    <>
+      <MetaData title="註冊" />
+      <div className="container text-center cusGrid py-40 lg:py-[105px]">
+        {currentPhase === 1 && (
+          <RegisterForm setCurrentPhase={setCurrentPhase} />
+        )}
+        {currentPhase === 2 && (
+          <RegisterFormSecondPhase setCurrentPhase={setCurrentPhase} />
+        )}
+        {currentPhase === 3 && <RegisterFormThirdPhase />}
+      </div>
+    </>
   );
 };
 
