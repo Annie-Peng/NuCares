@@ -2,7 +2,7 @@ import Image from "next/legacy/image";
 import Link from "next/link";
 import logo from "public/images/logo.svg";
 import login from "public/images/login.svg";
-import logout from "public/images/logout.svg";
+import logout from "public/images/header/logout.svg";
 import StudentDropdown from "@/modules/dashboard/student/StudentDropdown";
 import NutritionistDropdown from "@/modules/dashboard/nutritionist/NutritionistDropdown";
 import { useEffect, useState } from "react";
@@ -66,7 +66,11 @@ const Header = () => {
                 成為NuCares營養師
               </Link>
             </li>
-            <li className="ms-auto text-14 font-thin">
+            <li
+              className={`ms-auto text-14 font-thin ${
+                isMounted && IsNutritionist === "true" && "hidden"
+              }`}
+            >
               <Link href="/apply">申請成為營養師</Link>
             </li>
           </ul>

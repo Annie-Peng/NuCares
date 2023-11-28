@@ -1,4 +1,4 @@
-import dietaryRecordTabs from "@/common/lib/dashboard/dietaryRecordTabs";
+import dietaryRecordTabs from "@/common/lib/dashboard/dietary-record/dietaryRecordTabs";
 import Image from "next/legacy/image";
 
 interface MobileSidebarProps {

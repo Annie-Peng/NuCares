@@ -75,7 +75,7 @@ const GoalCompletionRate: FC<GoalCompletionRateProps> = ({
               layout="fixed"
               width={28}
               height={28}
-              alt="arrow"
+              alt="edit"
             />
           </button>
         ))}
@@ -157,6 +157,7 @@ const GoalCompletionRate: FC<GoalCompletionRateProps> = ({
           </li>
         </ul>
         {UserCurrentStatus === "nu" &&
+          !courseOver &&
           (editGoal ? (
             <button
               type="button"

@@ -1,8 +1,5 @@
 import MetaData from "@/common/components/MetaData";
-import {
-  featuresData,
-  webProcessData,
-} from "@/common/lib/dashboard/benefitData";
+import { featuresData, webProcessData } from "@/common/lib/benefitData";
 import Image from "next/legacy/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
