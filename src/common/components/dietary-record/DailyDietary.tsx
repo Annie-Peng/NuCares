@@ -183,6 +183,10 @@ const DailyDietary: FC<DailyDietaryProps> = ({
     }
   }, [error]);
 
+  useEffect(() => {
+    setFileSrc(initFileSrc);
+  }, [tab, currentDate]);
+
   if (isLoading) {
     return <p>Data is Loading...</p>;
   }
@@ -576,6 +580,7 @@ function renderEventContent(
                   width={currentTab === "All" ? "75" : "48"}
                   height={currentTab === "All" ? "75" : "48"}
                   className="mx-auto"
+                  priority={true}
                 />
                 <p className="mt-6">{filterFoodIcon.name}</p>
                 <p className="mt-8 w-[70px] h-[42px] mx-auto lg:w-[78px]">
