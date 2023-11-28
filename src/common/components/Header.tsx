@@ -66,7 +66,11 @@ const Header = () => {
                 成為NuCares營養師
               </Link>
             </li>
-            <li className="ms-auto text-14 font-thin">
+            <li
+              className={`ms-auto text-14 font-thin ${
+                isMounted && IsNutritionist === "true" && "hidden"
+              }`}
+            >
               <Link href="/apply">申請成為營養師</Link>
             </li>
           </ul>
