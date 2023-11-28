@@ -120,11 +120,11 @@ const HomePage: FC<HomePageProps> = ({ nutritionists }) => {
                     className="rounded-15 object-cover"
                     layout="fill"
                   />
-                  <div className="absolute top-0 right-0 bottom-0 left-0 bg-white opacity-30 group-hover:opacity-80" />
-                  <h3 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-10 rounded-5 bg-white bg-opacity-80 text-primary-500 text-24 backdrop-blur-[2px] group-hover:text-white group-hover:bg-primary-500">
+                  <div className="absolute top-0 right-0 bottom-0 left-0 bg-white opacity-30 group-hover:opacity-80 group-hover:duration-300" />
+                  <h3 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-10 rounded-5 bg-white bg-opacity-80 text-primary-500 text-24 backdrop-blur-[2px] group-hover:text-white group-hover:bg-primary-500 group-hover:duration-300">
                     {service.title}
                   </h3>
-                  <p className="absolute bottom-0 left-0 right-0 text-center py-12 text-white bg-primary-500 bg-opacity-70 rounded-b-15 backdrop-blur-[2px] group-hover:bg-opacity-80">
+                  <p className="absolute bottom-0 left-0 right-0 text-center py-12 text-white bg-primary-500 bg-opacity-70 rounded-b-15 backdrop-blur-[2px] group-hover:bg-opacity-80 group-hover:duration-300">
                     {service.content}
                   </p>
                 </Link>
