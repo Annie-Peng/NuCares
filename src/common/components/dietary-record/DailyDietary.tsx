@@ -168,6 +168,8 @@ const DailyDietary: FC<DailyDietaryProps> = ({
   const [dailyDietaryMealTimePutApi] = useDailyDietaryMealTimePutApiMutation();
   const [dailyDietaryOtherPutApi] = useDailyDietaryOtherPutApiMutation();
 
+  const currentTab = tab.enName;
+
   useEffect(() => {
     if (error && (error as Error).status === 400) {
       router.replace("/404");
@@ -184,6 +186,7 @@ const DailyDietary: FC<DailyDietaryProps> = ({
   }, [error]);
 
   useEffect(() => {
+    setEdit({ ...edit, [currentTab]: false });
     setFileSrc(initFileSrc);
   }, [tab, currentDate]);
 
@@ -194,8 +197,6 @@ const DailyDietary: FC<DailyDietaryProps> = ({
   const dailyDietaryData = data?.Data;
 
   if (!dailyDietaryData) return;
-
-  const currentTab = tab.enName;
 
   const events: Event[] = [
     {
@@ -377,7 +378,8 @@ const DailyDietary: FC<DailyDietaryProps> = ({
             formDataRef,
             apiErr,
             courseOver,
-            dispatch
+            dispatch,
+            setEdit
           )
         }
         validRange={{
@@ -420,7 +422,8 @@ function renderEventContent(
   formDataRef: FormDataRefType,
   apiErr: Record<string, string>,
   courseOver: boolean,
-  dispatch: AppDispatch
+  dispatch: AppDispatch,
+  setEdit: (edit: EditType) => void
 ) {
   function changeTab(tab: Tab, newEdit: boolean) {
     if (newEdit) {
