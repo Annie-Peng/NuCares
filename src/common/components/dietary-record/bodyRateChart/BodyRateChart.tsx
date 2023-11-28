@@ -73,7 +73,6 @@ const BodyRateChart: FC<BodyRateChartProps> = ({ item, tab, BodyRate }) => {
           maintainAspectRatio: false,
           scales: {
             y: {
-              beginAtZero: true,
               grid: {
                 display: false,
               },
@@ -82,6 +81,9 @@ const BodyRateChart: FC<BodyRateChartProps> = ({ item, tab, BodyRate }) => {
             x: {
               grid: {
                 display: false,
+              },
+              ticks: {
+                autoSkip: false,
               },
             },
           },
