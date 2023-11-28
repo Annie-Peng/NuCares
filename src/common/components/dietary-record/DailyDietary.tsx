@@ -28,8 +28,8 @@ import turnDateFormat, {
   turnDateFormatOneMoreDay,
 } from "@/common/helpers/turnDateFormat";
 import { commonErrMsgClass } from "@/common/lib/dashboard/errMsg/commonErrMsg";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { useRouter } from "next/router";
+import { AppDispatch } from "@/common/redux/store";
 
 interface DailyDietaryProps {
   isMobile: boolean;
@@ -376,7 +376,8 @@ const DailyDietary: FC<DailyDietaryProps> = ({
             isMobile,
             formDataRef,
             apiErr,
-            courseOver
+            courseOver,
+            dispatch
           )
         }
         validRange={{
@@ -418,9 +419,14 @@ function renderEventContent(
   isMobile: boolean,
   formDataRef: FormDataRefType,
   apiErr: Record<string, string>,
-  courseOver: boolean
+  courseOver: boolean,
+  dispatch: AppDispatch
 ) {
-  function changeTab(tab: Tab) {
+  function changeTab(tab: Tab, newEdit: boolean) {
+    if (newEdit) {
+      dispatch(showModal(["showMessageModal", "請先儲存"]));
+      return;
+    }
     setTab(tab);
   }
 
@@ -441,7 +447,7 @@ function renderEventContent(
             <li key={index}>
               <button
                 type="button"
-                onClick={() => changeTab(title)}
+                onClick={() => changeTab(title, newEdit)}
                 className={`p-12 ${
                   title.name === tab.name &&
                   "pb-10 px-12 border-b-2 border-secondary-400 text-secondary-400"
@@ -471,7 +477,6 @@ function renderEventContent(
               const otherTabDes = `${[currentTab]}Description`;
               const otherTabImg = `${[currentTab]}ImgUrl`;
               let showImgErrMsg = apiErr[currentTab];
-
               return (
                 <Fragment key={index}>
                   <label
