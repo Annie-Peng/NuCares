@@ -28,6 +28,7 @@ const StudentDropdown: FC<StudentDropdownProps> = ({ IsNutritionist }) => {
   });
 
   const handleLogoutClick = () => {
+    deleteCookie("Id");
     deleteCookie("Token");
     deleteCookie("UserName");
     deleteCookie("Email");

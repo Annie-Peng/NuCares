@@ -15,6 +15,7 @@ const NutritionistDropdown = () => {
   }
 
   function handleLogoutClick() {
+    deleteCookie("Id");
     deleteCookie("Token");
     deleteCookie("UserName");
     deleteCookie("Email");
