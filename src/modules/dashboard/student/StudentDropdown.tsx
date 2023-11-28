@@ -1,7 +1,7 @@
 import studentTabs from "@/common/lib/dashboard/studentTabs";
 import Link from "next/link";
 import Image from "next/legacy/image";
-import logoutTab from "@/common/lib/dashboard/logoutTab";
+import logoutTab from "@/common/lib/logoutTab";
 import changeIdentity from "@/common/lib/dashboard/changeIdentity";
 import { deleteCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/router";

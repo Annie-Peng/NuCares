@@ -2,7 +2,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import Image from "next/legacy/image";
 import { FC, useState, FormEvent, Fragment, useRef, useEffect } from "react";
-import dailyDietaryInput from "@/common/lib/dashboard/dailyDietaryInput";
+import dailyDietaryInput from "@/common/lib/dashboard/dietary-record/dailyDietaryInput";
 import { showModal } from "@/common/redux/features/showModal";
 import { useDispatch } from "react-redux";
 import {
@@ -27,7 +27,7 @@ import turnDateFormat, {
   turnDateDashFormat,
   turnDateFormatOneMoreDay,
 } from "@/common/helpers/turnDateFormat";
-import { commonErrMsgClass } from "@/common/lib/dashboard/errMsg/commonErrMsg";
+import { commonErrMsgClass } from "@/common/lib/errMsg/commonErrMsg";
 import { useRouter } from "next/router";
 import { AppDispatch } from "@/common/redux/store";
 

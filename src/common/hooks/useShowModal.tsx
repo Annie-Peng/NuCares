@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
 import { selectShowModal } from "../redux/features/showModal";
-import MenuEditModal from "@/modules/dashboard/nutritionist/student-list/MenuEditModal";
+import MenuEditModal from "@/modules/dashboard/nutritionist/dietary-record/MenuEditModal";
 import CourseStartModal from "@/modules/dashboard/nutritionist/workshop/CourseStartModal";
-import BodyRateAddModal from "@/modules/dashboard/student/courses/BodyRateAddModal";
+import BodyRateAddModal from "@/modules/dashboard/student/dietary-record/BodyRateAddModal";
 import CourseDeleteModal from "@/modules/dashboard/nutritionist/workshop/CourseDeleteModal";
 import CourseSaveModal from "@/modules/dashboard/nutritionist/workshop/CourseSaveModal";
-import FoodDetailModal from "../components/dietary-record/FoodDetailModal";
+import FoodDetailModal from "../components/dietary-record/dailyRecord/FoodDetailModal";
 import CommentAddModal from "@/modules/dashboard/student/course-list/CommentAddModal";
 import TimerModal from "../components/modals/TimerModal";
 import MiniModal from "../components/modals/MiniModal";

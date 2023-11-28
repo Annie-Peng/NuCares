@@ -11,9 +11,9 @@ import DatePicker from "react-datepicker";
 import logoPrimary from "public/images/logo-primary-300.svg";
 import registerStep2 from "public/images/register/registerStep2.svg";
 import { RegisterFormProps } from "@/pages/register";
-import registerApiErrMsg from "@/common/lib/dashboard/errMsg/registerApiErrMsg";
+import registerApiErrMsg from "@/common/lib/errMsg/registerApiErrMsg";
 import errInput from "@/common/helpers/errInput";
-import { commonPhonePattern } from "@/common/lib/dashboard/errMsg/commonErrMsg";
+import { commonPhonePattern } from "@/common/lib/errMsg/commonErrMsg";
 import turnDateFormat from "@/common/helpers/turnDateFormat";
 import { RegisterData } from "@/types/interface";
 

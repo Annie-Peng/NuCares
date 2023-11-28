@@ -8,13 +8,13 @@ import { useUserRegisterEmailPostApiMutation } from "@/common/redux/service/regi
 import "react-datepicker/dist/react-datepicker.css";
 import logoPrimary from "public/images/logo-primary-300.svg";
 import registerStep1 from "public/images/register/registerStep1.svg";
-import registerApiErrMsg from "@/common/lib/dashboard/errMsg/registerApiErrMsg";
+import registerApiErrMsg from "@/common/lib/errMsg/registerApiErrMsg";
 import errInput from "@/common/helpers/errInput";
 import { RegisterFormProps } from "@/pages/register";
 import {
   commonEmailPattern,
   commonPasswordPattern,
-} from "@/common/lib/dashboard/errMsg/commonErrMsg";
+} from "@/common/lib/errMsg/commonErrMsg";
 import { BasicRegisterFormInput } from "@/types/interface";
 
 export interface RegisterFormInput extends BasicRegisterFormInput {
