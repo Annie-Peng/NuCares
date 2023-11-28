@@ -8,7 +8,7 @@ import {
   commonErrMsgClass,
   commonMinGreaterThanZero,
   commonRequiredErrMsg,
-} from "@/common/lib/dashboard/errMsg/commonErrMsg";
+} from "@/common/lib/errMsg/commonErrMsg";
 import { usePlanPostApiMutation } from "@/common/redux/service/plan";
 
 export const courseAddFormData: ComponentType[] = [

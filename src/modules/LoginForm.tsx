@@ -8,12 +8,12 @@ import { storeAuth } from "@/common/redux/features/auth";
 import { useRouter } from "next/router";
 import { setCookie } from "cookies-next";
 import { useState } from "react";
-import loginApiErrMsg from "@/common/lib/dashboard/errMsg/loginApiErrMsg";
+import loginApiErrMsg from "@/common/lib/errMsg/loginApiErrMsg";
 import errInput from "@/common/helpers/errInput";
 import {
   commonEmailPattern,
   commonPasswordPattern,
-} from "@/common/lib/dashboard/errMsg/commonErrMsg";
+} from "@/common/lib/errMsg/commonErrMsg";
 import { BasicRegisterFormInput } from "@/types/interface";
 
 interface LoginType extends BasicRegisterFormInput {

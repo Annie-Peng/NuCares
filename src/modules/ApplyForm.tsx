@@ -4,7 +4,7 @@ import { ComponentType, Token } from "@/types/interface";
 import {
   commonErrMsgClass,
   commonRequiredErrMsg,
-} from "@/common/lib/dashboard/errMsg/commonErrMsg";
+} from "@/common/lib/errMsg/commonErrMsg";
 import { getCookie } from "cookies-next";
 import { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";

@@ -11,7 +11,7 @@ import {
   commonErrMsgClass,
   commonPhonePattern,
   commonRequiredErrMsg,
-} from "@/common/lib/dashboard/errMsg/commonErrMsg";
+} from "@/common/lib/errMsg/commonErrMsg";
 import useEditForm from "@/common/hooks/useEditForm";
 import { useIntroPutApiMutation } from "@/common/redux/service/intro";
 import { FC, useEffect } from "react";

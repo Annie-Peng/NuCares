@@ -1,14 +1,14 @@
 import DashboardContainer from "@/common/components/DashboardContainer";
-import DailyDietary from "@/common/components/dietary-record/DailyDietary";
+import DailyDietary from "@/common/components/dietary-record/dailyRecord/DailyDietary";
 import GoalCompletionRate from "@/common/components/dietary-record/goalChart/GoalCompletionRate";
-import CourseInfo from "@/common/components/dietary-record/CourseInfo";
+import CourseInfo from "@/common/components/dietary-record/courseInfo/CourseInfo";
 import Image from "next/legacy/image";
 import { FC, useEffect, useState } from "react";
-import BodyRate from "./BodyRate";
+import BodyRate from "./bodyRateChart/BodyRate";
 import MobileSidebar from "./MobileSidebar";
 import useResize from "@/common/hooks/useResize";
 import Link from "next/link";
-import InfoBtn from "./InfoBtn";
+import InfoBtn from "./courseInfo/InfoBtn";
 import { useDispatch } from "react-redux";
 
 interface CourseRecordProps {

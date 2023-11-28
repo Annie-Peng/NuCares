@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/legacy/image";
 import changeIdentity from "@/common/lib/dashboard/changeIdentity";
 import nutritionistTabs from "@/common/lib/dashboard/nutritionistTabs";
-import logoutTab from "@/common/lib/dashboard/logoutTab";
+import logoutTab from "@/common/lib/logoutTab";
 import { deleteCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/router";
 
