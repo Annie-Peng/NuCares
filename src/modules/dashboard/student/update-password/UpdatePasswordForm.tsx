@@ -4,7 +4,7 @@ import {
   commonErrMsgClass,
   commonPasswordPattern,
   commonRequiredErrMsg,
-} from "@/common/lib/dashboard/errMsg/commonErrMsg";
+} from "@/common/lib/errMsg/commonErrMsg";
 import { useDispatch } from "react-redux";
 import { useUpdatePasswordPutApiMutation } from "@/common/redux/service/updatePassword";
 import useEditForm from "@/common/hooks/useEditForm";

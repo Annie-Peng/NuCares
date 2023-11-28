@@ -5,7 +5,7 @@ import Image from "next/legacy/image";
 import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { commonErrMsgClass } from "@/common/lib/dashboard/errMsg/commonErrMsg";
+import { commonErrMsgClass } from "@/common/lib/errMsg/commonErrMsg";
 import { CourseType, Token } from "@/types/interface";
 
 interface CommentAddModalProps {

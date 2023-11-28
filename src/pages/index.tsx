@@ -3,7 +3,7 @@ import {
   featuresData,
   successCasesData,
   webProcessData,
-} from "@/common/lib/dashboard/homeData";
+} from "@/common/lib/homeData";
 import Image from "next/legacy/image";
 import Link from "next/link";
 import axios from "axios";
