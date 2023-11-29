@@ -34,7 +34,7 @@ const NutritionistIntro: FC<NutritionistIntroProps> = ({
       });
       setFavorite(!favorite);
     } catch (error) {
-      console.log(error);
+      return;
     }
   };
 

@@ -136,7 +136,7 @@ const CourseAddForm: FC<CourseAddFormProps> = ({
       const result = await planPostApi({ Token, body }).unwrap();
       handleDeleteClick(formKey);
     } catch (error) {
-      console.log(error);
+      return;
     }
   };
 

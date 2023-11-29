@@ -49,7 +49,7 @@ const CommentAddModal: FC<CommentAddModalProps> = ({ data }) => {
       });
       dispatch(closeModal("showCommentAddModal"));
     } catch (error) {
-      console.log(error);
+      return;
     }
   };
 

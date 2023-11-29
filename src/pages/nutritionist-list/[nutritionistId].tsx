@@ -91,7 +91,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
         },
       };
     } catch (error) {
-      console.log(error);
       return { notFound: true };
     }
   }

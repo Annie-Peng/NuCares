@@ -29,7 +29,6 @@ const FavoritePage: FC<FavoritePageProps> = ({ auth }) => {
       return;
     }
     if (error) {
-      console.log(error);
       return;
     }
     if (renderData) {

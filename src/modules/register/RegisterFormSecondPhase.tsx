@@ -55,7 +55,6 @@ const RegisterFormSecondPhase: FC<RegisterFormProps> = ({
       const result = await userRegisterPostApi(newFormData).unwrap();
       setCurrentPhase(3);
     } catch (error: unknown) {
-      console.log(error);
       const e = error as { data?: { Message: unknown }; status?: unknown };
 
       const errMsgs = Object.entries(e.data?.Message as string);

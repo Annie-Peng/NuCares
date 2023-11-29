@@ -76,7 +76,7 @@ const CourseStartModal: FC<CourseStartModalProps> = ({ data }) => {
       });
       dispatch(showModal(["showCourseStartModal", 0]));
     } catch (error) {
-      console.log(error);
+      return;
     }
   };
 
