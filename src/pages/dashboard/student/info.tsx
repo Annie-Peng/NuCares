@@ -23,7 +23,7 @@ const InfoPage: FC<InfoPageProps> = ({ auth }) => {
       return;
     }
     if (error) {
-      console.log(error);
+      return;
     }
     if (data) {
       dispatch(showLoading(false));

@@ -33,7 +33,7 @@ const CourseInfo: FC<CourseInfoProps> = ({
       return;
     }
     if (error) {
-      console.log(error);
+      return;
     }
   }, [isLoading, error]);
 

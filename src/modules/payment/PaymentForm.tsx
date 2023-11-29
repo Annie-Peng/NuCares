@@ -59,7 +59,7 @@ const PaymentForm: FC<PaymentFormProps> = ({
       dispatch(storePaymentForm(formData));
       setCurrentPhase(2);
     } catch (error) {
-      console.log(error);
+      return;
     }
   };
 

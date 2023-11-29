@@ -23,7 +23,7 @@ const NutritionistIntroPage: FC<NutritionistIntroPageProps> = ({ auth }) => {
       return;
     }
     if (error) {
-      console.log(error);
+      return;
     }
     if (data) {
       dispatch(showLoading(false));

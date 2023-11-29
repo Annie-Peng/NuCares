@@ -33,7 +33,7 @@ const PaymentPage: FC<PaymentPageProps> = ({ auth }) => {
       return;
     }
     if (error) {
-      console.log(error);
+      return;
     }
     if (renderData) {
       dispatch(showLoading(false));

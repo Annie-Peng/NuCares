@@ -29,7 +29,7 @@ const NutritionistCard: FC<NutritionistCardProps> = ({ nutritionistData }) => {
       });
       setFavorite(!favorite);
     } catch (error) {
-      console.log(error);
+      return;
     }
   };
 
