@@ -58,7 +58,7 @@ const InputDate = forwardRef<DatePicker, InputDateProps>(
           <h4 className="formHead">{hMsg}</h4>
           <p className="formContent">{pMsg}</p>
           {children}
-          <div className="relative">
+          <div className="relative z-20">
             <DatePicker
               ref={ref}
               className={`${inputClass} ${error && "focus:ring-secondary-500"}`}
