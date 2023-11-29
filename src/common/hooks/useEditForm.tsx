@@ -77,7 +77,7 @@ const JSXEditForm: FC<JSXEditFormProps> = ({
       setApiReq(result);
       setEdit(false);
     } catch (error: any) {
-      console.log(error);
+      error;
       setApiReq(error);
     }
   };

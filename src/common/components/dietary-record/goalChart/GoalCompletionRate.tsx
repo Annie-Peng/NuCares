@@ -42,7 +42,7 @@ const GoalCompletionRate: FC<GoalCompletionRateProps> = ({
 
       setEditGoal(false);
     } catch (error) {
-      console.log(error);
+      return;
     }
   };
 

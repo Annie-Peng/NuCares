@@ -27,7 +27,7 @@ const NutritionistCoursePage: FC<NutritionistCoursePageProps> = ({ auth }) => {
       return;
     }
     if (error) {
-      console.log(error);
+      return;
     }
 
     if (renderData) {

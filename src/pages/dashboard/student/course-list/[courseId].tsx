@@ -55,13 +55,13 @@ const CourseIdPage: FC<CourseIdProps> = ({ auth }) => {
       dispatch(storeBodyRate(BodyInfo.Data));
     }
     if (BodyInfoError) {
-      console.log(BodyInfoError);
+      return;
     }
     if (Goal) {
       dispatch(storeGoal(Goal.Data));
     }
     if (GoalError) {
-      console.log(GoalError);
+      return;
     }
   }, [BodyInfo, Goal, BodyInfoError, GoalError]);
 

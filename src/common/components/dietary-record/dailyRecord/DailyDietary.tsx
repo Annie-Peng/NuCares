@@ -271,7 +271,7 @@ const DailyDietary: FC<DailyDietaryProps> = ({
             }).unwrap();
           }
         } catch (error) {
-          console.log(error);
+          return;
         }
       }
     }

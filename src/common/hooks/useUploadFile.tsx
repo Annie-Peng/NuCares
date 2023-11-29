@@ -79,7 +79,7 @@ const useUploadFile = ({
 
       previewFile(file, fetchData);
     } catch (error: any) {
-      console.log(error);
+      return;
     }
   };
 

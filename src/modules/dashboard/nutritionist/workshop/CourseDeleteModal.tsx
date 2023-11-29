@@ -23,7 +23,7 @@ const CourseDeleteModal: FC<CourseDeleteModalProps> = ({ data }) => {
       const result = await planDeleteApi({ Token, PlanId }).unwrap();
       dispatch(closeModal("showCourseDeleteModal"));
     } catch (error) {
-      console.log(error);
+      return;
     }
   };
 
