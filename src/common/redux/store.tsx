@@ -8,6 +8,7 @@ import bodyRateReducer from "./features/dietary-record/bodyRate";
 import dailyDietaryReducer from "./features/dietary-record/dailyDietary";
 import goalReducer from "./features/dietary-record/goal";
 import loadingReducer from "./features/loading";
+import lifeSurveyReducer from "./features/lifeSurvey";
 
 import { register } from "./service/register";
 import { login } from "./service/login";
@@ -22,6 +23,7 @@ import { profile } from "./service/profile";
 import { order } from "./service/order";
 import { favorite } from "./service/favorite";
 import { updatePassword } from "./service/updatePassword";
+import { survey } from "./service/survey";
 
 const store = configureStore({
   reducer: {
@@ -33,6 +35,7 @@ const store = configureStore({
     goal: goalReducer,
     paymentPhases: paymentReducer,
     loading: loadingReducer,
+    lifeSurvey: lifeSurveyReducer,
 
     [register.reducerPath]: register.reducer,
     [login.reducerPath]: login.reducer,
@@ -47,6 +50,7 @@ const store = configureStore({
     [order.reducerPath]: order.reducer,
     [favorite.reducerPath]: favorite.reducer,
     [updatePassword.reducerPath]: updatePassword.reducer,
+    [survey.reducerPath]: survey.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -62,7 +66,8 @@ const store = configureStore({
       .concat(profile.middleware)
       .concat(order.middleware)
       .concat(favorite.middleware)
-      .concat(updatePassword.middleware),
+      .concat(updatePassword.middleware)
+      .concat(survey.middleware),
 });
 
 const wrapper = createWrapper(() => store, { debug: false });
