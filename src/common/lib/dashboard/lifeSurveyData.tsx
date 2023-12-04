@@ -1,4 +1,49 @@
 import { commonRequiredErrMsg } from "../errMsg/commonErrMsg";
+import lifeSurveyStep1 from "public/images/dashboard/student/life-survey/lifeSurveyStep1.svg";
+import lifeSurveyStep2 from "public/images/dashboard/student/life-survey/lifeSurveyStep2.svg";
+import lifeSurveyStep3 from "public/images/dashboard/student/life-survey/lifeSurveyStep3.svg";
+import lifeSurveyStep1SmProcess from "public/images/dashboard/student/life-survey/lifeSurveyStep1-sm-process.svg";
+import lifeSurveyStep2SmProcess from "public/images/dashboard/student/life-survey/lifeSurveyStep2-sm-process.svg";
+import lifeSurveyStep3SmProcess from "public/images/dashboard/student/life-survey/lifeSurveyStep3-sm-process.svg";
+import lifeSurveyStep1SmText from "public/images/dashboard/student/life-survey/lifeSurveyStep1-sm-text.svg";
+import lifeSurveyStep2SmText from "public/images/dashboard/student/life-survey/lifeSurveyStep2-sm-text.svg";
+import lifeSurveyStep3SmText from "public/images/dashboard/student/life-survey/lifeSurveyStep3-sm-text.svg";
+
+export const lifeSurveyTabs = [
+  {
+    title: "個人基本/生理資料",
+    image: {
+      lg: lifeSurveyStep1,
+      sm: {
+        process: lifeSurveyStep1SmProcess,
+        text: lifeSurveyStep1SmText,
+      },
+    },
+    range: [1, 4],
+  },
+  {
+    title: "個人/家族病史",
+    image: {
+      lg: lifeSurveyStep2,
+      sm: {
+        process: lifeSurveyStep2SmProcess,
+        text: lifeSurveyStep2SmText,
+      },
+    },
+    range: [5, 9],
+  },
+  {
+    title: "飲食習慣",
+    image: {
+      lg: lifeSurveyStep3,
+      sm: {
+        process: lifeSurveyStep3SmProcess,
+        text: lifeSurveyStep3SmText,
+      },
+    },
+    range: [10, 19],
+  },
+];
 
 const lifeSurveyData = [
   {
@@ -23,11 +68,11 @@ const lifeSurveyData = [
       "其他",
     ],
   },
-  // {
-  //   method: "multiple-choice",
-  //   title: "如仍有月經，最近三次月經時間(男性免填)",
-  //   choices: [""],
-  // },
+  {
+    method: "input",
+    title: "如仍有月經，最近三次月經時間(男性免填)",
+    choices: [""],
+  },
   {
     method: "single-choice",
     title: "父母親是否有肥胖的問題?",
