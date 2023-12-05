@@ -33,4 +33,5 @@ export const survey = createApi({
   }),
 });
 
-export const { useLifeSurveyPostApiMutation } = survey;
+export const { useLifeSurveyGetApiQuery, useLifeSurveyPostApiMutation } =
+  survey;
