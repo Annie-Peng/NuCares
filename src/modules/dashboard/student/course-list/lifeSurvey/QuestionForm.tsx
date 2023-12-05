@@ -9,7 +9,7 @@ import {
 import { useLifeSurveyPostApiMutation } from "@/common/redux/service/survey";
 import { Token } from "@/types/interface";
 import Image from "next/legacy/image";
-import { FC, Fragment } from "react";
+import { FC, Fragment, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -41,41 +41,53 @@ const QuestionForm: FC<QuestionFormProps> = ({
 
   const submitDataSet = useSelector(selectLifeSurvey);
 
+  const [isSurveyStored, setIsSurveyStored] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Record<string, string>>();
 
-  const onSubmit = async (data: Record<string, string>) => {
-    try {
-      dispatch(storeLifeSurvey(data));
+  const onSubmit = (data: Record<string, string>) => {
+    dispatch(storeLifeSurvey(data));
 
-      if (currentPhase !== lifeSurveyLastPage) {
-        setCurrentPhase(currentPhase + 1);
-        return;
-      }
-
-      let formattedDataSet: Record<string, Record<string, string[]>> = {
-        Question: {},
-      };
-      Object.entries(submitDataSet).forEach(([key, value]) => {
-        if (typeof value === "string") {
-          formattedDataSet.Question[key] = Array(value);
-        } else {
-          formattedDataSet.Question[key] = value;
-        }
-      });
-      const result = await lifeSurveyPostApi({
-        CourseId,
-        Token,
-        body: formattedDataSet,
-      });
-      setFinishPhase(true);
-    } catch (error) {
+    if (currentPhase !== lifeSurveyLastPage) {
+      setCurrentPhase(currentPhase + 1);
       return;
     }
+
+    setIsSurveyStored(true);
   };
+
+  useEffect(() => {
+    const submitSurvey = async () => {
+      try {
+        let formattedDataSet: Record<string, Record<string, string[]>> = {
+          Question: {},
+        };
+        Object.entries(submitDataSet).forEach(([key, value]) => {
+          if (typeof value === "string") {
+            formattedDataSet.Question[key] = Array(value);
+          } else {
+            formattedDataSet.Question[key] = value;
+          }
+        });
+        const result = await lifeSurveyPostApi({
+          CourseId,
+          Token,
+          body: formattedDataSet,
+        });
+        setFinishPhase(true);
+      } catch (error) {
+        return;
+      }
+    };
+
+    if (isSurveyStored) {
+      submitSurvey();
+    }
+  }, [isSurveyStored]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -89,14 +101,14 @@ const QuestionForm: FC<QuestionFormProps> = ({
             const questionName = `Question${String(range[0] + index)}`;
             const questionErr = errors[questionName];
             return (
-              <Fragment key={index}>
+              <Fragment key={questionName}>
                 {index > 0 && <hr className="mt-28" />}
                 <h4 className={`font-bold mt-28`}>{question.title}</h4>
                 <ul className="mt-12 flex flex-col gap-8">
                   {question.choices.map((choice, cIndex) => {
                     const questionId = `${questionName}-${String(cIndex)}`;
                     return (
-                      <li key={cIndex}>
+                      <li key={questionId}>
                         <label htmlFor={questionId} className="gap-8 flex">
                           {question.method === "single-choice" && (
                             <>
