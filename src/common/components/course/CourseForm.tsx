@@ -257,12 +257,28 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
               <div className="text-14">
                 飲食生活問卷：
                 {course.IsQuest ? (
-                  <button
-                    disabled={buttonClass[ID].IsQuest.true.disable}
-                    className={buttonClass[ID].IsQuest.true.class}
+                  buttonClass[ID].IsQuest.true.disable ? (
+                    <button
+                      disabled={buttonClass[ID].IsQuest.true.disable}
+                      className={buttonClass[ID].IsQuest.true.class}
+                    >
+                      已填寫
+                    </button>
+                  ) : (
+                    <Link
+                      href={`${routeListPage}/${course.Id}/life-survey`}
+                      className={`${buttonClass[ID].IsQuest.true.class} inline-block text-center`}
+                    >
+                      已填寫
+                    </Link>
+                  )
+                ) : buttonClass[ID].IsQuest.true.disable ? (
+                  <Link
+                    href={`${routeListPage}/${course.Id}/life-survey`}
+                    className={`${buttonClass[ID].IsQuest.false.class} inline-block text-center`}
                   >
-                    已填寫
-                  </button>
+                    未填寫
+                  </Link>
                 ) : (
                   <button
                     disabled={buttonClass[ID].IsQuest.false.disable}
