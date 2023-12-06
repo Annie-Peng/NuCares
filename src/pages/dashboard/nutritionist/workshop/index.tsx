@@ -24,7 +24,7 @@ const NutritionistIntroPage: FC<StudentListPageProps> = ({ auth }) => {
       return;
     }
     if (error) {
-      console.log(error);
+      return;
     }
     if (data) {
       dispatch(showLoading(false));

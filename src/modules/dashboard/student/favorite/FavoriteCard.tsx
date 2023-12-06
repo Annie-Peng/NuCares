@@ -19,7 +19,7 @@ const FavoriteCard: FC<FavoriteCardProps> = ({ Token, nutritionistData }) => {
         NutritionistId: nutritionistData.Id,
       });
     } catch (error) {
-      console.log(error);
+      return;
     }
   };
 

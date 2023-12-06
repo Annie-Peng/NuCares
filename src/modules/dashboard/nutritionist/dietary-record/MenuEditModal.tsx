@@ -61,7 +61,7 @@ const MenuEditModal: FC<MenuEditModalProps> = ({ data }) => {
 
       dispatch(closeModal("showMenuEditModal"));
     } catch (error) {
-      console.log(error);
+      return;
     }
   };
 

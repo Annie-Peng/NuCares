@@ -50,7 +50,6 @@ const LoginForm = () => {
 
       router.push(`/dashboard/${routeListPage}`);
     } catch (error: unknown) {
-      console.log(error);
       const e = error as { data?: { Message: unknown }; status?: unknown };
 
       const errMsgs = Object.entries(e.data?.Message as string);

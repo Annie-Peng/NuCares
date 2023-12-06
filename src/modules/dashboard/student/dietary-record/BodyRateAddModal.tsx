@@ -33,7 +33,7 @@ const BodyRateAddModal: FC<BodyRateAddModalProps> = ({ data }) => {
       }).unwrap();
       dispatch(closeModal("showBodyRateAddModal"));
     } catch (error) {
-      console.log(error);
+      return;
     }
   };
 

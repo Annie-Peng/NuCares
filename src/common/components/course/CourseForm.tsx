@@ -153,7 +153,7 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
       setShowPage(data.Pagination);
     }
     if (error) {
-      console.log(error);
+      return;
     }
   }, [data, error, isLoading, dispatch]);
 

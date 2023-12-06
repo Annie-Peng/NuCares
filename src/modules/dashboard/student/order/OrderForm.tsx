@@ -43,7 +43,7 @@ const OrderForm: FC<OrderFormProps> = ({ Token }) => {
       setShowPage(data.Pagination);
     }
     if (error) {
-      console.log(error);
+      return;
     }
   }, [data, error]);
 

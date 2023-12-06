@@ -43,7 +43,6 @@ const RegisterForm: FC<RegisterFormProps> = ({ setCurrentPhase }) => {
       const result = await userRegisterEmailPostApi(formData).unwrap();
       setCurrentPhase(2);
     } catch (error: unknown) {
-      console.log(error);
       const e = error as { data?: { Message: unknown }; status?: unknown };
 
       const errMsgs = Object.entries(e.data?.Message as string);
