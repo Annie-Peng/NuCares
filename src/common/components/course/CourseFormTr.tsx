@@ -24,6 +24,7 @@ const CourseFormTr: FC<CourseFormTrProps> = ({
   const routeListPage = ID === "user" ? "course-list" : "student-list";
   const notStartTextClass =
     course.CourseState === "開始" ? "text-black-300" : "text-black-950";
+  const isQuestString: "true" | "false" = course.IsQuest ? "true" : "false";
   return (
     <>
       <td className={`text-14 ${notStartTextClass}`}>{course.OrderNumber}</td>
@@ -64,18 +65,21 @@ const CourseFormTr: FC<CourseFormTrProps> = ({
           <button
             className={
               course.CourseState === "開始"
-                ? buttonClass[ID].IsCourseStart?.false.class
+                ? buttonClass[ID].IsCourseStart?.false.IsQuest[isQuestString]
+                    .class
                 : course.CourseState === "進行中"
                 ? buttonClass[ID].IsCourseStart?.true.courseProcess.class
                 : buttonClass[ID].IsCourseStart?.true.courseOver.class
             }
             onClick={() =>
               course.CourseState === "開始" &&
+              course.IsQuest &&
               dispatch(showModal(["showCourseStartModal", { Token, course }]))
             }
             disabled={
               course.CourseState === "開始"
-                ? buttonClass[ID].IsCourseStart?.false.disable
+                ? buttonClass[ID].IsCourseStart?.false.IsQuest[isQuestString]
+                    .disable
                 : course.CourseState === "進行中"
                 ? buttonClass[ID].IsCourseStart?.true.courseProcess.disable
                 : buttonClass[ID].IsCourseStart?.true.courseOver.disable

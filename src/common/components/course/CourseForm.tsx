@@ -13,61 +13,96 @@ interface CourseFormProps {
   auth: AuthType;
 }
 
+interface BtnType {
+  class: string;
+  disable: boolean;
+}
+
 export interface ButtonClass {
   [key: string]: {
     IsQuest: {
-      [key: string]: { class: string; disable: boolean };
+      [key: string]: BtnType;
     };
     IsComment?: {
-      true: { class: string; disable: boolean };
+      true: BtnType;
       false: {
-        courseProcess?: { class: string; disable: boolean };
-        courseOver?: { class: string; disable: boolean };
+        courseProcess?: BtnType;
+        courseOver?: BtnType;
       };
     };
     IsCourseStart?: {
       true: {
-        courseProcess: { class: string; disable: boolean };
-        courseOver: { class: string; disable: boolean };
+        courseProcess: BtnType;
+        courseOver: BtnType;
       };
-      false: { class: string; disable: boolean };
+      false: {
+        IsQuest: {
+          true: BtnType;
+          false: BtnType;
+        };
+      };
     };
   };
 }
 
+const btnBasicClass = "w-[90px]";
+
 const buttonClass: ButtonClass = {
   nu: {
     IsQuest: {
-      true: { class: "w-[90px] btn-cusWritePrimary", disable: false },
-      false: { class: "w-[90px] btn-cusWriteWhite", disable: true },
+      true: { class: `${btnBasicClass} btn-cusWritePrimary`, disable: false },
+      false: { class: `${btnBasicClass} btn-cusWriteWhite`, disable: true },
     },
     IsCourseStart: {
       true: {
         courseProcess: {
-          class: "w-[90px] btn-cusWriteBgPrimary",
+          class: `${btnBasicClass} btn-cusWriteBgPrimary`,
           disable: true,
         },
         courseOver: {
-          class: "w-[90px] btn-cusDisableWriteBlack",
+          class: `${btnBasicClass} btn-cusDisableWriteBlack`,
           disable: true,
         },
       },
-      false: { class: "w-[90px] btn-cusWriteSecondary", disable: false },
+      false: {
+        IsQuest: {
+          true: {
+            class: `${btnBasicClass} btn-cusWriteSecondary`,
+            disable: false,
+          },
+          false: {
+            class: `${btnBasicClass} btn-cusWriteWhite`,
+            disable: true,
+          },
+        },
+      },
     },
   },
   user: {
     IsQuest: {
-      true: { class: "w-[90px] btn-cusDisableWriteBlack", disable: true },
-      false: { class: "w-[90px] btn-cusWriteSecondary", disable: false },
+      true: {
+        class: `${btnBasicClass} btn-cusDisableWriteBlack`,
+        disable: true,
+      },
+      false: {
+        class: `${btnBasicClass} btn-cusWriteSecondary`,
+        disable: false,
+      },
     },
     IsComment: {
-      true: { class: "w-[90px] btn-cusDisableWriteBlack", disable: true },
+      true: {
+        class: `${btnBasicClass} btn-cusDisableWriteBlack`,
+        disable: true,
+      },
       false: {
         courseProcess: {
-          class: "w-[90px] btn-cusWriteWhite",
+          class: `${btnBasicClass} btn-cusWriteWhite`,
           disable: true,
         },
-        courseOver: { class: "w-[90px] btn-cusWriteSecondary", disable: false },
+        courseOver: {
+          class: `${btnBasicClass} btn-cusWriteSecondary`,
+          disable: false,
+        },
       },
     },
   },
@@ -212,6 +247,10 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
           );
           const notStartTextClass =
             course.CourseState === "開始" ? "text-black-300" : "text-black-950";
+          const isQuestString: "true" | "false" = course.IsQuest
+            ? "true"
+            : "false";
+
           return (
             <li
               key={index}
@@ -296,7 +335,9 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
                   <button
                     className={
                       course.CourseState === "開始"
-                        ? buttonClass[ID].IsCourseStart?.false.class
+                        ? buttonClass[ID].IsCourseStart?.false.IsQuest[
+                            isQuestString
+                          ].class
                         : course.CourseState === "進行中"
                         ? buttonClass[ID].IsCourseStart?.true.courseProcess
                             .class
@@ -304,13 +345,16 @@ const CourseForm: FC<CourseFormProps> = ({ auth }) => {
                     }
                     onClick={() =>
                       course.CourseState === "開始" &&
+                      course.IsQuest &&
                       dispatch(
                         showModal(["showCourseStartModal", { Token, course }])
                       )
                     }
                     disabled={
                       course.CourseState === "開始"
-                        ? buttonClass[ID].IsCourseStart?.false.disable
+                        ? buttonClass[ID].IsCourseStart?.false.IsQuest[
+                            isQuestString
+                          ].disable
                         : course.CourseState === "進行中"
                         ? buttonClass[ID].IsCourseStart?.true.courseProcess
                             .disable
