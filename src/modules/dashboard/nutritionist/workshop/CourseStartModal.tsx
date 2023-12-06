@@ -1,5 +1,5 @@
 import MiniModal from "@/common/components/modals/MiniModal";
-import { showModal } from "@/common/redux/features/showModal";
+import { closeModal } from "@/common/redux/features/showModal";
 import {
   useCourseGetTimeApiQuery,
   useCoursePutStartApiMutation,
@@ -31,33 +31,17 @@ const CourseStartModal: FC<CourseStartModalProps> = ({ data }) => {
   const dispatch = useDispatch();
   const [coursePutStartApi] = useCoursePutStartApiMutation();
 
-  const { Token, course } = data || {};
+  const { Token, course } = data;
 
   const {
     data: Time,
     error,
     isLoading,
-  } = useCourseGetTimeApiQuery(
-    { Token: Token, CourseId: course?.Id },
-    {
-      skip: !Token || !course?.Id, // 當没有Token或CourseId時跳過發送請求
-    }
-  );
-
-  if (!data || !course) {
-    return <div>No course data available</div>;
-  }
-
-  if (error) {
-    console.error(error);
-    return <div>Error loading data</div>;
-  }
-
-  if (isLoading || !Time) {
-    return <div>Loading...</div>;
-  }
+  } = useCourseGetTimeApiQuery({ Token, CourseId: course.Id });
 
   const { UserName, CourseName, Id } = data.course;
+
+  if (!Time) return;
 
   const handleClick = async (
     Token: string,
@@ -70,11 +54,11 @@ const CourseStartModal: FC<CourseStartModalProps> = ({ data }) => {
     };
     try {
       const result = await coursePutStartApi({
-        Token: Token,
+        Token,
         CourseId: Id,
         body: TimeBody,
       });
-      dispatch(showModal(["showCourseStartModal", 0]));
+      dispatch(closeModal("showCourseStartModal"));
     } catch (error) {
       return;
     }
