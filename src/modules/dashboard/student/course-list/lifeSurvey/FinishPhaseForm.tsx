@@ -7,9 +7,11 @@ import { useEffect } from "react";
 const FinishPhaseForm = () => {
   const router = useRouter();
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       router.push("/dashboard/student/course-list");
     }, 5000);
+
+    return () => clearTimeout(timer);
   }, [router]);
 
   return (
