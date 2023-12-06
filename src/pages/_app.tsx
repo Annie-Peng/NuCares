@@ -24,7 +24,7 @@ export default function App({
           {isMobile ? (
             <Component {...pageProps} />
           ) : (
-            <DashboardContainerLayout>
+            <DashboardContainerLayout router={router}>
               <Component {...pageProps} />
             </DashboardContainerLayout>
           )}
