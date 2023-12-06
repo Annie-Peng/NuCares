@@ -23,7 +23,6 @@ import { profile } from "./service/profile";
 import { order } from "./service/order";
 import { favorite } from "./service/favorite";
 import { updatePassword } from "./service/updatePassword";
-import { survey } from "./service/survey";
 
 const store = configureStore({
   reducer: {
@@ -50,7 +49,6 @@ const store = configureStore({
     [order.reducerPath]: order.reducer,
     [favorite.reducerPath]: favorite.reducer,
     [updatePassword.reducerPath]: updatePassword.reducer,
-    [survey.reducerPath]: survey.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -66,8 +64,7 @@ const store = configureStore({
       .concat(profile.middleware)
       .concat(order.middleware)
       .concat(favorite.middleware)
-      .concat(updatePassword.middleware)
-      .concat(survey.middleware),
+      .concat(updatePassword.middleware),
 });
 
 const wrapper = createWrapper(() => store, { debug: false });

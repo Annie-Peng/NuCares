@@ -6,7 +6,7 @@ import {
   selectLifeSurvey,
   storeLifeSurvey,
 } from "@/common/redux/features/lifeSurvey";
-import { useLifeSurveyPostApiMutation } from "@/common/redux/service/survey";
+import { useLifeSurveyPostApiMutation } from "@/common/redux/service/course";
 import { Token } from "@/types/interface";
 import Image from "next/legacy/image";
 import { FC, Fragment, useEffect, useState } from "react";

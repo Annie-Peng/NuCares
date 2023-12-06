@@ -1,6 +1,6 @@
 import MetaData from "@/common/components/MetaData";
 import { showLoading } from "@/common/redux/features/loading";
-import { useLifeSurveyGetApiQuery } from "@/common/redux/service/survey";
+import { useLifeSurveyGetApiQuery } from "@/common/redux/service/course";
 import wrapper from "@/common/redux/store";
 import LifeSurveyForm from "@/modules/dashboard/nutritionist/student-list/LifeSurveyForm";
 import { AuthType } from "@/types/interface";

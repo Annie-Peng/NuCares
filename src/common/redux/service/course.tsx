@@ -56,6 +56,29 @@ export const course = createApi({
       },
       invalidatesTags: ["Course"],
     }),
+    lifeSurveyGetApi: builder.query({
+      query: ({ Token, CourseId }) => ({
+        url: `/course/${CourseId}/survey`,
+        method: "GET",
+        headers: {
+          Authorization: `${Token}`,
+          "Content-Type": "application/json",
+        },
+      }),
+      providesTags: ["Course"],
+    }),
+    lifeSurveyPostApi: builder.mutation({
+      query: ({ Token, CourseId, body }) => ({
+        url: `/course/${CourseId}/survey`,
+        method: "POST",
+        headers: {
+          Authorization: `${Token}`,
+          "Content-Type": "application/json",
+        },
+        body,
+      }),
+      invalidatesTags: ["Course"],
+    }),
   }),
 });
 
@@ -64,4 +87,6 @@ export const {
   useCourseGetTimeApiQuery,
   useCoursePutStartApiMutation,
   useCoursePostCommentApiMutation,
+  useLifeSurveyGetApiQuery,
+  useLifeSurveyPostApiMutation,
 } = course;
