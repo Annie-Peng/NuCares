@@ -16,6 +16,7 @@ export interface LayoutProps {
 export interface DashboardLayoutProps {
   value?: boolean;
   children: ReactNode;
+  router?: NextRouter;
 }
 
 export interface RootState {
@@ -27,6 +28,7 @@ export interface RootState {
   dailyDietary: DailyDietaryType;
   goal: GoalType;
   loading: LoadingType;
+  lifeSurvey: Record<string, string>;
 }
 
 export interface ErrorData {
