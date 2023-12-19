@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "lint": "next lint",
-    "dev": "nodemon server.js",
+    "dev": "next dev",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.9",

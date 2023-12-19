@@ -79,7 +79,7 @@ const QuestionForm: FC<QuestionFormProps> = ({
           body: formattedDataSet,
         }).unwrap();
         const { ChannelId } = result.data;
-        const ws = new WebSocket("ws://localhost:3000/ws");
+        const ws = new WebSocket("wss://nucares.top/notificationHub");
         ws.onopen = (res) => {
           ws.send(
             JSON.stringify({
