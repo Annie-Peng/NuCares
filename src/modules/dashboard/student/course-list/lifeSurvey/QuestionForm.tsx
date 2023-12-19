@@ -77,7 +77,17 @@ const QuestionForm: FC<QuestionFormProps> = ({
           CourseId,
           Token,
           body: formattedDataSet,
-        });
+        }).unwrap();
+        const { ChannelId } = result.data;
+        const ws = new WebSocket("ws://localhost:3000/ws");
+        ws.onopen = (res) => {
+          ws.send(
+            JSON.stringify({
+              ChannelId,
+              Content: "已完成生活問卷",
+            })
+          );
+        };
         setFinishPhase(true);
       } catch (error) {
         return;

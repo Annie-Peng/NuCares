@@ -5,20 +5,29 @@ import login from "public/images/login.svg";
 import logout from "public/images/header/logout.svg";
 import StudentDropdown from "@/modules/dashboard/student/StudentDropdown";
 import NutritionistDropdown from "@/modules/dashboard/nutritionist/NutritionistDropdown";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getCookies } from "cookies-next";
 import { useSelector } from "react-redux";
 import { selectAuth } from "../redux/features/auth";
 import useResize from "../hooks/useResize";
+import Notification from "./Notification";
 
 const Header = () => {
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const [showNotificationList, setShowNotificationList] =
+    useState<boolean>(false);
+  const [storeWsMessage, setStoreWsMessage] = useState<
+    Record<string, string | number>
+  >({});
   const [isMounted, setIsMounted] = useState<boolean>(false);
+  const [getNewNotice, setGetNewNotice] = useState(false);
   const isMobile = useResize();
 
   const auth = useSelector(selectAuth);
 
-  const { ImgUrl, UserCurrentStatus, IsNutritionist } = getCookies();
+  const ws = useRef<WebSocket | null>(null);
+
+  const { Id, Token, ImgUrl, UserCurrentStatus, IsNutritionist } = getCookies();
 
   useEffect(() => {
     setIsMounted(true);
@@ -33,11 +42,45 @@ const Header = () => {
     }
   }, [showDropdown]);
 
+  useEffect(() => {
+    if (showNotificationList) {
+      document.addEventListener("click", handleShowNotificationListClick);
+      setGetNewNotice(false);
+
+      return () => {
+        document.removeEventListener("click", handleShowNotificationListClick);
+      };
+    }
+  }, [showNotificationList]);
+
+  useEffect(() => {
+    ws.current = new WebSocket("ws://localhost:3000/ws");
+
+    ws.current.onopen = (res) => {
+      console.log("已連線header");
+    };
+
+    ws.current.onmessage = (res) => {
+      const data = JSON.parse(res.data);
+      if (data) setStoreWsMessage(data);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (storeWsMessage.ChannelId === Number(Id)) setGetNewNotice(true);
+  }, [storeWsMessage]);
+
   const newImageUrl = decodeURIComponent(ImgUrl as string);
+  const newToken = decodeURIComponent(Token as string);
 
   const handleShowDropdownClick = (e: any) => {
     e.stopPropagation();
     setShowDropdown(!showDropdown);
+  };
+
+  const handleShowNotificationListClick = (e: any) => {
+    e.stopPropagation();
+    setShowNotificationList(!showNotificationList);
   };
 
   return (
@@ -49,14 +92,14 @@ const Header = () => {
           ) : (
             <NutritionistDropdown />
           ))}
-
+        {showNotificationList && <Notification Token={newToken} />}
         <Link
           href={isMobile ? "#" : "/"}
           className="col-span-2 relative w-[140px] h-[24px] lg:w-[170px] lg:h-[28px]"
         >
           <Image src={logo} layout="fill" alt="logo-NuCares" />
         </Link>
-        <nav className=" text-black-600 font-normal sm:hidden lg:block col-span-9 -ms-[calc(110px-165px)]">
+        <nav className=" text-black-600 font-normal sm:hidden lg:block col-span-8 -ms-[calc(110px-165px)]">
           <ul className="flex font-normal items-center">
             <li>
               <Link href="/nutritionist-list">搜尋營養師</Link>
@@ -75,6 +118,16 @@ const Header = () => {
             </li>
           </ul>
         </nav>
+        {isMounted && ImgUrl && (
+          <button
+            className={`rounded-full w-[40px] h-[40px] mx-auto ${
+              getNewNotice ? "bg-secondary-200" : "bg-primary-200"
+            }`}
+            onClick={handleShowNotificationListClick}
+          >
+            通知
+          </button>
+        )}
         {isMounted && UserCurrentStatus && (
           <div className="relative w-[36px] h-[36px] col-end-5 ml-auto lg:w-[40px] lg:h-[40px] lg:col-end-13 lg:mr-auto">
             <Image
