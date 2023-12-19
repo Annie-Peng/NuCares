@@ -54,7 +54,7 @@ const Header = () => {
   }, [showNotificationList]);
 
   useEffect(() => {
-    ws.current = new WebSocket("ws://localhost:3000/ws");
+    ws.current = new WebSocket("wss://nu-cares.vercel.app/ws");
 
     ws.current.onopen = (res) => {
       console.log("已連線header");
