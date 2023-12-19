@@ -79,7 +79,9 @@ const QuestionForm: FC<QuestionFormProps> = ({
           body: formattedDataSet,
         }).unwrap();
         const { ChannelId } = result.data;
-        const ws = new WebSocket("wss://nu-cares.vercel.app/ws");
+        const ws = new WebSocket(
+          "wss://nu-cares-git-feat-test-ws-frontend-annie-peng.vercel.app/ws"
+        );
         ws.onopen = (res) => {
           ws.send(
             JSON.stringify({
