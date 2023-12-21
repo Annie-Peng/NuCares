@@ -5,27 +5,24 @@ import login from "public/images/login.svg";
 import logout from "public/images/header/logout.svg";
 import StudentDropdown from "@/modules/dashboard/student/StudentDropdown";
 import NutritionistDropdown from "@/modules/dashboard/nutritionist/NutritionistDropdown";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { getCookies } from "cookies-next";
 import { useSelector } from "react-redux";
 import { selectAuth } from "../redux/features/auth";
 import useResize from "../hooks/useResize";
 import Notification from "./Notification";
+import $ from "jquery";
+import * as signalR from "@microsoft/signalr";
 
 const Header = () => {
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const [showNotificationList, setShowNotificationList] =
     useState<boolean>(false);
-  const [storeWsMessage, setStoreWsMessage] = useState<
-    Record<string, string | number>
-  >({});
   const [isMounted, setIsMounted] = useState<boolean>(false);
   const [getNewNotice, setGetNewNotice] = useState(false);
   const isMobile = useResize();
 
   const auth = useSelector(selectAuth);
-
-  const ws = useRef<WebSocket | null>(null);
 
   const { Id, Token, ImgUrl, UserCurrentStatus, IsNutritionist } = getCookies();
 
@@ -54,21 +51,34 @@ const Header = () => {
   }, [showNotificationList]);
 
   useEffect(() => {
-    ws.current = new WebSocket("ws://localhost:3000/ws");
+    // 建立 SignalR 連接
+    const connection = new signalR.HubConnectionBuilder()
+      .withUrl("https://nucares.top/signalr") // 請根據您的服務器配置調整 URL
+      .configureLogging(signalR.LogLevel.Information)
+      .build();
 
-    ws.current.onopen = (res) => {
-      console.log("已連線header");
-    };
+    // 設定接收消息的處理
+    connection.on("ReceiveMessage", (user, message) => {
+      alert("Hi " + user + ", you said: " + message);
+    });
 
-    ws.current.onmessage = (res) => {
-      const data = JSON.parse(res.data);
-      if (data) setStoreWsMessage(data);
-    };
+    // 啟動連接
+    connection
+      .start()
+      .then(() => {
+        console.log("Connection started");
+        // 這裡是發送消息的示例
+        connection
+          .invoke("SendMessage", "NoNo", "hello world")
+          .catch((err) => console.error(err));
+      })
+      .catch((err) => console.error("Error while starting connection: " + err));
+
+    // 清理函數
+    // return () => {
+    //   connection.stop();
+    // };
   }, []);
-
-  useEffect(() => {
-    if (storeWsMessage.ChannelId === Number(Id)) setGetNewNotice(true);
-  }, [storeWsMessage]);
 
   const newImageUrl = decodeURIComponent(ImgUrl as string);
   const newToken = decodeURIComponent(Token as string);
