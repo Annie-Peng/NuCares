@@ -7,6 +7,17 @@ export const notification = createApi({
   }),
   tagTypes: ["Notification"],
   endpoints: (builder) => ({
+    notificationNewGetApi: builder.query({
+      query: ({ Token }) => ({
+        url: "/notice/new",
+        method: "GET",
+        headers: {
+          Authorization: `${Token}`,
+          "Content-Type": "application/json",
+        },
+      }),
+      providesTags: ["Notification"],
+    }),
     notificationGetApi: builder.query({
       query: ({ Token }) => ({
         url: "/notice/all",
@@ -44,6 +55,7 @@ export const notification = createApi({
 });
 
 export const {
+  useNotificationNewGetApiQuery,
   useNotificationGetApiQuery,
   useNotificationReadPutApiMutation,
   useNotificationAllReadPutApiMutation,

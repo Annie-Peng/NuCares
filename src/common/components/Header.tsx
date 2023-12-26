@@ -23,9 +23,12 @@ const Header = () => {
 
   const auth = useSelector(selectAuth);
 
-  const { newNotice, setNewNotice } = useNotification();
-
   const { Token, ImgUrl, UserCurrentStatus, IsNutritionist } = getCookies();
+
+  const newImageUrl = decodeURIComponent(ImgUrl as string);
+  const newToken = decodeURIComponent(Token as string);
+
+  const { newNotice, setNewNotice } = useNotification(newToken);
 
   useEffect(() => {
     setIsMounted(true);
@@ -50,9 +53,6 @@ const Header = () => {
       };
     }
   }, [showNotificationList]);
-
-  const newImageUrl = decodeURIComponent(ImgUrl as string);
-  const newToken = decodeURIComponent(Token as string);
 
   const handleShowDropdownClick = (e: any) => {
     e.stopPropagation();

@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNotificationNewGetApiQuery } from "../redux/service/notification";
+import { Token } from "@/types/interface";
 
-const useNotification = () => {
+const useNotification = (Token: Token | undefined) => {
   const [newNotice, setNewNotice] = useState<boolean>(false);
+
+  const { data } = useNotificationNewGetApiQuery({ Token });
 
   useEffect(() => {
     $.connection.hub.url = "https://nucares.top/signalr";
@@ -39,6 +43,12 @@ const useNotification = () => {
     //   $.connection.hub.stop();
     // };
   }, []);
+
+  useEffect(() => {
+    if (data) {
+      data.IsAllRead === false && setNewNotice(true);
+    }
+  }, [data]);
 
   return { newNotice, setNewNotice };
 };
