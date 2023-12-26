@@ -8,7 +8,7 @@ export const notification = createApi({
   endpoints: (builder) => ({
     notificationGetApi: builder.query({
       query: ({ Token }) => ({
-        url: "/notice",
+        url: "/notice/all",
         method: "GET",
         headers: {
           Authorization: `${Token}`,

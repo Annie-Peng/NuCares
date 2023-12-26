@@ -5,29 +5,27 @@ import login from "public/images/login.svg";
 import logout from "public/images/header/logout.svg";
 import StudentDropdown from "@/modules/dashboard/student/StudentDropdown";
 import NutritionistDropdown from "@/modules/dashboard/nutritionist/NutritionistDropdown";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { getCookies } from "cookies-next";
 import { useSelector } from "react-redux";
 import { selectAuth } from "../redux/features/auth";
 import useResize from "../hooks/useResize";
 import Notification from "./Notification";
+import useNotification from "../hooks/useNotification";
 
 const Header = () => {
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const [showNotificationList, setShowNotificationList] =
     useState<boolean>(false);
-  const [storeWsMessage, setStoreWsMessage] = useState<
-    Record<string, string | number>
-  >({});
   const [isMounted, setIsMounted] = useState<boolean>(false);
-  const [getNewNotice, setGetNewNotice] = useState(false);
+
   const isMobile = useResize();
 
   const auth = useSelector(selectAuth);
 
-  const ws = useRef<WebSocket | null>(null);
+  const { newNotice, setNewNotice } = useNotification();
 
-  const { Id, Token, ImgUrl, UserCurrentStatus, IsNutritionist } = getCookies();
+  const { Token, ImgUrl, UserCurrentStatus, IsNutritionist } = getCookies();
 
   useEffect(() => {
     setIsMounted(true);
@@ -45,30 +43,13 @@ const Header = () => {
   useEffect(() => {
     if (showNotificationList) {
       document.addEventListener("click", handleShowNotificationListClick);
-      setGetNewNotice(false);
+      setNewNotice(false);
 
       return () => {
         document.removeEventListener("click", handleShowNotificationListClick);
       };
     }
   }, [showNotificationList]);
-
-  useEffect(() => {
-    ws.current = new WebSocket("ws://localhost:3000/ws");
-
-    ws.current.onopen = (res) => {
-      console.log("已連線header");
-    };
-
-    ws.current.onmessage = (res) => {
-      const data = JSON.parse(res.data);
-      if (data) setStoreWsMessage(data);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (storeWsMessage.ChannelId === Number(Id)) setGetNewNotice(true);
-  }, [storeWsMessage]);
 
   const newImageUrl = decodeURIComponent(ImgUrl as string);
   const newToken = decodeURIComponent(Token as string);
@@ -120,12 +101,16 @@ const Header = () => {
         </nav>
         {isMounted && ImgUrl && (
           <button
-            className={`rounded-full w-[40px] h-[40px] mx-auto ${
-              getNewNotice ? "bg-secondary-200" : "bg-primary-200"
-            }`}
+            className={`w-[36px] h-[36px] lg:w-[40px] lg:h-[40px] ml-[70px] relative`}
             onClick={handleShowNotificationListClick}
           >
-            通知
+            <Image
+              src={`/images/notification/notification${
+                newNotice ? "-new" : ""
+              }.svg`}
+              alt="notification"
+              layout="fill"
+            />
           </button>
         )}
         {isMounted && UserCurrentStatus && (
