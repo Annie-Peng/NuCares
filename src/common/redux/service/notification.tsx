@@ -29,8 +29,22 @@ export const notification = createApi({
       }),
       invalidatesTags: ["Notification"],
     }),
+    notificationAllReadPutApi: builder.mutation({
+      query: ({ Token }) => ({
+        url: `/notice/readall`,
+        method: "PUT",
+        headers: {
+          Authorization: `${Token}`,
+          "Content-Type": "application/json",
+        },
+      }),
+      invalidatesTags: ["Notification"],
+    }),
   }),
 });
 
-export const { useNotificationGetApiQuery, useNotificationReadPutApiMutation } =
-  notification;
+export const {
+  useNotificationGetApiQuery,
+  useNotificationReadPutApiMutation,
+  useNotificationAllReadPutApiMutation,
+} = notification;

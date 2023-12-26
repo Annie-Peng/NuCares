@@ -2,6 +2,7 @@ import { NotificationType, Token } from "@/types/interface";
 import {
   useNotificationGetApiQuery,
   useNotificationReadPutApiMutation,
+  useNotificationAllReadPutApiMutation,
 } from "../redux/service/notification";
 import { FC, Fragment } from "react";
 import {
@@ -26,12 +27,21 @@ const Notification: FC<NotificationProps> = ({ Token }) => {
   const UserCurrentStatus = getCookie("UserCurrentStatus");
 
   const [notificationReadPutApi] = useNotificationReadPutApiMutation();
+  const [notificationAllReadPutApi] = useNotificationAllReadPutApiMutation();
   const { data: notificationList } = useNotificationGetApiQuery(
     {
       Token,
     },
     { refetchOnMountOrArgChange: true }
   );
+
+  const handleAllNoticeClick = async () => {
+    try {
+      const result = await notificationAllReadPutApi({ Token });
+    } catch (error) {
+      return;
+    }
+  };
 
   const handleNoticeClick = async (
     noticeMessage: NotificationFormDataItemType,
@@ -49,7 +59,10 @@ const Notification: FC<NotificationProps> = ({ Token }) => {
 
   return (
     <div className="cusDropdown w-[240px] text-14 p-0 bg-white">
-      <button className="flex items-center justify-end px-12 py-10 text-primary-500 gap-4 w-full">
+      <button
+        className="flex items-center justify-end px-12 py-10 text-primary-500 gap-4 w-full"
+        onClick={handleAllNoticeClick}
+      >
         <div className="relative w-20 h-20">
           <Image
             src={`/images/notification/check.svg`}
