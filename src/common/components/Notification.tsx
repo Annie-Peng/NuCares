@@ -46,10 +46,14 @@ const Notification: FC<NotificationProps> = ({ Token }) => {
   const handleNoticeClick = async (
     noticeMessage: NotificationFormDataItemType,
     { newUserCurrentStatus, endRouterPath }: NotificationPathResult,
-    NoticeId: number
+    NoticeId: number,
+    IsRead: boolean
   ) => {
     try {
-      const result = await notificationReadPutApi({ Token, NoticeId });
+      if (!IsRead) {
+        const result = await notificationReadPutApi({ Token, NoticeId });
+      }
+
       setCookie("UserCurrentStatus", newUserCurrentStatus);
       router.push(`${noticeMessage.url}${endRouterPath}`);
     } catch (error) {
@@ -102,7 +106,8 @@ const Notification: FC<NotificationProps> = ({ Token }) => {
                         handleNoticeClick(
                           noticeMessage,
                           notificationPath,
-                          NoticeId
+                          NoticeId,
+                          IsRead
                         )
                       }
                       className={`p-12 w-full ${!IsRead && "bg-primary-50"}`}
