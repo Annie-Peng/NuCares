@@ -18,6 +18,17 @@ export const notification = createApi({
       }),
       providesTags: ["Notification"],
     }),
+    notificationNewPutApi: builder.mutation({
+      query: ({ Token }) => ({
+        url: "/notice/new",
+        method: "PUT",
+        headers: {
+          Authorization: `${Token}`,
+          "Content-Type": "application/json",
+        },
+      }),
+      invalidatesTags: ["Notification"],
+    }),
     notificationGetApi: builder.query({
       query: ({ Token }) => ({
         url: "/notice/all",
@@ -56,6 +67,7 @@ export const notification = createApi({
 
 export const {
   useNotificationNewGetApiQuery,
+  useNotificationNewPutApiMutation,
   useNotificationGetApiQuery,
   useNotificationReadPutApiMutation,
   useNotificationAllReadPutApiMutation,

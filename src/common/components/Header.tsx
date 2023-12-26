@@ -12,6 +12,7 @@ import { selectAuth } from "../redux/features/auth";
 import useResize from "../hooks/useResize";
 import Notification from "./Notification";
 import useNotification from "../hooks/useNotification";
+import { useNotificationNewPutApiMutation } from "../redux/service/notification";
 
 const Header = () => {
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
@@ -29,6 +30,7 @@ const Header = () => {
   const newToken = decodeURIComponent(Token as string);
 
   const { newNotice, setNewNotice } = useNotification(newToken);
+  const [notificationNewPutApi] = useNotificationNewPutApiMutation();
 
   useEffect(() => {
     setIsMounted(true);
@@ -59,9 +61,17 @@ const Header = () => {
     setShowDropdown(!showDropdown);
   };
 
-  const handleShowNotificationListClick = (e: any) => {
-    e.stopPropagation();
-    setShowNotificationList(!showNotificationList);
+  const handleShowNotificationListClick = async (e: any) => {
+    try {
+      e.stopPropagation();
+      setShowNotificationList(!showNotificationList);
+
+      if (!newNotice) return;
+
+      const result = await notificationNewPutApi({ Token: newToken });
+    } catch (error) {
+      return;
+    }
   };
 
   return (
