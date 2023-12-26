@@ -1,5 +1,8 @@
 import { NotificationType, Token } from "@/types/interface";
-import { useNotificationGetApiQuery } from "../redux/service/notification";
+import {
+  useNotificationGetApiQuery,
+  useNotificationReadPutApiMutation,
+} from "../redux/service/notification";
 import { FC, Fragment } from "react";
 import {
   NotificationFormDataItemType,
@@ -22,6 +25,7 @@ const Notification: FC<NotificationProps> = ({ Token }) => {
   const router = useRouter();
   const UserCurrentStatus = getCookie("UserCurrentStatus");
 
+  const [notificationReadPutApi] = useNotificationReadPutApiMutation();
   const { data: notificationList } = useNotificationGetApiQuery(
     {
       Token,
@@ -29,16 +33,22 @@ const Notification: FC<NotificationProps> = ({ Token }) => {
     { refetchOnMountOrArgChange: true }
   );
 
-  const handleNoticeClick = (
+  const handleNoticeClick = async (
     noticeMessage: NotificationFormDataItemType,
-    { newUserCurrentStatus, endRouterPath }: NotificationPathResult
+    { newUserCurrentStatus, endRouterPath }: NotificationPathResult,
+    NoticeId: number
   ) => {
-    setCookie("UserCurrentStatus", newUserCurrentStatus);
-    router.push(`${noticeMessage.url}${endRouterPath}`);
+    try {
+      const result = await notificationReadPutApi({ Token, NoticeId });
+      setCookie("UserCurrentStatus", newUserCurrentStatus);
+      router.push(`${noticeMessage.url}${endRouterPath}`);
+    } catch (error) {
+      return;
+    }
   };
 
   return (
-    <div className="cusDropdown w-[240px] min-h-[180px] max-h-[665px] text-14 p-0">
+    <div className="cusDropdown w-[240px] text-14 p-0 bg-white">
       <button className="flex items-center justify-end px-12 py-10 text-primary-500 gap-4 w-full">
         <div className="relative w-20 h-20">
           <Image
@@ -49,11 +59,11 @@ const Notification: FC<NotificationProps> = ({ Token }) => {
         </div>
         <p>全部顯示為已讀</p>
       </button>
-      {notificationList && (
-        <ul className="overflow-y-scroll border-t border-black-100">
-          {notificationList.Data.map(
+      <ul className="overflow-y-scroll min-h-[106px] max-h-[626px] border-t border-black-100">
+        {notificationList &&
+          notificationList.Data.map(
             (notification: NotificationType, index: number) => {
-              const { Message, Date } = notification;
+              const { Message, Date, NoticeId, IsRead } = notification;
 
               const notificationPath = selectNotificationPath(
                 notification,
@@ -71,14 +81,18 @@ const Notification: FC<NotificationProps> = ({ Token }) => {
               const newMessage = noticeMessage.message;
 
               return (
-                <Fragment key={index}>
+                <Fragment key={NoticeId}>
                   {index > 0 && <hr />}
                   <li>
                     <button
                       onClick={(e) =>
-                        handleNoticeClick(noticeMessage, notificationPath)
+                        handleNoticeClick(
+                          noticeMessage,
+                          notificationPath,
+                          NoticeId
+                        )
                       }
-                      className="p-12"
+                      className={`p-12 w-full ${!IsRead && "bg-primary-50"}`}
                     >
                       <div className="flex gap-12">
                         <div className="relative w-[33px] h-[33px]">
@@ -99,8 +113,7 @@ const Notification: FC<NotificationProps> = ({ Token }) => {
               );
             }
           )}
-        </ul>
-      )}
+      </ul>
     </div>
   );
 };

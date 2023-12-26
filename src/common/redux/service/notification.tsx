@@ -5,6 +5,7 @@ export const notification = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_URL,
   }),
+  tagTypes: ["Notification"],
   endpoints: (builder) => ({
     notificationGetApi: builder.query({
       query: ({ Token }) => ({
@@ -15,8 +16,21 @@ export const notification = createApi({
           "Content-Type": "application/json",
         },
       }),
+      providesTags: ["Notification"],
+    }),
+    notificationReadPutApi: builder.mutation({
+      query: ({ Token, NoticeId }) => ({
+        url: `/notice/${NoticeId}`,
+        method: "PUT",
+        headers: {
+          Authorization: `${Token}`,
+          "Content-Type": "application/json",
+        },
+      }),
+      invalidatesTags: ["Notification"],
     }),
   }),
 });
 
-export const { useNotificationGetApiQuery } = notification;
+export const { useNotificationGetApiQuery, useNotificationReadPutApiMutation } =
+  notification;
