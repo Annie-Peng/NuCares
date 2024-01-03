@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNotificationNewGetApiQuery } from "../redux/service/notification";
 import { Token } from "@/types/interface";
 
-const useNotification = (Token: Token | undefined) => {
+const useNotification = (Token: Token | undefined, Id: string | undefined) => {
   const [newNotice, setNewNotice] = useState<boolean>(false);
 
   const { data } = useNotificationNewGetApiQuery({ Token });
@@ -27,6 +27,7 @@ const useNotification = (Token: Token | undefined) => {
       .start()
       .done(function () {
         console.log("Connected to SignalR hub!");
+        notice.server.userConnected(Id);
       })
       .fail(function (error) {
         console.error("Could not connect to SignalR hub:", error);

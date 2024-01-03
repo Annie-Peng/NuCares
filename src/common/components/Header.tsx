@@ -24,12 +24,12 @@ const Header = () => {
 
   const auth = useSelector(selectAuth);
 
-  const { Token, ImgUrl, UserCurrentStatus, IsNutritionist } = getCookies();
+  const { Id, Token, ImgUrl, UserCurrentStatus, IsNutritionist } = getCookies();
 
   const newImageUrl = decodeURIComponent(ImgUrl as string);
   const newToken = decodeURIComponent(Token as string);
 
-  const { newNotice, setNewNotice } = useNotification(newToken);
+  const { newNotice, setNewNotice } = useNotification(newToken, Id);
   const [notificationNewPutApi] = useNotificationNewPutApiMutation();
 
   useEffect(() => {
