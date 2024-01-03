@@ -39,6 +39,8 @@ const Header = () => {
   useEffect(() => {
     if (showDropdown) {
       document.addEventListener("click", handleShowDropdownClick);
+      setShowNotificationList(false);
+
       return () => {
         document.removeEventListener("click", handleShowDropdownClick);
       };
@@ -49,6 +51,7 @@ const Header = () => {
     if (showNotificationList) {
       document.addEventListener("click", handleShowNotificationListClick);
       setNewNotice(false);
+      setShowDropdown(false);
 
       return () => {
         document.removeEventListener("click", handleShowNotificationListClick);
@@ -109,31 +112,31 @@ const Header = () => {
             </li>
           </ul>
         </nav>
-        {isMounted && ImgUrl && (
-          <button
-            className={`w-[36px] h-[36px] lg:w-[40px] lg:h-[40px] ml-[70px] relative`}
-            onClick={handleShowNotificationListClick}
-          >
-            <Image
-              src={`/images/notification/notification${
-                newNotice ? "-new" : ""
-              }.svg`}
-              alt="notification"
-              layout="fill"
-            />
-          </button>
-        )}
         {isMounted && UserCurrentStatus && (
-          <div className="relative w-[36px] h-[36px] col-end-5 ml-auto lg:w-[40px] lg:h-[40px] lg:col-end-13 lg:mr-auto">
-            <Image
-              src={`${auth.ImgUrl}` || `${newImageUrl}` || login}
-              alt="login"
-              layout="fill"
-              className={`object-cover ${newImageUrl && "rounded-50"}`}
-              priority={true}
-              onClick={handleShowDropdownClick}
-            />
-          </div>
+          <>
+            <button
+              className={`w-[36px] h-[36px] lg:w-[40px] lg:h-[40px] ml-[70px] relative`}
+              onClick={handleShowNotificationListClick}
+            >
+              <Image
+                src={`/images/notification/notification${
+                  newNotice ? "-new" : ""
+                }.svg`}
+                alt="notification"
+                layout="fill"
+              />
+            </button>
+            <div className="relative w-[36px] h-[36px] col-end-5 ml-auto lg:w-[40px] lg:h-[40px] lg:col-end-13 lg:mr-auto">
+              <Image
+                src={`${auth.ImgUrl}` || `${newImageUrl}` || login}
+                alt="login"
+                layout="fill"
+                className={`object-cover ${newImageUrl && "rounded-50"}`}
+                priority={true}
+                onClick={handleShowDropdownClick}
+              />
+            </div>
+          </>
         )}
         {isMounted && !UserCurrentStatus && (
           <>
