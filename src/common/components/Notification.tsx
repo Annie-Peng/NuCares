@@ -28,12 +28,14 @@ const Notification: FC<NotificationProps> = ({ Token }) => {
 
   const [notificationReadPutApi] = useNotificationReadPutApiMutation();
   const [notificationAllReadPutApi] = useNotificationAllReadPutApiMutation();
-  const { data: notificationList } = useNotificationGetApiQuery(
+  const { data: notificationList, isLoading } = useNotificationGetApiQuery(
     {
       Token,
     },
     { refetchOnMountOrArgChange: true }
   );
+
+  const loadingClass = "animate-pulse bg-black-600";
 
   const handleAllNoticeClick = async () => {
     try {
@@ -62,7 +64,7 @@ const Notification: FC<NotificationProps> = ({ Token }) => {
   };
 
   return (
-    <div className="cusDropdown w-[240px] text-14 p-0 bg-white">
+    <div className="cusDropdown fixed left-0 top-0 bottom-0 text-14 p-0 bg-white lg:absolute lg:top-full lg:left-auto border-none lg:bottom-auto lg:w-[240px] lg:z-10">
       <button
         className="flex items-center justify-end px-12 py-10 text-primary-500 gap-4 w-full"
         onClick={handleAllNoticeClick}
@@ -76,62 +78,84 @@ const Notification: FC<NotificationProps> = ({ Token }) => {
         </div>
         <p>全部顯示為已讀</p>
       </button>
-      <ul className="overflow-y-scroll min-h-[106px] max-h-[626px] border-t border-black-100">
-        {notificationList &&
-          notificationList.Data.map(
-            (notification: NotificationType, index: number) => {
-              const { Message, Date, NoticeId, IsRead } = notification;
+      <ul className="overflow-y-scroll no-scrollbar h-full border-t border-black-100 bg-black-50 lg:min-h-[106px] lg:max-h-[626px]">
+        {isLoading && (
+          <div className="animate-pulse flex gap-12 px-14 py-12">
+            <div className="rounded-full bg-black-200 h-[33px] w-[33px]" />
+            <div className="flex-1 space-y-6 py-1">
+              <div className="h-2 bg-black-200 rounded" />
+              <div className="h-2 bg-black-200 rounded" />
+              <div className="h-2 bg-black-200 rounded" />
+            </div>
+          </div>
+        )}
+        {notificationList?.Data.map(
+          (notification: NotificationType, index: number) => {
+            const { Message, Date, NoticeId, IsRead } = notification;
 
-              const notificationPath = selectNotificationPath(
-                notification,
-                UserCurrentStatus
-              );
+            const notificationPath = selectNotificationPath(
+              notification,
+              UserCurrentStatus
+            );
 
-              const noticeMessage = notificationFormDataSet[Message];
+            const noticeMessage = notificationFormDataSet[Message];
 
-              const newSubject = noticeMessage.subject
-                ? notification[noticeMessage.subject]
-                : "";
-              const newObject = noticeMessage.object
-                ? notification[noticeMessage.object]
-                : "";
-              const newMessage = noticeMessage.message;
+            const newSubject = noticeMessage.subject
+              ? notification[noticeMessage.subject]
+              : "";
+            const newObject = noticeMessage.object
+              ? notification[noticeMessage.object]
+              : "";
+            const newMessage = noticeMessage.message;
 
-              return (
-                <Fragment key={NoticeId}>
-                  {index > 0 && <hr />}
-                  <li>
-                    <button
-                      onClick={(e) =>
-                        handleNoticeClick(
-                          noticeMessage,
-                          notificationPath,
-                          NoticeId,
-                          IsRead
-                        )
-                      }
-                      className={`p-12 w-full ${!IsRead && "bg-primary-50"}`}
-                    >
-                      <div className="flex gap-12">
-                        <div className="relative w-[33px] h-[33px]">
-                          <Image
-                            src={`/images/notification/logo.svg`}
-                            alt="logo"
-                            layout="fill"
-                          />
-                        </div>
-                        <p className="text-left">
-                          {newSubject} {newMessage} {newObject}
+            return (
+              <Fragment key={NoticeId}>
+                {index > 0 && <hr className="px-12" />}
+                <li>
+                  <button
+                    onClick={(e) =>
+                      handleNoticeClick(
+                        noticeMessage,
+                        notificationPath,
+                        NoticeId,
+                        IsRead
+                      )
+                    }
+                    className={`px-14 py-12 w-full ${
+                      IsRead ? "bg-black-50" : "bg-black-200"
+                    }`}
+                  >
+                    <div className="flex gap-12">
+                      <div className="relative">
+                        <Image
+                          src={`/images/notification/logo.svg`}
+                          alt="logo"
+                          layout="fixed"
+                          width={33}
+                          height={33}
+                        />
+                      </div>
+                      <div className="text-left">
+                        <p>
+                          {newSubject}
+                          {newMessage}
+                          <u>{newObject}</u>
+                        </p>
+                        <p className="text-[10px] text-black-400 mt-12">
+                          {Date}
                         </p>
                       </div>
-                      <p className="text-right mt-8">{Date}</p>
-                    </button>
-                  </li>
-                </Fragment>
-              );
-            }
-          )}
+                    </div>
+                  </button>
+                </li>
+              </Fragment>
+            );
+          }
+        )}
       </ul>
+      <button className="text-center text-white text-14 cusPrimaryTitle bg-primary-400 p-6 w-full block fixed bottom-0 lg:hidden">
+        關閉通知
+      </button>
     </div>
   );
 };

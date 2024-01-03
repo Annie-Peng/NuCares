@@ -78,7 +78,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow-[0_2px_5px_0_rgba(0,0,0,0.1)] z-20 fixed w-full">
+    <header className="bg-white shadow-[0_2px_5px_0_rgba(0,0,0,0.1)] z-30 fixed w-full">
       <div className="container py-10 items-center grid cusGrid relative lg:py-10">
         {showDropdown &&
           (UserCurrentStatus === "user" ? (
