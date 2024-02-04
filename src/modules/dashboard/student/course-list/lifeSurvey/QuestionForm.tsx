@@ -77,7 +77,7 @@ const QuestionForm: FC<QuestionFormProps> = ({
           CourseId,
           Token,
           body: formattedDataSet,
-        });
+        }).unwrap();
         setFinishPhase(true);
       } catch (error) {
         return;

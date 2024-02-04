@@ -14,7 +14,7 @@ const MiniModal: React.FC<MiniModalProps> = ({ children, modal }) => {
   const isMobile = useResize();
 
   return (
-    <div className="cusModalBg z-30">
+    <div className="cusModalBg z-40">
       <div className="cusModal p-32">
         <div className="w-[278px] max-h-[320px] overflow-y-scroll lg:w-[756px] no-scrollbar text-center">
           {children}

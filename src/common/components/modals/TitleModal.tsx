@@ -14,7 +14,7 @@ const TitleModal: React.FC<TitleModalProps> = ({ title, children, modal }) => {
   const dispatch = useDispatch();
   const isMobile = useResize();
   return (
-    <div className="cusModalBg z-30">
+    <div className="cusModalBg z-40">
       <div className="cusModal">
         <div className="w-[278px] max-h-[320px] overflow-y-scroll lg:max-h-[550px] lg:w-[720px] no-scrollbar">
           <h4 className="cusPrimaryTitle">{title}</h4>

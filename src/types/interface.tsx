@@ -214,6 +214,25 @@ export interface DailyDietaryType {
   WaterImgUrl: string;
 }
 
+export type NotificationKey =
+  | "已評價"
+  | "已購課(學員)"
+  | "已購課(營養師)"
+  | "已完成生活問卷"
+  | "開始課程";
+
+export interface NotificationType {
+  NoticeId: number;
+  NutritionistId?: number;
+  CourseId?: number;
+  CourseName: string;
+  Message: NotificationKey;
+  Title: string;
+  UserName: string;
+  Date: string;
+  IsRead: boolean;
+}
+
 // Student
 
 export interface CommentType {
