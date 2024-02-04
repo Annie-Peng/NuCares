@@ -17,7 +17,6 @@ const useNotification = (Token: Token | undefined, Id: string | undefined) => {
     // 接收後端回傳訊息
     notice.client.notify = (message: string) => {
       if (message) {
-        console.log(message);
         setNewNotice(true);
       }
     };
@@ -26,11 +25,10 @@ const useNotification = (Token: Token | undefined, Id: string | undefined) => {
     $.connection.hub
       .start()
       .done(function () {
-        console.log("Connected to SignalR hub!");
         notice.server.userConnected(Id);
       })
       .fail(function (error) {
-        console.error("Could not connect to SignalR hub:", error);
+        return;
       });
 
     // 斷線5秒鐘後重新連線
