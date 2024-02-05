@@ -8,7 +8,7 @@ const useNotification = (Token: Token | undefined, Id: string | undefined) => {
   const { data } = useNotificationNewGetApiQuery({ Token });
 
   useEffect(() => {
-    $.connection.hub.url = "https://nucares.top/signalr";
+    $.connection.hub.url = `${process.env.NEXT_PUBLIC_API_URL}/signalr`;
 
     // 建立與 SignalR hub 的連接
     // @ts-ignore

@@ -5,7 +5,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "nucares.top",
+        hostname: "nucares.api.rocket-coding.com",
       },
     ],
   },
