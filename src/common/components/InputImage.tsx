@@ -80,7 +80,7 @@ const InputImage = forwardRef<HTMLInputElement, InputImageProps>(
     const [apiPhoto, setApiPhoto] = useState(value);
 
     const updateApiPhoto = apiPhoto?.replaceAll(
-      "https://nucares.top/upload/images/",
+      `${process.env.NEXT_PUBLIC_API_URL}/upload/images/`,
       ""
     );
 
